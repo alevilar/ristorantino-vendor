@@ -42,7 +42,7 @@ class RistoAppController extends Controller {
         ),
         'Acl',
         'Paginator',
-        'Configurator',
+        'Risto.Configurator',
         'RequestHandler',
         'Session',
         'Cookie',

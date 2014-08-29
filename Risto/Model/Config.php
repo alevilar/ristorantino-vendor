@@ -1,7 +1,5 @@
 <?php
 
-die("asas");
-
 
 App::uses('RistoAppModel', 'Risto.Model');
 
