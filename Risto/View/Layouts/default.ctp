@@ -49,12 +49,13 @@
         <a class="sr-only" href="#content">Skip to main content</a>
 
         <!-- Docs master nav -->
-        <header class="navbar navbar-inverse bs-docs-nav" role="banner">
+        <header class="navbar navbar-default bs-docs-nav" role="banner">
 
 
-            <div class="container">
+            <div class="container">            
 
-                <div class="nav navbar-right text-warning">
+            <?php if ($this->Session->check('Auth.User')): ?>
+                <div class="nav navbar-right text-warning" style="padding: 15px 0px;">
                     <?php
                     echo $this->Session->read('Auth.User.nombre') . " " . $this->Session->read('Auth.User.apellido');
 
@@ -62,6 +63,7 @@
                     ?>
                     <?php echo $this->Html->link('salir', array('controller' => 'users', 'action' => 'logout', 'plugin' => null)); ?>
                 </div>
+            <?php endif; ?>
 
                 <div class="navbar-header">
                     <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
