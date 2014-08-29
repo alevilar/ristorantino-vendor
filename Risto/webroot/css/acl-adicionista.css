@@ -1,0 +1,15 @@
+
+#mesas-listado{
+    display: none;
+}
+
+
+#mesa-container {
+    height:495px;
+    top:95px;
+}
+
+
+#pages {
+    height:481px;
+}

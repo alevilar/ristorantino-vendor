@@ -22,9 +22,8 @@
         ));
 
         $cssUserRole = "acl-" . $this->Session->read('Auth.User.role');
-        if (is_file(APP . WEBROOT_DIR . DS . "css" . DS . $cssUserRole . ".css")) {
-            echo $this->Html->css($cssUserRole, 'stylesheet', array('media' => 'screen'));
-        }
+        $rootFold = '/risto/css/';
+        echo $this->Html->css('/risto/css/'.$cssUserRole, 'stylesheet', array('media' => 'screen'));
         
         echo $this->Html->script(array(
             '/risto/js/jquery.min',
