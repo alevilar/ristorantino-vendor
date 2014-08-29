@@ -4,7 +4,7 @@
     <div class="list-group">
         <?php
         echo $this->Html->link('Usuarios', '/users/users/index', array('class' => 'list-group-item'));
-        echo $this->Html->link('Roles', '/users/roles/index', array('class' => 'list-group-item'));
+        //echo $this->Html->link('Roles', '/users/roles/index', array('class' => 'list-group-item'));
         echo $this->Html->link('Mozos', '/mesa/mozos/index', array('class' => 'list-group-item'));
         ?>
     </div>
@@ -64,9 +64,17 @@
         ?>   
     </div>
 
+    
+</div>
+
+
+
+<div class="col-md-3">
+
     <h2>Configuración</h2>
     <div class="list-group">
         <?php
+
         echo $this->Html->link('Tipo de Pagos', '/risto/TipoDePagos', array('class' => 'list-group-item'));
 
         echo $this->Html->link('Tipo de Facturas', '/risto/tipo_facturas', array('class' => 'list-group-item'));
@@ -74,29 +82,14 @@
         
         echo $this->Html->link('Tipos de Documentos', '/risto/tipo_documentos', array('class' => 'list-group-item'));
         echo $this->Html->link('IVA Responsabilidades', '/risto/iva_responsabilidades', array('class' => 'list-group-item'));
-        echo $this->Html->link('Permisos de usuarios', '/admin/acl', array('class' => 'list-group-item'));
-        ?>
-    </div>
-</div>
+       // echo $this->Html->link('Permisos de usuarios', '/admin/acl', array('class' => 'list-group-item'));
 
 
 
-<div class="col-md-3">
-
-    <h2>Impresoras</h2>
-    <div class="list-group">
-        <?php
         echo $this->Html->link('Comandera', '/comanda/Comanderas', array('class' => 'list-group-item'));
+
+        echo $this->Html->link('Configuración General', array('plugin'=>'risto', 'controller'=>'configs', 'action'=>'basic_configuration'), array('class' => 'list-group-item'));
         ?>
     </div>
-
-
-    <h2>Estadisticas</h2>
-    <div class="list-group">
-        <?php
-        echo $this->Html->link('Crear consultas para las estadísticas (avanzado)', '/stats/queries', array('class' => 'list-group-item'));
-        ?>        
-    </div>
-
 
 </div>

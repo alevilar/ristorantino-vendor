@@ -41,10 +41,11 @@ class UsersController extends UsersAppController {
             if ($this->request->is('post')) {
                 if ($this->Auth->login()) {
                     $this->User->id = $this->Session->read( 'Auth.User.id');
-                    $usr = $this->User->read();
+                    $usr = $this->User->read();       
+                    $this->Session->write( 'Auth.User.rol', strtolower( Inflector::Slug($usr['Rol']['machin_name']) ) );
                     return $this->redirect($this->Auth->redirect());
                 } else {
-                    $this->Session->setFlash('Usuario o contraseña incorrectos', 'default', array(), 'auth');
+                    $this->Session->setFlash('Usuario o contraseña incorrectos', "Risto.flash_error");
                 }
             }
         }
@@ -130,6 +131,8 @@ class UsersController extends UsersAppController {
 			} else {
 				$this->Session->setFlash(__('The user could not be saved. Please, try again.'),'flash_error');
 			}
+		} else {
+			$this->request->data = $this->User->read(null, $id);
 		}
                 
 		$roles = $this->User->Rol->find('list');

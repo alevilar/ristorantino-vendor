@@ -33,8 +33,8 @@ class Proveedor extends AccountAppModel {
 	public $hasMany = array( 'Account.Gasto' );
         
     function validate_cuit(){
-        if (!empty($this->request->data['Proveedor']['cuit'])) {
-             return validate_cuit_cuil($this->request->data['Proveedor']['cuit']);
+        if (!empty($this->data['Proveedor']['cuit'])) {
+             return validate_cuit_cuil($this->data['Proveedor']['cuit']);
         }
         return true;
     }

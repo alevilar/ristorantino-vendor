@@ -27,11 +27,11 @@ class AccountAppModel extends AppModel{
         
         private function _uploadFile(){
             foreach ($this->files as $dataName => $dbName) {
-                 if (empty($this->request->data[$this->name][$dataName])) continue;
-                if ( is_uploaded_file($this->request->data[$this->name][$dataName]['tmp_name']) )
+                 if (empty($this->data[$this->name][$dataName])) continue;
+                if ( is_uploaded_file($this->data[$this->name][$dataName]['tmp_name']) )
                 {
                     $path = IMAGES;
-                    $newFile = $this->request->data[$this->name][$dataName];
+                    $newFile = $this->data[$this->name][$dataName];
 
                     $name = Inflector::slug(strstr($newFile['name'], '.', true));
                     $ext = substr(strrchr($newFile['name'], "."), 1);
@@ -56,12 +56,12 @@ class AccountAppModel extends AppModel{
                         $this->_generate_image_thumbnail($path . $nameFile, IMAGES_THUMB.$nameFile);
 
                         // store the filename in the array to be saved to the db
-                        $this->request->data[$this->name][$dbName] = $nameFile;
+                        $this->data[$this->name][$dbName] = $nameFile;
                     } else {
                         throw new Exception("No se pudo copiar el archivo subido");
                     }
                 } else {
-                    unset($this->request->data[$this->name][$dataName]);
+                    unset($this->data[$this->name][$dataName]);
                 }
             }
         }

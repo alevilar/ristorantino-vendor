@@ -22,9 +22,7 @@ CREATE TABLE IF NOT EXISTS `grupo_sabores_productos` (
 );
 
 
-
-
-
+ALTER TABLE `sabores`  ADD `grupo_sabor_id` int(11) NULL AFTER `categoria_id`;
 
 
 

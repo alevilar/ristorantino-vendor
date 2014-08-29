@@ -72,6 +72,7 @@ class Sabor extends ProductAppModel {
  * @var array
  */
 	public $belongsTo = array(
+		'Product.GrupoSabor',
 		'Categoria' => array(
 			'className' => 'Product.Categoria',
 			'foreignKey' => 'categoria_id',
@@ -81,6 +82,4 @@ class Sabor extends ProductAppModel {
 		)
 	);
       
-        
-        public $hasMany = array('Product.GrupoSabor');
 }

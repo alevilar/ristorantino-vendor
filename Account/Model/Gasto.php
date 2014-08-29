@@ -165,14 +165,14 @@ class Gasto extends AccountAppModel {
             
             $this->_calcularImporteNeto();
             
-            if (empty($this->request->data['Gasto']['proveedor_id']) && !empty($this->request->data['Gasto']['proveedor_list'])) {
+            if (empty($this->data['Gasto']['proveedor_id']) && !empty($this->data['Gasto']['proveedor_list'])) {
                 $cuit = null;
-                $name = trim($this->request->data['Gasto']['proveedor_list']);
-                if ( preg_match_all('/(?:\s|^)(\d{11}|\d{2}-\d{8}-\d{1})(?:\s|$)/', $this->request->data['Gasto']['proveedor_list'], $m) ) {
+                $name = trim($this->data['Gasto']['proveedor_list']);
+                if ( preg_match_all('/(?:\s|^)(\d{11}|\d{2}-\d{8}-\d{1})(?:\s|$)/', $this->data['Gasto']['proveedor_list'], $m) ) {
                     // sacar guion del cuit
                     $cuit = trim(str_replace("-", "", $m[1][0] ));
                     // sacar el cuit al string
-                    $name = trim( str_replace($cuit, '', $this->request->data['Gasto']['proveedor_list']) );
+                    $name = trim( str_replace($cuit, '', $this->data['Gasto']['proveedor_list']) );
                     
                     if ( !validate_cuit_cuil($cuit) ) {
                         $cuit = null;                    
@@ -191,12 +191,12 @@ class Gasto extends AccountAppModel {
                 if ( empty($provExist) ) {                   
                     $this->Proveedor->create();
                     if ( $this->Proveedor->save($data) ) {
-                        $this->request->data['Gasto']['proveedor_id'] = $this->Proveedor->id;
+                        $this->data['Gasto']['proveedor_id'] = $this->Proveedor->id;
                     } else {
                         throw new Exception('No se pudo guardar el proveedor');
                     }
                 } else {
-                    $this->request->data['Gasto']['proveedor_id'] = $provExist['Proveedor']['id'];
+                    $this->data['Gasto']['proveedor_id'] = $provExist['Proveedor']['id'];
                 }
             }
             
@@ -216,10 +216,10 @@ class Gasto extends AccountAppModel {
          * Calcula el neto sumando los impuestos y lo setea en el data
          */
         private function _calcularImporteNeto(){
-            if (!empty($this->request->data['Gasto']['Impuesto']) && empty($this->request->data['Gasto']['importe_neto'])) {
-                if (!empty($this->request->data['Gasto']['Impuesto'])) {
-                    foreach ($this->request->data['Gasto']['Impuesto'] as $imp){
-                        $this->request->data['Gasto']['importe_neto'] += $imp['neto'];
+            if (!empty($this->data['Gasto']['Impuesto']) && empty($this->data['Gasto']['importe_neto'])) {
+                if (!empty($this->data['Gasto']['Impuesto'])) {
+                    foreach ($this->data['Gasto']['Impuesto'] as $imp){
+                        $this->data['Gasto']['importe_neto'] += $imp['neto'];
                     }
                 }
             }
@@ -231,12 +231,12 @@ class Gasto extends AccountAppModel {
          * @return boolean
          */
         private function _refreshImpuestos($created){
-            if (!empty($this->request->data['Gasto']['Impuesto'])) {
+            if (!empty($this->data['Gasto']['Impuesto'])) {
                 if (!$created){
                         $this->Impuesto->deleteAll(array('Impuesto.gasto_id'=>$this->id ));
                 }
                 
-                foreach ($this->request->data['Gasto']['Impuesto'] as $impId=>$imp){
+                foreach ($this->data['Gasto']['Impuesto'] as $impId=>$imp){
                     if (!empty($imp)) {                       
                         if (!empty($imp['checked']) && (!empty($imp['importe']) || !empty($imp['neto'])) ) {
                             $importe = empty($imp['importe'])?0:$imp['importe'];
@@ -348,10 +348,10 @@ class Gasto extends AccountAppModel {
         
         
         function factura_no_repetida(){
-            if (!empty($this->request->data['Gasto']['factura_nro'])){
+            if (!empty($this->data['Gasto']['factura_nro'])){
                 $cant = $this->find('count', array(
                     'conditions' => array(
-                        'Gasto.factura_nro' => $this->request->data['Gasto']['factura_nro']
+                        'Gasto.factura_nro' => $this->data['Gasto']['factura_nro']
                     ),
                 ));
                 return !($cant > 0);
