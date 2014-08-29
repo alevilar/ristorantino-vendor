@@ -37,7 +37,9 @@ class RistoAppController extends Controller {
     );
 
     public $components = array(
-        'Auth',
+        'Auth' => array(
+            'logoutRedirect' => '/',
+        ),
         'Acl',
         'Paginator',
         'Configurator',
