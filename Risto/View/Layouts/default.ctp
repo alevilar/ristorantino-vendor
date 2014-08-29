@@ -70,12 +70,17 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <?php echo $this->Html->link(Configure::read('Restaurante.name'), '/pages/home', array('class' => 'navbar-brand')) ?>
+
+                    <?php 
+                    $this->fetch("navbar-brand");
+                    echo $this->Html->link(Configure::read('Restaurante.name'), '/', array('class' => 'navbar-brand')) 
+                    ?>
                 </div>
 
                 <?php if (!empty($elementMenu)) {
                     echo $this->element($elementMenu);
-                } 
+                }
+                echo $this->fetch("navbar-main-menu");
                 ?>
             </div>
         </header>
