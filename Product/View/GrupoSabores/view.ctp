@@ -55,7 +55,7 @@
 		<th><?php echo __('Description'); ?></th>
 		<th><?php echo __('Categoria Id'); ?></th>
 		<th><?php echo __('Precio'); ?></th>
-		<th><?php echo __('Comandera Id'); ?></th>
+		<th><?php echo __('Printer Id'); ?></th>
 		<th><?php echo __('Order'); ?></th>
 		<th><?php echo __('Created'); ?></th>
 		<th><?php echo __('Modified'); ?></th>
@@ -73,7 +73,7 @@
 			<td><?php echo $producto['description'];?></td>
 			<td><?php echo $producto['categoria_id'];?></td>
 			<td><?php echo $producto['precio'];?></td>
-			<td><?php echo $producto['comandera_id'];?></td>
+			<td><?php echo $producto['printer_id'];?></td>
 			<td><?php echo $producto['order'];?></td>
 			<td><?php echo $producto['created'];?></td>
 			<td><?php echo $producto['modified'];?></td>

@@ -25,7 +25,7 @@ class MozosController extends MesaAppController {
 
 	public function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Mozo.'), 'flash_error');
+			$this->Session->setFlash(__('Invalid Mozo.'), 'Risto.flash_error');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('mozo', $this->Mozo->read(null, $id));
@@ -35,10 +35,10 @@ class MozosController extends MesaAppController {
 	public function add() {
 		if (!empty($this->request->data)) {
 			if ($this->Mozo->save($this->request->data)) {
-				$this->Session->setFlash(__('The Mozo has been saved'), 'flash_success');
+				$this->Session->setFlash(__('The Mozo has been saved'), 'Risto.flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Mozo could not be saved. Please, try again.'),'flash_error');
+				$this->Session->setFlash(__('The Mozo could not be saved. Please, try again.'),'Risto.flash_error');
 			}
 		}
 		$this->render('edit');
@@ -54,10 +54,10 @@ class MozosController extends MesaAppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Mozo->save($this->request->data)) {
-				$this->Session->setFlash(__('The mozo has been saved'), 'flash_success');
+				$this->Session->setFlash(__('The mozo has been saved'), 'Risto.flash_success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The mozo could not be saved. Please, try again.'),'flash_error');
+				$this->Session->setFlash(__('The mozo could not be saved. Please, try again.'),'Risto.flash_error');
 			}
 		} else {
 			$this->request->data = $this->Mozo->read(null, $id);
@@ -68,10 +68,10 @@ class MozosController extends MesaAppController {
 	public function delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('Invalid id for Mozo'));
-			$this->redirect(array('action'=>'index'),'flash_error');
+			$this->redirect(array('action'=>'index'),'Risto.flash_error');
 		}
 		if ($this->Mozo->delete($id)) {
-			$this->Session->setFlash(__('Mozo deleted'),'flash_success');
+			$this->Session->setFlash(__('Mozo deleted'),'Risto.flash_success');
 			$this->redirect(array('action'=>'index'));
 		}
 	}

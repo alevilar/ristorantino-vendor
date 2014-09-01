@@ -39,8 +39,6 @@ class Comanda extends ComandaAppModel {
 			)
 	);
         
-        
-         
 	
 	
 	
@@ -71,7 +69,7 @@ class Comanda extends ComandaAppModel {
 		$this->DetalleComanda->DetalleSabor->unBindModel(array('belongsTo' => array('DetalleComanda')));
 		*/
 		unset($condiciones);
-		$condiciones[]['Comanda.id'] = $this->id;
+		$condiciones[]['DetalleComanda.comanda_id'] = $this->id;
 		
 		switch($con_entrada){
 			case DETALLE_COMANDA_TRAER_PLATOS_PRINCIPALES: // si quiero solo platos principales
@@ -84,12 +82,12 @@ class Comanda extends ComandaAppModel {
 				break;
 		}
 		
-		
+		debug($condiciones);
 		$items = $this->DetalleComanda->find('all',array('conditions'=>$condiciones,
 														'contain'=>array(
-																			'Producto'=>array('Comandera'),
-																			'Comanda'=> array('Mesa'=>array('Mozo')),
-																			'DetalleSabor'=>array('Sabor(name)')
+															'Producto'=>array('Printer'),
+															'Comanda'=> array('Mesa'=>array('Mozo')),
+															'DetalleSabor'=>array('Sabor(name)')
 			)
 											));
 
@@ -99,35 +97,32 @@ class Comanda extends ComandaAppModel {
 	
 	/**
 	 * @param comanda_id
-	 * @return array() de comandera_id
+	 * @return array() de printer_id
 	 */
 	function comanderas_involucradas($id){
 		$this->recursive = 2;
-		$group = array('Producto.comandera_id');
+		$group = array('Producto.printer_id');
 		$result =  $this->DetalleComanda->find('all',array(	
                     'conditions' => array('DetalleComanda.comanda_id'=> $id),
                             'group'=>$group,
                             'fields'=>$group));
 		$v_retorno = array();
 		foreach($result as $r){
-			$v_retorno[] = $r['Producto']['comandera_id'];
+			$v_retorno[] = $r['Producto']['printer_id'];
 		}
 		return $v_retorno;
 	}
 	
 
-	public function printEvent ( $id ) {
-		if (empty($id)) {
+	public function printEvent ( $id = null ) {
+		if ( empty($id) ) {
             if ( empty($this->id) ) 
               throw new InternalErrorException("Se debe pasar el ID de la mesa para imprimir");
             $id = $this->id;
           }
 
-          $event = new CakeEvent('Comanda.print', $this, array(
-                  'id' => $id
-              ));
-          $this->getEventManager()->dispatch($event);
+          $event = new CakeEvent('Model.print', $this );
+          
+          return $this->getEventManager()->dispatch($event);
 	}
-
 }
-?>

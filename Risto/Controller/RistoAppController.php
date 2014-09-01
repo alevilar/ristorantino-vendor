@@ -55,5 +55,24 @@ class RistoAppController extends Controller {
         'DebugKit.Toolbar',
     );
 
+    function beforeFilter()
+     {
+
+        parent::beforeFilter();
+
+
+        // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
+        $this->response->header('Access-Control-Allow-Origin', '*');
+
+
+        $this->Auth->loginError = __('Usuario o Contraseña Incorrectos');
+        $this->Auth->authError = __('Usted no tiene permisos para acceder a esta página.');
+
+            
+        $this->Auth->logoutRedirect = '/';
+
+        return true;
+        
+      }
    
 }

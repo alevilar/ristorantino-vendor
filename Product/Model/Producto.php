@@ -24,12 +24,12 @@ class Producto extends ProductAppModel {
         'fields' => '',
         'order' => 'Categoria.name'
         ),
-     'Comandera' => array(
-        'className' => 'Comanda.Comandera',
-        'foreignKey' => 'comandera_id',
+     'Printer' => array(
+        'className' => 'Printers.Printer',
+        'foreignKey' => 'printer_id',
         'conditions' => '',
         'fields' => '',
-        'order' => 'Comandera.name'
+        'order' => 'Printer.name'
         )
      );
 
@@ -77,7 +77,7 @@ class Producto extends ProductAppModel {
         'abrev' => array(
             'type' => 'like',
             ),
-        'comandera_id' => array(
+        'printer_id' => array(
             'type' => 'value',
             ),
         'categoria_id' => array(

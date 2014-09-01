@@ -30,7 +30,7 @@
 		<div id="mas-dc"></div>
 	</fieldset>
 
-	<button id="agregar-mas-dc" class="btn btn-primary pull-right">Agregar Otro Producto</button>
+	<button id="agregar-mas-dc" class="btn btn-primary pull-right" type="button">Agregar Otro Producto</button>
 
 <?php echo $this->Form->submit('Submit', array('class'=>'btn btn-success'));?>
 <?php echo $this->Form->end();?>
@@ -39,7 +39,8 @@
 
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(__('Delete', true), array('action'=>'delete', $this->Form->value('Comanda.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('Comanda.id'))); ?></li>
+		<li><?php echo $this->Html->link(__('Delete', true), array('action'=>'delete', $this->Form->value('Comanda.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('Comanda.id'))); ?>
+		</li>
 		<li><?php echo $this->Html->link(__('List Comandas', true), array('controller'=>'comandas','action'=>'index'));?></li>
 	</ul>
 </div>

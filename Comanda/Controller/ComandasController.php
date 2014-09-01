@@ -14,9 +14,9 @@ class ComandasController extends ComandaAppController {
             if (isset($this->request->data)) {                
                 $this->Comanda->create();
                 if ($this->Comanda->save($this->request->data)) {
-                    $this->Session->setFlash( __("Comanda Guardada"), 'flash_success' );
+                    $this->Session->setFlash( __("Comanda Guardada"), 'Risto.flash_success' );
                 } else {
-                    $this->Session->setFlash(__('The Comanda could not be saved. Please, try again.'), 'flash_error');
+                    $this->Session->setFlash(__('The Comanda could not be saved. Please, try again.'), 'Risto.flash_error');
                 }
                 $this->redirect($this->request->data['Comanda']['redirect']);
             } else {
@@ -36,7 +36,7 @@ class ComandasController extends ComandaAppController {
         if ( $this->request->is('ajax') ) {
             exit;
         } else {
-            $this->Session->setFlash( __("Se envió a imprimir la comanda"), 'flash_success' );
+            $this->Session->setFlash( __("Se envió a imprimir la comanda"), 'Risto.flash_success' );
             $this->redirect($this->referer());
         }
 	}
@@ -45,9 +45,9 @@ class ComandasController extends ComandaAppController {
     public function edit ( $id ) {
         if (!empty($this->request->data)) {
             if ( $this->Comanda->save($this->request->data) ) {
-                $this->Session->setFlash('Se guardó correctamente la comanda', 'flash_success');
+                $this->Session->setFlash('Se guardó correctamente la comanda', 'Risto.flash_success');
             } else {
-                $this->Session->setFlash('Error al guardar la comanda', 'flash_error');
+                $this->Session->setFlash('Error al guardar la comanda', 'Risto.flash_error');
             }
             $this->redirect($this->request->data['Comanda']['redirect']);
         } else {
@@ -65,12 +65,12 @@ class ComandasController extends ComandaAppController {
 
     public function delete( $id = null ) {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid id for Comanda'), 'flash_error');            
+            $this->Session->setFlash(__('Invalid id for Comanda'), 'Risto.flash_error');            
         }
         if ($this->Comanda->delete($id)) {
-            $this->Session->setFlash(__('Comanda deleted'), 'flash_success');
+            $this->Session->setFlash(__('Comanda deleted'), 'Risto.flash_success');
         } else {
-            $this->Session->setFlash(__('No se pudo eliminar la Comanda'), 'flash_error');
+            $this->Session->setFlash(__('No se pudo eliminar la Comanda'), 'Risto.flash_error');
         }
         if ($this->request->is('ajax')) {
             return 1;

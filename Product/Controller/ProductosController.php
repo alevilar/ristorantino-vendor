@@ -20,7 +20,7 @@ class ProductosController extends ProductAppController {
         $conds = $this->Producto->parseCriteria( $this->Prg->parsedParams() );
 		$this->Paginator->settings['conditions'] = $conds; 
 
-        $comanderas = $this->Producto->Comandera->find('list',array('fields'=>array('id','description')));
+        $comanderas = $this->Producto->Printer->listarComanderas();
 		$categorias = $this->Producto->Categoria->generateTreeList();
         $this->set(compact('categorias','comanderas'));
 		$this->set('productos', $this->Paginator->paginate());
@@ -48,7 +48,7 @@ class ProductosController extends ProductAppController {
                 )));
                 
                 $this->Producto->contain(array(
-                   'Categoria', 'HistoricoPrecio' => array('order'=>'HistoricoPrecio.created DESC') , 'Comandera', 'ProductosPreciosFuturo'
+                   'Categoria', 'HistoricoPrecio' => array('order'=>'HistoricoPrecio.created DESC') , 'Printer', 'ProductosPreciosFuturo'
                 ));
 		$this->set('producto', $this->Producto->read(null, $id));
 	}
@@ -73,7 +73,7 @@ class ProductosController extends ProductAppController {
 				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.', true));
 			}
 		}
-		$comanderas = $this->Producto->Comandera->find('list',array('fields'=>array('id','description')));
+		$comanderas = $this->Producto->listarComanderas();
         $tags = $this->Producto->Tag->find('list');
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
 		$this->set(compact('categorias','comanderas', 'tags'));
@@ -92,12 +92,12 @@ class ProductosController extends ProductAppController {
                 $this->Session->setFlash('El producto fue guardado correctamente');                
                 $this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.'), 'flash_error');
+				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.'), 'Risto.flash_error');
 			}
 		}
                 
         $this->request->data = $this->Producto->read(null, $id);
-		$comanderas = $this->Producto->Comandera->find('list',array('fields'=>array('id','description')));
+		$comanderas = $this->Producto->Printer->listarComanderas();
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
         $tags = $this->Producto->Tag->find('list');
 		$this->set(compact('categorias','comanderas', 'tags'));
@@ -106,11 +106,11 @@ class ProductosController extends ProductAppController {
 
 	public function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Producto'), 'flash_error');
+			$this->Session->setFlash(__('Invalid id for Producto'), 'Risto.flash_error');
 			
 		}
 		if ($this->Producto->delete($id)) {
-			$this->Session->setFlash(__('Producto deleted'), 'flash_success');
+			$this->Session->setFlash(__('Producto deleted'), 'Risto.flash_success');
 		}
         $this->redirect(array('action'=>'index'));
 	}
@@ -138,13 +138,13 @@ class ProductosController extends ProductAppController {
 
             if ( $this->Producto->saveAll($productos)) {
                     if ( $this->Producto->ProductosPreciosFuturo->deleteAll($pfs) ) {
-                        $this->Session->setFlash('Falló al querer eliminar los precios futuros', 'flash_error');
+                        $this->Session->setFlash('Falló al querer eliminar los precios futuros', 'Risto.flash_error');
                     }
 
                     $this->Session->setFlash('Se han modificado TODOS los precios futuros de los productos');
 
             } else {
-                $this->Session->setFlash('Fallo al aplicar los cambios', 'flash_error');
+                $this->Session->setFlash('Fallo al aplicar los cambios', 'Risto.flash_error');
             }
             
             $this->redirect($this->referer());

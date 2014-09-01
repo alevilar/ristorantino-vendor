@@ -1,6 +1,11 @@
 <?php
-
-debug($this->PE);
+/**
+*
+*   Esta vista debe recibir 2 variables
+*   @param array $entradas es un listado de productos que son entrada
+*   @param array $productos es un listado de todos los productos, incluyendo las entradas
+*
+**/
 echo $this->PE->cm('ESC');
 
 $cant_entradas = count($entradas);
@@ -12,7 +17,7 @@ if ($cant_entradas > 0) {
 $i = 0;
 
 foreach ($productos as $detalle):
-    if (($i == $cant_entradas) && count($platos_principales) > 0) {
+    if (($i == $cant_entradas) && count($productos)-$cant_entradas > 0) {
         echo "\n";
         echo " -----   PLATOS PRINCIPALES   -----";
         echo "\n";

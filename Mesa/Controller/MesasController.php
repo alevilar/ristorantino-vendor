@@ -180,7 +180,7 @@ class MesasController extends MesaAppController {
         //        $this->Printer->doPrint($mesa_id);
         
         if( !$this->request->is('ajax') ){
-            $this->Session->setFlash(__('Se imprimio comanda de mesa ID: '.$mesa_id), 'flash_success');
+            $this->Session->setFlash(__('Se imprimio comanda de mesa ID: '.$mesa_id), 'Risto.flash_success');
             $this->redirect($this->referer());
         } else {
             exit;
@@ -213,7 +213,7 @@ class MesasController extends MesaAppController {
                 }
             } else {
                 if (!$this->request->is('ajax')) {
-                    $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'flash_error'));
+                    $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'Risto.flash_error'));
                 }
             }
         }
@@ -241,16 +241,16 @@ class MesasController extends MesaAppController {
 
 
         if (!$id && !$this->request->is('post') ) {
-            $this->Session->setFlash(__('Invalid Mesa', 'flash_error'));
+            $this->Session->setFlash(__('Invalid Mesa', 'Risto.flash_error'));
             $this->redirect(array('action'=>'index'));
         }
 
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Mesa->save($this->request->data)) {
-                $this->Session->setFlash(__('La mesa fue editada correctamente', 'flash_success'));
+                $this->Session->setFlash(__('La mesa fue editada correctamente', 'Risto.flash_success'));
                 $this->redirect(array('action'=>'index'));
             } else {
-                $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'flash_error'));
+                $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'Risto.flash_error'));
             }
         }
 
@@ -334,7 +334,7 @@ class MesasController extends MesaAppController {
 
     public function reabrir($id){
 
-        $this->Session->setFlash('Se reabrió la mesa', 'flash_success');
+        $this->Session->setFlash('Se reabrió la mesa', 'Risto.flash_success');
         $this->Mesa->reabrir($id);
         if ( !$this->request->is('ajax') ) {            
             $this->redirect($this->referer());

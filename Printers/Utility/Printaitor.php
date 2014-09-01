@@ -1,8 +1,9 @@
 <?php
 
-App::uses('Comandera', 'Model');
 App::uses('Helper', 'View');
 App::uses('FiscalPrinter', 'Printers.FiscalPrinter');
+
+
 
 
 /**
@@ -73,13 +74,14 @@ class Printaitor
  * Perform printing to the output creating the view and using the $PrinterOutput object
  * 
  * @param array $dataToView iis the data to be passed into the view
- * @param string $printerName printer Key name to use with self::$ReceiptPrinters
+ * @param string $printer_id or Id printer Key name to use with self::$ReceiptPrinters
  * @param string $viewName view file name like "ticket" from ticket.ctp
  * @return boolean returns the $PrinterOutput->send value
  */  
-    public static function send($dataToView, $printerName, $viewName) {
-       $textToPrint = self::_getView($dataToView, $printerName, $viewName);        
-       return self::$PrinterOutput->send($textToPrint, $printerName); 
+    public static function send($dataToView, $printer_id, $viewName) {
+       $textToPrint = self::_getView($dataToView, $printer_id, $viewName);
+       
+       return self::__sendOutput( $textToPrint, $printer_id ); 
     }
     
 
@@ -94,6 +96,18 @@ class Printaitor
         return self::$PrinterOutput->name;
     }    
     
+
+    public static function __sendOutput ( $textToPrint, $printer_id) {
+        $Printer = ClassRegistry::init("Printers.Printer");
+        $Printer->recursive = -1;
+        $printer = $Printer->read(null, $printer_id);
+        $outputName = $printer['Printer']['output'] . 'PrinterOutput';
+
+        App::uses($outputName, 'Printers.Lib/PrinterOutput');
+        
+        $out = new $outputName;
+        return $out->send($textToPrint, $printer_id); 
+    }
  
     
     
@@ -119,30 +133,36 @@ class Printaitor
  * Logic for creating the view rendered.
  * 
  * @param array $data all vars that will be accesible into the view
- * @param string $printerName name of the printer
+ * @param string $printer_id name of the printer
  * @param string $templateName name of the view
- * @param string $driverName Builds the Helper. Is the driver or model name of the printer
- * @param string $sourceView View folder based on outputEngine (acts as controller->view)
  */    
-    protected static function _getView($data, $printerName, $templateName, $driverName, $sourceView) { 
+    protected static function _getView($data, $printer_id, $templateName) { 
         $pluginPath = App::path('Lib', 'Printers');
 
-        App::build(array('View' => array( $pluginPath . '/DriverView')));
-        //becomes
-        //App::build(array('View/Helper' => array('/full/path/to/View/Helper/')));
+        $Printer = ClassRegistry::init("Printers.Printer");
+        $Printer->recursive = -1;
+        $printer = $Printer->read(null, $printer_id);
+        $driverName = $printer['Printer']['driver'];
+        $driverModelName = $printer['Printer']['driver_model'];
 
+        App::build(array('View' => array( $pluginPath[0] . '/DriverView')));
 
-        $viewName = "Printers.$sourceView/$templateName";
+        $viewName = $driverName."Printer/$templateName";
         $View = new View();
-        $View->set($data);               
-        
-        $View->helpers = array(
-            'PE' => array(
-                   'className' => 'Printers.'. $driverName
-            )
-        );
-        
-        return $View->render($viewName, false);
+        $View->set($data);
+   
+        $helperName = $driverModelName . $driverName.'Helper'    ;
+        App::uses($helperName, 'Printers.Lib/DriverView/Helper');
+
+        if (!class_exists($helperName)) {
+            throw new MissingHelperException(array(
+                'class' => $helperName,
+                'plugin' => substr('Printers', 0, -1)
+            ));
+        }
+        $View->PE = new $helperName($View);
+
+        return $View->render( $viewName, false );
     }
         
  

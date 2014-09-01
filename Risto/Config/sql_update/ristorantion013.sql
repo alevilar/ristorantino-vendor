@@ -94,9 +94,6 @@ ADD  `deleted` TINYINT NOT NULL DEFAULT  '0' AFTER  `deleted_date`;
 ALTER TABLE `tipo_de_pagos` DROP `description`;
 
 
-ALTER TABLE  `comanderas` ADD  `driver_name` VARCHAR( 32 ) NULL AFTER  `description`;
-
-
 ALTER TABLE  `users` ADD  `rol_id` INT NOT NULL AFTER  `username`;
 
 

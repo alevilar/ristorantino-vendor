@@ -19,7 +19,7 @@ class ClasificacionesController extends AccountAppController
             if ( $this->Clasificacion->save( $this->request->data ) ) {
                 $this->Session->setFlash('La clasificacion ha sido guardada');
             } else {
-                $this->Session->setFlash('Error al guardar la clasificación', 'flash_error');
+                $this->Session->setFlash('Error al guardar la clasificación', 'Risto.flash_error');
             }
         }
 

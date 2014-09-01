@@ -47,9 +47,9 @@ class CategoriasController extends ProductAppController
     function recover()
     {
         if ( $this->Categoria->recover() ) {
-            $this->Session->setFlash('Recuperación correcta', 'flash_success');
+            $this->Session->setFlash('Recuperación correcta', 'Risto.flash_success');
         } else {
-            $this->Session->setFlash('Error al querer arreglar la estructura', 'flash_error');
+            $this->Session->setFlash('Error al querer arreglar la estructura', 'Risto.flash_error');
         }
         $this->redirect(array('action' => 'index'));
     }
@@ -58,10 +58,10 @@ class CategoriasController extends ProductAppController
     {
         $verificados = $this->Categoria->verify();
         if ( empty($verificados) ) {
-            $this->Session->setFlash('Recuperación correcta', 'flash_success');
+            $this->Session->setFlash('Recuperación correcta', 'Risto.flash_success');
         } else {
             $cant = count($verificados);
-            $this->Session->setFlash("Existen $cant de registros que no estan correctos. Pruebe con el link de \"recuperar\"", 'flash_error');
+            $this->Session->setFlash("Existen $cant de registros que no estan correctos. Pruebe con el link de \"recuperar\"", 'Risto.flash_error');
         }
         $this->redirect(array('action' => 'index'));
     }
@@ -95,10 +95,10 @@ class CategoriasController extends ProductAppController
                 $this->Categoria->create();
             }
             if ($this->Categoria->save($this->request->data)) {
-                $this->Session->setFlash(__('The Categoria has been saved'), 'flash_success');
+                $this->Session->setFlash(__('The Categoria has been saved'), 'Risto.flash_success');
 //				$this->redirect(array('action'=>'index'));
             } else {
-                $this->Session->setFlash(__('The Categoria could not be saved. Please, try again.'), 'flash_error');
+                $this->Session->setFlash(__('The Categoria could not be saved. Please, try again.'), 'Risto.flash_error');
             }
 
             if (empty($id)) {
@@ -114,10 +114,10 @@ class CategoriasController extends ProductAppController
     function delete($id = null)
     {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid id for Categoria'), 'flash_error');
+            $this->Session->setFlash(__('Invalid id for Categoria'), 'Risto.flash_error');
         }
         if ($this->Categoria->delete( $id )) {
-            $this->Session->setFlash(__('Categoria deleted'), 'flash_success');
+            $this->Session->setFlash(__('Categoria deleted'), 'Risto.flash_success');
         }
         $this->redirect(array('action' => 'index'));
     }

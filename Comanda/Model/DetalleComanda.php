@@ -80,23 +80,12 @@ class DetalleComanda extends ComandaAppModel {
 	}
 
 
-	public function afterSave ($created, $options = array() ) {
-		$dMesa = $this->find('first', array(
-                    'contain' => array('Comanda(mesa_id)'),
-                    'conditions' => array('DetalleComanda.id' => $this->data['DetalleComanda']['id'])
-                ));
-        $this->Comanda->Mesa->id = $dMesa['Comanda']['mesa_id'];
-        $this->Comanda->Mesa->saveField('modified', date('Y-m-d H:i:s'), false);
-        return true;
-	}
-
-
 
 	public function saveComanda ( $fullData ) {
 		$imprimir = $fullData['Comanda']['imprimir'] ? true : false;
 		
 		// este array contine la prioridad y la mesa_id ---> todos datos de Modelo Comanda
-		$comanda = $fullData['Comanda'];
+		$comanda = $fullData['Comanda'];		
 
 		//cuento la cantidad de comanderas involucradas en este pedido para genrar la cantidad de comandas correspondientes
 		$v_comanderas = array();		
@@ -107,26 +96,30 @@ class DetalleComanda extends ComandaAppModel {
 				$dc['cant_eliminada'] = 0;
 			}
 
-			if ( !array_key_exists('comandera_id', $dc)) {
+			if ( !array_key_exists('printer_id', $dc)) {
+				// buscar a que comendara se debe imprimir este producto
 				$this->Producto->id = $dc['producto_id'];
-				$dc['comandera_id'] = $this->Producto->field('comandera_id');
+				$dc['printer_id'] = $this->Producto->field('printer_id');
 			}
 
 
-			$v_comanderas[ $dc['comandera_id'] ]['DetalleComanda'][] = $dc;
+			$v_comanderas[ $dc['printer_id'] ]['DetalleComanda'][] = $dc;
 		}
 		$comandas = array();
-		foreach ( $v_comanderas as $dcDc) {
+		foreach ( $v_comanderas as $printer_id => $dcDc) {
+			$comanda['printer_id'] = $printer_id;
 			$comandas[] = array(
 				'Comanda' => $comanda,
 				'DetalleComanda' => $dcDc['DetalleComanda']
 				);
 		}
 
-		if ( !$this->Comanda->saveAll($comandas, array('deep' => true)) ) {
-			return false;
+		if ( $this->Comanda->saveAll($comandas, array('deep' => true) ) ) {
+			return $this->Comanda->printEvent( );
 		}
-		return true;
+
+		return false;
+
 	}
 
 }

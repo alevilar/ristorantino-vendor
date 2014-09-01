@@ -9,12 +9,12 @@
         ?>
     </div>
 
-    <h2>Mesas</h2>
+    <h2><?php echo __( Inflector::pluralize( Configure::read('Mesa.tituloMesa') )) ?></h2>
     <div class="list-group">
         <?php
-        echo $this->Html->link('Listado de Mesas', '/mesa/Mesas', array('class' => 'list-group-item'));
-        echo $this->Html->link('Pagos de Mesas', '/mesa/pagos', array('class' => 'list-group-item'));
-        echo $this->Html->link('Nueva Mesa', '/mesa/Mesas/add', array('class' => 'list-group-item'));
+        echo $this->Html->link( __('Listado de %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa') )) , '/mesa/Mesas', array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Pagos de %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa') ) ), '/mesa/pagos', array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Nueva %s', Configure::read('Mesa.tituloMesa')), '/mesa/Mesas/add', array('class' => 'list-group-item'));
         ?>
     </div>    
 </div>
@@ -86,7 +86,7 @@
 
 
 
-        echo $this->Html->link('Comandera', '/comanda/Comanderas', array('class' => 'list-group-item'));
+        echo $this->Html->link('Printers', array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array('class' => 'list-group-item'));
 
         echo $this->Html->link('Configuración General', array('plugin'=>'risto', 'controller'=>'configs', 'action'=>'basic_configuration'), array('class' => 'list-group-item'));
         ?>

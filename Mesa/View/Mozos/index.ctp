@@ -5,7 +5,10 @@ $this->Paginator->options(array('url' => $this->passedArgs));
 ?>
 
 <div class="mozos index">
-	
+
+<?php echo $this->Html->link(__('Crear Mozo'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')); ?>
+	<h1>Mozos</h1>
+
 <p>
 <?php
 echo $this->Paginator->counter(array(
@@ -62,11 +65,4 @@ foreach ($mozos as $mesa):
  | 	<?php echo $this->Paginator->numbers();?>
 	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'disabled'));?>
 </div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Crear Mozo'), array('action'=>'add')); ?></li>
-		<li><?php echo $this->Html->link(__('Listar Usuarios'), array('controller'=> 'users', 'action'=>'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Crear Usuario'), array('controller'=> 'users', 'action'=>'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('Listar Mesas'), array('controller'=> 'mesas', 'action'=>'index')); ?> </li>
-	</ul>
-</div>
+

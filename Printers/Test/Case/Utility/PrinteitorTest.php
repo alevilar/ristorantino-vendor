@@ -22,7 +22,7 @@ class PrintaitorTest extends CakeTestCase {
  *
  * @var array
  */
-	public $fixtures = array('app.comandera');
+	public $fixtures = array('app.Printer');
         
         
 /**

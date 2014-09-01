@@ -16,7 +16,7 @@ class PagosController extends MesaAppController
 
 
     $this->Pago->recursive = 0;
-    $this->paginate = array(
+    $this->Paginator->settings = array(
         'contain' => array(
             'Mesa.Mozo',
             'TipoDePago'

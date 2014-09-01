@@ -42,9 +42,7 @@ class PrinterOutput
  * 
  * @return type boolean true si salio todo bien false caso contrario
  */
-        public  function send( $texto, $nombreImpresoraFiscal, $hostname = '' ) {
+        public  function send( $texto, $nombreImpresoraFiscal, $hostname = '' ) {}
 
 
 }
-
-?>

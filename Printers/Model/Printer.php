@@ -17,6 +17,26 @@ class Printer extends PrintersAppModel {
  */
 	public $displayField = 'name';
 
+
+
+	//The Associations below have been created with all possible keys, those that are not needed can be removed
+	public $hasMany = array(
+			'Producto' => array('className' => 'Product.Producto',
+								'foreignKey' => 'printer_id',
+								'dependent' => false,
+								'conditions' => '',
+								'fields' => '',
+								'order' => '',
+								'limit' => '',
+								'offset' => '',
+								'exclusive' => '',
+								'finderQuery' => '',
+								'counterQuery' => ''
+			)
+	);
+
+
+
 /**
  * Validation rules
  *
@@ -52,9 +72,23 @@ class Printer extends PrintersAppModel {
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
-		),
+		)
 	);
 
+
+	public function listarComanderas () {
+		$printers = $this->Producto->Printer->find('list'
+							,array(
+								'fields'=>array(
+									'id',
+									'description'
+									)
+							, 'conditions' => array(
+								'Printer.driver <>'=>'Fiscal') 
+							)
+							);		
+		return $printers;
+	}
 
 
 	/**

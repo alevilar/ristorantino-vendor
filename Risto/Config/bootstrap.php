@@ -36,6 +36,8 @@ Inflector::rules('plural', array(
         'cierre' => 'cierres',
         'room' => 'rooms',
         'reservation' => 'reservations',
+        'driver' => 'drivers',
+        'driver_model' => 'driver_models',
     ),
     'uninflected' => array()
         )
@@ -70,6 +72,8 @@ CakePlugin::load('Stats', array( 'routes' => true ));
 
 CakePlugin::load('DebugKit');
 CakePlugin::load('Search');
+
+CakePlugin::load('Printers', array( 'bootstrap' => true ));
 
 CakePlugin::load('Mesa', array( 'routes' => true ));
 

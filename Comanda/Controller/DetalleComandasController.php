@@ -81,7 +81,7 @@ class DetalleComandasController extends ComandaAppController {
 
 	public function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Comanda.'), 'flash_error');
+			$this->Session->setFlash(__('Invalid Comanda.'), 'Risto.flash_error');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('comanda', $this->DetalleComanda->read(null, $id));
@@ -103,9 +103,9 @@ class DetalleComandasController extends ComandaAppController {
         
         if ( $this->request->is('post') ) {
     		if ( $this->DetalleComanda->saveComanda( $this->request->data ) ) {
-                $this->Session->setFlash('Se guardó correctamente', 'flash_success');
+                $this->Session->setFlash('Se guardó correctamente', 'Risto.flash_success');
             } else {
-                $this->Session->setFlash('No se guardó correctamente', 'flash_error');
+                $this->Session->setFlash('No se guardó correctamente', 'Risto.flash_error');
             }
             if ( $this->request->is('ajax') ) {
                  
@@ -135,13 +135,13 @@ class DetalleComandasController extends ComandaAppController {
             }
                         
             if (!$id && empty($this->request->data)) {
-                    $this->Session->setFlash(__('Invalid Comanda'), 'flash_error');
+                    $this->Session->setFlash(__('Invalid Comanda'), 'Risto.flash_error');
                     $this->redirect($this->referer());
             }
             if ( !empty($this->request->data)) {
                     if ($this->DetalleComanda->save($this->request->data)) {
                         if( !$this->request->is('ajax') ){
-                            $this->Session->setFlash(__('Producto modificado'), 'flash_success');
+                            $this->Session->setFlash(__('Producto modificado'), 'Risto.flash_success');
                         } else {
                             exit;
                         }
@@ -150,7 +150,7 @@ class DetalleComandasController extends ComandaAppController {
                         if($this->request->is('ajax')){
                             throw new InternalErrorException("No se pudo guardar el DetalleComanda");                         
                         }
-                        $this->Session->setFlash(__('The Comanda could not be saved. Please, try again.', 'flash_success'));
+                        $this->Session->setFlash(__('The Comanda could not be saved. Please, try again.', 'Risto.flash_success'));
                     }                    
             }
             
@@ -166,11 +166,11 @@ class DetalleComandasController extends ComandaAppController {
 
 	public function delete( $id = null ) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Detalle Comanda'), 'flash_error');
+			$this->Session->setFlash(__('Invalid id for Detalle Comanda'), 'Risto.flash_error');
 			$this->redirect($this->referer());
 		}
 		if ($this->DetalleComanda->delete($id)) {
-			$this->Session->setFlash(__('DetalleComanda deleted'), 'flash_success');
+			$this->Session->setFlash(__('DetalleComanda deleted'), 'Risto.flash_success');
 			$this->redirect($this->referer());
 		}
 	}

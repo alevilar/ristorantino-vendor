@@ -118,7 +118,7 @@ class EgresosController extends AccountAppController
                 $this->redirect(array('controller' => 'gastos', 'action' => 'index'));
             } else {
                 debug($this->Egreso->validationErrors);die;
-                $this->Session->setFlash('Error al guardar el pago', 'flash_error');
+                $this->Session->setFlash('Error al guardar el pago', 'Risto.flash_error');
                 $this->redirect($this->referer());
                 
             }

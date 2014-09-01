@@ -2,16 +2,18 @@
 echo $this->Html->script('mesas/index_head', false);
 
 
-// $this->Paginator->options(array('url' => $this->passedArgs));
-// $this->Paginator->options(array('convertKeys' => array(
-//     'page'
-//     )));
+
 ?>
 
 <div id="mesas-index">
 
-    <div>
-        <h2 style="text-align: center;"><?php __('Buscador de Mesas'); ?></h2>
+
+<?php echo $this->Html->link(__('Abrir %s', Configure::read('Mesa.tituloMesa')), array('action' => 'add'), array('class'=>'btn btn-lg btn-success pull-right')); ?>
+<h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa')) ;?></h1>
+
+
+    <div class="row">
+        
         <?php echo $this->Form->create("Mesa", array("action" => "index")); ?>
         <div class=" col-md-1">
             <?php echo $this->Form->input('numero', array('label' => 'N°Mesa', 'required'=>false)); ?>
@@ -109,10 +111,5 @@ echo $this->Html->script('mesas/index_head', false);
         | 	<?php echo $this->Paginator->numbers(); ?>
         <?php echo $this->Paginator->next(__('próximo', true) . ' >>', array(), null, array('class' => 'disabled')); ?>
     </div>
-    <div class="actions">
-        <ul>
-            <li><?php echo $this->Html->link(__('Crear Mesa', true), array('action' => 'add')); ?></li>
-        </ul>
-    </div>
-
+    
 </div>  

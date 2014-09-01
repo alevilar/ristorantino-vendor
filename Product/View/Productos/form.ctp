@@ -14,7 +14,7 @@
 
 		//echo $this->Form->input('description', array('label'=>'Descripción'));
 		echo $this->Form->input('categoria_id',array('label'=>'Categoria a la que pertenece este producto'));
-		echo $this->Form->input('comandera_id',array('after'=>'</br>Seleccione en que comandera quiere que se imprima el producto'));
+		echo $this->Form->input('printer_id',array('after'=>'</br>Seleccione en que comandera quiere que se imprima el producto'));
 		echo $this->Form->input('precio',array('label'=>'Precio $','after'=>'</br>Los centavos van separados de un punto, NO poner coma ni el signo pesos.</br>Ejemplo de un precio correcto: <b>6.50</b>'));
 
         echo $this->Form->input('ProductosPreciosFuturo.producto_id', array('type'=>'hidden'));

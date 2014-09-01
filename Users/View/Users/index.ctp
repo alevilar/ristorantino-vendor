@@ -1,6 +1,9 @@
 ﻿
 <div class="users index">
-<h2><?php echo __('Usuarios');?></h2>
+
+<?php echo $this->Html->link(__('Crear usuario'), array('action'=>'add'), array( 'class'=>'btn btn-success pull-right btn-lg')); ?>
+
+<h1><?php echo __('Usuarios');?></h1>
 <p>
 <?php
 	echo $this->Paginator->counter(array(
@@ -63,5 +66,3 @@ foreach ($users as $user):
 	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'disabled'));?>
 </div>
 
-
-<?php echo $this->Html->link(__('Crear usuario'), array('action'=>'add'), array( 'class'=>'btn btn-success')); ?>

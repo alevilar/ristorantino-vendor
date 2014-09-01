@@ -6,7 +6,8 @@
 		echo $this->Form->input('name');
 		echo $this->Form->input('alias');
 		echo $this->Form->input('driver');
-		echo $this->Form->input('output');
+		echo $this->Form->input('driver_model', array('options'=>$driver_models));
+		echo $this->Form->hidden('output');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>

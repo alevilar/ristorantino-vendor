@@ -27,7 +27,7 @@ class AcosController extends AclAppController {
     	    }
     	    else
     	    {
-    	        $this->Session->setFlash(__d('acl', 'The ACO table could not be cleared'), 'flash_error', null, 'plugin_acl');
+    	        $this->Session->setFlash(__d('acl', 'The ACO table could not be cleared'), 'Risto.flash_error', null, 'plugin_acl');
     	    }
     	    
     	    $this->set('run', true);

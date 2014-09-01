@@ -16,7 +16,7 @@ class TipoDePagosController extends RistoAppController {
 
 	public function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid TipoDePago.'),'flash_error');
+			$this->Session->setFlash(__('Invalid TipoDePago.'),'Risto.flash_error');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('tipoDePago', $this->TipoDePago->read(null, $id));
@@ -57,7 +57,7 @@ class TipoDePagosController extends RistoAppController {
 				$this->Session->setFlash(__('The TipoDePago has been saved'));
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The TipoDePago could not be saved. Please, try again.'),'flash_error');
+				$this->Session->setFlash(__('The TipoDePago could not be saved. Please, try again.'),'Risto.flash_error');
 			}
 		}
 
@@ -70,7 +70,7 @@ class TipoDePagosController extends RistoAppController {
 
 	public function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for TipoDePago'),'flash_error');
+			$this->Session->setFlash(__('Invalid id for TipoDePago'),'Risto.flash_error');
 			$this->redirect(array('action'=>'index'));
 		}
 		if ($this->TipoDePago->delete($id)) {

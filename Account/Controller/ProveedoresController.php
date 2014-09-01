@@ -43,7 +43,7 @@ class ProveedoresController extends AccountAppController {
 
 	public function edit($id = null) {
 		if (!$id && empty($this->request->data)) {
-			$this->Session->setFlash(__('Invalid Proveedor'), 'flash_error');
+			$this->Session->setFlash(__('Invalid Proveedor'), 'Risto.flash_error');
 			$this->redirect(array('action' => 'index'));
 		}
 		if ( $this->request->is('put') || $this->request->is('post') ) {

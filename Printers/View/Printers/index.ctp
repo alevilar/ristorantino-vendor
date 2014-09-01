@@ -1,11 +1,12 @@
 <div class="printers index">
 	<h2><?php echo __('Printers'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+	<table class="table">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('name'); ?></th>
 			<th><?php echo $this->Paginator->sort('alias'); ?></th>
 			<th><?php echo $this->Paginator->sort('driver'); ?></th>
+			<th><?php echo $this->Paginator->sort('driver_model'); ?></th>
 			<th><?php echo $this->Paginator->sort('output'); ?></th>
 			<th><?php echo $this->Paginator->sort('created'); ?></th>
 			<th><?php echo $this->Paginator->sort('modified'); ?></th>
@@ -17,6 +18,7 @@
 		<td><?php echo h($printer['Printer']['name']); ?>&nbsp;</td>
 		<td><?php echo h($printer['Printer']['alias']); ?>&nbsp;</td>
 		<td><?php echo h($printer['Printer']['driver']); ?>&nbsp;</td>
+		<td><?php echo h($printer['Printer']['driver_model']); ?>&nbsp;</td>
 		<td><?php echo h($printer['Printer']['output']); ?>&nbsp;</td>
 		<td><?php echo h($printer['Printer']['created']); ?>&nbsp;</td>
 		<td><?php echo h($printer['Printer']['modified']); ?>&nbsp;</td>

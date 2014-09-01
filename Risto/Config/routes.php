@@ -2,6 +2,9 @@
 
 	Router::parseExtensions('json', 'xls');
 
+	Router::mapResources('Printers.PrinterJobs');
+
+
 	Router::connect('/', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/pages/home', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'home'));
 	Router::connect('/pages/administracion', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'administracion'));

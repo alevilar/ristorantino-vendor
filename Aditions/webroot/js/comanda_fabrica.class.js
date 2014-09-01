@@ -96,10 +96,10 @@ Risto.Adition.comandaFabrica.prototype = {
 //            ccdc.cant = ccdc.realCant();
 //            ccdc.cant_eliminada = 0;
             
-            if ( !comanderas[ccdc.comandera_id()] || !comanderas[ccdc.comandera_id()].length ) {
-               comanderas[ccdc.comandera_id()] = [];
+            if ( !comanderas[ccdc.printer_id()] || !comanderas[ccdc.printer_id()].length ) {
+               comanderas[ccdc.printer_id()] = [];
             }
-            comanderas[ccdc.comandera_id()].push(ccdc);
+            comanderas[ccdc.printer_id()].push(ccdc);
         }
         
         var comandaJsonCopy = {

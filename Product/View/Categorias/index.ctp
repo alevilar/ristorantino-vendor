@@ -1,33 +1,33 @@
 
 <div class="categorias index">
+
 <h2><?php echo __('Categorias');?></h2>
 
-<?php echo $this->Html->link('Reordenar Alfabeticamente',array('action'=>'reordenar'));?>
-<br>
-<?php echo $this->Html->link('Recuperar',array('action'=>'recover'));?>
-<br>
-<?php echo $this->Html->link('Verificar estructura',array('action'=>'verify'));?>
+<?php echo $this->Html->link('Reordenar Alfabeticamente',array('action'=>'reordenar'), array('class'=>'btn btn-sm btn-warning'));?>
 
-<table class="categorias-table" cellpadding="0" cellspacing="0">
+<br>
 
-<?php
-$i = 0;
-foreach($categorias as $catId => $catName){
-    $class = null;
-    if ($i++ % 2 == 0) {
-        $class = ' class="altrow"';
-    }
-?>
+
+<table class="table">
+
+    <?php
+    $i = 0;
+    foreach($categorias as $catId => $catName){
+        $class = null;
+        if ($i++ % 2 == 0) {
+            $class = ' class="altrow"';
+        }
+    ?>
     <tr>
         <td align="left" width="200px;">
             <span style="text-align: left;">
-        <?php  
-       
-        if( !empty($imagenes[$catId])) {
-                echo $this->Html->image('menu/'.$imagenes[$catId],array('height'=>'22px;')); 
-        }
-        echo "($catId) $catName";
-        ?></span>
+            <?php  
+           
+            if( !empty($imagenes[$catId])) {
+                    echo $this->Html->image('menu/'.$imagenes[$catId],array('height'=>'22px;')); 
+            }
+            echo "($catId) $catName";
+            ?></span>
         </td>
         <td class="actions" align="left">
             <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $catId)); ?>

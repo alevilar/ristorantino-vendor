@@ -18,10 +18,10 @@ Risto.Adition.detalleComanda = function(jsonData) {
     },this);
     
     
-    this.comandera_id = ko.dependentObservable( function(){
+    this.printer_id = ko.dependentObservable( function(){
         var prod = this.Producto();
         if ( prod ) {
-            return prod.comandera_id;
+            return prod.printer_id;
         }
         return undefined;
     }, this);

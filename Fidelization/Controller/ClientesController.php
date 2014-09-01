@@ -93,7 +93,7 @@ class ClientesController extends FidelizationAppController {
 			if ($this->Cliente->save($this->request->data)) {
 				$this->Session->setFlash(__('Se agregó un nuevo cliente'));
 			} else {
-				$this->Session->setFlash(__('El Cliente no pudo ser gardado, intente nuevamente.'), 'flash_error');
+				$this->Session->setFlash(__('El Cliente no pudo ser gardado, intente nuevamente.'), 'Risto.flash_error');
 			}
             $this->set('cliente_id', $this->Cliente->id);
             $this->layout = false;

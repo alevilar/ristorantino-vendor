@@ -58,6 +58,18 @@ class PrintersController extends PrintersAppController {
 				$this->Session->setFlash(__('The printer could not be saved. Please, try again.'));
 			}
 		}
+		$this->request->data['Printer']['output'] = Configure::read('Printers.output');
+
+		$this->set('drivers', array('Fiscal'=>__('Fiscal'), 'Receipt'=>__('Comandera')));
+		$this->set('driver_models', array(
+			__('Fiscal')=>array(
+				'Hasar441'=>'Hasar441', 
+				'Hasar1120f'=>'Hasar1120f'), 
+			__('Comandera')=> array(
+				'Bematech' => 'Bematech',
+				'EscP' => 'EscP',
+				)
+			));
 	}
 
 /**
@@ -82,6 +94,19 @@ class PrintersController extends PrintersAppController {
 			$options = array('conditions' => array('Printer.' . $this->Printer->primaryKey => $id));
 			$this->request->data = $this->Printer->find('first', $options);
 		}
+
+		$this->request->data['Printer']['output'] = Configure::read('Printers.output');
+
+		$this->set('drivers', array('Fiscal'=>__('Fiscal'), 'Receipt'=>__('Comandera')));
+		$this->set('driver_models', array(
+			__('Fiscal')=>array(
+				'Hasar441'=>'Hasar441', 
+				'Hasar1120f'=>'Hasar1120f'), 
+			__('Comandera')=> array(
+				'Bematech' => 'Bematech',
+				'EscP' => 'EscP',
+				)
+			));
 	}
 
 /**
@@ -144,7 +169,7 @@ class PrintersController extends PrintersAppController {
                     $cliente
                     );
 
-            $this->Session->setFlash("Se envió a imprimir una nota de crédito", 'flash_success');
+            $this->Session->setFlash("Se envió a imprimir una nota de crédito", 'Risto.flash_success');
         }
 	}
 

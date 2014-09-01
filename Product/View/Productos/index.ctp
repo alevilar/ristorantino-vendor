@@ -49,8 +49,8 @@ echo $this->Html->script('ale_fieldupdates', false);
 	<th><?php echo $this->Form->input('name',array('placeholder'=>'Nombre del producto', 'label'=>false));?></th>
 	<th><?php echo $this->Form->input('abrev',array('placeholder'=>'Abreviatura', 'label'=>false));?></th>
 
-        <th><?php echo $this->Form->input('comandera_id',array(
-        					'placeholder'=>'Comandera',
+        <th><?php echo $this->Form->input('printer_id',array(
+        					'placeholder'=>'Printer',
         					'label'=>false, 
         					'empty'=>'Selecionar'
         					));?></th>
@@ -70,7 +70,7 @@ echo $this->Html->script('ale_fieldupdates', false);
 <tr>
 	<th><?php echo $this->Paginator->sort('name', 'Nombre');?></th>
 	<th><?php echo $this->Paginator->sort('abrev', 'Ticket');?></th>
-	<th><?php echo $this->Paginator->sort('Comandera.name', 'Comandera');?></th>
+	<th><?php echo $this->Paginator->sort('Printer.name', 'Printer');?></th>
 	<th><?php echo $this->Paginator->sort('Categoria.name', 'Categoria');?></th>
 	<th><?php echo $this->Paginator->sort('precio');?></th>
 	<th><?php echo $this->Paginator->sort('ProductosPreciosFuturo.precio', 'Precio Futuro');?></th>
@@ -106,8 +106,8 @@ foreach ($productos as $producto):
                 
         <td class='edit abrev' field='abrev' product_id='<?php echo $prodId ?>'><?php echo $abrev; ?></td>
 
-		<td class="edit_field_types" options_types='<?php print json_encode($comanderas) ?>' field="comandera_id" product_id="<?php echo $prodId; ?>"><?php 
-			echo $producto['Comandera']['description']; 
+		<td class="edit_field_types" options_types='<?php print json_encode($comanderas) ?>' field="printer_id" product_id="<?php echo $prodId; ?>"><?php 
+			echo $producto['Printer']['name']; 
 		?></td>
 
 

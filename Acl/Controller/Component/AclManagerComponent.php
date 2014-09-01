@@ -38,7 +38,7 @@ class AclManagerComponent extends Component
 	    }
 	    else
 	    {
-	        $this->Session->setFlash(sprintf(__d('acl', 'the %s directory is not writable'), dirname($this->controllers_hash_file)), 'flash_error', null, 'plugin_acl');
+	        $this->Session->setFlash(sprintf(__d('acl', 'the %s directory is not writable'), dirname($this->controllers_hash_file)), 'Risto.flash_error', null, 'plugin_acl');
 	        return false;
 	    }
 	}
