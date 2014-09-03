@@ -49,7 +49,7 @@ class Comanda extends ComandaAppModel {
 	 * 						2 si quiero solo las entradas
 	 *
 	 */
-	function listado_de_productos_con_sabores($id, $con_entrada = DETALLE_COMANDA_TRAER_TODOS){
+	public function listado_de_productos_con_sabores($id, $con_entrada = DETALLE_COMANDA_TRAER_TODOS){
 		//inicialiozo variable return
 		$items = array();
 
@@ -99,7 +99,7 @@ class Comanda extends ComandaAppModel {
 	 * @param comanda_id
 	 * @return array() de printer_id
 	 */
-	function comanderas_involucradas($id){
+	public function comanderas_involucradas($id){
 		$this->recursive = 2;
 		$group = array('Producto.printer_id');
 		$result =  $this->DetalleComanda->find('all',array(	
@@ -113,16 +113,4 @@ class Comanda extends ComandaAppModel {
 		return $v_retorno;
 	}
 	
-
-	public function printEvent ( $id = null ) {
-		if ( empty($id) ) {
-            if ( empty($this->id) ) 
-              throw new InternalErrorException("Se debe pasar el ID de la mesa para imprimir");
-            $id = $this->id;
-          }
-
-          $event = new CakeEvent('Model.print', $this );
-          
-          return $this->getEventManager()->dispatch($event);
-	}
 }

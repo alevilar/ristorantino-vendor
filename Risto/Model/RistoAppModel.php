@@ -25,5 +25,14 @@ App::uses('Model', 'Model');
  */
 class RistoAppModel extends Model {
 
-	public $actsAs = array('Containable');
+	public $actsAs = array( 'MtSites.MultiTenant', 'Containable');
+
+	public function saveAll ( $data = array(), $options = array() ) {
+	    $return = parent::saveAll($data, $options);
+
+	    $event = new CakeEvent('Model.afterSaveAll', $this );
+        $this->getEventManager()->dispatch($event);
+
+	    return $return;
+	}
 }

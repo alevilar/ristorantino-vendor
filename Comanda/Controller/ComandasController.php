@@ -25,22 +25,7 @@ class ComandasController extends ComandaAppController {
             $this->set('mesa_id', $mesa_id);                 
 	}
 	
-	/**
-	 * REimprime comandas
-	 * @param integer $id ID de la comanda
-	 * @return envia a imprimir
-	 */
-	public function imprimir( $id ){
-		// $this->Printer->imprimirComanda($id);
-        $this->Comanda->printEvent(  $id  );
-        if ( $this->request->is('ajax') ) {
-            exit;
-        } else {
-            $this->Session->setFlash( __("Se envió a imprimir la comanda"), 'Risto.flash_success' );
-            $this->redirect($this->referer());
-        }
-	}
-
+	
 
     public function edit ( $id ) {
         if (!empty($this->request->data)) {

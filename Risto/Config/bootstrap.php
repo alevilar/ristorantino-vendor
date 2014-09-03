@@ -1,11 +1,5 @@
 <?php
 
-// Read configuration file from ini file
-App::uses('IniReader', 'Configure');
-Configure::config('ini', new IniReader(ROOT . "/" . APP_DIR . '/Config/'));
-Configure::load('risto_config', 'ini');
-
-
 
 Inflector::rules('singular', array(
     'rules' => array('/([r|d|j|n|l|m|y|z])es$/i' => '\1', '/as$/i' => 'a', '/([ti])a$/i' => '\1a'),
@@ -38,10 +32,33 @@ Inflector::rules('plural', array(
         'reservation' => 'reservations',
         'driver' => 'drivers',
         'driver_model' => 'driver_models',
+        'site_user' => 'sites_users',
     ),
     'uninflected' => array()
         )
 );
+
+
+
+// Read configuration file from ini file
+if ( file_exists(ROOT . "/" . APP_DIR . '/Config/risto.ini') ) {
+    App::uses('IniReader', 'Configure');
+    Configure::config('ini', new IniReader( ROOT . "/" . APP_DIR . '/Config/') );
+    Configure::load('risto', 'ini');      
+} else {
+    throw new CakeException(__d('risto', "No existe el archivo de configuracion risto.php"));
+    
+}
+
+
+
+// Read configuration file from ini file
+if ( file_exists(ROOT . "/" . APP_DIR . '/Config/risto_config.ini') ) {
+    App::uses('IniReader', 'Configure');
+    Configure::config('ini', new IniReader( ROOT . "/" . APP_DIR . '/Config/') );
+    Configure::load('risto_config', 'ini');    
+}
+
 
 
 
@@ -60,7 +77,7 @@ Inflector::rules('plural', array(
 
 
 // CakePlugin::loadAll();
-
+CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
 CakePlugin::load('Acl', array('bootstrap' => true));
 
 CakePlugin::load('Aditions', array( 'bootstrap' => true, 'routes' => true ));
@@ -76,6 +93,8 @@ CakePlugin::load('Search');
 CakePlugin::load('Printers', array( 'bootstrap' => true ));
 
 CakePlugin::load('Mesa', array( 'routes' => true ));
+
+
 
 
 

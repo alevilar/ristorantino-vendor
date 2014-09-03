@@ -1,0 +1,3 @@
+[submodule "MtSites"]
+	path = MtSites
+	url = git@github.com:alevilar/MtSites.git

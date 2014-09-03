@@ -114,12 +114,7 @@ class DetalleComanda extends ComandaAppModel {
 				);
 		}
 
-		if ( $this->Comanda->saveAll($comandas, array('deep' => true) ) ) {
-			return $this->Comanda->printEvent( );
-		}
-
-		return false;
-
+		return $this->Comanda->saveAll($comandas, array('deep' => true) );  
 	}
 
 }

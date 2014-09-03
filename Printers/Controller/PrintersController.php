@@ -132,20 +132,24 @@ class PrintersController extends PrintersAppController {
 
 
 
+
+	public function print_comanda ( $comanda_id) {
+		App::uses('ReceiptPrint', 'Printers.Utility');
+
+		ReceiptPrint::comanda($comanda_id);
+
+		$this->Session->setFlash("Se envió a imprimir comanda");
+	}
+
+
+
 	/**
 	 * @param string $type puede ser X o Z. 
 	 * 		El cierre X realiza un cierre parcial, típico para cambio de cajero
 	 * 		El cierre Z es un cierre fiscal, y pone los contadopres del impresor fiscal en cero
 	 */
 	public function cierre( $type = "X"){
-		$this->Printer->imprimirCierre( $type );
-
-		if ( !$this->request->is('ajax') ) {
-			$this->Session->setFlash("Se imprimió un Cierre Z");
-			$this->redirect($this->referer());
-        } else {
-        	exit;
-        }
+		throw new NotImplementedException(__('Cierre Z o X'));
     }
 
 
@@ -161,16 +165,27 @@ class PrintersController extends PrintersAppController {
                 $cliente['tipodoc'] = $this->request->data['Cliente']['tipodoc'];
             }
          
-            $this->Printer->imprimirNotaDeCredito(
-                    $this->request->data['Cajero']['numero_ticket'],
-                    $this->request->data['Cajero']['importe'],
-                    $this->request->data['Cajero']['tipo'],
-                    $this->request->data['Cajero']['descripcion'],
-                    $cliente
-                    );
+
+         	throw new NotImplementedException(__('Nota de credito'));
+
+            $numerodoc = $this->request->data['Cajero']['numero_ticket'];
+            $importe = $this->request->data['Cajero']['importe'];
+            $tipo = $this->request->data['Cajero']['tipo'];
+            $descripcion = $this->request->data['Cajero']['descripcion'];
 
             $this->Session->setFlash("Se envió a imprimir una nota de crédito", 'Risto.flash_success');
         }
+	}
+
+
+
+	public function mesa_ticket ( $mesa_id ) {
+		throw new NotImplementedException(__('Ticket fiscal Mesa'));
+	}
+
+
+	public function mesa_detail ( $mesa_id ) {
+		throw new NotImplementedException(__('Detalle de Mesa'));
 	}
 
 }

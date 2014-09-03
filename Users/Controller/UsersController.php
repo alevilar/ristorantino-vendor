@@ -41,9 +41,17 @@ class UsersController extends UsersAppController {
         public function login() {
             if ($this->request->is('post')) {
                 if ($this->Auth->login()) {
+
+                    $event = new CakeEvent('User.afterLogin', $this);
+                    CakeEventManager::instance()->dispatch($event);
+
+
                     $this->User->id = $this->Session->read( 'Auth.User.id');
                     $usr = $this->User->read();       
-                    $this->Session->write( 'Auth.User.role', strtolower( Inflector::Slug($usr['Rol']['machin_name']) ) );
+                   // $this->Session->write( 'Auth.User.role', strtolower( Inflector::Slug($usr['Rol']['machin_name']) ) );
+
+                    
+                    
                     return $this->redirect($this->Auth->redirect());
                 } else {
                     $this->Session->setFlash('Usuario o contraseña incorrectos', "Risto.flash_error");

@@ -5,7 +5,8 @@ App::uses('Component', 'Controller');
 class ConfiguratorComponent extends Component {
     public $Config;
      
-    public function initialize(Controller $controller) {
+    public function startup (Controller $controller) {
+        die("as a asas");
         $ccc = ClassRegistry::init('Risto.Config')->find('all');
 
         foreach( $ccc as $c){

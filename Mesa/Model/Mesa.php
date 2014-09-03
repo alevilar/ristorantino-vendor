@@ -187,7 +187,8 @@ class Mesa extends MesaAppModel {
 		);
 
 		// si no estoy usando cajero, entonces poner como que ya esta cerrada y cobrada
-		if ( !Configure::read('Adicion.usarCajero') )  {
+		$usarCajero = Configure::read('Adicion.usarCajero');
+		if ( !$usarCajero )  {
 			$mesaData['Mesa']['time_cobro'] = date( "Y-m-d H:i:s",strtotime('now'));
 			$mesaData['Mesa']['estado_id']  = MESA_COBRADA;
 		} else {
@@ -195,7 +196,17 @@ class Mesa extends MesaAppModel {
 		}
 
 		if ( $this->save($mesaData, false) ) {
-			$this->printFiscalEvent( $mesa_id );
+			$event = new CakeEvent('Mesa.cerrada', $this, array(
+				  'id' => $mesa_id
+			  ));
+		  	$this->getEventManager()->dispatch($event);
+
+		  	if ( !$usarCajero ) {
+		  		$event = new CakeEvent('Mesa.cobrada', $this, array(
+				  'id' => $mesa_id
+			  	));
+		  		$this->getEventManager()->dispatch($event);
+		  	}
 		} else {
 			throw new Exception("Error al guardar para cerrar mesa");
 		}
