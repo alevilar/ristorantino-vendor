@@ -74,7 +74,7 @@
 
                     <?php 
                     echo $this->fetch("navbar-brand");
-                    echo $this->Html->link(Configure::read('Restaurante.name'), '/', array('class' => 'navbar-brand')) 
+                    echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand')) 
                     ?>
                 </div>
 

@@ -5,7 +5,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 ?>
 <div class="jumbotron">
     <div style="text-align: center">
-    <h1><?php echo Configure::read('Restaurante.name');?></h1>
+    <h1><?php echo Configure::read('Site.name');?></h1>
   
   </div>
   <p>
