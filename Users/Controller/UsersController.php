@@ -47,9 +47,8 @@ class UsersController extends UsersAppController {
 
 
                     $this->User->id = $this->Session->read( 'Auth.User.id');
-                    $usr = $this->User->read();       
-                   // $this->Session->write( 'Auth.User.role', strtolower( Inflector::Slug($usr['Rol']['machin_name']) ) );
-
+                    $usr = $this->Auth->user();
+                    $this->Session->write( 'Auth.User.role', $usr['Rol']['machin_name'] );
                     
                     
                     return $this->redirect($this->Auth->redirect());

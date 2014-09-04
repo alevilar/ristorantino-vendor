@@ -57,7 +57,6 @@ class RistoAppController extends Controller {
 
     function beforeFilter()
      {
-
         parent::beforeFilter();
 
 

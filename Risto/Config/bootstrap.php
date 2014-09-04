@@ -40,41 +40,6 @@ Inflector::rules('plural', array(
 
 
 
-// Read configuration file from ini file
-if ( file_exists(ROOT . "/" . APP_DIR . '/Config/risto.ini') ) {
-    App::uses('IniReader', 'Configure');
-    Configure::config('ini', new IniReader( ROOT . "/" . APP_DIR . '/Config/') );
-    Configure::load('risto', 'ini');      
-} else {
-    throw new CakeException(__d('risto', "No existe el archivo de configuracion risto.php"));
-    
-}
-
-
-
-// Read configuration file from ini file
-if ( file_exists(ROOT . "/" . APP_DIR . '/Config/risto_config.ini') ) {
-    App::uses('IniReader', 'Configure');
-    Configure::config('ini', new IniReader( ROOT . "/" . APP_DIR . '/Config/') );
-    Configure::load('risto_config', 'ini');    
-}
-
-
-
-
-// CakePlugin::loadAll(array(
-//    'Adition',
-//    'Stats',
-// )); 
-
-
-
-
-//reglas en español
-
-
-
-
 
 // CakePlugin::loadAll();
 CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
