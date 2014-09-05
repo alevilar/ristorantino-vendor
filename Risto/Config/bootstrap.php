@@ -1,5 +1,10 @@
 <?php
 
+if ( !defined('ADMIN_ROLE_ID') ) {
+    define('ADMIN_ROLE_ID', 1);
+}
+
+
 
 Inflector::rules('singular', array(
     'rules' => array('/([r|d|j|n|l|m|y|z])es$/i' => '\1', '/as$/i' => 'a', '/([ti])a$/i' => '\1a'),

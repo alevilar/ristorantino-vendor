@@ -38,13 +38,7 @@ class PagesController extends RistoAppController {
 	public $uses = array();
 
 
-	public function beforeFilter() {
-		parent::beforeFilter();
-		
-		if ( $this->request->params['pass'][0] == 'home') {
-			$this->Auth->allow("*");
-		}
-	}
+
 
 /**
  * Displays a view

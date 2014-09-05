@@ -6,10 +6,14 @@
 
 
 	if ( Configure::read('Site.isTenant') ) {
+		//dashboard as homepage
 		Router::connect('/', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'dashboard'));	
 	} else {
-		//dashboard as homepage
-		Router::connect('/', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'home'));
+		Router::redirect(
+		    '/',
+		    array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
+		    array('persist' => true)
+		);
 	}
 	
 	Router::connect('/dashboard', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'dashboard'));	
@@ -22,6 +26,7 @@
 
 
 
+	Router::connect('/home', array('plugin'=>'users','controller' => 'users', 'action' => 'login'));	
 	Router::connect('/users/login', array('plugin'=>'users','controller' => 'users', 'action' => 'login'));	
 	Router::connect('/users/logout', array('plugin'=>'users','controller' => 'users', 'action' => 'logout'));
 

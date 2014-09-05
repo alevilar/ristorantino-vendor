@@ -38,8 +38,8 @@ class RistoAppController extends Controller {
 
     public $components = array(
         'Auth' => array(
-            'loginAction' => '/',
-            'logoutRedirect' => '/',
+            'loginAction' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
+            'logoutRedirect' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
             'loginError' => 'Usuario o Contraseña Incorrectos',
             'authError' => 'Usted no tiene permisos para acceder a esta página.',   
         ),

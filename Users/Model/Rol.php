@@ -44,7 +44,7 @@ class Rol extends UsersAppModel {
  */
 	public $hasMany = array(
 		'User' => array(
-			'className' => 'User.User',
+			'className' => 'Users.User',
 			'foreignKey' => 'rol_id',
 			'dependent' => false,
 			'conditions' => '',
@@ -76,5 +76,6 @@ class Rol extends UsersAppModel {
         public function parentNode(){
             return;
         }
+
 
 }

@@ -81,29 +81,7 @@ class User extends UsersAppModel {
 
     //The Associations below have been created with all possible keys, those that are not needed can be removed
 
-/**
- * belongsTo associations
- *
- * @var array
- */
-    public $belongsTo = array(
-        'Rol' => array(
-            'className' => 'Rol',
-            'foreignKey' => 'rol_id',
-            'conditions' => '',
-            'fields' => '',
-            'order' => ''
-        )
-    );
 
-/**
- * hasMany associations
- *
- * @var array
- */
-    public $hasMany = array(
-        
-    );
                
         
         public function comparePassword($coso) {          
