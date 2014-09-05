@@ -18,7 +18,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('AppController', 'Controller');
+App::uses('RistoAppController', 'Risto.Controller');
 
 /**
  * Static content controller
@@ -28,7 +28,7 @@ App::uses('AppController', 'Controller');
  * @package       app.Controller
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
-class PagesController extends AppController {
+class PagesController extends RistoAppController {
 
 /**
  * This controller does not use a model
@@ -36,6 +36,15 @@ class PagesController extends AppController {
  * @var array
  */
 	public $uses = array();
+
+
+	public function beforeFilter() {
+		parent::beforeFilter();
+		
+		if ( $this->request->params['pass'][0] == 'home') {
+			$this->Auth->allow("*");
+		}
+	}
 
 /**
  * Displays a view

@@ -53,16 +53,7 @@
 
             <div class="container">            
 
-            <?php if ($this->Session->check('Auth.User')): ?>
-                <div class="nav navbar-right text-warning" style="padding: 15px 0px;">
-                    <?php
-                    echo $this->Session->read('Auth.User.nombre') . " " . $this->Session->read('Auth.User.apellido');
-
-                    echo " - " . $this->Session->read('Auth.User.role') . " -";
-                    ?>
-                    <?php echo $this->Html->link('salir', array('controller' => 'users', 'action' => 'logout', 'plugin' => null)); ?>
-                </div>
-            <?php endif; ?>
+                <?php echo $this->element('Risto.user_login_nav'); ?>
 
                 <div class="navbar-header">
                     <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">

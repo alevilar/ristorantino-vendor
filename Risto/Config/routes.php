@@ -5,8 +5,14 @@
 	Router::mapResources('Printers.PrinterJobs');
 
 
-	Router::connect('/', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'home'));
-	Router::connect('/pages/home', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'home'));
+	if ( Configure::read('Site.isTenant') ) {
+		Router::connect('/', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'dashboard'));	
+	} else {
+		//dashboard as homepage
+		Router::connect('/', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'home'));
+	}
+	
+	Router::connect('/dashboard', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'dashboard'));	
 	Router::connect('/pages/administracion', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'administracion'));
 
 /**

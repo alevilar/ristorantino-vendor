@@ -38,10 +38,12 @@ class RistoAppController extends Controller {
 
     public $components = array(
         'Auth' => array(
+            'loginAction' => '/',
             'logoutRedirect' => '/',
+            'loginError' => 'Usuario o Contraseña Incorrectos',
+            'authError' => 'Usted no tiene permisos para acceder a esta página.',   
         ),
         'Acl',
-        'MtSites.MultiTenant',
         'Paginator',      
         'RequestHandler',
         'Session',
@@ -52,23 +54,22 @@ class RistoAppController extends Controller {
                 )
             ),
         
-        'DebugKit.Toolbar',
+        'DebugKit.Toolbar',        
     );
 
-    function beforeFilter()
+    public function beforeFilter()
      {
-        parent::beforeFilter();
+
+        if ( Configure::read('Site.multiTenant') ) {
+            $this->Auth->authorize = array('MtSites.MtSites');
+        }
+
+        parent::beforeFilter();     
 
 
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
 
-
-        $this->Auth->loginError = __('Usuario o Contraseña Incorrectos');
-        $this->Auth->authError = __('Usted no tiene permisos para acceder a esta página.');
-
-            
-        $this->Auth->logoutRedirect = '/';
 
         return true;
         
