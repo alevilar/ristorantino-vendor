@@ -40,9 +40,14 @@ Inflector::rules('plural', array(
 
 
 
+CakePlugin::load('Install', array('bootstrap' => true, 'routes' => true));
 
-// CakePlugin::loadAll();
-CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
+
+if ( Configure::read('Site.multiTenant')) {
+    CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
+}
+
+
 CakePlugin::load('Acl', array('bootstrap' => true));
 
 CakePlugin::load('Aditions', array( 'bootstrap' => true, 'routes' => true ));
