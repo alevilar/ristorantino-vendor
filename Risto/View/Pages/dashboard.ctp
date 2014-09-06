@@ -31,6 +31,11 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
   
   <ul class="dashboard-buttons">
 
+
+    <li>  
+        <?php echo $this->Html->link('Reservas', '/ReservationManager/reservations', array('id' => 'bton-reservations')); ?>
+    </li>
+
     <li>  
         <?php echo $this->Html->link('Estadisticas', array('plugin' => 'stats', 'controller' => 'stats', 'action' => 'mesas_total'), array('id' => 'bton-estadisticas')); ?>
     </li>     

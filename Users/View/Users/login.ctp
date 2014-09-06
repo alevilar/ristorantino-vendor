@@ -29,10 +29,14 @@ if ( !$this->Session->check('Auth.User')): ?>
 	<h3>&nbsp;</h3>
 		<h1>Mis Sitios</h1>
 		<div class="list-group">
-		<?php App::uses('MtSites', 'MtSites.MtSites') ?>
-		<?php foreach ( $this->Session->read('Auth.User.Sites') as $s ): ?>
-			<?php echo  $this->Html->link( $s['name'] , MtSites::urlFromSite($s['alias']), array('class'=>'list-group-item' ));?>
-		<?php endforeach; ?>
+
+		<?php App::uses('MtSites', 'MtSites.MtSites'); ?>
+		<?php if ( $this->Session->check('Auth.User.Sites') ): ?>
+			<?php foreach ( $this->Session->read('Auth.User.Sites') as $s ): ?>
+				<?php echo  $this->Html->link( $s['name'] , MtSites::urlFromSite($s['alias']), array('class'=>'list-group-item' ));?>
+			<?php endforeach; ?>
+		<?php endif; ?>
+
 		 </div>
 <?php endif; ?>
 		

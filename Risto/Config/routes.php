@@ -4,7 +4,6 @@
 
 	Router::mapResources('Printers.PrinterJobs');
 
-
 	if ( Configure::read('Site.isTenant') ) {
 		//dashboard as homepage
 		Router::connect('/', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'dashboard'));	

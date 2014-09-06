@@ -1,9 +1,5 @@
 <?php
 
-if ( !defined('ADMIN_ROLE_ID') ) {
-    define('ADMIN_ROLE_ID', 1);
-}
-
 
 
 Inflector::rules('singular', array(
@@ -45,7 +41,6 @@ Inflector::rules('plural', array(
 
 
 
-CakePlugin::load('Install', array('bootstrap' => true, 'routes' => true));
 
 
 if ( Configure::read('Site.multiTenant')) {
@@ -54,19 +49,12 @@ if ( Configure::read('Site.multiTenant')) {
 
 
 CakePlugin::load('Acl', array('bootstrap' => true));
-
 CakePlugin::load('Aditions', array( 'bootstrap' => true, 'routes' => true ));
 CakePlugin::load('Account', array( 'bootstrap' => true, 'routes' => true ));
-
 CakePlugin::load('Stats', array( 'routes' => true ));
-
-
-
 CakePlugin::load('DebugKit');
 CakePlugin::load('Search');
-
 CakePlugin::load('Printers', array( 'bootstrap' => true ));
-
 CakePlugin::load('Mesa', array( 'routes' => true ));
 
 
@@ -92,16 +80,6 @@ define('DATETIME_NULL', '0000-00-00 00:00:00');
 define('MENU_FOLDER', 'menu');
 define('IMG_MENU', WWW_ROOT . 'img/' . MENU_FOLDER . '/');
 
-
-function comandosDeReinicializacionServidorImpresion($devName = null)
-{
-
-    debug(exec("sh /etc/init.d/spooler_srv stop"));
-    $devName = empty($devName) ? $devName : ' ' . $devName;
-    debug($devName);
-    debug(exec("sh /etc/init.d/spooler_srv start$devName"));
-    exec("cd /");
-}
 
 function jsDate($date)
 {
