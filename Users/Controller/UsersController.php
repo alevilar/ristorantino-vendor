@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 App::uses('UsersAppController', 'Users.Controller');
 
@@ -39,13 +39,20 @@ class UsersController extends UsersAppController {
          * 
          */
         public function login() {
-            if ($this->request->is('post')) {
+            if ( $this->request->is('post') ) {
 
                 if ($this->Auth->login()) {
 
                     $event = new CakeEvent('User.afterLogin', $this);
                     CakeEventManager::instance()->dispatch($event);
-                    return $this->redirect($this->Auth->redirect());
+                    
+                    $this->Session->setFlash('Ha ingresado al sistema', "Risto.flash_success");
+
+                    $red = $this->Auth->redirectUrl();
+                    if ( $red ) {
+                        $this->redirect( $red );
+                    }
+                    return true;
                 } else {
                     $this->Session->setFlash('Usuario o contraseña incorrectos', "Risto.flash_error");
                 }

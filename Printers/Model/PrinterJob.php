@@ -19,4 +19,20 @@ class PrinterJob extends PrintersAppModel {
 			)
 	);
 
+
+
+	public function setup( Model $model, $config = array() ) {
+
+		App::uses('ComandasEventListener', 'Printers.Event');
+		App::uses('ClassRegistry', 'Utility');
+
+
+		ClassRegistry::init('Comanda.Comanda')->getEventManager()->attach( new ComandasEventListener );
+
+
+	}
+
+
+	
+
 }

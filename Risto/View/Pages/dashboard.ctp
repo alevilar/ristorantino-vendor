@@ -11,7 +11,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
   <p>
    <ul class="dashboard-buttons">
     <li>
-        <?php echo $this->Html->link('Adición', '/aditions/adicionar', array('id' => 'bton-adicion')); ?>
+        <?php echo $this->Html->link('Adición', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-adicion')); ?>
     </li>
    
 
@@ -20,7 +20,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
     </li>       
 
     <li>  
-        <?php echo $this->Html->link('Arqueo', '/cash/arqueos', array('id' => 'bton-arqueo')); ?>
+        <?php echo $this->Html->link('Arqueo', array('plugin' => 'cash', 'controller' => 'arqueos'), array('id' => 'bton-arqueo')); ?>
     </li>  
      
 
@@ -33,7 +33,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 
 
     <li>  
-        <?php echo $this->Html->link('Reservas', '/ReservationManager/reservations', array('id' => 'bton-reservations')); ?>
+        <?php echo $this->Html->link('Reservas', array('plugin'=>'reservation_manager', 'controller' => 'reservations'), array('id' => 'bton-reservations')); ?>
     </li>
 
     <li>  
@@ -41,7 +41,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
     </li>     
 
      <li>   
-        <?php echo $this->Html->link('Admin', '/pages/administracion', array('id' => 'bton-admin')); ?>
+        <?php echo $this->Html->link('Admin', array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array('id' => 'bton-admin')); ?>
     </li>
 
        

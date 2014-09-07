@@ -1,3 +1,3 @@
 <?php
 
-Router::connect('/aditions/adicionar', array('plugin'=>'aditions', 'controller' => 'aditions', 'action' => 'adicionar'));
+Router::connect('/:tenant/aditions/adicionar', array('plugin'=>'aditions', 'controller' => 'aditions', 'action' => 'adicionar'));

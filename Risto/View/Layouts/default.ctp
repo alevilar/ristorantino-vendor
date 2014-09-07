@@ -21,9 +21,11 @@
             '/risto/lib/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min',
         ));
 
-        $cssUserRole = "acl-" . $this->Session->read('Auth.User.role');
-        $rootFold = '/risto/css/';
-        echo $this->Html->css('/risto/css/'.$cssUserRole, 'stylesheet', array('media' => 'screen'));
+
+        // CSS by Rol
+        //$cssUserRole = "acl-" . $this->Session->read('Auth.User.role');
+        //$rootFold = '/risto/css/';
+        //echo $this->Html->css('/risto/css/'.$cssUserRole, 'stylesheet', array('media' => 'screen'));
         
         echo $this->Html->script(array(
             '/risto/js/jquery.min',
@@ -65,7 +67,14 @@
 
                     <?php 
                     echo $this->fetch("navbar-brand");
-                    echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand')) 
+
+                    if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
+                        // link a dashboard del sitio tenant
+                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'navbar-brand'));
+                    } else {
+                        // link a HOME
+                        echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand')) ;
+                    }
                     ?>
                 </div>
 
@@ -80,11 +89,10 @@
         <div class="container bs-docs-container" id="content">
 
             <div class="row">
-                <div id="mesajes" class="col-md-12">
+                <div id="mesajes alert  alert-dismissible" class="col-md-12" role="alert">
                     <?php
                     echo $this->Session->flash();
                     echo $this->Session->flash('auth');
-                    echo $this->Session->flash('Auth');
                     ?>
                 </div>
             </div>
@@ -98,11 +106,7 @@
             <div class="container">
                 <div class="logo">
                     <h1><?php echo Configure::read('System.name') . ' ' . Configure::read('System.version') ?></h1>
-                </div>
-
-                <div class="col-md-12">
-                    <?php //echo $this->element('sql_dump'); ?>
-                </div>
+                </div>               
             </div>
         </footer>
     </body>

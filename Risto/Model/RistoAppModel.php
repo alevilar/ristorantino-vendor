@@ -25,7 +25,7 @@ App::uses('Model', 'Model');
  */
 class RistoAppModel extends Model {
 
-	public $actsAs = array( 'Containable');
+	public $actsAs = array( 'Containable', 'MtSites.MultiTenant');
 
 	public function saveAll ( $data = array(), $options = array() ) {
 	    $return = parent::saveAll($data, $options);
@@ -36,11 +36,4 @@ class RistoAppModel extends Model {
 	    return $return;
 	}
 
-	public function __construct () {
-		if ( Configure::read('Site.isTenant') ) {		
-			$this->actsAs[] = 'MtSites.MultiTenant';
-		}
-
-		parent::__construct();
-	}
 }

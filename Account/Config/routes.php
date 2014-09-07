@@ -1,5 +1,5 @@
 <?php
 
-Router::connect('/account', array('plugin'=>'account', 'controller' => 'gastos', 'action'=>'index'));
+Router::connect('/:tenant/account', array('plugin'=>'account', 'controller' => 'gastos', 'action'=>'index'));
 
 

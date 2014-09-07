@@ -3,7 +3,7 @@
     <h2>Usuarios</h2>
     <div class="list-group">
         <?php
-        echo $this->Html->link('Usuarios', '/users/users/index', array('class' => 'list-group-item'));
+        echo $this->Html->link('Usuarios', array('plugin' => 'users', 'controller'=>'user', 'action' => 'index'), array('class' => 'list-group-item'));
         //echo $this->Html->link('Roles', '/users/roles/index', array('class' => 'list-group-item'));
         echo $this->Html->link('Mozos', '/mesa/mozos/index', array('class' => 'list-group-item'));
         ?>
@@ -59,7 +59,7 @@
     <h2>Clientes</h2>
     <div class="list-group">
         <?php
-        echo $this->Html->link('Clientes', '/fidelization/clientes', array('class' => 'list-group-item'));
+        echo $this->Html->link('Clientes', array('plugin'=>'fidelization', 'controller'=>'clientes', 'action', 'index'), array('class' => 'list-group-item'));
         echo $this->Html->link('Descuentos', '/fidelization/descuentos', array('class' => 'list-group-item'));        
         ?>   
     </div>

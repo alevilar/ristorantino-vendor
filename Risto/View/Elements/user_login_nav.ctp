@@ -5,6 +5,6 @@
 
         echo " - " . $this->Session->read('Auth.User.role') . " -";
         ?>
-        <?php echo $this->Html->link('salir', array('controller' => 'users', 'action' => 'logout', 'plugin' => null)); ?>
+        <?php echo $this->Html->link('salir', array('controller' => 'users', 'action' => 'logout', 'plugin' => 'users')); ?>
     </div>
 <?php endif; ?>

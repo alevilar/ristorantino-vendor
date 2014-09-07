@@ -36,17 +36,25 @@ class RistoAppController extends Controller {
     );
 
     public $components = array(
+        'Session',
+        'Cookie',
+        'RequestHandler',
         'Auth' => array(
             'loginAction' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
             'logoutRedirect' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
             'loginError' => 'Usuario o Contraseña Incorrectos',
-            'authError' => 'Usted no tiene permisos para acceder a esta página.',   
+            'authError' => 'Usted no tiene permisos para acceder a esta página.', 
+            'authorize' => array('MtSites.MtSites'),
+            'authenticate' => array(
+                'Form' => array(
+                    'recursive' => 1
+                )
+            ),
+            
         ),
-        'Acl',
+        'MtSites.MtSites',
+    //    'Acl',
         'Paginator',      
-        'RequestHandler',
-        'Session',
-        'Cookie',
         'Search.Prg' => array(
             'presetForm' => array(
                 'paramType' => 'querystring'
@@ -57,13 +65,9 @@ class RistoAppController extends Controller {
     );
 
     public function beforeFilter()
-     {
+     {    
 
-        if ( Configure::read('Site.multiTenant') ) {
-            $this->Auth->authorize = array('MtSites.MtSites');
-        }
-
-        parent::beforeFilter();     
+        parent::beforeFilter();
 
 
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit

@@ -43,12 +43,10 @@ Inflector::rules('plural', array(
 
 
 
-if ( Configure::read('Site.multiTenant')) {
-    CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
-}
+CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
 
 
-CakePlugin::load('Acl', array('bootstrap' => true));
+//CakePlugin::load('Acl', array('bootstrap' => true));
 CakePlugin::load('Aditions', array( 'bootstrap' => true, 'routes' => true ));
 CakePlugin::load('Account', array( 'bootstrap' => true, 'routes' => true ));
 CakePlugin::load('Stats', array( 'routes' => true ));

@@ -27,13 +27,20 @@ if ( !$this->Session->check('Auth.User')): ?>
 		?>
 <?php else: ?>
 	<h3>&nbsp;</h3>
+
+		<?php echo $this->Html->link(__('Add New Site'), array('plugin'=>'MtSites', 'controller'=>'sites', 'action'=>'add'), array('class'=>'btn btn-success btn-lg center')); ?>
+
+		<div class="clearfix"><br /></div>
+
 		<h1>Mis Sitios</h1>
+
+		
 		<div class="list-group">
 
 		<?php App::uses('MtSites', 'MtSites.MtSites'); ?>
 		<?php if ( $this->Session->check('Auth.User.Sites') ): ?>
 			<?php foreach ( $this->Session->read('Auth.User.Sites') as $s ): ?>
-				<?php echo  $this->Html->link( $s['name'] , MtSites::urlFromSite($s['alias']), array('class'=>'list-group-item' ));?>
+				<?php echo  $this->Html->link( $s['name'] , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'list-group-item' ));?>
 			<?php endforeach; ?>
 		<?php endif; ?>
 

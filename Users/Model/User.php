@@ -16,12 +16,16 @@ class User extends UsersAppModel {
  */
     public $displayField = 'username';
 
+
+
+    public $hasAndBelongsToMany = array("MtSites.Site");
+
  /**
  * Act As Behaviour
  *
  * @var array
  */       
-    public $actsAs = array('Acl' => array('type' => 'requester'));
+   // public $actsAs = array('Acl' => array('type' => 'requester'));
         
         
         
