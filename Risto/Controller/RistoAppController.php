@@ -52,7 +52,6 @@ class RistoAppController extends Controller {
             ),
             
         ),
-        'MtSites.MtSites',
     //    'Acl',
         'Paginator',      
         'Search.Prg' => array(
