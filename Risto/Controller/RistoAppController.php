@@ -39,6 +39,7 @@ class RistoAppController extends Controller {
         'Session',
         'Cookie',
         'RequestHandler',
+        'MtSites.MtSites',
         'Auth' => array(
             'loginAction' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
             'logoutRedirect' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
