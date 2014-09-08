@@ -315,7 +315,7 @@ App.module("mesaApp", function(mesaApp, App, Backbone, Marionette, $, _, appComa
         },
         cambiarCubiertos: function() {
             var oldNum = this.model.get('cant_comensales');
-            var num = window.prompt("Cantidad de Cubiertos", oldNum);
+            var num = window.prompt("Cantidad de "+Risto.TITULO_CUBIERTO, oldNum);
             if (num && oldNum != num) {
                 this.model.save({
                     'cant_comensales': num
@@ -325,7 +325,7 @@ App.module("mesaApp", function(mesaApp, App, Backbone, Marionette, $, _, appComa
         },
         cambiarNumero: function() {
             var oldNum = this.model.get('numero');
-            var num = window.prompt("Numero de mesa", oldNum);
+            var num = window.prompt("Numero de "+Risto.TITULO_MESA, oldNum);
             if (num && oldNum != num) {
                 this.model.save({
                     'numero': num
@@ -365,7 +365,7 @@ App.module("mesaApp", function(mesaApp, App, Backbone, Marionette, $, _, appComa
             if (cc && cc.id) {
                 this.$('#btn-mesa-clientes').text(cc.nombre);
             } else {
-                this.$('#btn-mesa-clientes').text("Cliente");
+                this.$('#btn-mesa-clientes').text(Risto.TITULO_CLIENTE);
             }
             return this;
         }

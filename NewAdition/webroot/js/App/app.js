@@ -107,7 +107,7 @@ App = (function(Backbone, Marionette) {
             if (cc) {
                 this.$('#btn-mesa-cubiertos').text(cc);
             } else {
-                this.$('#btn-mesa-cubiertos').text("Cubiertos");
+                this.$('#btn-mesa-cubiertos').text(Risto.TITULO_CUBIERTO);
             }
             return this;
         },

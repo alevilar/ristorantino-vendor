@@ -1,21 +1,21 @@
 <table class="table">
 <tr>
-	<th><?php echo $this->Paginator->sort('Mesa','numero');?></th>
-	<th><?php echo $this->Paginator->sort('Nº de Mozo','mozo_id');?></th>
+	<th><?php echo $this->Paginator->sort( 'numero', Configure::read('Mesa.tituloMesa'));?></th>
+	<th><?php echo $this->Paginator->sort('mozo_id', __('Nº de %s', Configure::read('Mesa.tituloMozo') ));?></th>
 	<th><?php echo $this->Paginator->sort('total');?></th>
         <th>Descuento</th>
-        <th><?php echo $this->Paginator->sort('Cubiertos','cant_comensales');?></th>
+        <th><?php echo $this->Paginator->sort('cant_comensales', Inflector::pluralize(Configure::read('Mesa.tituloCubierto')) );?></th>
 	<th>
-        <?php echo $this->Paginator->sort('Fecha Abrió','created');?><br />
+        <?php echo $this->Paginator->sort('created', 'Fecha Abrió');?><br />
         </th>
         <th>
-        <?php echo $this->Paginator->sort('Fecha Cerró','time_cerro');?><br />
+        <?php echo $this->Paginator->sort('time_cerro', 'Fecha Cerró');?><br />
         </th>
         <th>
-        <?php echo $this->Paginator->sort('Fecha Cobró','time_cobro');?><br />
+        <?php echo $this->Paginator->sort('time_cobro', 'Fecha Cobró');?><br />
         </th>
 	<th>Factura</th>
-        <th><?php echo $this->Paginator->sort('Cliente','Cliente.nombre');?></th>
+        <th><?php echo $this->Paginator->sort('Cliente.nombre', Configure::read('Mesa.tituloCliente'));?></th>
 
 
 	<th class="actions"><?php __('Acciones');?></th>
@@ -102,9 +102,12 @@ foreach ($mesas as $mozo):
 			
                         <?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $mozo['Mesa']['id'])); ?>
 			</br>
-                        <?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $mozo['Mesa']['id']), null, sprintf(__('¿Esta seguro que quiere borrar la mesa nº %s?\nSi se elimina se perderán los pedidos y no sera computada en las estadísticas.', true), $mozo['Mesa']['numero'])); ?>
+                        <?php echo $this->Html->link(__('Borrar', true)
+                        						, array('action'=>'delete', $mozo['Mesa']['id'])
+                        						, null
+                        						, sprintf(__('¿Esta seguro que quiere borrar la %s nº %s?\nSi se elimina se perderán los pedidos y no sera computada en las estadísticas.', true), Configure::read('Mesa.tituloMesa'), $mozo['Mesa']['numero'])); ?>
                         </br>
-                        <?php echo $this->Html->link(__('Imprimir Ticket', true), array('action'=>'imprimirTicket', $mozo['Mesa']['id']), null, sprintf(__('¿Desea imprimir el ticket de la mesa nº %s?', true), $mozo['Mesa']['numero'])); ?>
+                        <?php echo $this->Html->link(__('Imprimir Ticket', true), array('action'=>'imprimirTicket', $mozo['Mesa']['id']), null, sprintf(__('¿Desea imprimir el ticket nº %s?', true), $mozo['Mesa']['numero'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>      

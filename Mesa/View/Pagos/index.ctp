@@ -19,8 +19,8 @@ $this->Paginator->options(array('url' => $this->request->query));
 <thead>
 <tr>
 	<th>&nbsp;</th>
-        <th><?php echo $this->Form->input('mozo_id', array('placeholder' => 'N°Mozo', 'label' => false, 'empty' => 'Seleccione')); ?></th>
-	<th><?php echo $this->Form->input('mesa_numero', array('placeholder' => 'N°Mesa', 'label' => false)); ?></th>
+        <th><?php echo $this->Form->input('mozo_id', array('placeholder' => __('N° %s', Configure::read('Mesa.tituloMozo')), 'label' => false, 'empty' => 'Seleccione')); ?></th>
+	<th><?php echo $this->Form->input('mesa_numero', array('placeholder' => __('N° %s', Configure::read('Mesa.tituloMesa')), 'label' => false)); ?></th>
 	<th><?php echo $this->Form->input('Pago.tipo_de_pago_id', array('placeholder' => 'Tipo de Pago', 'label' => false, 'empty' => 'Seleccione')); ?></th>
 	<th>
             <?php echo $this->Form->input('Pago.valor', array('placeholder' => 'Valor', 'label' => false)); ?>            
@@ -52,7 +52,7 @@ $this->Paginator->options(array('url' => $this->request->query));
 <thead>
 <tr>
 	<th><?php echo $this->Paginator->sort('id');?></th>
-        <th>Mozo</th>
+        <th><?php echo Configure::read('Mesa.tituloMozo') ?></th>
 	<th><?php echo $this->Paginator->sort('Mesa','Mesa.numero');?></th>
 	<th><?php echo $this->Paginator->sort('Tipo de Pago','TipoDePago.nombre');?></th>
 	<th><?php echo $this->Paginator->sort('valor');?></th>

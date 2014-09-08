@@ -61,8 +61,8 @@
 
         echo "\n\n";
 
-        $tail  = " \n - MOZO: ".$mesa;
-        $tail .= " \n - MESA: ".$mesa."\n";
+        $tail  = " \n - " . strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$mozo;
+        $tail .= " \n - " . strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$mesa."\n";
         echo $tail;
 
         //  retorno de carro

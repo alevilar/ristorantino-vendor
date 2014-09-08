@@ -1,7 +1,7 @@
 <div data-role="page" id="clientes-addfacturaa">
 
 <div data-role="header">
-    <h1>Clientes</h1>
+    <h1><?php echo Inflector::pluralize( Configure::read('Mesa.tituloCliente')) ?></h1>
 </div>
     
 <div data-role="content" data-theme="f">

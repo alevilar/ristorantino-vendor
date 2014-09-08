@@ -17,7 +17,7 @@
 		<li><?php echo $this->Html->link(__('List Iva Responsabilidades'), array('action' => 'index')); ?></li>
 		<li><?php echo $this->Html->link(__('List Tipo Facturas'), array('controller' => 'tipo_facturas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tipo Factura'), array('controller' => 'tipo_facturas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List %s', Inflector::pluralize(Configure::read('Mesa.tituloCliente'))), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New %s', Configure::read('Mesa.tituloCliente')), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

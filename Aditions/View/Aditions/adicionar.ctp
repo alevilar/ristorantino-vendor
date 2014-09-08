@@ -106,7 +106,7 @@
             
             <a href="#" onclick="window.location.reload(true);" data-ajax="false" data-role="button" data-icon="refresh">Refrescar Adición</a>
             
-            <a href="<?php echo $this->Html->url('/mesas/cobradas');?>" data-role="button" data-rel="dialog">Mesas Cobradas</a>
+            <a href="<?php echo $this->Html->url('/mesas/cobradas');?>" data-role="button" data-rel="dialog"><?php echo __('%s Cobradas', Inflector::pluralize( Configure::read('Mesa.tituloMesa')) ) ?></a>
             
             <a href="#" data-role="button" title="Actualizar Menú" onclick="Risto.Adition.menu.update()"><?php echo $this->Html->image('refresh.png', array('class'=> 'btn-comanda-icon'))?> Actualizar Menú</a>
             
@@ -198,8 +198,8 @@
                 <div id="add-mesa-paso3" style="display: none">
                     
                     <fieldset data-role="fieldcontain">
-                        <h3 class="cubiertos">Cubiertos</h3>
-                            <label for="mesa-add-cant_comensales">Ingresar la cantidad de Cubiertos</label>
+                        <h3 class="cubiertos"><?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto')) ?></h3>
+                            <label for="mesa-add-cant_comensales"><?php echo __( 'Ingresar la cantidad de %s', Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))) ?></label>
                             <input type="number" name="cant_comensales" id="mesa-add-cant_comensales"/>
 
                             <div class="ui-grid-a">
@@ -282,7 +282,7 @@
                     <li id="mesa-action-cliente" data-bind="attr: {'estado': 'mesa-cliente_'+adn().currentMesa().estado().icon}">
                         <a href="<?php echo $this->Html->url('/clientes/jqm_clientes')?>" data-rel="dialog">
                                 <?= $this->Html->image('/aditions/css/img/customers.png')?>
-                            <span data-bind="visible: !adn().currentMesa().Cliente()">Agregar Cliente</span>
+                            <span data-bind="visible: !adn().currentMesa().Cliente()"><?php echo __('Agregar %s', Configure::read('Mesa.tituloCliente')) ?></span>
                             <span data-bind="visible: adn().currentMesa().Cliente()" style="white-space: normal"><span data-bind="text: adn().currentMesa().clienteNameData()"></span></span>
                         </a>
                     </li>
@@ -350,9 +350,9 @@
     
     <div data-role="footer">
         <h3>
-            <span id="mesa-cant-comensales"  style="float: left">
-                <a data-role="button" data-bind="visible: !adn().currentMesa().cant_comensales()">Ingresar Cubiertos</a>
-                <span data-bind="visible: adn().currentMesa().cant_comensales() > 0"><span data-bind="text: adn().currentMesa().cant_comensales()"></span> Cubiertos</span>
+            <span id="mesa-cant-comensales"  style="float: left">            
+                <a data-role="button" data-bind="visible: !adn().currentMesa().cant_comensales()"><?php echo __( 'Ingresar %s', Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))) ?></a>
+                <span data-bind="visible: adn().currentMesa().cant_comensales() > 0"><span data-bind="text: adn().currentMesa().cant_comensales()"></span> <?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))  ?></span>
             </span>
             <span class="mesa-total"><span data-bind="text: adn().currentMesa().textoTotalCalculado()"></span></span>
             <span class="hora-abrio">Abrió a las <span data-bind="text: adn().currentMesa().timeCreated()"></span></span>

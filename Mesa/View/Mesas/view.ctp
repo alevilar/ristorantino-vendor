@@ -42,10 +42,10 @@
                     <li><a href="<?php echo $this->Html->url('/comandas/add')?>" daxta-bind="attr: {href: currentMesa().urlComandaAdd()}" ><?= $this->Html->image('/adition/css/img/chef_64.png')?>Comanda</a></li>
                     <li><a href="<?= $this->Html->url('/pages/panel')?>" >PAnel</a></li>
                     <li><a href="#sacar-item" >Sacar Item</a></li>
-                    <li><a href="#Agregar Cliente" >Agregar Cliente</a></li>
+                    <li><a href="#Agregar Cliente" ><?php echo __( 'Agregar %s', Configure::read('Mesa.tituloCliente')) ?></a></li>
                     <li><a href="#Agragar Descuento" >Agregar Descuento</a></li>
-                    <li><a href="#Cerrar-mesa" >Cerrar Mesa</a></li>
-                    <li><a href="#cambiar-mozo" >Cambiar Mozo</a></li>
+                    <li><a href="#Cerrar-mesa" ><?php echo __('Cerrar %s',  Configure::read('Mesa.tituloMesa')) ?></a></li>
+                    <li><a href="#cambiar-mozo" ><?php echo __('Cambiar %s',  Configure::read('Mesa.tituloMozo')) ?></a></li>
                     <li><a href="#Cambiar N° Mesa" >Cambiar N°</a></li>
                     <li><a href="#re-print" >Re imprimir Ticket</a></li>
                     <li><a href="#Borrar-mesa" >Borrar Mesa</a></li>

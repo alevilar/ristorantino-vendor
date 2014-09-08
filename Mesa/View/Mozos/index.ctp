@@ -6,8 +6,8 @@ $this->Paginator->options(array('url' => $this->passedArgs));
 
 <div class="mozos index">
 
-<?php echo $this->Html->link(__('Crear Mozo'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')); ?>
-	<h1>Mozos</h1>
+<?php echo $this->Html->link(__('Crear %s', Configure::read('Mesa.tituloMozo') ), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')); ?>
+	<h1><?php echo Inflector::pluralize( Configure::read('Mesa.tituloMozo') ); ?></h1>
 
 <p>
 <?php
@@ -51,9 +51,7 @@ foreach ($mozos as $mesa):
 			<?php // echo $this->Html->link(__('View'), array('action'=>'view', $mozo['Mozo']['id'])); ?>
 			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $mesa['Mozo']['id'])); ?>
 			<?php
-                        if ($this->Session->read('Auth.User.role') == 'superuser') {
-                            echo $this->Html->link(__('Delete'), array('action'=>'delete', $mesa['Mozo']['id']), null, sprintf(__('¿Desea borrar el mozo nº # %s?. Si borra el mozo desaparecerá de las estadísticas.'), $mesa['Mozo']['numero']));
-                        }
+               	 echo $this->Html->link(__('Delete'), array('action'=>'delete', $mesa['Mozo']['id']), null, __('¿Desea borrar el %s nº # %s?. Si lo borra perderá las estadísticas.\n Mejor por que no prueba editándolo y desactivarlo?', Configure::read('Mesa.tituloMozo'), $mesa['Mozo']['numero']));
                         ?>
 		</td>
 	</tr>

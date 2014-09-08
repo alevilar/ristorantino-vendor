@@ -23,9 +23,11 @@
 
 
         // CSS by Rol
-        //$cssUserRole = "acl-" . $this->Session->read('Auth.User.role');
-        //$rootFold = '/risto/css/';
-        //echo $this->Html->css('/risto/css/'.$cssUserRole, 'stylesheet', array('media' => 'screen'));
+        $cssUserRole = "acl-" . $this->Session->read('MtSites.current_role');
+        $ppath = App::pluginPath('Risto');
+        if ( file_exists( $ppath . DS . 'webroot' . DS . 'css' . $cssUserRole . '.css') ) {
+            echo $this->Html->css('/risto/css/'.$cssUserRole, 'stylesheet', array('media' => 'screen'));
+        }
         
         echo $this->Html->script(array(
             '/risto/js/jquery.min',

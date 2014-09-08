@@ -302,7 +302,7 @@ Risto.Adition.adicionar = {
      *  Tira un prompt para settear la cantidad de cubiertos
      */
     agregarCantCubiertos: function(){
-        var menu = prompt('Ingrese cantidad de Cubiertos', this.currentMesa().cant_comensales());
+        var menu = prompt('Ingrese la cantidad', this.currentMesa().cant_comensales());
         menu = parseInt(menu);
         
         if ( menu && typeof menu == 'number' && menu > 0) {

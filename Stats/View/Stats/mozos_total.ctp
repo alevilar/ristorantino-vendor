@@ -23,7 +23,7 @@
     <table class="table table-bordered table-condensed table-responsive table-striped ">
         <thead>
             <tr>
-                <th class="text-center">Mozo N°</th>
+                <th class="text-center"><?php echo __( '%s N°', Configure::read('Mesa.tituloMozo')) ?></th>
                 <?php foreach ($mozos as $mz) { ?>
                 <th colspan="2" class="text-center"><?php echo $mz ?></th>
                 <?php } ?>

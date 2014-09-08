@@ -36,7 +36,7 @@
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<?php echo $tipoDePago['Pago']['id'];?>
 &nbsp;</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Mesa Id');?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('%s Id', Configure::read('Mesa.tituloMesa'));?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 	<?php echo $tipoDePago['Pago']['mesa_id'];?>
 &nbsp;</dd>
@@ -62,7 +62,7 @@
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
 		<th><?php __('Id'); ?></th>
-		<th><?php __('Mesa Id'); ?></th>
+		<th><?php __('%s Id', Configure::read('Mesa.tituloMesa')); ?></th>
 		<th><?php __('Tipo De Pago Id'); ?></th>
 		<th><?php __('Valor'); ?></th>
 		<th class="actions"><?php __('Actions');?></th>

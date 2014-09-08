@@ -81,7 +81,7 @@ class Printer extends PrintersAppModel {
 							,array(
 								'fields'=>array(
 									'id',
-									'description'
+									'name'
 									)
 							, 'conditions' => array(
 								'Printer.driver <>'=>'Fiscal') 

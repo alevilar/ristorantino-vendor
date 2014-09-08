@@ -50,7 +50,7 @@
                 Zeta Neto: <b><?php echo $this->Number->currency($zeta_neto_total,'$', array('places'=>0)) ?></b><br>
                 Zeta Iva: <b><?php echo $this->Number->currency($zeta_iva_total,'$', array('places'=>0)) ?></b><br>
 
-                <p>Cantidad de cubiertos: <b><?php echo $resumenCuadro['cubiertos'] ?></b></p>
+                <p>Cantidad de <?php echo Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) ?>: <b><?php echo $resumenCuadro['cubiertos'] ?></b></p>
             </div>
 
             <div class="col-md-6">
@@ -112,14 +112,14 @@
                             } else {
                                 echo('class="colordos"');
                             }
-                            ?>>Mesas</th>
+                            ?>><?php echo Inflector::pluralize(Configure::read('Mesa.tituloMesa')) ?></th>
                             <th <?php
                             if ($i == 0) {
                                 echo('class="coloruno"');
                             } else {
                                 echo('class="colortres"');
                             }
-                            ?>>Cubiertos</th>
+                            ?>><?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto')) ?></th>
 
                         </tr>
                     </thead>
@@ -157,7 +157,7 @@
                             }
                         } else {
                             echo('<td>');
-                            echo('No se encontraron mesas');
+                            echo __('No se encontraron %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa')) );
                             echo('</td>');
                             echo('<td>');
                             echo('-');

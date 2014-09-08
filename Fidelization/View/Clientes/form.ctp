@@ -1,7 +1,7 @@
 <div class="clientes form">
 <?php echo $this->Form->create('Cliente'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit Cliente'); ?></legend>
+		<legend><?php echo __('Edit %s', Configure::read('Mesa.tituloCliente')); ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		

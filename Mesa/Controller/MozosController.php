@@ -35,10 +35,10 @@ class MozosController extends MesaAppController {
 	public function add() {
 		if (!empty($this->request->data)) {
 			if ($this->Mozo->save($this->request->data)) {
-				$this->Session->setFlash(__('The Mozo has been saved'), 'Risto.flash_success');
+				$this->Session->setFlash(__('The %s has been saved', Configure::read('Mesa.tituloMozo')), 'Risto.flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Mozo could not be saved. Please, try again.'),'Risto.flash_error');
+				$this->Session->setFlash(__('The %s could not be saved. Please, try again.',  Configure::read('Mesa.tituloMozo') ),'Risto.flash_error');
 			}
 		}
 		$this->render('edit');
@@ -54,10 +54,10 @@ class MozosController extends MesaAppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Mozo->save($this->request->data)) {
-				$this->Session->setFlash(__('The mozo has been saved'), 'Risto.flash_success');
+				$this->Session->setFlash(__('The %s has been saved',  Configure::read('Mesa.tituloMozo')), 'Risto.flash_success');
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The mozo could not be saved. Please, try again.'),'Risto.flash_error');
+				$this->Session->setFlash(__('The %s could not be saved. Please, try again.',  Configure::read('Mesa.tituloMozo') ),'Risto.flash_error');
 			}
 		} else {
 			$this->request->data = $this->Mozo->read(null, $id);
@@ -67,11 +67,11 @@ class MozosController extends MesaAppController {
 
 	public function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Mozo'));
+			$this->Session->setFlash(__('Invalid id for %s',  Configure::read('Mesa.tituloMozo')));
 			$this->redirect(array('action'=>'index'),'Risto.flash_error');
 		}
 		if ($this->Mozo->delete($id)) {
-			$this->Session->setFlash(__('Mozo deleted'),'Risto.flash_success');
+			$this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMozo')),'Risto.flash_success');
 			$this->redirect(array('action'=>'index'));
 		}
 	}

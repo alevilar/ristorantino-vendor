@@ -16,7 +16,7 @@ if( $this->name == 'Stats' && $this->action == 'tipos_de_pago') {
      <ul class="nav navbar-nav">
         <li class="<?php echo $c1?>"><?php echo $this->Html->link('Ventas totales','/stats/mesas_total',array('class'=>'ventas'));?></li>
         
-        <li class="<?php echo $c2?>"><?php echo $this->Html->link('Ventas Mozo','/stats/mozos_total',array('class'=>'ventas'));?></li>
+        <li class="<?php echo $c2?>"><?php echo $this->Html->link(__('Ventas x %s', Configure::read('Mesa.tituloMozo') ),'/stats/mozos_total',array('class'=>'ventas'));?></li>
         
         <li class="<?php echo $c3?>"><?php echo $this->Html->link('Tipos de Pago','/stats/tipos_de_pago',array('class'=>'ventas'));?></li>
         

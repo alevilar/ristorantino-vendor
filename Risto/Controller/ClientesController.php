@@ -69,10 +69,10 @@ class ClientesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Cliente->create();
 			if ($this->Cliente->save($this->request->data)) {
-				$this->Session->setFlash(__('The cliente has been saved.'));
+				$this->Session->setFlash(__('The %s has been saved.', Configure::read('Mesa.tituloCliente')));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The cliente could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The %s could not be saved. Please, try again.', Configure::read('Mesa.tituloCliente')));
 			}
 		}
 		$descuentos = $this->Cliente->Descuento->find('list');
@@ -90,14 +90,14 @@ class ClientesController extends AppController {
  */
 	public function edit($id = null) {
 		if (!$this->Cliente->exists($id)) {
-			throw new NotFoundException(__('Invalid cliente'));
+			throw new NotFoundException(__('Invalid %s', Configure::read('Mesa.tituloCliente')));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Cliente->save($this->request->data)) {
-				$this->Session->setFlash(__('The cliente has been saved.'));
+				$this->Session->setFlash(__('The %s has been saved.', Configure::read('Mesa.tituloCliente')));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The cliente could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The %s could not be saved. Please, try again.', Configure::read('Mesa.tituloCliente')));
 			}
 		} else {
 			$options = array('conditions' => array('Cliente.' . $this->Cliente->primaryKey => $id));
@@ -119,13 +119,13 @@ class ClientesController extends AppController {
 	public function delete($id = null) {
 		$this->Cliente->id = $id;
 		if (!$this->Cliente->exists()) {
-			throw new NotFoundException(__('Invalid cliente'));
+			throw new NotFoundException(__('Invalid %s', Configure::read('Mesa.tituloCliente')));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Cliente->delete()) {
-			$this->Session->setFlash(__('The cliente has been deleted.'));
+			$this->Session->setFlash(__('The %s has been deleted.', Configure::read('Mesa.tituloCliente')));
 		} else {
-			$this->Session->setFlash(__('The cliente could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('The %s could not be deleted. Please, try again.', Configure::read('Mesa.tituloCliente')));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}}

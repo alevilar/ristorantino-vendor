@@ -4,7 +4,9 @@
  		<legend>Editando Pago</legend>
                 
                 <p>
-                <h4>Mesa N° <?php echo $mesa['Mesa']['numero']?>, Mozo <?php echo $mesa['Mozo']['numero']?></h4>
+                <h4>
+                <?php echo __( '%s Nº %s, %s %s', Configure::read('Mesa.tituloMesa'),  $mesa['Mesa']['numero'], Configure::read('Mesa.tituloMozo'),$mesa['Mozo']['numero'] ); ?>
+                </h4>
                     Hora de apertura: <?php echo strftime('%a %e de %B %H:%M', strtotime($mesa['Mesa']['created']))?><br>
                     Hora de cierre: <?php echo strftime('%a %e de %B %H:%M', strtotime($mesa['Mesa']['time_cerro']))?><br>
                     Hora de cobro: <?php echo strftime('%a %e de %B %H:%M', strtotime($mesa['Mesa']['time_cobro']))?>

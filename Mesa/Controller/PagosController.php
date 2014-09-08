@@ -42,7 +42,7 @@ public function view($id = null) {
 
 public function addForMesa ( $mesa_id ) {
   if (!$this->Pago->Mesa->exists( $mesa_id ) ) {
-      throw new NotFoundException(__('Invalid Mesa'));
+      throw new NotFoundException(__('Invalid %s', Configure::read('Mesa.tituloMesa')));
   }
 
   if ($this->request->is('post')) {

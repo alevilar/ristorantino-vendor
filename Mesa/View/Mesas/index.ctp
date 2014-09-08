@@ -16,13 +16,13 @@ echo $this->Html->script('mesas/index_head', false);
         
         <?php echo $this->Form->create("Mesa", array("action" => "index")); ?>
         <div class=" col-md-1">
-            <?php echo $this->Form->input('numero', array('label' => 'N°Mesa', 'required'=>false)); ?>
-            <?php echo $this->Form->input('mozo_numero', array('label' => 'N°Mozo')); ?>
+            <?php echo $this->Form->input('numero', array('label' => __('N° %s', Configure::read('Mesa.tituloMesa') ), 'required'=>false)); ?>
+            <?php echo $this->Form->input('mozo_numero', array('label' => __('N° %s', Configure::read('Mesa.tituloMozo') ))); ?>
         </div>
         <div class="col-md-2">
             <?php echo $this->Form->input('total', array('label' => 'Importe'));
             echo $this->Form->input('estado_id', array(
-                'label' => '¿Qué mesas?',
+                'label' => __('¿Qué %s?', Inflector::pluralize( Configure::read('Mesa.tituloMesa')) ),
                 'type' => 'select',
                 'empty' => 'Seleccione',                
             ));
@@ -100,7 +100,11 @@ echo $this->Html->script('mesas/index_head', false);
         if ($this->Paginator->params['paging']['Mesa']['count'] != 0) {
             echo $this->element('listado_tabla');
         } else {
-            echo('</br><strong>No se encontraron mesas</strong>');
+            ?>
+            </br>
+            <strong>            
+                <?php  echo __( 'No se encontraron %s', Inflector::pluralize(Configure::read('Mesa.tituloMesa') ) ); ?>
+            </strong>
         }
         ?>
 

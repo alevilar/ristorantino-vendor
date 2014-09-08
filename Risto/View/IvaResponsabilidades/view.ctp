@@ -32,12 +32,11 @@
 		<li><?php echo $this->Html->link(__('New Iva Responsabilidad'), array('action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Tipo Facturas'), array('controller' => 'tipo_facturas', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tipo Factura'), array('controller' => 'tipo_facturas', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Clientes'), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
-	</ul>
+		<li><?php echo $this->Html->link(__('List %s', Inflector::pluralize(Configure::read('Mesa.tituloCliente'))), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New %s', Configure::read('Mesa.tituloCliente')), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Clientes'); ?></h3>
+	<h3><?php echo __('Related %s', Inflector::pluralize( Configure::read('Mesa.tituloCliente'))); ?></h3>
 	<?php if (!empty($ivaResponsabilidad['Cliente'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
@@ -81,7 +80,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Cliente'), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
+			<li><?php echo $this->Html->link(__('New %s', Configure::read('Mesa.tituloCliente')), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
 		</ul>
 	</div>
 </div>

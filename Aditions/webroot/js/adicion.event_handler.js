@@ -138,7 +138,7 @@ $raeh = Risto.Adition.EventHandler = {
             url: Risto.Adition.adicionar.currentMesa().urlEdit(),
             error: function(){
                 Risto.Adition.adicionar.currentMesa().setMozo( mozoAnterior );
-                alert("debido a un error en el servidor, el mozo no fue modificado");
+                alert("debido a un error en el servidor, el "+ Risto.TITULO_MOZO +" no fue modificado");
             }
         }
 
@@ -165,7 +165,7 @@ $raeh = Risto.Adition.EventHandler = {
             url: Risto.Adition.adicionar.currentMesa().urlEdit(),
             error: function(){
                 Risto.Adition.adicionar.currentMesa().numero( numAnt );
-                alert("debido a un error en el servidor, el numero de mesa no fue modificado");
+                alert("debido a un error en el servidor, el numero de "+ Risto.TITULO_MESA +" no fue modificado");
             }
         }
         $cakeSaver.send(sendOb);

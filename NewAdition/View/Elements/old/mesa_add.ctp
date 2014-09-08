@@ -19,8 +19,9 @@
                 <div id="add-mesa-paso2">
                     
                     <fieldset data-role="fieldcontain">
-                        <h3 class="cubiertos">Cubiertos</h3>
-                            <label for="mesa-add-cant_comensales">Ingresar la cantidad de Cubiertos</label>
+                        <h3 class="cubiertos"><?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto')) ?></h3>
+                            <label for="mesa-add-cant_comensales"><?php echo __( 'Ingresar la cantidad de %s',Inflector::pluralize(Configure::read('Mesa.tituloCubierto')) ?>
+                            </label>
                             <input type="number" name="cant_comensales" id="mesa-add-cant_comensales"/>
 
                             <div class="ui-grid-a">

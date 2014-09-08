@@ -365,7 +365,7 @@ $(document).bind("mobileinit", function(){
                         }
 
                         if (rta[r].name == 'cant_comensales' && !rta[r].value && Risto.Adition.cubiertosObligatorios){
-                            alert("Debe indicar la cantidad de cubiertos");
+                            alert("Debe indicar la cantidad de "+Risto.TITULO_CUBIERTO);
                             return false;
                         }
                         miniMesa[rta[r].name] = rta[r].value;

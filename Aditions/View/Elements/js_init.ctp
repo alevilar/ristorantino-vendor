@@ -19,6 +19,8 @@
             
         Risto.TITULO_MESA = "<?php echo Configure::read('Mesa.tituloMesa')?>";
         Risto.TITULO_MOZO = "<?php echo Configure::read('Mesa.tituloMozo')?>";
+        Risto.TITULO_CUBIERTO = "<?php echo Inflector::pluralize( Configure::read('Mesa.tituloCubierto') )?>";
+        Risto.TITULO_CLIENTE = "<?php echo Configure::read('Mesa.tituloCliente')?>";
 
         Risto.DEFAULT_TIPOFACTURA_NAME = "<?php echo Configure::read('Restaurante.tipofactura_name')?>";
         

@@ -1,5 +1,5 @@
 <div class="clientes index">
-	<h2><?php echo __('Clientes'); ?></h2>
+	<h2><?php echo Inflector::pluralize( Configure::read('Mesa.tituloCliente')) ?></h2>
 	<table class="table">
             
             <thead>
@@ -96,7 +96,7 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Cliente'), array('action' => 'add')); ?></li>
+		<li><?php echo $this->Html->link(__('New %s', Configure::read('Mesa.tituloCliente')), array('action' => 'add')); ?></li>
 		<li><?php echo $this->Html->link(__('List Descuentos'), array('controller' => 'descuentos', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Descuento'), array('controller' => 'descuentos', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Tipo Documentos'), array('controller' => 'tipo_documentos', 'action' => 'index')); ?> </li>

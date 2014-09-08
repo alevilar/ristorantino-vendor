@@ -85,7 +85,7 @@
 
 
             <a id="btn-mesa-clientes" href="<?php echo $this->Html->url('/clientes/all_clientes') ?>" data-rel="dialog" data-role="button">
-                <span>Cliente</span>
+                <span><?php echo Configure::read('Mesa.tituloCliente') ?></span>
             </a>
 
             <a id="btn-mesa-descuento" href="<?php echo $this->Html->url('/descuentos') ?>" data-rel="dialog" data-role="button">
@@ -121,7 +121,7 @@
             </a>
 
             <a id="btn-mesa-cubiertos" href="#mesa-cambiar-cubiertos" data-rel="dialog" data-role="button">
-                <span>Cubiertos</span>                            
+                <span><?php echo Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) ?></span>                            
             </a>
         </div>
 

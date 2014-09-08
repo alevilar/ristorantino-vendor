@@ -241,16 +241,16 @@ class MesasController extends MesaAppController {
 
 
         if (!$id && !$this->request->is('post') ) {
-            $this->Session->setFlash(__('Invalid Mesa', 'Risto.flash_error'));
+            $this->Session->setFlash(__('Invalid Id', 'Risto.flash_error'));
             $this->redirect(array('action'=>'index'));
         }
 
         if ($this->request->is(array('post', 'put'))) {
             if ($this->Mesa->save($this->request->data)) {
-                $this->Session->setFlash(__('La mesa fue editada correctamente', 'Risto.flash_success'));
+                $this->Session->setFlash(__('Se ha editado correctamente', 'Risto.flash_success'));
                 $this->redirect(array('action'=>'index'));
             } else {
-                $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'Risto.flash_error'));
+                $this->Session->setFlash(__('No se ha podido guardar. Intente nuevamente.', 'Risto.flash_error'));
             }
         }
 
@@ -289,10 +289,10 @@ class MesasController extends MesaAppController {
 
     public function delete($id = null) {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid id for Mesa', true));
+            $this->Session->setFlash(__('Invalid id for %s', Configure::read('Mesa.tituloMesa')));
         }
         if ($this->Mesa->delete($id)) {
-            $this->Session->setFlash(__('Mesa deleted', true));     
+            $this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMesa')));     
         } else {
         }
         if (!$this->request->is('ajax')){
@@ -334,7 +334,7 @@ class MesasController extends MesaAppController {
 
     public function reabrir($id){
 
-        $this->Session->setFlash('Se reabrió la mesa', 'Risto.flash_success');
+        $this->Session->setFlash( __('Se reabrió la %s', Configure::read('Mesa.tituloMesa') ), 'Risto.flash_success');
         $this->Mesa->reabrir($id);
         if ( !$this->request->is('ajax') ) {            
             $this->redirect($this->referer());
@@ -357,14 +357,14 @@ class MesasController extends MesaAppController {
                 
         $this->Mesa->id = $mesa_id;
         if ($this->Mesa->saveField('cliente_id', $cliente_id) ) {
-            $this->Session->setFlash('Se agregó un cliente a la mesa', true);
+            $this->Session->setFlash(__('Se agregó un %s', Configure::read('Mesa.tituloCliente')));
         }
     }
     
     
     public function cobradas(){
         $mesas = $this->Mesa->ultimasCobradas();
-        $this->set('title_for_layout', 'Últimas Mesas Cobradas');
+        $this->set('title_for_layout', __('Últimas %s Cobradas', Inflector::pluralize( Configure::read('Mesa.tituloMesa'))));
         
         $newMes = array();
         $cont = 0;

@@ -59,7 +59,7 @@ class ClientesController extends FidelizationAppController {
 		 		));
 
              $this->conHeader = false;
-             $this->pageTitle = 'Listado de Clientes';
+             $this->pageTitle = __('Listado de %s', Inflector::pluralize( Configure::read('Mesa.tituloCliente')));
              $tipo = '';
              $clientes = array();
              switch ($tipo) {
@@ -79,7 +79,7 @@ class ClientesController extends FidelizationAppController {
                      break;
              }
             // $this->layout = 'jqm' ;
-            $this->set('title_for_layout',"Clientes");
+            $this->set('title_for_layout', Inflector::pluralize( Configure::read('Mesa.tituloCliente')) );
             $this->set('tipo',$tipo);
             $this->set('clientes',$clientes);
         }
@@ -91,9 +91,9 @@ class ClientesController extends FidelizationAppController {
 		if (!empty($this->request->data)) {
 			$this->Cliente->create();
 			if ($this->Cliente->save($this->request->data)) {
-				$this->Session->setFlash(__('Se agregó un nuevo cliente'));
+				$this->Session->setFlash(__('Se agregó un nuevo %s', Configure::read('Mesa.tituloCliente') ));
 			} else {
-				$this->Session->setFlash(__('El Cliente no pudo ser gardado, intente nuevamente.'), 'Risto.flash_error');
+				$this->Session->setFlash(__('El %s no pudo ser gardado, intente nuevamente.', Configure::read('Mesa.tituloCliente')), 'Risto.flash_error');
 			}
             $this->set('cliente_id', $this->Cliente->id);
             $this->layout = false;
@@ -122,10 +122,10 @@ class ClientesController extends FidelizationAppController {
 		if ($this->request->is('post')) {
 			$this->Cliente->create();
 			if ($this->Cliente->save($this->request->data)) {
-				$this->Session->setFlash(__('The cliente has been saved.'));
+				$this->Session->setFlash(__('The %s has been saved.', Configure::read('Mesa.tituloCliente')));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The cliente could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The %s could not be saved. Please, try again.', Configure::read('Mesa.tituloCliente')));
 			}
 		}
 		$descuentos = $this->Cliente->Descuento->find('list');
@@ -144,14 +144,14 @@ class ClientesController extends FidelizationAppController {
  */
 	public function edit($id = null) {
 		if (!$this->Cliente->exists($id)) {
-			throw new NotFoundException(__('Invalid cliente'));
+			throw new NotFoundException(__('Invalid %s', Configure::read('Mesa.tituloCliente')));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Cliente->save($this->request->data)) {
-				$this->Session->setFlash(__('The cliente has been saved.'));
+				$this->Session->setFlash(__('The %s has been saved.', Configure::read('Mesa.tituloCliente')));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The cliente could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The %s could not be saved. Please, try again.', Configure::read('Mesa.tituloCliente')));
 			}
 		} else {
 			$options = array('conditions' => array('Cliente.' . $this->Cliente->primaryKey => $id));
@@ -174,13 +174,13 @@ class ClientesController extends FidelizationAppController {
 	public function delete($id = null) {
 		$this->Cliente->id = $id;
 		if (!$this->Cliente->exists()) {
-			throw new NotFoundException(__('Invalid cliente'));
+			throw new NotFoundException(__('Invalid %s', Configure::read('Mesa.tituloCliente')));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Cliente->delete()) {
-			$this->Session->setFlash(__('The cliente has been deleted.'));
+			$this->Session->setFlash(__('The %s has been deleted.', Configure::read('Mesa.tituloCliente')));
 		} else {
-			$this->Session->setFlash(__('The cliente could not be deleted. Please, try again.'));
+			$this->Session->setFlash(__('The %s could not be deleted. Please, try again.', Configure::read('Mesa.tituloCliente')));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}}

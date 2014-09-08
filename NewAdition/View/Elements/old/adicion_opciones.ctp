@@ -18,16 +18,12 @@
             </select>
         </div>
         <div data-role="popup" id="help-cajero">
-            <p>El modo cajero lo que hace es crear un atajo para los pagos de la mesa.<br>
-                Cuando se clickea la mesa cerrada, se va directamente a la pantalla de pagos.
+            <p>El modo cajero lo que hace es crear un atajo para los pagos.<br>
+                Cuando se clickea la <?php echo Configure::read('Mesa.tituloMesa') ?> cerrada, se va directamente a la pantalla de pagos y no al detalle de la <?php echo Configure::read('Mesa.tituloMesa') ?>, como ocurre por defecto.
             </p>
-            En cambio, si se estuviese en modo adicionista, al clickear la mesa cerrada<br>
-            se va a la pantalla de la mesa.<br>
-            Asi como el modo adicionista, al clickear una mesa abierta abre directamente </p>
-            la Creación de Comandas.
         </div>
 
-        <a href="<?php echo $this->Html->url('/mesas/cobradas') ?>" data-role="button">Últimas Mesas Cobradas</a>
+        <a href="<?php echo $this->Html->url('/mesas/cobradas') ?>" data-role="button"><?php __('Últimas %s Cobradas', Inflector::pluralize(Configure::read('Mesa.tituloMesa'))) ?></a>
 
         <a href="<?php echo $this->Html->url('adition/adicionar') ?>" rel="external" data-role="button" data-icon="refresh">Refrescar Adición</a>
 

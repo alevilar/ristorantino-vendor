@@ -10,7 +10,7 @@
                     <?php
                     echo $this->Form->input('id');
                     echo $this->Form->input('estado_id');
-                    echo $this->Form->input('numero', array('label' => 'Número de Mesa'));
+                    echo $this->Form->input('numero', array('label' => __('Número de %s', Configure::read('Mesa.tituloMesa') ) ));
                     echo $this->Form->input('mozo_id');
                     ?>
                 </fieldset>
@@ -18,7 +18,7 @@
 
             <div class="col-md-6">
                 <fieldset>
-                    <legend><?php __('Totales de Mesa'); ?></legend>
+                    <legend><?php __('Totales de %s', Configure::read('Mesa.tituloMesa')); ?></legend>
                     <?php
                     echo $this->Form->input('cant_comensales');
                     echo $this->Form->input('total', array(
@@ -27,11 +27,11 @@
 
                     echo "<br>";
 
-                    echo $this->Html->link(__('Borrar Mesa', true)
+                    echo $this->Html->link(__('Borrar %s', Configure::read('Mesa.tituloMesa') )
                                     , array('action' => 'delete'
                                     , $this->Form->value('Mesa.id'))
                                     , array('class' => 'btn btn-danger pull-right  btn-lg')
-                                    , sprintf('Seguro que querés borrar la mesa Número # %s?', $this->Form->value('Mesa.numero'))); 
+                                    , sprintf('Seguro que querés borrar la Número # %s?', $this->Form->value('Mesa.numero'))); 
 
                     
 
@@ -215,7 +215,7 @@
                 <?php
                 if ( !count($mesa['Pago']) ) {                    
                     ?>
-                    <p class="alert alert-danger">Esta mesa aún no tiene pagos</p>
+                    <p class="alert alert-danger"><?php echo __( 'Esta %s aún no tiene pagos', Configure::read('Mesa.tituloMesa')) ?></p>
                     <?php
                 }
 

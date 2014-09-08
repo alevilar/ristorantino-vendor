@@ -8,7 +8,7 @@
 
                 echo "<li>" .
                 $this->Html->link(
-                        "Mesa N° " . $m['numero'] . " Mozo " . $m['Mozo']['numero'] . ". Cobrada el " . date('d M H:i', strtotime($m['time_cobro']))
+                        __("%s N° %s %s %s. Cobrada el %s", Configure::read('Mesa.tituloMesa'), $m['numero'], Configure::read('Mesa.tituloMozo'), $m['Mozo']['numero'] ,  date('d M H:i', strtotime($m['time_cobro']))
                         , array(
                                 'plugin' => 'mesa',
                                 'controller' => 'mesas',

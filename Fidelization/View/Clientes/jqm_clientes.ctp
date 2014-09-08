@@ -8,7 +8,7 @@
 
                         <a href="#mesa-view" data-direction="reverse" data-role="button" data-inline="true">Volver</a>
                         
-                        <?php echo $this->Html->link('Crear Cliente', '/clientes/simple_add', array(
+                        <?php echo $this->Html->link(__('Crear %s', Configure::read('Mesa.tituloCliente')), '/clientes/simple_add', array(
                             'data-role' => 'button',
                             'data-inline' => 'true',
                             'data-theme' => 'b',
@@ -25,7 +25,7 @@
 
                         <ul data-role="listview"  data-filter="true" id="listado-clientes-factura-a-ajax">
                             <li style="display: none" class="factura-a-cliente-add" data-theme="b">
-                                <a href="<?php echo $this->Html->url('/clientes/simple_add') ?>">Agregar Nuevo Cliente</a>
+                                <a href="<?php echo $this->Html->url('/clientes/simple_add') ?>"><?php echo __( 'Agregar Nuevo %s',Configure::read('Mesa.tituloCliente')) ?></a>
                             </li>
                                 <?php foreach($clientes as $c): 
                                     $porcentaje  = !empty($c['Descuento']['porcentaje']) ? $c['Descuento']['porcentaje'] : 0;

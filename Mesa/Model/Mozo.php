@@ -6,22 +6,24 @@ class Mozo extends MesaAppModel {
 
 	var $name = 'Mozo';
 
-        var $actsAs = array(
-            'SoftDelete', 
-            'Containable'
-            );
-        
-        public $imageUploadFieldName = 'image_url_upload';
-        
-        var $order = array(
-            'Mozo.activo DESC', 
-            'Mozo.numero'
+    public $useDbconfig = 'tenant';
+
+    var $actsAs = array(
+        'SoftDelete', 
+        'Containable'
         );
-        
-        public $virtualFields = array(
-          'numero_y_nombre' => "CONCAT(Mozo.numero,' (', Mozo.nombre, ' ', Mozo.apellido, ')')",
-        );
-        
+    
+    public $imageUploadFieldName = 'image_url_upload';
+    
+    var $order = array(
+        'Mozo.activo DESC', 
+        'Mozo.numero'
+    );
+    
+    public $virtualFields = array(
+      'numero_y_nombre' => "CONCAT(Mozo.numero,' (', Mozo.nombre, ' ', Mozo.apellido, ')')",
+    );
+    
 	var $validate = array(
             'numero' => 'notempty',
             'nombre' => 'notempty',

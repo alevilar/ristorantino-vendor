@@ -92,7 +92,7 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
         <li>
         <a id="btn-mesa-clientes" href="<?php echo $this->Html->url('/clientes/all_clientes') ?>" class="">
             <i class="icon-user icon-large"></i>
-            <span>Cliente</span>
+            <span><?php echo Configure::read('Mesa.tituloCliente') ?></span>
         </a>
         </li>
 
@@ -190,10 +190,10 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
 	  </div>
 	  <div class="modal-body">
 	    <form id="mesa-add-form" action="#">
-			<label for="mesa-add-numero-mesa">Número de Mesa</label>
+			<label for="mesa-add-numero-mesa"><?php echo __( 'Número de %s', Configure::read('Mesa.tituloMesa')); ?></label>
 			<input type="number" name="numero" id="mesa-add-numero-mesa" required="required"/>
 			
-			<label for="mesa-add-cant-cubiertos">Cantidad de Cubiertos</label>
+			<label for="mesa-add-cant-cubiertos"><?php echo __('Cantidad de %s', Configure::read('Mesa.tituloCubierto')) ?></label>
 			<input type="number" name="cant_comensales" id="mesa-add-cant-cubierto"/>
 			
 			<input type="hidden" name="mozo_id" value="<%= id%>"/>
@@ -201,7 +201,7 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
 	  </div>
 	  <div class="modal-footer">
 	  	<h4 style="float: left">Mozo <%= numero %></h4>
-	  		<button type="submit" class="btn-primary" form="mesa-add-form">Abrir Mesa</button>
+	  		<button type="submit" class="btn-primary" form="mesa-add-form"><?php echo __( 'Abrir %s', Configure::read('Mesa.tituloMesa')) ?></button>
 	  </div>	
 </script>
 
