@@ -1,4 +1,4 @@
-﻿
+
 <div class="users index">
 
 <?php echo $this->Html->link(__('Crear usuario'), array('action'=>'add'), array( 'class'=>'btn btn-success pull-right btn-lg')); ?>
@@ -23,7 +23,6 @@ echo $this->Form->end();
 	<th><?php echo $this->Paginator->sort('username');?></th>
 	<th><?php echo $this->Paginator->sort('nombre');?></th>
 	<th><?php echo $this->Paginator->sort('apellido');?></th>
-        <th><?php echo $this->Paginator->sort('Rol.name', 'Rol');?></th>
 	<th><?php echo $this->Paginator->sort('telefono');?></th>
 	<th class="actions"><?php echo __('Acciones');?></th>
 </tr>
@@ -44,16 +43,6 @@ foreach ($users as $user):
 		</td>
 		<td>
 			<?php echo $user['User']['apellido']; ?>
-		</td>
-        <td>
-			<?php 
-			$roles = '';
-			foreach ( $user['Rol'] as $r ) {
-				$roles .= $r['name'].",";
-			}
-			echo trim( $roles, ','); 
-
-			?>
 		</td>
 		<td>
 			<?php echo $user['User']['telefono']; ?>

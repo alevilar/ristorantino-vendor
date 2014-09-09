@@ -16,8 +16,10 @@
     
     <div class="col-md-6">
             <?php
-            echo $this->Form->input('rol_id', array(
-                'type' => "radio",
+            echo $this->Form->input('Rol.id', array(
+                'label' => 'Rol',
+                'options' => $roles,
+                'multiple' => true,
                 ));
             
             ?>

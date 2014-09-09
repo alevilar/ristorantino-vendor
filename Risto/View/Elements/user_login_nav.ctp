@@ -2,7 +2,7 @@
     <div class="nav navbar-right text-warning" style="padding: 15px 0px;">
         <?php
 
-        $userName = $this->Session->read('Auth.User.nombre') . " " . $this->Session->read('Auth.User.apellido'). " (" . $this->Session->read('Auth.User.role').")";
+        $userName = $this->Session->read('Auth.User.nombre') . " " . $this->Session->read('Auth.User.apellido');
 
         echo $this->Html->link( $userName, '/');
 

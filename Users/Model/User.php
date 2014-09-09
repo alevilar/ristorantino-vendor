@@ -1,5 +1,8 @@
 <?php
 App::uses('UsersAppModel', 'Users.Model');
+App::uses('MtSites', 'MtSites.Utility');
+
+
 /**
  * User Model
  *
@@ -26,7 +29,24 @@ class User extends UsersAppModel {
  * @var array
  */       
    // public $actsAs = array('Acl' => array('type' => 'requester'));
-        
+    
+
+
+    /**
+     * Filter search fields
+     *
+     * @var array
+     * @access public
+     */
+
+    public $filterArgs = array(
+            'txt_buscar' => array(
+                'type' => 'query',
+                'method' => '__searchTextGeneric'
+                ),
+            );
+
+
         
         
 /**
@@ -85,6 +105,13 @@ class User extends UsersAppModel {
 
     //The Associations below have been created with all possible keys, those that are not needed can be removed
 
+    public function __construct($id = false, $table = null, $ds = null) {
+        if ( MtSites::getSiteName() ) {
+            $this->hasAndBelongsToMany[] = 'Users.Rol';   
+        }
+
+        return parent::__construct($id, $table, $ds);
+    }
 
                
         
@@ -136,4 +163,19 @@ class User extends UsersAppModel {
                 return array('Rol' => array('id' => $data['User']['rol_id']));
             }
         }
+
+
+
+
+    public function __searchTextGeneric ($data = array() ) {          
+            $condition = array(
+                'OR' => array(
+                    'lower(User.username) LIKE' => '%'. trim(strtolower( $data['txt_buscar'] )) .'%',
+                    'lower(User.nombre) LIKE'   => '%'. trim(strtolower( $data['txt_buscar'] )) .'%',
+                    'lower(User.apellido) LIKE' => '%'. trim(strtolower( $data['txt_buscar'] )) .'%',
+            ));
+            return $condition;
+    }
+
+    
 }

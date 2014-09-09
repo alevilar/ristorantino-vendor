@@ -3,7 +3,7 @@
     <h2>Usuarios</h2>
     <div class="list-group">
         <?php
-        echo $this->Html->link('Usuarios', array('plugin' => 'users', 'controller'=>'user', 'action' => 'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link('Usuarios', array('plugin' => 'users', 'controller'=>'users', 'action' => 'index'), array('class' => 'list-group-item'));
         //echo $this->Html->link('Roles',  array('plugin' => 'users', 'controller'=>'roles', 'action' => 'index'), array('class' => 'list-group-item'));
         echo $this->Html->link( Inflector::pluralize( Configure::read('Mesa.tituloMozo') ) , array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'index'), array('class' => 'list-group-item'));
         ?>

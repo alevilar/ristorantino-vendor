@@ -1,7 +1,7 @@
 <?php
 
 App::uses('UsersAppController', 'Users.Controller');
-
+App::uses('MtSites', 'MtSites.Utility');
 
 
 class UsersController extends UsersAppController {
@@ -12,14 +12,14 @@ class UsersController extends UsersAppController {
         'limit' => 55,
     );
    
-        
-        
-/**
+
+
+   /**
  * index method
  *
  * @return void
  */
-	public function index() {
+    public function core_index() {
 
         if ( $this->request->is('post') && !empty($this->request->data['User']['txt_buscar']) ){
             $this->Paginator->settings['conditions'] = array('or' => array(
@@ -29,6 +29,28 @@ class UsersController extends UsersAppController {
             ));
         }
                 
+        $this->set('users', $this->paginate());
+    }
+
+
+
+        
+        
+/**
+ * index method
+ *
+ * @return void
+ */
+	public function index() {
+        if ( ! MtSites::isTenant() ) {
+            throw new ForbiddenException(__( "No puede acceder porque se encuentra en su Tenant" ));
+        }
+
+        $this->Prg->commonProcess();
+        $this->Paginator->settings['conditions'] = $this->User->parseCriteria( $this->Prg->parsedParams() );
+
+        $this->set('articles', $this->Paginator->paginate());
+
 		$this->set('users', $this->paginate());
 	}
 
@@ -133,8 +155,8 @@ class UsersController extends UsersAppController {
      */
 	public function add() {
 		if ($this->request->is('post') || $this->request->is('put')) {
-                        $this->User->create();
-			if ($this->User->save($this->request->data)) {
+            $this->User->create();
+			if ($this->User->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved'),'Risto.flash_success');
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -163,7 +185,7 @@ class UsersController extends UsersAppController {
 			throw new NotFoundException(__('Invalid user'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->User->save($this->request->data)) {
+			if ($this->User->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved'),'Risto.flash_success');
 				$this->redirect(array('action' => 'index'));
 			} else {

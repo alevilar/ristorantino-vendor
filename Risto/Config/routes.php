@@ -70,7 +70,7 @@
  *  ---------------------------------------------------------------------------------------
  *
  *
- *			CAKEPHP ROUTES FOR TENANT
+ *			CAKEPHP Controller - Action ROUTES FOR TENANT
  */
 
 

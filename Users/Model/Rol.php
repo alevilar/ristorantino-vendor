@@ -42,7 +42,7 @@ class Rol extends UsersAppModel {
  *
  * @var array
  */
-	public $hasMany = array(
+	public $hasAndBelongsToMany = array(
 		'User' => array(
 			'className' => 'Users.User',
 			'foreignKey' => 'rol_id',

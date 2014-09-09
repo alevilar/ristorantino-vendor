@@ -15,13 +15,6 @@ class MesasController extends MesaAppController {
         // 'paramType' => 'querystring',
     );
     
-    var $estados = array(
-        1 => "Abierta",
-        2 => "Cerrada",
-        3 => "Cobrada",
-        );
-
-
     
     public function index() {
         $this->Prg->commonProcess();
@@ -54,7 +47,8 @@ class MesasController extends MesaAppController {
             ));
         $tot = empty($tot['0']['total']) ? 0 : $tot['0']['total'];
         $this->set('mesas_suma_total', money_format('%.2n', $tot) );
-        $this->set('estados', $this->estados);
+        $estados = $this->Mesa->Estado-find('list');
+        $this->set('estados', $estados);
 
     }
 
@@ -283,7 +277,8 @@ class MesasController extends MesaAppController {
         $this->id = $id;
         $this->set('subtotal',$this->Mesa->calcular_subtotal());
         $this->set('total',$this->Mesa->calcular_total());
-        $this->set('estados', $this->estados);
+        $estados = $this->Mesa->Estado-find('list');
+        $this->set('estados', $estados);        
         $this->set(compact('mesa', 'items', 'mozos'));
     }
 
