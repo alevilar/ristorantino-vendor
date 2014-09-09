@@ -70,7 +70,7 @@ echo $this->Html->css('/cash/css/style_cash');
                 <td><?php echo  $this->Number->currency($arq['Arqueo']['importe_final']) ?></td>
                 <td><?php echo date('d/m/Y H:i:s', strtotime($arq['Arqueo']['created'])) ?></td>
                 <td><?php echo date('d/m/Y H:i:s', strtotime($arq['Arqueo']['modified'])) ?></td>
-                <td><?php echo $this->Html->link('Editar', 'edit/' . $arq['Arqueo']['id']); ?></td>
+                <td><?php echo $this->Html->link('Editar', array('action'=>'edit', $arq['Arqueo']['id']) ); ?></td>
             </tr>
 
         <?php } ?>

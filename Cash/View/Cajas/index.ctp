@@ -22,7 +22,7 @@
                 <td><?php echo empty($c['Caja']['computa_ingresos']) ? 'no' : 'si'; ?></td>
                 <td><?php echo empty($c['Caja']['computa_egresos']) ? 'no' : 'si'; ?></td>
                 <td><?php echo $this->Html->link('nuevo arqueo', array('controller' => 'arqueos', 'action' => 'add', $c['Caja']['id'])) ?></td>
-                <td><?php echo $this->Html->link('editar', 'edit/' . $c['Caja']['id']) ?></td>
+                <td><?php echo $this->Html->link('editar', array('action'=>'edit/' , $c['Caja']['id']) ) ?></td>
                 <td><?php echo $this->Html->link(__('Borrar', true), array('action' => 'delete', $c['Caja']['id']), null, sprintf(__('¿Está seguro que desea borrar la caja: %s?', true), $c['Caja']['name'])); ?></td>
             </tr>
         <?php } ?>

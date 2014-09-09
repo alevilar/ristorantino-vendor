@@ -14,11 +14,11 @@ if( $this->name == 'Stats' && $this->action == 'tipos_de_pago') {
 ?>
 <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
      <ul class="nav navbar-nav">
-        <li class="<?php echo $c1?>"><?php echo $this->Html->link('Ventas totales','/stats/mesas_total',array('class'=>'ventas'));?></li>
+        <li class="<?php echo $c1?>"><?php echo $this->Html->link('Ventas totales', array('plugin'=>'stats', 'controller'=>'stats', 'action'=>'mesas_total'),array('class'=>'ventas'));?></li>
         
-        <li class="<?php echo $c2?>"><?php echo $this->Html->link(__('Ventas x %s', Configure::read('Mesa.tituloMozo') ),'/stats/mozos_total',array('class'=>'ventas'));?></li>
+        <li class="<?php echo $c2?>"><?php echo $this->Html->link(__('Ventas x %s', Configure::read('Mesa.tituloMozo') ),  array('plugin'=>'stats', 'controller'=>'stats', 'action'=>'mozos_total'),array('class'=>'ventas'));?></li>
         
-        <li class="<?php echo $c3?>"><?php echo $this->Html->link('Tipos de Pago','/stats/tipos_de_pago',array('class'=>'ventas'));?></li>
+        <li class="<?php echo $c3?>"><?php echo $this->Html->link('Tipos de Pago', array('plugin'=>'stats', 'controller'=>'stats', 'action'=>'tipos_de_pago'),array('class'=>'ventas'));?></li>
         
     </ul>
     

@@ -33,7 +33,7 @@ foreach ($mesas as $mozo):
 		<strong><?php echo $mozo['Mesa']['numero']; ?><strong>
 		</td>
 		<td>
-			<?php echo $this->Html->link('N° '.$mozo['Mozo']['numero'],'/Mozos/view/'.$mozo['Mesa']['mozo_id']); ?>
+			<?php echo $this->Html->link('N° '.$mozo['Mozo']['numero'], array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'view', $mozo['Mesa']['mozo_id'])); ?>
 		</td>
 		<td>
 			<?php echo $mozo['Mesa']['total']; ?>

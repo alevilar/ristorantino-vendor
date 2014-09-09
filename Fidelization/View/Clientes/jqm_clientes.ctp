@@ -8,7 +8,7 @@
 
                         <a href="#mesa-view" data-direction="reverse" data-role="button" data-inline="true">Volver</a>
                         
-                        <?php echo $this->Html->link(__('Crear %s', Configure::read('Mesa.tituloCliente')), '/clientes/simple_add', array(
+                        <?php echo $this->Html->link(__('Crear %s', Configure::read('Mesa.tituloCliente')), array('plugin'=>'fidelization', 'controller'=>'clientes', 'action'=>'simple_add'), array(
                             'data-role' => 'button',
                             'data-inline' => 'true',
                             'data-theme' => 'b',

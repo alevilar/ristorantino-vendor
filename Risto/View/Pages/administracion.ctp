@@ -4,17 +4,17 @@
     <div class="list-group">
         <?php
         echo $this->Html->link('Usuarios', array('plugin' => 'users', 'controller'=>'user', 'action' => 'index'), array('class' => 'list-group-item'));
-        //echo $this->Html->link('Roles', '/users/roles/index', array('class' => 'list-group-item'));
-        echo $this->Html->link( Inflector::pluralize( Configure::read('Mesa.tituloMozo') ) , '/mesa/mozos/index', array('class' => 'list-group-item'));
+        //echo $this->Html->link('Roles',  array('plugin' => 'users', 'controller'=>'roles', 'action' => 'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link( Inflector::pluralize( Configure::read('Mesa.tituloMozo') ) , array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'index'), array('class' => 'list-group-item'));
         ?>
     </div>
 
     <h2><?php echo __( Inflector::pluralize( Configure::read('Mesa.tituloMesa') )) ?></h2>
     <div class="list-group">
         <?php
-        echo $this->Html->link( __('Listado de %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa') )) , '/mesa/Mesas', array('class' => 'list-group-item'));
-        echo $this->Html->link(__('Pagos de %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa') ) ), '/mesa/pagos', array('class' => 'list-group-item'));
-        echo $this->Html->link(__('Nueva %s', Configure::read('Mesa.tituloMesa')), '/mesa/Mesas/add', array('class' => 'list-group-item'));
+        echo $this->Html->link( __('Listado de %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa') )) , array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Pagos de %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa') ) ), array('plugin'=>'mesa', 'controller'=>'pagos', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Nueva %s', Configure::read('Mesa.tituloMesa')), array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'add'), array('class' => 'list-group-item'));
         ?>
     </div>    
 </div>
@@ -27,14 +27,14 @@
     <h2>Productos</h2>
     <div class="list-group">
         <?php
-        echo $this->Html->link('Categorias', '/product/categorias', array('class' => 'list-group-item'));
-        echo $this->Html->link('Productos', '/product/productos', array('class' => 'list-group-item'));
-        echo $this->Html->link('Sabores', '/product/sabores', array('class' => 'list-group-item'));
+        echo $this->Html->link('Categorias', array('plugin'=>'product', 'controller'=>'categorias', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link('Productos', array('plugin'=>'product', 'controller'=>'productos', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link('Sabores', array('plugin'=>'product', 'controller'=>'sabores', 'action'=>'index'), array('class' => 'list-group-item'));
         
-        echo $this->Html->link('Observaciones de Productos', '/comanda/observaciones', array('class' => 'list-group-item'));
-        echo $this->Html->link('Observaciones de Comandas', '/comanda/observacion_comandas', array('class' => 'list-group-item'));
-        echo $this->Html->link('Productos Pedidos', '/comanda/detalle_comandas/', array('class' => 'list-group-item'));
-        echo $this->Html->link('Tags', '/product/tags', array('class' => 'list-group-item'));
+        echo $this->Html->link('Observaciones de Productos', array('plugin'=>'comanda', 'controller'=>'observaciones', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link('Observaciones de Comandas', array('plugin'=>'comanda', 'controller'=>'observacion_comandas', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link('Productos Pedidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link('Tags', array('plugin'=>'product', 'controller'=>'tags', 'action'=>'index'), array('class' => 'list-group-item'));
         ?>
     </div>
 
@@ -60,7 +60,7 @@
     <div class="list-group">
         <?php
         echo $this->Html->link(Inflector::pluralize( Configure::read('Mesa.tituloCliente')), array('plugin'=>'fidelization', 'controller'=>'clientes', 'action', 'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link('Descuentos', '/fidelization/descuentos', array('class' => 'list-group-item'));        
+        echo $this->Html->link('Descuentos', array('plugin'=>'fidelization', 'controller'=>'descuentos', 'action'=>'index'), array('class' => 'list-group-item'));        
         ?>   
     </div>
 
@@ -75,13 +75,13 @@
     <div class="list-group">
         <?php
 
-        echo $this->Html->link('Tipo de Pagos', '/risto/TipoDePagos', array('class' => 'list-group-item'));
+        echo $this->Html->link('Tipo de Pagos', array('plugin'=>'risto', 'controller'=>'TipoDePagos', 'action'=>'index'), array('class' => 'list-group-item'));
 
-        echo $this->Html->link('Tipo de Facturas', '/risto/tipo_facturas', array('class' => 'list-group-item'));
+        echo $this->Html->link('Tipo de Facturas', array('plugin'=>'risto', 'controller'=>'TipoFacturas', 'action'=>'index'), array('class' => 'list-group-item'));
 
         
-        echo $this->Html->link('Tipos de Documentos', '/risto/tipo_documentos', array('class' => 'list-group-item'));
-        echo $this->Html->link('IVA Responsabilidades', '/risto/iva_responsabilidades', array('class' => 'list-group-item'));
+        echo $this->Html->link('Tipos de Documentos', array('plugin'=>'risto', 'controller'=>'TipoDocumentos', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link('IVA Responsabilidades', array('plugin'=>'risto', 'controller'=>'iva_responsabilidades', 'action'=>'index'), array('class' => 'list-group-item'));
        // echo $this->Html->link('Permisos de usuarios', '/admin/acl', array('class' => 'list-group-item'));
 
 
