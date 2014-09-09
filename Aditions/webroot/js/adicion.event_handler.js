@@ -58,7 +58,7 @@ $raeh = Risto.Adition.EventHandler = {
         
         // guardo los pagos
         $cakeSaver.send({
-            url: urlDomain+'pagos/add',
+            url: URL_DOMAIN + TENANT + '/mesa/pagos/add',
             obj: mes
         }, function(d){
             

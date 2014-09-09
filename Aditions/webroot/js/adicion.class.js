@@ -180,7 +180,7 @@ Risto.Adition.adicionar = {
         if ( Worker && useWorker ) {  
             
             // Crea el Web Worker
-            worker = new Worker(urlDomain + "aditions/js/adicion.model.js");
+            worker = new Worker(URL_DOMAIN + "aditions/js/adicion.model.js");
 
             worker.onmessage = function ( evt ) {
 
@@ -213,7 +213,11 @@ Risto.Adition.adicionar = {
             });
 
             time = this.mesasLastUpdatedTime();
-            worker.postMessage( {urlDomain: urlDomain, timeText: time} );
+            worker.postMessage( {
+                urlDomain: URL_DOMAIN, 
+                timeText: time, 
+                tenant: TENANT
+            } );
         }
     },    
     
@@ -279,7 +283,7 @@ Risto.Adition.adicionar = {
      */
     ticketView: function ( elementToUpdate ) {
         var elem = elementToUpdate || document.createElement('div');
-        var url = window.urlDomain+'mesas/ticket_view' + '/'+this.currentMesa.id ;
+        var url = window.URL_DOMAIN + TENANT + '/mesa/mesas/ticket_view' + '/'+this.currentMesa.id ;
         return $(elem).load(url);
     },
 
@@ -346,7 +350,7 @@ Risto.Adition.adicionar = {
         var mozo = this.findMozoById(mesaJSON.mozo_id),
             mesa = new Mesa(mozo, mesaJSON);
         
-        $cakeSaver.send({url:urlDomain+'mesas/add.json', obj: mesa});
+        $cakeSaver.send({url:URL_DOMAIN + TENANT + '/mesa/mesas/add.json', obj: mesa});
         return mesa;
     },
     

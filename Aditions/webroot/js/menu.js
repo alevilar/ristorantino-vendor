@@ -51,7 +51,7 @@ Risto.Adition.menu = {
     __getRemoteMenu: function(){
         var este = this;
         // si no hay categorias las cargo via AJAX
-        $.getJSON( urlDomain+'categorias/listar.json', function(data){
+        $.getJSON( URL_DOMAIN + TENANT + '/product/categorias/listar.json', function(data){
             console.debug( data.categorias );
             if ( data.categorias ) {
                 este.__iniciarCategoriasTreeServer( data.categorias );

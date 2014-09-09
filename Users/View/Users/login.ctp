@@ -28,7 +28,7 @@ if ( !$this->Session->check('Auth.User')): ?>
 <?php else: ?>
 	<h3>&nbsp;</h3>
 
-		<?php echo $this->Html->link(__('Add New Site'), array('plugin'=>'MtSites', 'controller'=>'sites', 'action'=>'add'), array('class'=>'btn btn-success btn-lg center')); ?>
+		<?php echo $this->Html->link(__('Add New Site'), array('plugin'=>'Install', 'controller'=>'SiteSetup', 'action'=>'installsite'), array('class'=>'btn btn-success btn-lg center')); ?>
 
 		<div class="clearfix"><br /></div>
 

@@ -37,7 +37,7 @@ Risto.Adition.pago.prototype = {
     
     image: function(){
         if (this.TipoDePago() && this.TipoDePago().image_url) {
-            return urlDomain + 'img/' + this.TipoDePago().image_url;
+            return URL_DOMAIN + 'img/' + this.TipoDePago().image_url;
         }
         return '';
     }

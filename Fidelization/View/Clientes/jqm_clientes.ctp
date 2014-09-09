@@ -25,7 +25,7 @@
 
                         <ul data-role="listview"  data-filter="true" id="listado-clientes-factura-a-ajax">
                             <li style="display: none" class="factura-a-cliente-add" data-theme="b">
-                                <a href="<?php echo $this->Html->url('/clientes/simple_add') ?>"><?php echo __( 'Agregar Nuevo %s',Configure::read('Mesa.tituloCliente')) ?></a>
+                                <a href="<?php echo $this->Html->url(array('plugin'=>'fidelization', 'controller'=>'clientes', 'action'=>'simple_add')) ?>"><?php echo __( 'Agregar Nuevo %s',Configure::read('Mesa.tituloCliente')) ?></a>
                             </li>
                                 <?php foreach($clientes as $c): 
                                     $porcentaje  = !empty($c['Descuento']['porcentaje']) ? $c['Descuento']['porcentaje'] : 0;

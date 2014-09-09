@@ -156,19 +156,19 @@ Mesa.prototype = {
     getData: function(){
         $.get(this.urlGetData());
     },
-    
-    
+   
+
     /* listado de URLS de accion con la mesa */
-    urlGetData: function() { return urlDomain+'mesas/ticket_view/'+this.id() },
-    urlView: function() { return urlDomain+'mesas/view/'+this.id() },
-    urlEdit: function() { return urlDomain+'mesas/ajax_edit/'+this.id() },
-    urlDelete: function() { return urlDomain+'mesas/delete/'+this.id() },
-    urlComandaAdd: function() { return urlDomain+'comandas/add/'+this.id() },
-    urlReimprimirTicket: function() { return urlDomain+'mesas/imprimirTicket/'+this.id() },
-    urlCerrarMesa: function() { return urlDomain+'mesas/cerrarMesa/'+this.id() },
-    urlReabrir: function() { return urlDomain+'mesas/reabrir/'+this.id() },
+    urlGetData: function() { return URL_DOMAIN + TENANT + '/mesa/mesas/ticket_view/'+this.id() },
+    urlView: function() { return URL_DOMAIN + '/mesa/mesas/view/'+this.id() },
+    urlEdit: function() { return URL_DOMAIN + '/mesas/ajax_edit/'+this.id() },
+    urlDelete: function() { return URL_DOMAIN + TENANT +'/mesa/mesas/delete/'+this.id() },
+    urlComandaAdd: function() { return URL_DOMAIN + TENANT +'/mesa/comandas/add/'+this.id() },
+    urlReimprimirTicket: function() { return URL_DOMAIN + TENANT +'/mesa/mesas/imprimirTicket/'+this.id() },
+    urlCerrarMesa: function() { return URL_DOMAIN + TENANT +'/mesa/mesas/cerrarMesa/'+this.id() },
+    urlReabrir: function() { return URL_DOMAIN + TENANT +'/mesa/mesas/reabrir/'+this.id() },
     urlAddCliente: function( clienteId ){
-        var url = urlDomain+'mesas/addClienteToMesa/'+this.id();
+        var url = URL_DOMAIN + TENANT + '/mesa/mesas/addClienteToMesa/'+this.id();
         if (clienteId){
             url += '/'+clienteId;
         }
@@ -365,7 +365,7 @@ Mesa.prototype = {
      * Envia un ajax con la peticion de imprimir el ticket para esta mesa
      */
     reimprimir : function(){
-        var url = window.urlDomain+'mesas/imprimirTicket';
+        var url = window.URL_DOMAIN + TENANT + '/mesa/mesas/imprimirTicket';
         $.get( url+"/"+this.id);
     },
 
@@ -389,7 +389,7 @@ Mesa.prototype = {
      * Envia un ajax con la peticion de cerrar esta mesa
      */
     cerrar: function(){
-        var url = window.urlDomain + 'mesas/cerrarMesa' + '/' + this.currentMesa.id + '/0',
+        var url = window.URL_DOMAIN + TENANT + '/mesa/mesas/cerrarMesa' + '/' + this.currentMesa.id + '/0',
             self = this;
             
         $.get(url, {}, function(){
@@ -402,7 +402,7 @@ Mesa.prototype = {
      * Envia un ajax con la peticion de borrar esta mesa
      */
     borrar : function(){
-        var url = window.urlDomain + 'mesas/delete/' +this.id,
+        var url = window.URL_DOMAIN + TENANT + '/mesa/mesas/delete/' +this.id,
             self = this;
         $.get(url, {}, function(){
             self.setEstadoBorrada()
@@ -468,7 +468,7 @@ Mesa.prototype = {
         if (!data['data[Mesa][id]']) {
             data['data[Mesa][id]'] = this.id();
         }
-        $.post( window.urlDomain +'mesas/ajax_edit', data);
+        $.post( window.URL_DOMAIN + TENANT + '/mesa/mesas/ajax_edit', data);
         return this;
     },
     

@@ -96,18 +96,19 @@ foreach ($mesas as $mozo):
 
 		<td class="actions">
 			<?php if($mozo['Mesa']['time_cerro'] != '0000-00-00 00:00:00'){
-                                echo $this->Html->link(__('Reabrir', true), array('action'=>'reabrir', $mozo['Mesa']['id'])); 
+                                echo $this->Html->link(__('Reabrir'), array('action'=>'reabrir', $mozo['Mesa']['id'])); 
                                 echo ('</br>');
                         }?>
 			
-                        <?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $mozo['Mesa']['id'])); ?>
+                        <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $mozo['Mesa']['id'])); ?>
 			</br>
-                        <?php echo $this->Html->link(__('Borrar', true)
+                        <?php echo $this->Html->link(__('Borrar')
                         						, array('action'=>'delete', $mozo['Mesa']['id'])
                         						, null
-                        						, sprintf(__('¿Esta seguro que quiere borrar la %s nº %s?\nSi se elimina se perderán los pedidos y no sera computada en las estadísticas.', true), Configure::read('Mesa.tituloMesa'), $mozo['Mesa']['numero'])); ?>
+                        						, __('¿Esta seguro que quiere borrar la %s nº %s?\nSi se elimina se perderán los pedidos y no sera computada en las estadísticas.', Configure::read('Mesa.tituloMesa'), $mozo['Mesa']['numero'])
+                        						); ?>
                         </br>
-                        <?php echo $this->Html->link(__('Imprimir Ticket', true), array('action'=>'imprimirTicket', $mozo['Mesa']['id']), null, sprintf(__('¿Desea imprimir el ticket nº %s?', true), $mozo['Mesa']['numero'])); ?>
+                        <?php echo $this->Html->link(__('Imprimir Ticket'), array('action'=>'imprimirTicket', $mozo['Mesa']['id']), null, sprintf(__('¿Desea imprimir el ticket nº %s?', true), $mozo['Mesa']['numero'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>      

@@ -1,15 +1,10 @@
-<?php
-echo $this->Html->script('mesas/index_head', false);
-
-
-
-?>
+<?php echo $this->Html->script('mesas/index_head', false);?>
 
 <div id="mesas-index">
 
 
 <?php echo $this->Html->link(__('Abrir %s', Configure::read('Mesa.tituloMesa')), array('action' => 'add'), array('class'=>'btn btn-lg btn-success pull-right')); ?>
-<h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa')) ;?></h1>
+<h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa') ) ;?></h1>
 
 
     <div class="row">
@@ -105,15 +100,16 @@ echo $this->Html->script('mesas/index_head', false);
             <strong>            
                 <?php  echo __( 'No se encontraron %s', Inflector::pluralize(Configure::read('Mesa.tituloMesa') ) ); ?>
             </strong>
+            <?php
         }
         ?>
 
 
     </div>
     <div class="paging">
-        <?php echo $this->Paginator->prev('<< ' . __('anterior', true), array(), null, array('class' => 'disabled')); ?>
+        <?php echo $this->Paginator->prev('<< ' . __('anterior'), array(), null, array('class' => 'disabled')); ?>
         | 	<?php echo $this->Paginator->numbers(); ?>
-        <?php echo $this->Paginator->next(__('próximo', true) . ' >>', array(), null, array('class' => 'disabled')); ?>
+        <?php echo $this->Paginator->next(__('próximo') . ' >>', array(), null, array('class' => 'disabled')); ?>
     </div>
     
 </div>  

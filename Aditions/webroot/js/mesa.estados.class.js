@@ -14,21 +14,21 @@ var MESA_ESTADOS_POSIBLES =  {
         event: Risto.Adition.EventHandler.mesaAbierta ,
         id: 1,
         icon: 'mesa-abierta',
-        url: urlDomain+'mesas/add'
+        url: URL_DOMAIN + TENANT + '/mesa/mesas/add'
     },
     reabierta : {
         msg: 'Re-Abierta',
         event: Risto.Adition.EventHandler.mesaAbierta ,
         id: 1,
         icon: 'mesa-abierta',
-        url: urlDomain+'mesas/reabrir'
+        url: URL_DOMAIN + TENANT  + '/mesa/mesas/reabrir'
     },
     cerrada: {
         msg: 'Cerrada',
         event: Risto.Adition.EventHandler.mesaCerrada,
         id: 2,
         icon: 'mesa-cerrada',
-        url: urlDomain+'mesas/cerrarMesa'
+        url: URL_DOMAIN + TENANT + '/mesa/mesas/cerrarMesa'
     },
     cuponPendiente: {
         msg: 'con Cupón Pendiente',
@@ -47,7 +47,7 @@ var MESA_ESTADOS_POSIBLES =  {
         event: Risto.Adition.EventHandler.mesaBorrada,
         id: 0,
         icon: '',
-        url: urlDomain+'mesas/delete'
+        url: URL_DOMAIN + TENANT + '/mesa/mesas/delete'
     },
     seleccionada: {
         msg: 'Seleccionada',

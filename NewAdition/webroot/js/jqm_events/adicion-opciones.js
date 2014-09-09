@@ -6,7 +6,7 @@
      
      $('#modo-k').bind('change',function(){
             App.IMPRIME_REMITO_PRIMERO = !App.IMPRIME_REMITO_PRIMERO;
-            $.get(urlDomain+'/configs/toggle_remito');
+            $.get(URL_DOMAIN + TENANT + '/risto/configs/toggle_remito');
 
     });
         

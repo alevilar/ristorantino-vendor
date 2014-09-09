@@ -57,14 +57,14 @@
         
             <a href="#listado-mesas" data-role="button">Modo Adicionista</a>
             
-            <a href="<?php echo $this->Html->url('/aditions/adicionar#listado-mesas-cerradas')?>" rel="external" data-role="button" data-icon="refresh">Refrescar Cajero</a>
+            <a href="<?php echo $this->Html->url(array('plugin'=>'aditions', 'controller'=>'adicionar', '#listado-mesas-cerradas'))?>" rel="external" data-role="button" data-icon="refresh">Refrescar Cajero</a>
             
             <h3>Informes Fiscales</h3>
             <div class="ui-grid-a">
                 <div class="ui-block-a">
                     <a href="#listado-mesas-cerradas" 
                        data-role="button" 
-                       data-href="<?php echo $this->Html->url('/printers/printers/cierre/x');?>" 
+                       data-href="<?php echo $this->Html->url(array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'cierre', 'x'));?>" 
                        data-direction="reverse">
                        Imprimir informe "X"
                    </a>
@@ -72,20 +72,20 @@
                 <div class="ui-block-b">
                     <a href="#listado-mesas-cerradas" 
                        data-role="button" 
-                       data-href="<?php echo $this->Html->url('/printers/printers/cierre/z');?>" 
+                       data-href="<?php echo $this->Html->url(array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'cierre', 'z'));?>" 
                        data-direction="reverse">
                        Imprimir informe "Z"
                    </a>
                </div>
             </div>
-            <a href="<?php echo $this->Html->url('/printers/printers/nota_credito');?>" data-role="button">Nota de crédito</a>
+            <a href="<?php echo $this->Html->url(array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'nota_credito'));?>" data-role="button">Nota de crédito</a>
             
             <hr />
            
             
             <div class="ui-grid-a">
                 <div class="ui-block-a"><a href="#" data-rel="back" data-role="button">Cancelar</a></div>
-                <div class="ui-block-b"><a data-icon="home" data-role="button" href="<?php echo $this->Html->url('/');?>" rel="external" data-theme="b">Ir a Página Principal</a></div>
+                <div class="ui-block-b"><a data-icon="home" data-role="button" href="<?php echo $this->Html->url(array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'dashboard'));?>" rel="external" data-theme="b">Ir a Página Principal</a></div>
             </div>
     </div>
 </div>
@@ -106,7 +106,7 @@
             
             <a href="#" onclick="window.location.reload(true);" data-ajax="false" data-role="button" data-icon="refresh">Refrescar Adición</a>
             
-            <a href="<?php echo $this->Html->url('/mesas/cobradas');?>" data-role="button" data-rel="dialog"><?php echo __('%s Cobradas', Inflector::pluralize( Configure::read('Mesa.tituloMesa')) ) ?></a>
+            <a href="<?php echo $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'cobradas'));?>" data-role="button" data-rel="dialog"><?php echo __('%s Cobradas', Inflector::pluralize( Configure::read('Mesa.tituloMesa')) ) ?></a>
             
             <a href="#" data-role="button" title="Actualizar Menú" onclick="Risto.Adition.menu.update()"><?php echo $this->Html->image('refresh.png', array('class'=> 'btn-comanda-icon'))?> Actualizar Menú</a>
             
@@ -114,7 +114,7 @@
             
              <div class="ui-grid-a">
                 <div class="ui-block-a"><a href="#" data-rel="back" data-role="button">Cancelar</a></div>
-                <div class="ui-block-b"><a data-icon="home" data-role="button" href="<?php echo $this->Html->url('/');?>" rel="external" data-theme="b">Ir a Página Principal</a></div>
+                <div class="ui-block-b"><a data-icon="home" data-role="button" href="<?php echo $this->Html->url(array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'dashboard'));?>" rel="external" data-theme="b">Ir a Página Principal</a></div>
             </div>
             
     </div>
@@ -280,7 +280,7 @@
                     </li>
                     
                     <li id="mesa-action-cliente" data-bind="attr: {'estado': 'mesa-cliente_'+adn().currentMesa().estado().icon}">
-                        <a href="<?php echo $this->Html->url('/clientes/jqm_clientes')?>" data-rel="dialog">
+                        <a href="<?php echo $this->Html->url(array('plugin'=>'fidelization', 'controller'=>'clientes', 'action'=>'jqm_clientes'))?>" data-rel="dialog">
                                 <?= $this->Html->image('/aditions/css/img/customers.png')?>
                             <span data-bind="visible: !adn().currentMesa().Cliente()"><?php echo __('Agregar %s', Configure::read('Mesa.tituloCliente')) ?></span>
                             <span data-bind="visible: adn().currentMesa().Cliente()" style="white-space: normal"><span data-bind="text: adn().currentMesa().clienteNameData()"></span></span>
@@ -326,7 +326,7 @@
                     </li>
                     
                     <li style="width: 49%; float: right;" id="mesa-action-edit" data-bind="attr: {'estado': 'mesa-borrar_'+adn().currentMesa().estado().icon}">
-                        <a href="#" data-href="<? echo $this->Html->url('/mesas/edit/') ?>">Editar</a>
+                        <a href="#" data-href="<? echo $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'edit')) ?>">Editar</a>
                     </li>
                     
                     

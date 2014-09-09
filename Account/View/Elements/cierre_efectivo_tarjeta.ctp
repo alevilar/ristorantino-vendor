@@ -17,10 +17,10 @@
 	</div>
 
 	<div>
-            <a href="#Reimprimir" onclick="cajero.reimprimir('<?= $this->Html->url('/mesas/imprimirTicket')?>')"><?php echo __('Re Print Ticket') ?></a>
-            <a href="#reAbrirMesa" onclick="cajero.cancelarCierreDeMesa('<?= $this->Html->url('/mesas/ajax_edit')?>')"><?php echo __('Re Abrir %s', Configure::read('Mesa.tituloMesa'))?></a>
-            <a href="#cerrarMesa" onclick="cajero.enviarACajero('<?= $this->Html->url('/mesas/ajax_edit')?>')">Cerrar (envia al cajero)</a>
-            <a href="javascript:" onclick="window.location.href='<?php echo $this->Html->url('/mesas/edit/')?>'+cajero.mesa_id"><?php echo __('Editar %s' , Configure::read('Mesa.tituloMesa'))?></a>
+            <a href="#Reimprimir" onclick="cajero.reimprimir('<?= $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'imprimirTicket'))?>')"><?php echo __('Re Print Ticket') ?></a>
+            <a href="#reAbrirMesa" onclick="cajero.cancelarCierreDeMesa('<?= $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'ajax_edit'))?>')"><?php echo __('Re Abrir %s', Configure::read('Mesa.tituloMesa'))?></a>
+            <a href="#cerrarMesa" onclick="cajero.enviarACajero('<?= $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action' => 'ajax_edit'))?>')">Cerrar (envia al cajero)</a>
+            <a href="javascript:" onclick="window.location.href='<?php echo $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'edit'))?>'+cajero.mesa_id"><?php echo __('Editar %s' , Configure::read('Mesa.tituloMesa'))?></a>
             <dl id="cobro-estado"></dl>
 	</div>
 </div>

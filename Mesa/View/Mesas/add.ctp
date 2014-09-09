@@ -11,10 +11,10 @@
 	<?php
         //debug($mozos);
 		echo $this->Form->input('numero', array(
-            'label'=>__( 'Número de %s', Configure::read('Mesa.tituloMesa') ),
-		);
+            'label'=> __( 'Número de %s', Configure::read('Mesa.tituloMesa'))
+            	));
 		//$options = array('mozo_id'.'user.nombre');
-        echo $this->Form->input('mozo_id');
+        echo $this->Form->input('mozo_id', array('label'=>Configure::read('Mesa.tituloMozo')));
 		echo $this->Form->input('total', array(
             'required' => 'required',
             'label'=>'Importe Total'

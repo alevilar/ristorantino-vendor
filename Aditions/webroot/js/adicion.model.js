@@ -25,6 +25,13 @@ var AditionModel = {
          * @param {String} url a donde buscar las mesas
          */
         urlDomain : '',
+
+        /**
+         * @param {String} nombre del tenant
+         */
+        tenant : '',
+
+
         /**
          * @param {Integer} cantidad de milisegundos entre las llamadas ajax 
          * para buscar las mesas
@@ -89,11 +96,16 @@ var AditionModel = {
         if (cfg.urlDomain) {
             url = cfg.urlDomain;
         }
+
+        if (cfg.tenant) {
+            tenant = cfg.tenant;
+            url = url + tenant + "/";
+        }
         
         AditionModel.anteriorUpdatedTime = AditionModel.mesasLastUpdatedTime;
         if ( AditionModel.mesasLastUpdatedTime) {
             // si mesasLastUpdatedTime tiene valor es porque ahora solo quiero que me traiga las que fueron actualizadas ultimamente
-            url = url + 'mozos/mesas_abiertas/'+ AditionModel.mesasLastUpdatedTime;
+            url = url + 'mesa/mozos/mesas_abiertas/'+ AditionModel.mesasLastUpdatedTime;
             
             if ( AditionModel.cantMesas > 0 ) {
                 url = url + '/' + AditionModel.cantMesas;
@@ -102,7 +114,7 @@ var AditionModel = {
             url += '.json';
         } else {
             // traer todas
-            url = url + 'mozos/mesas_abiertas.json';
+            url = url + 'mesa/mozos/mesas_abiertas.json';
         }
         
         // si ya no estaba previamente mandando otro ajax igual...
@@ -189,6 +201,7 @@ self.onmessage = function (obj) {
     
     if (obj.data.urlDomain) {
         cfg.urlDomain = obj.data.urlDomain;
+        cfg.tenant = obj.data.tenant;
         
         if (AditionModel.firstRun) {
             // la primera vez hacer esto

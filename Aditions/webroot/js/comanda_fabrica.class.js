@@ -56,7 +56,7 @@ Risto.Adition.comandaFabrica.prototype = {
             
              //  para cada comandera
             $cakeSaver.send({
-                url: urlDomain + 'detalle_comandas/add.json', 
+                url: URL_DOMAIN + TENANT + '/comanda/detalle_comandas/add.json', 
                 obj: comanderaComanda
             });
         }

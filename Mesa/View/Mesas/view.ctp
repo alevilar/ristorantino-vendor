@@ -28,7 +28,7 @@
 
             <script type="text/javascript">
                 if ( !Risto.Adition.koAdicionModel.tieneCurrentMesa() ) {
-//                            document.location = urlDomain+'adition/adicionar';
+//                            document.location = URL_DOMAIN + TENANT + '/adition/adicionar';
                 }
                     
                 (function($){
@@ -39,8 +39,8 @@
 
             <div class="" style="width: 28%; float: left;">
                 <ul data-role="listview" style="width: 100%">
-                    <li><a href="<?php echo $this->Html->url('/comandas/add')?>" daxta-bind="attr: {href: currentMesa().urlComandaAdd()}" ><?= $this->Html->image('/adition/css/img/chef_64.png')?>Comanda</a></li>
-                    <li><a href="<?= $this->Html->url('/pages/panel')?>" >PAnel</a></li>
+                    <li><a href="<?php echo $this->Html->url(array('plugin'=>'comanda', 'controller'=>'comandas', 'action'=>'add'))?>" daxta-bind="attr: {href: currentMesa().urlComandaAdd()}" ><?= $this->Html->image('/adition/css/img/chef_64.png')?>Comanda</a></li>
+                    <li><a href="<?= $this->Html->url(array('plugin'=>'risto', 'controller' =>'pages', 'action'=>'display', 'panel')'/pages/panel')?>" >PAnel</a></li>
                     <li><a href="#sacar-item" >Sacar Item</a></li>
                     <li><a href="#Agregar Cliente" ><?php echo __( 'Agregar %s', Configure::read('Mesa.tituloCliente')) ?></a></li>
                     <li><a href="#Agragar Descuento" >Agregar Descuento</a></li>

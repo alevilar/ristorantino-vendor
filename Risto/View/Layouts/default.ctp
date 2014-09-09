@@ -2,7 +2,8 @@
 <html>
     <head>
         <script>
-        var urlDomain = "<?php echo $this->Html->url('/', true); ?>";
+        var URL_DOMAIN = "<?php echo $this->Html->url('/', true); ?>";
+        var TENANT = $this->Session->read('MtSites.current');
         </script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8">

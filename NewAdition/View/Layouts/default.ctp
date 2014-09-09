@@ -4,7 +4,7 @@
         <script type="text/javascript">
             <!--
             // Inicializacion de variable global de url
-            var urlDomain = "<?php echo $this->Html->url('/', true); ?>";                    
+            var URL_DOMAIN = "<?php echo $this->Html->url('/', true); ?>";                    
 
             -->
         </script>

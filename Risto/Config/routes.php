@@ -1,5 +1,4 @@
 <?php
-
 	Router::parseExtensions('json', 'xls');
 
 	Router::mapResources('Printers.PrinterJobs');

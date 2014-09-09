@@ -92,7 +92,7 @@
    <a  href="#" data-theme="b" data-inline="true" 
        data-bind="css: {'sin-imagen': !image_url, 'con-imagen': image_url}"
        class="">
-           <image class="menu-img" data-bind="visible: image_url, attr: {src: urlDomain+'img/menu/'+image_url}"/>           
+           <image class="menu-img" data-bind="visible: image_url, attr: {src: URL_DOMAIN +'img/menu/'+image_url}"/>           
            <span data-bind="text: name"></span>
    </a>
 </script>
