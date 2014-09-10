@@ -12,11 +12,6 @@ class DetalleComanda extends ComandaAppModel {
 	);
 
 	
-	public $actsAs = array(
-        'Search.Searchable',
-        'Containable',
-        );
-	
 	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	public $belongsTo = array(
@@ -59,6 +54,11 @@ class DetalleComanda extends ComandaAppModel {
         'categoria_id' => array(
             'type' => 'value',
             'field' => 'Producto.categoria_id'
+            ),   
+        'tags' => array(
+            'type' => 'subquery',
+            'field' => 'DetalleComanda.producto_id',
+            'method' => '__searchSubqueryProductTags'
             ),        
         'desde' => array(
             'type' => 'value',
@@ -71,6 +71,21 @@ class DetalleComanda extends ComandaAppModel {
         );
 
        
+   public function __searchSubqueryProductTags($data = array()) {
+        $tags = $this->Producto->Tag->find('all', array('conditions'=>array(
+        		    'Tag.id' => $data['tags']
+        			),
+        ));
+        $prods = Hash::extract($tags, '{n}.Producto.{n}.id');
+
+        $query = $this->Producto->getQuery('all', array(
+            'conditions' => array(
+                'Producto.id' => $prods
+            ),
+            'fields' => array('Producto.id')
+        ));
+        return $query;
+    }
 	
 	
 	public function guardar($data){		

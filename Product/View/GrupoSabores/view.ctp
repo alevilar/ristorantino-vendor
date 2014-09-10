@@ -1,5 +1,5 @@
 <div class="grupoSabores view">
-<h2><?php  echo __('Grupo Sabor');?></h2>
+<h2><?php  echo __('Grupo de Adicionales');?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
 		<dd>
@@ -36,16 +36,16 @@
 <div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('Edit Grupo Sabor'), array('action' => 'edit', $grupoSabor['GrupoSabor']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Grupo Sabor'), array('action' => 'delete', $grupoSabor['GrupoSabor']['id']), null, __('Are you sure you want to delete # %s?', $grupoSabor['GrupoSabor']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Grupo Sabores'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Grupo Sabor'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Productos'), array('controller' => 'productos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Producto'), array('controller' => 'productos', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Editar Grupo de Adicionales'), array('action' => 'edit', $grupoSabor['GrupoSabor']['id'])); ?> </li>
+		<li><?php echo $this->Form->postLink(__('Eliminar Grupo de Adicionales'), array('action' => 'delete', $grupoSabor['GrupoSabor']['id']), null, __('Are you sure you want to delete # %s?', $grupoSabor['GrupoSabor']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Grupo de Adicionales'), array('action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Grupo de Adicionales'), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Productos'), array('controller' => 'productos', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Nuevo Producto'), array('controller' => 'productos', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Productos');?></h3>
+	<h3><?php echo __('Productos Relacionados');?></h3>
 	<?php if (!empty($grupoSabor['Producto'])):?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
@@ -91,7 +91,7 @@
 
 	<div class="actions">
 		<ul>
-			<li><?php echo $this->Html->link(__('New Producto'), array('controller' => 'productos', 'action' => 'add'));?> </li>
+			<li><?php echo $this->Html->link(__('Nuevo Producto'), array('controller' => 'productos', 'action' => 'add'));?> </li>
 		</ul>
 	</div>
 </div>

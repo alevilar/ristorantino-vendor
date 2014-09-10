@@ -8,7 +8,7 @@
             <?php
             echo $this->Form->create('DetalleComanda');
 
-            echo $this->Form->input('cant_o_tot', array('type' => 'radio', 'options'=>array('Calculo por Ventas', 'Calculo por Unidades'), 'default'=>0, 'label'=>false));
+            echo $this->Form->input('cant_o_tot', array('type' => 'radio', 'options'=>array('Calculo por Ventas', 'Cálculo por Unidades'), 'default'=>0, 'label'=>false));
 
             echo $this->Form->input('producto_id', array(
                 'options' => $productos, 
@@ -16,7 +16,9 @@
                 'required' => false, 
                 'empty' => 'Seleccione Producto'));
 
-            echo $this->Form->input('categoria_id', array('options' => $categorias, 'empty' => 'Seleccionar', 'label' => false, 'multiple' => true, 'style'=>'width: 100%; height: 135px;'));
+            echo $this->Form->input('categoria_id', array('options' => $categorias, 'label' => __('Categorias'), 'multiple' => true, 'style'=>'width: 100%; height: 135px;'));
+
+            echo $this->Form->input('tags', array('options' => $tags, 'label' => __('Tags'), 'multiple' => true, 'style'=>'width: 100%; height: 135px;'));
 
             echo $this->Form->input('desde', array('type' => 'text', 'placeholder'=>'Fecha Desde. Formato: YYYY-MM-DD', 'label'=>false));
 
@@ -86,10 +88,4 @@
     </div>
 
 
-</div>
-
-<div class="actions">
-    <ul>
-        <li><?php echo $this->Html->link(__('New Comanda', true), array('action' => 'add')); ?></li>
-    </ul>
 </div>

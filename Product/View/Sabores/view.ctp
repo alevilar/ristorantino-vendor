@@ -1,5 +1,5 @@
 <div class="sabores view">
-<h2><?php  __('Sabor');?></h2>
+<h2><?php  __('Adicional');?></h2>
 	<dl><?php $i = 0; $class = ' class="altrow"';?>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
@@ -30,9 +30,9 @@
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(__('Editar Sabor', true), array('action'=>'edit', $sabor['Sabor']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Borrar Sabor', true), array('action'=>'delete', $sabor['Sabor']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $sabor['Sabor']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('Listar Sabores', true), array('action'=>'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('Crear Sabor', true), array('action'=>'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Editar Adicional', true), array('action'=>'edit', $sabor['Sabor']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Borrar Adicional', true), array('action'=>'delete', $sabor['Sabor']['id']), null, sprintf(__('Seguro desea eliminar el Adicional id# %s?', true), $sabor['Sabor']['id'])); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Adicionales', true), array('action'=>'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('Crear Adicional', true), array('action'=>'add')); ?> </li>
 	</ul>
 </div>

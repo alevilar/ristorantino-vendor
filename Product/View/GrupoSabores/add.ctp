@@ -1,7 +1,7 @@
 <div class="grupoSabores form">
 <?php echo $this->Form->create('GrupoSabor');?>
 	<fieldset>
-		<legend><?php echo __('Add Grupo Sabor'); ?></legend>
+		<legend><?php echo __('Grupo de Adicionales'); ?></legend>
 	<?php
 		echo $this->Form->input('seleccion_de_sabor_obligatorio');
 		echo $this->Form->input('tipo_de_seleccion');
@@ -15,8 +15,7 @@
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 
-		<li><?php echo $this->Html->link(__('List Grupo Sabores'), array('action' => 'index'));?></li>
-		<li><?php echo $this->Html->link(__('List Productos'), array('controller' => 'productos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Producto'), array('controller' => 'productos', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('Listar Grupo de Adicionales'), array('action' => 'index'));?></li>
+		<li><?php echo $this->Html->link(__('Listar Productos'), array('controller' => 'productos', 'action' => 'index')); ?> </li>
 	</ul>
 </div>

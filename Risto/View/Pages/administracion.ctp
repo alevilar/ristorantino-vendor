@@ -27,14 +27,14 @@
     <h2>Productos</h2>
     <div class="list-group">
         <?php
-        echo $this->Html->link('Categorias', array('plugin'=>'product', 'controller'=>'categorias', 'action'=>'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link('Productos', array('plugin'=>'product', 'controller'=>'productos', 'action'=>'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link('Sabores', array('plugin'=>'product', 'controller'=>'sabores', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Categorias'), array('plugin'=>'product', 'controller'=>'categorias', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Productos'), array('plugin'=>'product', 'controller'=>'productos', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Adicionales'), array('plugin'=>'product', 'controller'=>'sabores', 'action'=>'index'), array('class' => 'list-group-item'));
         
-        echo $this->Html->link('Observaciones de Productos', array('plugin'=>'comanda', 'controller'=>'observaciones', 'action'=>'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link('Observaciones de Comandas', array('plugin'=>'comanda', 'controller'=>'observacion_comandas', 'action'=>'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link('Productos Pedidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link('Tags', array('plugin'=>'product', 'controller'=>'tags', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Observaciones de Productos'), array('plugin'=>'comanda', 'controller'=>'observaciones', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Observaciones de Comandas'), array('plugin'=>'comanda', 'controller'=>'observacion_comandas', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Productos Pedidos'), array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Tags'), array('plugin'=>'product', 'controller'=>'tags', 'action'=>'index'), array('class' => 'list-group-item'));
         ?>
     </div>
 

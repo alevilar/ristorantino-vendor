@@ -2,14 +2,14 @@
 <div class="sabores form">
 <?php echo $this->Form->create('Sabor');?>
 <fieldset>
- 		<legend><?php __('Editar Sabor');?></legend>
+ 		<legend><?php __('Editar Adicional');?></legend>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('categoria_id');
 		echo $this->Form->input('precio');
 	?>
-<?php echo $this->Form->end('Submit');?>
+<?php echo $this->Form->end('Guardar');?>
 </fieldset>
 </div>
 <div class="actions">

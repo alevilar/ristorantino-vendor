@@ -432,7 +432,7 @@
 -->
 <div data-role="page" id="page-sabores" data-theme="b" class="dialog-ancho dialog-arriba">
     <div data-role="header">
-        <h1>Seleccionar sabores</h1>
+        <h1>Adicional</h1>
                
 	<a href="#" data-icon="check" data-theme="b" data-rel="back" data-bind="click: function(){adn().currentMesa().currentComanda().saveSabores()}">Guardar</a>        
     </div>

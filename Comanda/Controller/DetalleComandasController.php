@@ -75,7 +75,8 @@ class DetalleComandasController extends ComandaAppController {
 
         $this->set('categorias', $this->DetalleComanda->Producto->Categoria->generateTreeList());
         $this->set('productos', $this->DetalleComanda->Producto->find('list', array('order' => 'name')));
-		$this->set(compact('comandas', 'cantTotal', 'ventasTotal'));
+        $this->set('tags', $this->DetalleComanda->Producto->Tag->find('list', array('order' => 'name')));
+		$this->set(compact('comandas', 'cantTotal', 'ventasTotal','tags'));
 	}
 	
 

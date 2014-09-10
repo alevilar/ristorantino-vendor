@@ -10,6 +10,7 @@ class Producto extends ProductAppModel {
     public $actsAs = array(
         'SoftDelete', 
         'Search.Searchable',
+        'MtSites.MultiTenant',
         'Containable',
         );
 
@@ -58,7 +59,7 @@ class Producto extends ProductAppModel {
      *
      * @var array
      */
-    public $hasAndBelongsToMany = array('Product.Tag','Product.GrupoSabor');
+    public $hasAndBelongsToMany = array('Product.Tag', 'Product.GrupoSabor');
 
 
 

@@ -6,14 +6,8 @@ App::uses('ProductAppController', 'Product.Controller');
 class SaboresController extends ProductAppController {
 
 	public $name = 'Sabores';
-	public $helpers = array('Html', 'Form');
         
-        
-    public $components = array(        
-        'Search.Prg',
-        'Paginator', 
-        );
-
+   
         
 	public function index() {
 		$this->Prg->commonProcess();
@@ -29,7 +23,7 @@ class SaboresController extends ProductAppController {
 
 	public function view($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid Sabor.'), 'Risto.flash_error');
+			$this->Session->setFlash(__('Adicional Inválido.'), 'Risto.flash_error');
 			$this->redirect(array('action'=>'index'));
 		}
 		$this->set('sabor', $this->Sabor->read(null, $id));
@@ -40,10 +34,10 @@ class SaboresController extends ProductAppController {
 		if (!empty($this->request->data)) {
 			$this->Sabor->create();
 			if ($this->Sabor->save($this->request->data)) {
-				$this->Session->setFlash(__('The Sabor has been saved'), 'Risto.flash_success');
+				$this->Session->setFlash(__('El Adicional ha sido guardado'), 'Risto.flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Sabor could not be saved. Please, try again.'), 'Risto.flash_success');
+				$this->Session->setFlash(__('El Adicional no ha podido ser guardado, vuelva a intentar.'), 'Risto.flash_error');
 			}
 		}
 		$categorias = $this->Sabor->Categoria->generateTreeList(null, null, null, '___');
@@ -54,15 +48,15 @@ class SaboresController extends ProductAppController {
 	public function edit($id = null) {
             
 		if (!$id && empty($this->request->data)) {
-			$this->Session->setFlash(__('Invalid Sabor'), 'Risto.flash_error');
+			$this->Session->setFlash(__('Adicional Inválido.'), 'Risto.flash_error');
 			$this->redirect(array('action'=>'index'));
 		}
 		if (!empty($this->request->data)) {
 			if ($this->Sabor->save($this->request->data)) {
-				$this->Session->setFlash(__('The Sabor has been saved'), 'Risto.flash_success');
+				$this->Session->setFlash(__('El Adicional ha sido guardado'), 'Risto.flash_success');
 				$this->redirect(array('action'=>'index'));
 			} else {
-				$this->Session->setFlash(__('The Sabor could not be saved. Please, try again.'), 'Risto.flash_error');
+				$this->Session->setFlash(__('El Adicional no ha podido ser guardado, vuelva a intentar.'), 'Risto.flash_error');
 			}
 		}
 		if (empty($this->request->data)) {
@@ -75,10 +69,10 @@ class SaboresController extends ProductAppController {
 
 	public function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Sabor'), 'Risto.flash_error');
+			$this->Session->setFlash(__('ID de Adicional Inválido'), 'Risto.flash_error');
 		}
 		if ($this->Sabor->delete($id)) {
-			$this->Session->setFlash(__('Sabor deleted'), 'Risto.flash_success');
+			$this->Session->setFlash(__('Adicional Borrado'), 'Risto.flash_success');
 		}
                 $this->redirect(array('action'=>'index'));
 	}

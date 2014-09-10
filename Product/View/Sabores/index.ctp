@@ -1,13 +1,13 @@
 
 <div class="sabores index">
-<h2><?php __('Sabores');?></h2>
+<h2><?php __('Adicionales');?></h2>
 
 
 <table class="table">
 
     <tr>
 	<?php echo $this->Form->create('Sabor',array('action'=>'index'));?>
-	<th><?php echo $this->Form->input('Sabor.name',array('placeholder'=>'Sabor', 'label'=>false, 'required' => 0));?></th>
+	<th><?php echo $this->Form->input('Sabor.name',array('placeholder'=>'Adicional', 'label'=>false, 'required' => 0));?></th>
 	<th><?php echo $this->Form->input('categoria_name',array('placeholder'=>'Categoría', 'label'=>false));?></th>
 	<th><?php echo $this->Form->input('Sabor.precio',array('placeholder'=>'Precio', 'label'=>false));?></th>
 	<th>&nbsp; </th>
@@ -72,6 +72,6 @@ foreach ($sabores as $sabor):
 </div>
 <div class="actions">
 	<ul>
-		<li><?php echo $this->Html->link(__('Crear Sabor', true), array('action'=>'add')); ?></li>
+		<li><?php echo $this->Html->link(__('Crear Adicional', true), array('action'=>'add')); ?></li>
 	</ul>
 </div>
