@@ -16,12 +16,7 @@
     
     <div class="col-md-6">
             <?php
-            echo $this->Form->input('Rol.id', array(
-                'label' => 'Rol',
-                'options' => $roles,
-                'multiple' => true,
-                ));
-            
+            echo $this->Form->input('Rol');
             ?>
     </div>
 </div>

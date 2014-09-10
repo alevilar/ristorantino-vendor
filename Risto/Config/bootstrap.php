@@ -61,6 +61,11 @@ CakePlugin::load('ReservationManager', array( 'bootstrap' => true ));
 
 
 
+define("TIPO_DOCUMENTO_SIN_IDENTIFICAR", 8); // sin identificar
+define("IVA_RESPONSABILIDAD_CONSUMIDOR_FINAL", 4); // Consumidor Final
+define("IVA_RESPONSABILIDAD_RESPONSABLE_INSCRIPTO", 1); // Responsable Inscripto
+define("TIPO_DOCUMENTO_CUIT", 1); // Tipo Documento CUIT
+
 
 
 

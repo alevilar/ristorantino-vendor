@@ -16,11 +16,11 @@ function abrirVentana(mesa, total){
 	<ul>
 		<?php foreach($mesas_abiertas as $m):?>
 		
-			<li id="mesa-id-<?=  $m['Mesa']['id']?>" onclick="return abrirVentana(<?=  $m['Mesa']['id']?>);">
+			<li id="mesa-id-<?php echo  $m['Mesa']['id']?>" onclick="return abrirVentana(<?php echo  $m['Mesa']['id']?>);">
 					
-				<span class="mesa-numero"><?= $m['Mesa']['numero']?></span>
-				<span class="mozo-numero"><?= $m['Mozo']['numero']?></span>
-				<div class="mesa-time-created">Abrió: <?= date('H:i',strtotime($m['Mesa']['created'])) ?></div>	
+				<span class="mesa-numero"><?php echo $m['Mesa']['numero']?></span>
+				<span class="mozo-numero"><?php echo $m['Mozo']['numero']?></span>
+				<div class="mesa-time-created">Abrió: <?php echo date('H:i',strtotime($m['Mesa']['created'])) ?></div>	
 				<span style="font-size: 9px;"><?php echo (!empty($m['Cliente']['Descuento']))?"Dto: ".$m['Cliente']['Descuento']['porcentaje']."%":''; ?></span>
 				<div style="font-size: 9px;"><?php echo "Tiene ".count($m['Comanda'])." comandas";?></div>
 				

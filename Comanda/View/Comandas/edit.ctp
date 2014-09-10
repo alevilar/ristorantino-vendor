@@ -4,7 +4,7 @@
 
 echo $this->Form->create('Comanda');
 echo $this->Form->input('id');
-echo $this->Form->input('mesa_id');
+echo $this->Form->input('mesa_id', array('label'=>Configure::read('Mesa.tituloMesa'), 'after'=>'<span class="text text-info">Mostrando sólo las que se encuentran "abiertas"</span>'));
 echo $this->Form->input('observacion');
 echo $this->Form->hidden('redirect');
 

@@ -160,8 +160,8 @@ Mesa.prototype = {
 
     /* listado de URLS de accion con la mesa */
     urlGetData: function() { return URL_DOMAIN + TENANT + '/mesa/mesas/ticket_view/'+this.id() },
-    urlView: function() { return URL_DOMAIN + '/mesa/mesas/view/'+this.id() },
-    urlEdit: function() { return URL_DOMAIN + '/mesas/ajax_edit/'+this.id() },
+    urlView: function() { return URL_DOMAIN + TENANT + '/mesa/mesas/view/'+this.id() },
+    urlEdit: function() { return URL_DOMAIN + TENANT + '/mesas/ajax_edit/'+this.id() },
     urlDelete: function() { return URL_DOMAIN + TENANT +'/mesa/mesas/delete/'+this.id() },
     urlComandaAdd: function() { return URL_DOMAIN + TENANT +'/mesa/comandas/add/'+this.id() },
     urlReimprimirTicket: function() { return URL_DOMAIN + TENANT +'/mesa/mesas/imprimirTicket/'+this.id() },

@@ -9,7 +9,7 @@ class Mesa extends MesaAppModel {
 	public $displayField = 'numero';
 
 	public $actsAs = array(
-		'MtSites.MultiTenant'
+		'MtSites.MultiTenant',
 		'SoftDelete', 
 		'Search.Searchable',
 		'Containable',
@@ -128,12 +128,33 @@ class Mesa extends MesaAppModel {
 	public $order = array('Mesa.created' => 'desc');
 		
 		
-	function beforeSave( $options = array() ) 
+	public function beforeSave( $options = array() ) 
 	{
-		 $this->__deletePagosSiReabre();
-		 return parent::beforeSave($options);
+		if ( !parent::beforeSave($options) ) {
+			return false;
+		}
+
+		// borrar los pagos que habia sobre la mesa en el caso de reabrirla
+		$this->__deletePagosSiReabre();
+
+		// en caso de pasar de estado abierta a cerrada, aplicar cierre ejecutando cerrar_mesa()
+		$this->__cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada();
+
+		return true;
 	 }
 
+
+	 private function __cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada ( $options = array() ) {
+	 	if ( !empty($this->data['Mesa']['id'])
+			 && !empty($this->data['Mesa']['estado_id'])
+			 && $this->data['Mesa']['estado_id'] == MESA_CERRADA
+			 ) 
+	 	{               
+			 if ( $this->estaAbierta() ) {
+				 $this->cerrar_mesa();
+			 }
+		}
+	 }
 
 
 	// Si la mesa estaba cobrada, y la paso a un estado anterio, por ejemplo, la abro
@@ -172,48 +193,36 @@ class Mesa extends MesaAppModel {
 	// }
 
 
-	function cerrar_mesa($mesa_id = 0)
+	function cerrar_mesa( $mesa_id = null )
 	{
-		$this->id = ( $mesa_id == 0 ) ? $this->id : $mesa_id;
+		if ( !empty( $this->data['Mesa']['id'] ) ) {
+			$this->id = $this->data['Mesa']['id'];
+		}
+		$this->id = ( $mesa_id == null ) ? $this->id : $mesa_id;
 
 		if ( !$this->exists( $this->id ) ) {
 			return 0;
 		}
-
-		$mesaData['Mesa'] = array(
-			'estado_id'    => MESA_CERRADA,
-			'total'     => $this->calcular_total(),
-			'subtotal'  => $this->calcular_subtotal(),
-			'time_cerro'=> date( "Y-m-d H:i:s",strtotime('now')),
-		);
-
+		$this->data['Mesa']['id'] = $mesa_id;
+		$this->data['Mesa']['estado_id'] = MESA_CERRADA;
+		$this->data['Mesa']['subtotal'] = $this->calcular_subtotal();
+		$this->data['Mesa']['total'] = $this->calcular_total();
+		$this->data['Mesa']['time_cerro'] = date( "Y-m-d H:i:s",strtotime('now'));
 		// si no estoy usando cajero, entonces poner como que ya esta cerrada y cobrada
 		$usarCajero = Configure::read('Adicion.usarCajero');
 		if ( !$usarCajero )  {
-			$mesaData['Mesa']['time_cobro'] = date( "Y-m-d H:i:s",strtotime('now'));
-			$mesaData['Mesa']['estado_id']  = MESA_COBRADA;
+			$this->data['Mesa']['time_cobro'] = date( "Y-m-d H:i:s",strtotime('now'));
+			$this->data['Mesa']['estado_id']  = MESA_COBRADA;
 		} else {
-			$mesaData['Mesa']['time_cobro'] = DATETIME_NULL;
+			$this->data['Mesa']['time_cobro'] = DATETIME_NULL;
 		}
 
-		if ( $this->save($mesaData, false) ) {
-			$event = new CakeEvent('Mesa.cerrada', $this, array(
-				  'id' => $mesa_id
-			  ));
-		  	$this->getEventManager()->dispatch($event);
+		$event = new CakeEvent('Mesa.cerrada', $this, array(
+			  'id' => $mesa_id
+		  ));
+	  	$this->getEventManager()->dispatch($event);
 
-		  	if ( !$usarCajero ) {
-		  		$event = new CakeEvent('Mesa.cobrada', $this, array(
-				  'id' => $mesa_id
-			  	));
-		  		$this->getEventManager()->dispatch($event);
-		  	}
-		} else {
-			throw new Exception("Error al guardar para cerrar mesa");
-		}
-
-		return $mesaData;
-
+		return $this->data;
 }
 
 
@@ -260,7 +269,7 @@ function calcular_descuentos($id = null) {
 	if (!empty($id)) $this->id = $id;
 
 	$this->contain(array('Descuento', 'Cliente.Descuento'));
-	$mesa = $this->read();
+	$mesa = $this->find('first', array('conditions' => array('Mesa.id'=>$this->id )));
 	$descuento = 0;
 
 	if (!empty($mesa['Descuento'])) {
@@ -293,7 +302,7 @@ function calcular_subtotal($id = null){
 	$conversionDescuento = 1-($totalPorcentajeDescuento/100);
 
 	$this->recursive = -1;
-	$mesa = $this->read();
+	$mesa = $this->find('first', array('conditions'=> array( 'Mesa.id' => $this->id ) ) );
 	$this->total['Mesa']['cant_comensales'] = $mesa['Mesa']['cant_comensales'];
 
 	$precioCubierto = Configure::read('Restaurante.valorCubierto');
@@ -597,7 +606,9 @@ function calcular_subtotal($id = null){
 
 			return $ret;
 		}
-		
+
+
+
 		
 		
 		
@@ -606,25 +617,20 @@ function calcular_subtotal($id = null){
 		 * @param integer $id
 		 * @return boolean
 		 */
-		// function estaAbierta($id = null){
-		//     if (!empty($id)){
-		//         $this->id = $id;
-		//     }
-		//     // si lo tengo en memoria primero busco por aca
-		//     if ( !empty($this->data[$this->name]['estado_id']) ){
-		//         return $this->data[$this->name]['estado_id'] == MESA_ABIERTA;
-		//     }
-		//     // lo busco en BBDD        
-		//     $ret = $this->find('count', array(
-		//         'conditions' => array(
-		//             'Mesa.estado_id' => MESA_ABIERTA,
-		//             'Mesa.id' => $this->id,
+		 function estaAbierta($id = null){
+		     if (!empty($id)){
+		         $this->id = $id;
+		     }
 
-		//             )
-		//         ));
-
-		//     return ($ret > 0);
-		// }
+		     // lo busco en BBDD        
+		     $ret = $this->find('count', array(
+		         'conditions' => array(
+		             'Mesa.estado_id' => MESA_ABIERTA,
+		             'Mesa.id' => $this->id,
+	             )
+         ));
+	     return ($ret > 0);
+		}
 
 
 		function reabrir($mesa_id = null){

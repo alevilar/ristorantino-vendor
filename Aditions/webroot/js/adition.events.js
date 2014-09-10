@@ -221,7 +221,7 @@ $(document).bind("mobileinit", function(){
         var $hrefEdit = $('a:first-child','#mesa-action-edit'),
             hrefToEditMesa = $hrefEdit.attr('data-href');
         if ( hrefToEditMesa ) {
-            $hrefEdit.attr('href', hrefToEditMesa + Risto.Adition.adicionar.currentMesa().id() );
+            $hrefEdit.attr('href', hrefToEditMesa + "/" + Risto.Adition.adicionar.currentMesa().id() );
         }
 
 

@@ -1,10 +1,6 @@
 <?php
 App::uses('FidelizationAppModel', 'Fidelization.Model');
 
-define("TIPO_DOCUMENTO_SIN_IDENTIFICAR", 8); // sin identificar
-define("IVA_RESPONSABILIDAD_CONSUMIDOR_FINAL", 4); // Consumidor Final
-
-
 
 /**
  * Cliente Model

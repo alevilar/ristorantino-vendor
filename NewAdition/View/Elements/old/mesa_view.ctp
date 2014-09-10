@@ -108,7 +108,7 @@
                 <span style="color: red"></span> Menú
             </a>
 
-            <a  id="btn-mesa-edit" href="<? echo $this->Html->url('/mesas/edit/') ?>" data-role="button">
+            <a  id="btn-mesa-edit" href="<?php echo $this->Html->url('/mesas/edit/') ?>" data-role="button">
                 Editar
             </a>
 

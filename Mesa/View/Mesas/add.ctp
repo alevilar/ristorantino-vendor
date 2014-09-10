@@ -1,37 +1,58 @@
-
+ 
 <div class="mesas form">
+		
+
+		<h1 class="center"><?php echo __('Agregar %s', Configure::read('Mesa.tituloMesa') );?></h1>
+
+
 <?php echo $this->Form->create('Mesa');?>
 	<fieldset>
- 		<legend><?php __('Agregar %s', Configure::read('Mesa.tituloMesa') );?></legend>
-                <p class="well info text text-info">
-                    Agregar manualmente es para cuando, por algún motivo, no se pudo utilizar el sistema y queremos cargar el total de una venta sin importarnos el detalle (items) de la factura. 
-                    <br>
-                    Es para que el monto de venta se compute en la estadística de forma rápida.<br>
-                </p>
 	<?php
         //debug($mozos);
+
+
 		echo $this->Form->input('numero', array(
             'label'=> __( 'Número de %s', Configure::read('Mesa.tituloMesa'))
             	));
+
+
+
+
 		//$options = array('mozo_id'.'user.nombre');
-        echo $this->Form->input('mozo_id', array('label'=>Configure::read('Mesa.tituloMozo')));
-		echo $this->Form->input('total', array(
-            'required' => 'required',
-            'label'=>'Importe Total'
-            ));
+		if (count($mozos) == 1) {
+			$mk = array_keys( $mozos );
+        	echo $this->Form->hidden('mozo_id', array('value'=> $mk[0]));
+		} else {
+			echo $this->Form->input('mozo_id', array('label'=>Configure::read('Mesa.tituloMozo')));
+		}
 		//echo $this->Form->input('descuento_id');
 		//echo $this->Form->input('created');
 		//echo $this->Form->input('time_paso_pedido');
 		//echo $this->Form->input('time_cerro');
-		echo $this->Form->input('time_cobro', array(
-					//'type' => 'input',
-					'class' => 'datetime',
-					'label'=>'Indicar Fecha y hora aproximada',
-                    ));
 
-        echo $this->Form->input('tipo_de_pago',array('options'=>$tipo_pagos))
-	?>
-<?php echo $this->Form->end('Enviar');?>                
+		echo $this->Form->input('time_abrio', array(
+                'class' => 'datetimepicker form-control',
+                'data-format' =>  "yyyy-MM-dd hh:mm:ss",
+            ));
+
+		echo $this->Form->input('time_cerro', array(
+                'class' => 'datetimepicker form-control',
+                'data-format' =>  "yyyy-MM-dd hh:mm:ss",
+            ));
+
+		echo $this->Form->input('total', array(           
+            'label'=>'Importe Total'
+            ));
+
+		echo $this->Form->input('estado_id');
+		?>
+		<div id="pago" style="display:none;">
+			<?php
+	        echo $this->Form->input('Pago.0.tipo_de_pago_id',array('options'=>$tipo_pagos, 'disabled'=>true, 'id'=>'PagoTipoDePagoId'));
+	        echo $this->Form->input('Pago.0.valor',array('value'=>0, 'disabled'=>true, 'id'=>'PagoValor', 'label'=>__('Monto a Pagar')));
+	        ?>
+        </div>
+	<?php echo $this->Form->end('Enviar');?>                
 	</fieldset>
 </div>
 <div class="actions">
@@ -39,3 +60,36 @@
 		<li><?php echo $this->Html->link(__('Listar %s', Configure::read('Mesa.tituloMesa')), array('action'=>'index'));?></li>
 	</ul>
 </div>
+
+<script type="text/javascript">
+
+	enablePago = function () {
+
+		var COBRADA_ID = <?php echo MESA_COBRADA; ?>;
+		if ( $('#MesaEstadoId').val() == COBRADA_ID ) {
+			$('#MesaTotal').attr('required', 'required');
+			$('#pago').show('slide');
+			$('#PagoTipoDePagoId').attr('disabled', false);
+			$('#PagoValor').attr('disabled', false);
+		} else {
+			$('#MesaTotal').removeAttr('required');
+			$('#pago').hide('slide');
+			$('#PagoTipoDePagoId').attr('disabled', true);
+			$('#PagoValor').attr('disabled', true);			
+		}
+	}
+
+
+	completarTotalDePago = function () {
+		$('#PagoValor').val( $('#MesaTotal').val() );
+	}
+
+	
+	$('#MesaEstadoId').on('change', enablePago);
+	$('#MesaTotal').on('keyup', completarTotalDePago); 
+
+
+	enablePago();
+	completarTotalDePago();
+
+</script>

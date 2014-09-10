@@ -40,11 +40,11 @@
 <?
 foreach ($queries as $q):?>
 	<li>
-		<?= $this->Html->link($q['Query']['name'].'.xls','contruye_excel/'.$q['Query']['id']); ?>
-		<?= "(".date("j F, Y, g:i a",strtotime($q['Query']['modified'])).")"; ?>
-		<? if($q['Query']['ver_online']) 
+		<?php echo $this->Html->link($q['Query']['name'].'.xls','contruye_excel/'.$q['Query']['id']); ?>
+		<?php echo "(".date("j F, Y, g:i a",strtotime($q['Query']['modified'])).")"; ?>
+		<?php if($q['Query']['ver_online']) 
 			echo $this->Html->link('ver online', array('action'=>'list_view',$q['Query']['id']));?>
-		<br /><?=  $q['Query']['description'] ?>
+		<br /><?php echo  $q['Query']['description'] ?>
 	</li>
 	<?php 
 endforeach;

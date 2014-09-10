@@ -14,34 +14,35 @@
 
             <a href='#adicion-opciones' data-icon="gear" data-rel="dialog" class="ui-btn-right">Opciones</a>
             
+            <?php  if ( count($mozos) > 1 ): ?>
             <div data-role="navbar">
                 <ul id="listado-mozos-para-mesas">
                     <?php $anchoTabMozo =  floor( 100/ (count($mozos) +1) );?>
                     <li  style="width: <?php echo 100 - ($anchoTabMozo*(count($mozos)))?>%"><a href="#" class="ui-btn-active">Todos</a></li>
-                    <?php
-                        foreach ($mozos as $m) {
+
+                    <?php foreach ($mozos as $m):
                             $k = $m['Mozo']['id'];
                             $n = $m['Mozo']['numero'];
                             ?>
-                    <li  style="width: <?php echo $anchoTabMozo?>%">
-                                <a href="#" data-mozo-id="<?php echo $k?>"><?php echo $n?></a>
-                            </li>
-                        <?
-                        }
-                    ?>
+                        <li  style="width: <?php echo $anchoTabMozo?>%"><a href="#" data-mozo-id="<?php echo $k?>"><?php echo $n?></a></li>
+                    <?php endforeach; ?>
+
                 </ul>
             </div>
-        </div>
-
+            <?php endif; ?>
+    </div>
                     
-        <div  data-role="content" class="content_mesas">           
+    <div  data-role="content" class="content_mesas">           
 
-                <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
-                <a href="#mesa-add" id="mesa-abrir-mesa-btn" data-rel="dialog"  class="abrir-mesa" data-role="button" data-theme="a">Abrir<br><?php echo Configure::read('Mesa.tituloMesa')?></a>  
-                <ul id="mesas_container" class="listado-adicion" data-bind='template: { name: "listaMesas", foreach: adn().mesas }'>
-                        
-                </ul>
-        </div><!-- /navbar -->
+            <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
+            <a href="#mesa-add" id="mesa-abrir-mesa-btn" data-rel="dialog"  class="abrir-mesa" data-role="button" data-theme="a">
+                Abrir<br><?php echo Configure::read('Mesa.tituloMesa')?>
+            </a>  
+
+            <ul id="mesas_container" class="listado-adicion" data-bind='template: { name: "listaMesas", foreach: adn().mesas }'>
+                    
+            </ul>
+    </div><!-- /navbar -->
 
 </div>
 <!-- Fin Pagina 1 -->
@@ -276,45 +277,45 @@
                 <ul data-role="listview"  data-bind="attr: {'estado': adn().currentMesa().estado().icon}">
                     
                     <li id="mesa-action-comanda" data-bind="attr: {'estado': 'comanda-add-menu_'+adn().currentMesa().estado().icon}">
-                        <a href="#comanda-add-menu" data-rel="dialog"><?= $this->Html->image('/aditions/css/img/chef_64.png')?>Comanda</a>
+                        <a href="#comanda-add-menu" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/chef_64.png')?>Comanda</a>
                     </li>
                     
                     <li id="mesa-action-cliente" data-bind="attr: {'estado': 'mesa-cliente_'+adn().currentMesa().estado().icon}">
                         <a href="<?php echo $this->Html->url(array('plugin'=>'fidelization', 'controller'=>'clientes', 'action'=>'jqm_clientes'))?>" data-rel="dialog">
-                                <?= $this->Html->image('/aditions/css/img/customers.png')?>
+                                <?php echo $this->Html->image('/aditions/css/img/customers.png')?>
                             <span data-bind="visible: !adn().currentMesa().Cliente()"><?php echo __('Agregar %s', Configure::read('Mesa.tituloCliente')) ?></span>
                             <span data-bind="visible: adn().currentMesa().Cliente()" style="white-space: normal"><span data-bind="text: adn().currentMesa().clienteNameData()"></span></span>
                         </a>
                     </li>
                     
                     <li id="mesa-action-cerrar" data-bind="attr: {'estado': 'mesa-cerrar_'+adn().currentMesa().estado().icon}">
-                        <a href="#listado-mesas" id="mesa-cerrar" data-direction="reverse"><?= $this->Html->image('/aditions/css/img/cerrarmesa.png')?>Cerrar</a>
+                        <a href="#listado-mesas" id="mesa-cerrar" data-direction="reverse"><?php echo $this->Html->image('/aditions/css/img/cerrarmesa.png')?>Cerrar</a>
                     </li>
                     
                     
                     <li id="mesa-action-cobrar" data-bind="attr: {'estado': 'mesa-cobrar_'+adn().currentMesa().estado().icon}">
-                        <a href="#mesa-cobrar" data-rel="dialog"><?= $this->Html->image('/aditions/css/img/cobrar.png')?>Cobrar</a>
+                        <a href="#mesa-cobrar" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/cobrar.png')?>Cobrar</a>
                     </li>
                     
                     <li id="mesa-action-reimprimir" data-bind="attr: {'estado': 'mesa-re-print_'+adn().currentMesa().estado().icon}">
-                        <a href="#listado-mesas" class="mesa-reimprimir"  data-rel="back"><?= $this->Html->image('/aditions/css/img/printer.png')?>Imprimir Ticket</a>
+                        <a href="#listado-mesas" class="mesa-reimprimir"  data-rel="back"><?php echo $this->Html->image('/aditions/css/img/printer.png')?>Imprimir Ticket</a>
                     </li>
 
                     
                     <li id="mesa-action-cambiar-mozo">
-                        <a href="#mesa-cambiar-mozo" data-rel="dialog"><?= $this->Html->image('/aditions/css/img/cambiarmozo.png')?>Cambiar <?php echo Configure::read('Mesa.tituloMozo')?></a>
+                        <a href="#mesa-cambiar-mozo" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/cambiarmozo.png')?>Cambiar <?php echo Configure::read('Mesa.tituloMozo')?></a>
                     </li>
                     
                     <li id="mesa-action-cambiar-numero">
-                        <a href="#mesa-cambiar-numero" data-rel="dialog"><?= $this->Html->image('/aditions/css/img/cambiarmesa.png')?>Cambiar N°</a>
+                        <a href="#mesa-cambiar-numero" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/cambiarmesa.png')?>Cambiar N°</a>
                     </li>
                     
                     <li id="mesa-action-reabrir" data-bind="attr: {'estado': 'mesa-reabrir_'+adn().currentMesa().estado().icon}">
-                        <a href="#listado-mesas" id="mesa-reabrir"><?= $this->Html->image('/aditions/css/img/reabrir.png')?>Re Abrir</a>
+                        <a href="#listado-mesas" id="mesa-reabrir"><?php echo $this->Html->image('/aditions/css/img/reabrir.png')?>Re Abrir</a>
                     </li>
                     
                     <li style="" id="mesa-action-menu" data-bind="attr: {'estado': 'mesa-borrar_'+adn().currentMesa().estado().icon}">
-                        <a href="#" id="mesa-menu"><?= $this->Html->image('/aditions/css/img/write.png')?>Menú <span style="color: red" data-bind="visible: adn().currentMesa().menu() != 0,text: adn().currentMesa().menu"></span></a>
+                        <a href="#" id="mesa-menu"><?php echo $this->Html->image('/aditions/css/img/write.png')?>Menú <span style="color: red" data-bind="visible: adn().currentMesa().menu() != 0,text: adn().currentMesa().menu"></span></a>
                     </li>
                     
                     <li>
@@ -322,11 +323,11 @@
                     </li>
                     
                     <li style="width: 49%; float: left;" id="mesa-action-borrar" data-bind="attr: {'estado': 'mesa-borrar_'+adn().currentMesa().estado().icon}">
-                        <a href="#listado-mesas" id="mesa-borrar" data-rel="back"><?= $this->Html->image('/aditions/css/img/borrarmesa.png')?>Borrar</a>
+                        <a href="#listado-mesas" id="mesa-borrar" data-rel="back"><?php echo $this->Html->image('/aditions/css/img/borrarmesa.png')?>Borrar</a>
                     </li>
                     
                     <li style="width: 49%; float: right;" id="mesa-action-edit" data-bind="attr: {'estado': 'mesa-borrar_'+adn().currentMesa().estado().icon}">
-                        <a href="#" data-href="<? echo $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'edit')) ?>">Editar</a>
+                        <a href="#" data-external="true" target="_blank" data-href="<?php echo $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'edit')) ?>"><?php echo $this->Html->image('/aditions/css/img/editarmesa.png')?>Editar</a>
                     </li>
                     
                     

@@ -133,11 +133,11 @@ public function add() {
   public function delete($id = null) {
     if (!$id) {
        $this->Session->setFlash(__('Invalid id for Pago'));
-       $this->redirect(array('action'=>'index'));
+       $this->redirect( $this->referer() );
    }
    if ($this->Pago->delete($id)) {
        $this->Session->setFlash(__('Pago deleted'));
-       $this->redirect(array('action'=>'index'));
+       $this->redirect($this->referer());
    }
   }
 

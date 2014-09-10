@@ -11,13 +11,13 @@
         
         <?php echo $this->Form->create("Mesa", array("action" => "index")); ?>
         <div class=" col-md-1">
-            <?php echo $this->Form->input('numero', array('label' => __('N° %s', Configure::read('Mesa.tituloMesa') ), 'required'=>false)); ?>
-            <?php echo $this->Form->input('mozo_numero', array('label' => __('N° %s', Configure::read('Mesa.tituloMozo') ))); ?>
+            <?php echo $this->Form->input('numero', array('label' => Configure::read('Mesa.tituloMesa'), 'required'=>false)); ?>
+            <?php echo $this->Form->input('mozo_numero', array('label' => Configure::read('Mesa.tituloMozo') )); ?>
         </div>
         <div class="col-md-2">
             <?php echo $this->Form->input('total', array('label' => 'Importe'));
             echo $this->Form->input('estado_id', array(
-                'label' => __('¿Qué %s?', Inflector::pluralize( Configure::read('Mesa.tituloMesa')) ),
+                'label' => __('Estado'),
                 'type' => 'select',
                 'empty' => 'Seleccione',                
             ));

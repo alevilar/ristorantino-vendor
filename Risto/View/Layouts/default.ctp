@@ -3,7 +3,7 @@
     <head>
         <script>
         var URL_DOMAIN = "<?php echo $this->Html->url('/', true); ?>";
-        var TENANT = $this->Session->read('MtSites.current');
+        var TENANT = "<php echo $this->Session->read('MtSites.current')?>";
         </script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8">
@@ -23,12 +23,7 @@
         ));
 
 
-        // CSS by Rol
-        $cssUserRole = "acl-" . $this->Session->read('MtSites.current_role');
-        $ppath = App::pluginPath('Risto');
-        if ( file_exists( $ppath . DS . 'webroot' . DS . 'css' . $cssUserRole . '.css') ) {
-            echo $this->Html->css('/risto/css/'.$cssUserRole, 'stylesheet', array('media' => 'screen'));
-        }
+        echo $this->element('Risto.per_role_style');
         
         echo $this->Html->script(array(
             '/risto/js/jquery.min',

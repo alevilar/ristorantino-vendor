@@ -17,7 +17,7 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
 			              <li class="dropdown">
 			                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Opciones <b class="caret"></b></a>
 			                <ul class="dropdown-menu">
-			                  <li><?= $this->Html->link('Ir a la página principal','/')?></li>
+			                  <li><?php echo $this->Html->link('Ir a la página principal','/')?></li>
 			                  <li class="divider"></li>
 			                  <li class="nav-header">Opciones</li>
 			                  <li><a href="#">Separated link</a></li>
@@ -125,7 +125,7 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
         </li>
 
         <li>
-        <a  id="btn-mesa-edit" href="<? echo $this->Html->url('/mesas/edit/') ?>" class="">
+        <a  id="btn-mesa-edit" href="<?php echo $this->Html->url('/mesas/edit/') ?>" class="">
             <i class="icon-edit icon-large"></i>
             Editar
         </a>
@@ -177,7 +177,7 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
 			<span style="position: absolute;margin-left: -34px;margin-top: 23px;"><%= numero %></span>
 		</button>    		
 	<% } else { %>
-		<button class='mozo'><img src="<?= IMAGES_URL?>thumb_<%= image_url %>" width="64"  class="img-circle"/></button>
+		<button class='mozo'><img src="<?php echo IMAGES_URL?>thumb_<%= image_url %>" width="64"  class="img-circle"/></button>
 	<% } %>
 	<div class="mesas-list"></div>
 </script>
@@ -217,7 +217,7 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
                         <span style="position: relative; margin-left: 17px;margin-top: 13px;" class="mozo-numero"><%= Mozo.numero %></span>
                 </button>    		
         <% } else { %>
-                <button class='mozo'><img src="<?= IMAGES_URL?>thumb_<%= Mozo.image_url %>" width="64"  class="img-circle" style="position: absolute; top: 10px; left: 10px;"/></button>
+                <button class='mozo'><img src="<?php echo IMAGES_URL?>thumb_<%= Mozo.image_url %>" width="64"  class="img-circle" style="position: absolute; top: 10px; left: 10px;"/></button>
         <% } %>
 
         <h3 class="header text-center">

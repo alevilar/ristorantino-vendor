@@ -43,7 +43,7 @@ if (!empty($categoriasTree)) {
 if (!empty($productos)) {
     foreach ($productos as $prod) {
         ?> 
-                        App.productos[<?= $prod['Producto']['id'] ?>] = <?= json_encode($prod['Producto'], JSON_NUMERIC_CHECK); ?>;
+                        App.productos[<?php echo $prod['Producto']['id'] ?>] = <?php echo json_encode($prod['Producto'], JSON_NUMERIC_CHECK); ?>;
         <?php
     }
 }

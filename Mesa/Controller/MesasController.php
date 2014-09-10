@@ -23,7 +23,12 @@ class MesasController extends MesaAppController {
         $this->Paginator->settings['conditions'] = $conds;
         $this->Paginator->settings['contain'] = array(
             'Mozo(numero)',
-            'Cliente' => array('Descuento')
+            'Estado',
+            'Pago'=>array('TipoDePago'),
+            'Cliente' => array(
+                'Descuento',
+                'IvaResponsabilidad.TipoFactura',
+                ),
         );
 
         
@@ -47,7 +52,7 @@ class MesasController extends MesaAppController {
             ));
         $tot = empty($tot['0']['total']) ? 0 : $tot['0']['total'];
         $this->set('mesas_suma_total', money_format('%.2n', $tot) );
-        $estados = $this->Mesa->Estado-find('list');
+        $estados = $this->Mesa->Estado->find('list');
         $this->set('estados', $estados);
 
     }
@@ -112,7 +117,12 @@ class MesasController extends MesaAppController {
         
         $this->Mesa->id = $mesa_id;     
 
-        $retData = $this->Mesa->cerrar_mesa();
+        //$retData = $this->Mesa->cerrar_mesa();
+        $mesa = $this->read(null, $mesa_id);
+        $mesa['mesa']['estado_id'] == MESA_CERRADA;
+        if( !$this->save($mesa) ) {
+            $this->setFlash('Error al cerrar la mesa', 'flash_error');
+        }
 
         if( !$this->request->is('ajax') ){
             $this->redirect( $this->referer() );
@@ -120,6 +130,8 @@ class MesasController extends MesaAppController {
             $this->autorender = false;
             exit;            
         }
+
+        
     }
     
 
@@ -190,21 +202,10 @@ class MesasController extends MesaAppController {
            
         if ($this->request->is('post')) {
             $this->Mesa->create();
-            if ( $this->Mesa->save($this->request->data) ) {
-                $insertedId = $this->Mesa->getLastInsertId();
-
-                if ( !empty( $this->request->data['Mesa']['tipo_de_pago'])  && !empty($this->request->data['Mesa']['total']) ) {
-                    $pago['Pago'] = array( 
-                        'mesa_id'=>$this->Mesa->id,
-                        'tipo_de_pago_id'=>$this->request->data['Mesa']['tipo_de_pago'],
-                        'valor'=>$this->request->data['Mesa']['total']
-                        );
-                    if ( $this->Mesa->Pago->save($pago, array('fields'=>array('mesa_id','tipo_de_pago_id')))) {
-                        if (!$this->request->is('ajax')) {
-                            $this->Session->setFlash(__('La mesa fue guardada'));
-                        }
-                    }    
-                }
+            if ( $this->Mesa->saveAll($this->request->data) ) {
+                if ( !$this->request->is('ajax') ) {
+                    $this->Session->setFlash(__('La mesa fue guardada'));
+                }  
             } else {
                 if (!$this->request->is('ajax')) {
                     $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'Risto.flash_error'));
@@ -221,6 +222,7 @@ class MesasController extends MesaAppController {
             $this->set(compact('mozos', 'descuentos', 'tipo_pagos', 'clientes'));
         }
         
+        $this->set('estados', $this->Mesa->Estado->find('list'));
         $this->set('insertedId', $insertedId);
         $this->set('validationErrors', $this->Mesa->validationErrors);
         
@@ -240,7 +242,9 @@ class MesasController extends MesaAppController {
         }
 
         if ($this->request->is(array('post', 'put'))) {
+            debug("aNTESSS");
             if ($this->Mesa->save($this->request->data)) {
+                debug("DEss");
                 $this->Session->setFlash(__('Se ha editado correctamente', 'Risto.flash_success'));
                 $this->redirect(array('action'=>'index'));
             } else {
@@ -275,9 +279,8 @@ class MesasController extends MesaAppController {
         $mozos = $this->Mesa->Mozo->listFullName();
         
         $this->id = $id;
-        $this->set('subtotal',$this->Mesa->calcular_subtotal());
-        $this->set('total',$this->Mesa->calcular_total());
-        $estados = $this->Mesa->Estado-find('list');
+        
+        $estados = $this->Mesa->Estado->find('list');
         $this->set('estados', $estados);        
         $this->set(compact('mesa', 'items', 'mozos'));
     }

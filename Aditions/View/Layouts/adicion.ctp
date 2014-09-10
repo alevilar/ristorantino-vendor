@@ -20,7 +20,7 @@
 
 
     
-        <base href="<?= $this->Html->url('/')?>" />
+        <base href="<?php echo $this->Html->url('/')?>" />
             <?php
 		echo $this->Html->meta('icon');
 		
@@ -36,10 +36,8 @@
                     '/aditions/css/jquery-mobile/jquery.mobile-custom',
                     ));
 
-                $cssUserRole = "acl-".$this->Session->read('Auth.User.role');
-                if (is_file(APP.WEBROOT_DIR.DS."css".DS.$cssUserRole.".css")) {
-                    echo $this->Html->css($cssUserRole,'stylesheet', array('media'=>'screen'));
-                }
+
+                echo $this->element('Risto.per_role_style');
                 
                
                 $debug = Configure::read('debug');

@@ -26,7 +26,7 @@
     echo $this->Form->input('tipo', array('label' => 'Seleccionar Tipo de Factura','options'=> array('B'=>'"B"', 'A' => '"A"'), 'type'=>'radio', 'required'=>'required'));
     ?>
                </fieldset>
-    <?
+    <?php
     $cc = $this->Form->input('Cliente.razonsocial', array('label'=>'Razon Social (sin acentos ni eñies, ningún carácter "raro")'));
     $cc .= $this->Form->input('Cliente.numerodoc', array('label'=>'CUIT'));
     $cc .= $this->Form->input('Cliente.respo_iva', array('type'=>'hidden', 'value'=>'I'));
