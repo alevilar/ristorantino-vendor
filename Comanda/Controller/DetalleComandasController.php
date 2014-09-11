@@ -19,7 +19,7 @@ class DetalleComandasController extends ComandaAppController {
 
         // por default ordenar por sumatoria de dinero vendido
         $conditions['order'] = array('ventas DESC',"cant DESC");
-        if ( !empty( $this->request->params['named'] ) && $this->request->params['named']['cant_o_tot'] == 1 ) {
+        if ( !empty( $this->request->query ) && $this->request->query['cant_o_tot'] == 1 ) {
             // ordenado por cantidad de unidades vendidas            
             $conditions['order'] = array("cant DESC", 'ventas DESC');
         }
@@ -68,8 +68,7 @@ class DetalleComandasController extends ComandaAppController {
             $ventasTotal += $c[0]['ventas'];
         }
 
-        
-        if ( !empty( $this->request->params['named'] ) && $this->request->params['named']['cant_o_tot'] == 1 ) {
+        if ( !empty( $this->request->query ) && $this->request->query['cant_o_tot'] == 1 ) {
             $this->request->data['DetalleComanda']['cant_o_tot']  = 1;
         }
 

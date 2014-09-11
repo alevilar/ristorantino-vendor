@@ -88,7 +88,6 @@
 
         echo $this->Html->link('Printers', array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array('class' => 'list-group-item'));
 
-        echo $this->Html->link('Configuración General', array('plugin'=>'risto', 'controller'=>'configs', 'action'=>'basic_configuration'), array('class' => 'list-group-item'));
         ?>
     </div>
 
