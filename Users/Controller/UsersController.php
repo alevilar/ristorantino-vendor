@@ -45,9 +45,9 @@ class UsersController extends UsersAppController {
         if ( ! MtSites::isTenant() ) {
             throw new ForbiddenException(__( "No puede acceder porque se encuentra en su Tenant" ));
         }
-
         $this->Prg->commonProcess();
         $this->Paginator->settings['conditions'] = $this->User->parseCriteria( $this->Prg->parsedParams() );
+        $this->Paginator->settings['conditions']['User.id'] = $this->User->__searchFromSite(array('site_alias' => $this->Session->read('MtSites.current')));
 
         $this->set('articles', $this->Paginator->paginate());
 
@@ -97,7 +97,7 @@ class UsersController extends UsersAppController {
             $this->User->id = $id;
             if (!$id && empty($this->request->data) || $id != $this->Auth->user('id')) {
                     $this->Session->setFlash(__('Usuario Incorrecto'));
-                    $this->redirect('/pages/home');
+                    $this->redirect('/');
             }
             if (!empty($this->request->data)) {
                     if ($this->User->save($this->request->data)) {
@@ -155,6 +155,12 @@ class UsersController extends UsersAppController {
      */
 	public function add() {
 		if ($this->request->is('post') || $this->request->is('put')) {
+
+            if (MtSites::isTenant() ) {
+                $site = $this->User->Site->findByAlias($this->Session->read('MtSites.current'));
+                $this->request->data['Site']['id'] = $site['Site']['id'];
+            }
+
             $this->User->create();
 			if ($this->User->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The user has been saved'),'Risto.flash_success');

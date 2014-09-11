@@ -20,9 +20,9 @@ class ProductosController extends ProductAppController {
         $conds = $this->Producto->parseCriteria( $this->Prg->parsedParams() );
 		$this->Paginator->settings['conditions'] = $conds; 
 
-        $comanderas = $this->Producto->Printer->listarComanderas();
+        $printers = $this->Producto->Printer->listarComanderas();
 		$categorias = $this->Producto->Categoria->generateTreeList();
-        $this->set(compact('categorias','comanderas'));
+        $this->set(compact('categorias','printers'));
 		$this->set('productos', $this->Paginator->paginate());
 	}
 
@@ -73,10 +73,10 @@ class ProductosController extends ProductAppController {
 				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.', true));
 			}
 		}
-		$comanderas = $this->Producto->listarComanderas();
+		$printers = $this->Producto->Printer->find('list');
         $tags = $this->Producto->Tag->find('list');
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
-		$this->set(compact('categorias','comanderas', 'tags'));
+		$this->set(compact('categorias','printers', 'tags'));
         $this->render('form');
 	}
 
@@ -97,10 +97,10 @@ class ProductosController extends ProductAppController {
 		}
                 
         $this->request->data = $this->Producto->read(null, $id);
-		$comanderas = $this->Producto->Printer->listarComanderas();
+		$printers = $this->Producto->Printer->find('list');
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
         $tags = $this->Producto->Tag->find('list');
-		$this->set(compact('categorias','comanderas', 'tags'));
+		$this->set(compact('categorias','printers', 'tags'));
         $this->render('form');
 	}
 

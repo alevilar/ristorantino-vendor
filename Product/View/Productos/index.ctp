@@ -27,7 +27,12 @@ echo $this->Html->script('ale_fieldupdates', false);
 <h2><?php __('Productos');?></h2>
 
 <div>
+
     <?php
+
+    echo $this->Html->link(__('Nuevo Producto'), array('action'=>'add'), array('class'=>'btn btn-lg btn-success pull-right'));
+
+
     echo $this->Html->link('<span class="glyphicon glyphicon-usd"></span>   Aplicar Precios Futuros'
     	, array('action' => 'actualizarPreciosFuturos')
     	, array('class' => 'btn btn-warning btn-lg', 'escape' => false )
@@ -46,21 +51,23 @@ echo $this->Html->script('ale_fieldupdates', false);
 	echo $this->Form->create("Producto",array("action"=>"index")); 
 	echo $this->Form->input("id") 
 	?>
-	<th><?php echo $this->Form->input('name',array('placeholder'=>'Nombre del producto', 'label'=>false));?></th>
-	<th><?php echo $this->Form->input('abrev',array('placeholder'=>'Abreviatura', 'label'=>false));?></th>
+	<th><?php echo $this->Form->input('name',array('placeholder'=>'Nombre del producto', 'label'=>false, 'required'=>false));?></th>
+	<th><?php echo $this->Form->input('abrev',array('placeholder'=>'Abreviatura', 'label'=>false, 'required'=>false));?></th>
 
         <th><?php echo $this->Form->input('printer_id',array(
         					'placeholder'=>'Printer',
+        					'required'=>false,
         					'label'=>false, 
         					'empty'=>'Selecionar'
         					));?></th>
 	<th>
 		<?php echo $this->Form->input('categoria_id',array(
 					'empty' => 'Seleccionar',
+					'required'=>false,
 					'placeholder'=>'Categoria',
 					'label'=>false));?></th>
-	<th><?php echo $this->Form->input('precio',array('placeholder'=>'Precio','label'=>false));?></th>
-	<th><?php echo $this->Form->input('precio_futuro',array('placeholder'=>'P. Futuro','label'=>false));?></th>
+	<th><?php echo $this->Form->input('precio',array('placeholder'=>'Precio','label'=>false, 'required'=>false));?></th>
+	<th><?php echo $this->Form->input('precio_futuro',array('placeholder'=>'P. Futuro','label'=>false, 'required'=>false));?></th>
     <th><?php echo $this->Form->input('order',array('placeholder'=>'Orden','label'=>false, 'style'=>'width:40px'));?></th>
 	<th colspan="2" class="actions"><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'))?></th>
 
@@ -106,7 +113,7 @@ foreach ($productos as $producto):
                 
         <td class='edit abrev' field='abrev' product_id='<?php echo $prodId ?>'><?php echo $abrev; ?></td>
 
-		<td class="edit_field_types" options_types='<?php print json_encode($comanderas) ?>' field="printer_id" product_id="<?php echo $prodId; ?>"><?php 
+		<td class="edit_field_types" options_types='<?php print json_encode($printers) ?>' field="printer_id" product_id="<?php echo $prodId; ?>"><?php 
 			echo $producto['Printer']['name']; 
 		?></td>
 
@@ -133,7 +140,6 @@ foreach ($productos as $producto):
 			<?php echo date('d D, M Y',strtotime($producto['Producto']['created'])); ?>
 		</td>
 		<td class="actions">
-                    <?php echo $this->Html->link(__('Ver', true), array('action'=>'view', $producto['Producto']['id'])); ?>
 			<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $producto['Producto']['id'])); ?>
 			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $producto['Producto']['id']), null, sprintf(__('¿Esta seguro que desea borrar el producto: %s?', true), $producto['Producto']['name'])); ?>
 		</td>
@@ -155,11 +161,4 @@ endforeach;
 	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'disabled'));?>
  | 	<?php echo $this->Paginator->numbers();?>
 	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'disabled'));?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Nuevo Producto', true), array('action'=>'add')); ?></li>
-		<li><?php echo $this->Html->link(__('Listar Categorias', true), '/Categorias/index'); ?></li>
-		<li><?php echo $this->Html->link(__('Agregar Nueva Categoria', true), '/Categorias/add'); ?></li>
-	</ul>
 </div>

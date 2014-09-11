@@ -16,29 +16,112 @@ class Producto extends ProductAppModel {
 
 
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-    public $belongsTo = array(
-     'Categoria' => array(
-        'className' => 'Product.Categoria',
-        'foreignKey' => 'categoria_id',
-        'conditions' => '',
-        'fields' => '',
-        'order' => 'Categoria.name'
+
+
+/**
+ * Validation rules
+ *
+ * @var array
+ */
+    public $validate = array(
+        'name' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
         ),
-     'Printer' => array(
-        'className' => 'Printers.Printer',
-        'foreignKey' => 'printer_id',
-        'conditions' => '',
-        'fields' => '',
-        'order' => 'Printer.name'
+        'abrev' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
+        'description' => array(
+            'notEmpty' => array(
+                'rule' => array('notEmpty'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
+        'categoria_id' => array(
+            'numeric' => array(
+                'rule' => array('numeric'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
+        'precio' => array(
+            'numeric' => array(
+                'rule' => array('numeric'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
+        'deleted' => array(
+            'numeric' => array(
+                'rule' => array('numeric'),
+                //'message' => 'Your custom message here',
+                //'allowEmpty' => false,
+                //'required' => false,
+                //'last' => false, // Stop validation after this rule
+                //'on' => 'create', // Limit validation to 'create' or 'update' operations
+            ),
+        ),
+    );    
+
+
+
+/**
+ * belongsTo associations
+ *
+ * @var array
+ */
+    public $belongsTo = array(
+        'Categoria' => array(
+            'className' => 'Product.Categoria',
+            'foreignKey' => 'categoria_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
+        ),
+        'Printer' => array(
+            'className' => 'Printers.Printer',
+            'foreignKey' => 'printer_id',
+            'conditions' => '',
+            'fields' => '',
+            'order' => ''
         )
-     );
+    );
+
+
 
     public $hasOne = array('Product.ProductosPreciosFuturo');
-    
 
+
+
+/**
+ * hasMany associations
+ *
+ * @var array
+ */
     public $hasMany = array(
-        'Product.HistoricoPrecio',
         'DetalleComanda' => array(
             'className' => 'Comanda.DetalleComanda',
             'foreignKey' => 'producto_id',
@@ -51,15 +134,57 @@ class Producto extends ProductAppModel {
             'exclusive' => '',
             'finderQuery' => '',
             'counterQuery' => ''
-            )
-        );
+        ),
+        'HistoricoPrecio' => array(
+            'className' => 'Product.HistoricoPrecio',
+            'foreignKey' => 'producto_id',
+            'dependent' => false,
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'exclusive' => '',
+            'finderQuery' => '',
+            'counterQuery' => ''
+        )
+    );
 
-    /**
-     * hasAndBelongsToMany associations
-     *
-     * @var array
-     */
-    public $hasAndBelongsToMany = array('Product.Tag', 'Product.GrupoSabor');
+
+/**
+ * hasAndBelongsToMany associations
+ *
+ * @var array
+ */
+    public $hasAndBelongsToMany = array(
+        'GrupoSabor' => array(
+            'className' => 'Product.GrupoSabor',
+            'joinTable' => 'grupo_sabores_productos',
+            'foreignKey' => 'producto_id',
+            'associationForeignKey' => 'grupo_sabor_id',
+            'unique' => 'keepExisting',
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+        ),
+        'Tag' => array(
+            'className' => 'Product.Tag',
+            'joinTable' => 'productos_tags',
+            'foreignKey' => 'producto_id',
+            'associationForeignKey' => 'tag_id',
+            'unique' => 'keepExisting',
+            'conditions' => '',
+            'fields' => '',
+            'order' => '',
+            'limit' => '',
+            'offset' => '',
+            'finderQuery' => '',
+        )
+    );
+
 
 
 

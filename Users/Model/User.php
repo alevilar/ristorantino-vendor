@@ -44,6 +44,11 @@ class User extends UsersAppModel {
                 'type' => 'query',
                 'method' => '__searchTextGeneric'
                 ),
+            'site_alias' => array(
+                'type' => 'query',
+                'method' => '__searchFromSite',
+                'field' => 'User.id',
+                ),
             );
 
 
@@ -58,18 +63,18 @@ class User extends UsersAppModel {
         'username' => array(
             'notempty' => array(
                 'rule' => array(
-                                    'notempty',
-                                    ),
+                    'notempty',
+                    ),
                 //'message' => 'Your custom message here',
                 //'allowEmpty' => false,
                 //'required' => false,
                 //'last' => false, // Stop validation after this rule
                 //'on' => 'create', // Limit validation to 'create' or 'update' operations
             ),
-                    'isUnique' => array(
+            'isUnique' => array(
                 'rule' => array(
-                                    'isUnique',
-                                    ),
+                    'isUnique',
+                    ),
                 'message' => 'Alguien tiene este nombre de usuario y no se puede repetir',
                 //'allowEmpty' => false,
                 //'required' => false,
@@ -136,17 +141,7 @@ class User extends UsersAppModel {
             return parent::beforeSave($options);
         }
         
-        public function afterSave($created, $options = array())
-        {
-            if ($created && !empty($this->data['User']['username']) ) {
-                // colocar el nombre del rol como alias den Aro ACL
-                if ( $this->Aro->saveField('alias', $this->data['User']['username']) ) { 
-                    return parent::afterSave($created);
-                } else {
-                    return false;
-                }
-            }
-        }
+     
         
         
         function parentNode() {
@@ -177,5 +172,15 @@ class User extends UsersAppModel {
             return $condition;
     }
 
+
+    public function __searchFromSite ($data = array() ) {
+        $sites = $this->Site->find('all', array('conditions'=>array(
+                    'Site.alias' => $data['site_alias']
+                    ),
+        ));
+        $users = Hash::extract($sites, '{n}.User.{n}.id');
+
+        return $users;
+    }
     
 }
