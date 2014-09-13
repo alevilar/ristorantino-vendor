@@ -65,6 +65,11 @@
 
                     <?php 
                     echo $this->fetch("navbar-brand");
+                    if ( Configure::check('Site.logo_path') ) {
+                        $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array('height'=>'50'));
+                        echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
+                    }
+
 
                     if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
                         // link a dashboard del sitio tenant

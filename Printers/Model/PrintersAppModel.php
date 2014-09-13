@@ -1,7 +1,7 @@
 <?php
 
-App::uses('AppModel', 'Model');
+App::uses('AppTenantModel', 'Model');
 
-class PrintersAppModel extends AppModel {
+class PrintersAppModel extends AppTenantModel {
 
 }

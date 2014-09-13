@@ -1,7 +1,7 @@
 <?php
 
-App::uses('AppModel', 'Model');
+App::uses('AppTenantModel', 'Model');
 
-class MesaAppModel extends AppModel {
+class MesaAppModel extends AppTenantModel {
 
 }

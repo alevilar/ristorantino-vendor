@@ -1,7 +1,7 @@
 <?php
 
-App::uses('AppModel', 'Model');
+App::uses('AppTenantModel', 'Model');
 
-class ComandaAppModel extends AppModel {
+class ComandaAppModel extends AppTenantModel {
 
 }

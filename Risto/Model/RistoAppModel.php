@@ -25,7 +25,7 @@ App::uses('Model', 'Model');
  */
 class RistoAppModel extends Model {
 
-	public $actsAs = array( 'Containable', 'MtSites.MultiTenant', 'Search.Searchable');
+	public $actsAs = array( 'Containable', 'Search.Searchable');
 
 	public function saveAll ( $data = array(), $options = array() ) {
 	    $return = parent::saveAll($data, $options);

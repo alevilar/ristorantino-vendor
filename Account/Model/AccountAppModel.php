@@ -1,8 +1,8 @@
 <?php 
 
-App::uses('AppModel', 'Model');
+App::uses('AppTenantModel', 'Model');
 
-class AccountAppModel extends AppModel{
+class AccountAppModel extends AppTenantModel{
 
 	var $tablePrefix = 'account_';
         

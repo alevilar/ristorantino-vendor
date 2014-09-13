@@ -1,9 +1,9 @@
 <?php
 
 
-App::uses('RistoAppModel', 'Risto.Model');
+App::uses('RistoTenantAppModel', 'Risto.Model');
 
-class Config extends RistoAppModel {
+class Config extends RistoTenantAppModel {
 
     public $name = "Config";
 

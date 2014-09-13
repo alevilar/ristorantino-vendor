@@ -1,7 +1,7 @@
 <?php
-App::uses('RistoAppModel', 'Risto.Model');
+App::uses('RistoTenantAppModel', 'Risto.Model');
 
-class TipoDePago extends RistoAppModel {
+class TipoDePago extends RistoTenantAppModel {
 
 	var $name = 'TipoDePago';
 	var $validate = array(

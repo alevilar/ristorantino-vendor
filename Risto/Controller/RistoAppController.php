@@ -55,14 +55,6 @@ class RistoAppController extends Controller {
             ),        
         ),
         'ExtAuth.ExtAuth',
-    //    'Acl',
-        'Paginator',      
-        'Search.Prg' => array(
-            'presetForm' => array(
-                'paramType' => 'querystring'
-                )
-            ),
-        
         'DebugKit.Toolbar',        
     );
 
@@ -70,12 +62,8 @@ class RistoAppController extends Controller {
      {    
 
         parent::beforeFilter();
-
-
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
-
-
         return true;
         
       }

@@ -1,7 +1,7 @@
 <?php
-App::uses('RistoAppModel', 'Risto.Model');
+App::uses('RistoTenantAppModel', 'Risto.Model');
 
-class IvaResponsabilidad extends RistoAppModel {
+class IvaResponsabilidad extends RistoTenantAppModel {
 
 	public $name = 'IvaResponsabilidad';
 

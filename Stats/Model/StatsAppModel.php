@@ -1,5 +1,6 @@
 <?php 
+App::uses('AppTenantModel', 'Model');
 
-class StatsAppModel extends AppModel{
+class StatsAppModel extends AppTenantModel{
 	
 }

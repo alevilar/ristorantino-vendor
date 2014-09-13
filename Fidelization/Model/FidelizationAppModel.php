@@ -1,7 +1,7 @@
 <?php
 
-App::uses('AppModel', 'Model');
+App::uses('AppTenantModel', 'Model');
 
-class FidelizationAppModel extends AppModel {
+class FidelizationAppModel extends AppTenantModel {
 
 }

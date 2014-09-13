@@ -1,8 +1,8 @@
 <?php
 
-App::uses('RistoAppModel', 'Risto.Model');
+App::uses('RistoTenantAppModel', 'Risto.Model');
 
-class TipoFactura extends RistoAppModel {
+class TipoFactura extends RistoTenantAppModel {
 
 	public $name = 'TipoFactura';
 	

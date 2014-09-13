@@ -1,7 +1,7 @@
 <?php
-App::uses('RistoAppModel', 'Risto.Model');
+App::uses('RistoTenantAppModel', 'Risto.Model');
 
-class ConfigCategory extends RistoAppModel {
+class ConfigCategory extends RistoTenantAppModel {
 
     public $name = "ConfigCategory";
 

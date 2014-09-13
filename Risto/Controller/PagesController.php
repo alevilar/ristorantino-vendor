@@ -18,7 +18,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-App::uses('RistoAppController', 'Risto.Controller');
+App::uses('AppNoModelController', 'Controller');
 
 /**
  * Static content controller
@@ -28,16 +28,8 @@ App::uses('RistoAppController', 'Risto.Controller');
  * @package       app.Controller
  * @link http://book.cakephp.org/2.0/en/controllers/pages-controller.html
  */
-class PagesController extends RistoAppController {
-
-/**
- * This controller does not use a model
- *
- * @var array
- */
-	public $uses = array();
-
-
+class PagesController extends AppNoModelController {
+	
 
 	public function beforeFilter() {
 		if ( count($this->request->params['pass']) && $this->request->params['pass'][0] == 'toc' ) {

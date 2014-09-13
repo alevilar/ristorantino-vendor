@@ -1,9 +1,9 @@
 <?php 
 
-App::uses('AppModel', 'Model');
+App::uses('AppTenantModel', 'Model');
 
 
-class CashAppModel extends AppModel{
+class CashAppModel extends AppTenantModel{
 	public $tablePrefix = 'cash_';
 
 }

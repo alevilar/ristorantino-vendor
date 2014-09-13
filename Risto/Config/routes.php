@@ -9,7 +9,7 @@
 */
 	Router::connect('/', array('plugin'=>'users','controller' => 'users', 'action' => 'login'));	
 	Router::connect('/bye', array('plugin'=>'users','controller' => 'users', 'action' => 'logout'));
-	Router::connect('/pages/toc', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'toc'));
+	Router::connect('/pages/tos', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'tos'));
 
 
 	Router::connect('/users', array('plugin' => 'users', 'controller' => 'users'));
