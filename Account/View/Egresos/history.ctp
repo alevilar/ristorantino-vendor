@@ -33,10 +33,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
 
 
     <tbody>
-        <?php
-        
-        foreach ($egresos as $g) {
-            ?>
+        <?php foreach ($egresos as $g) { ?>
 
             <tr>
                 <td>
@@ -62,19 +59,19 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                                 <th>Obs.</th>
                             </tr>
                         </thead>
-                        
+
                         <tbody>
-                            <?php
+                            <?php 
                             $proveedor = '';
                             $tipoFactura = '';
-                            foreach ($g['Gasto'] as $gasto) {
-                                if (!empty($gasto['Proveedor'])) {
+
+                            foreach ( $g['Gasto'] as $gasto ) {
+                                if ( !empty($gasto['Proveedor']) ) {
                                     $proveedor = $gasto['Proveedor']['name'] . ', ';
                                 }
-                                if (!empty($gasto['TipoFactura'])) {
+                                if ( !empty($gasto['TipoFactura']) ) {
                                     $tipoFactura = $gasto['TipoFactura']['name'];
                                 }
-                                
                                 ?>
                                 <tr>
                                     <td><?php echo $proveedor ?></td>
@@ -85,10 +82,8 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                                     <td class="text text-warning"><?php echo $this->Number->currency($gasto['AccountEgresosGasto']['importe']) ?></td>
                                     <td><?php echo $gasto['observacion'] ?></td>
                                 </tr>
-                                <?
+                                <?php
                             }
-                            $proveedor = trim($proveedor, ', ');
-                            $tipoFactura = trim($tipoFactura, ', ');
                             ?>
                         </tbody>
                     </table>
@@ -120,9 +115,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
                 </td>
 
             </tr>
-            <?php
-        }
-        ?>
+        <?php } ?>
     </tbody>
 </table>
 
@@ -133,7 +126,7 @@ echo $this->Paginator->counter(array(
 ?>
 
 <div class="paging">
-    <?php echo $this->Paginator->prev('<< ' . __('anterior', true), array(), null, array('class' => 'disabled')); ?>
+    <?php echo $this->Paginator->prev('<< ' . __('anterior'), array(), null, array('class' => 'disabled')); ?>
     | 	<?php echo $this->Paginator->numbers(); ?>
-    <?php echo $this->Paginator->next(__('próximo', true) . ' >>', array(), null, array('class' => 'disabled')); ?>
+    <?php echo $this->Paginator->next(__('próximo') . ' >>', array(), null, array('class' => 'disabled')); ?>
 </div>

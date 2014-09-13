@@ -25,14 +25,16 @@ class RistoAppController extends Controller {
 
     public $helpers = array(
         'Html' => array(
-            'className' => 'Bs3Html'
+            'className' => 'Bs3Helpers.Bs3Html'
             ),
         'Form' => array(
-            'className' => 'PxForm'
+            'className' => 'Bs3Helpers.Bs3Form'
             ),
         'Session',
         'Paginator',
         'Number',
+        'Time',
+        'Text'
     );
 
     public $components = array(
@@ -50,9 +52,9 @@ class RistoAppController extends Controller {
                 'Form' => array(
                     'recursive' => 1
                 )
-            ),
-            
+            ),        
         ),
+        'ExtAuth.ExtAuth',
     //    'Acl',
         'Paginator',      
         'Search.Prg' => array(

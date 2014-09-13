@@ -71,5 +71,5 @@ if ($this->name == 'Clasificaciones' && $this->action == 'index') {
         </li>
     </ul>      
 
-    <?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-success pull-right')) ?>
+
 </nav>

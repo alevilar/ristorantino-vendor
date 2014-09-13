@@ -48,6 +48,9 @@ CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
 
 //CakePlugin::load('Acl', array('bootstrap' => true));
 CakePlugin::load('Users');
+CakePlugin::load('ExtAuth');
+
+
 CakePlugin::load('Aditions', array( 'bootstrap' => true, 'routes' => true ));
 CakePlugin::load('Account', array( 'bootstrap' => true, 'routes' => true ));
 CakePlugin::load('Stats', array( 'routes' => true ));
@@ -57,7 +60,7 @@ CakePlugin::load('Printers', array( 'bootstrap' => true ));
 CakePlugin::load('Mesa', array( 'routes' => true ));
 CakePlugin::load('ReservationManager', array( 'bootstrap' => true ));
 
-
+CakePlugin::load('Bs3Helpers', array('bootstrap'=>true));
 
 
 

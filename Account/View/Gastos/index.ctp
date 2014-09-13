@@ -1,11 +1,7 @@
 
 <div>
 
-    <div class="pull-right">
-        <?php echo $this->Form->create('Gasto', array('action' => 'index')); ?>
-        <?php echo $this->Form->input('proveedor_id', array('onchange' => 'this.form.submit();', 'empty' => 'Filtrar por Proveedor', 'label' => false)) ?>
-        <?php echo $this->Form->end() ?>
-    </div>
+     <?php echo $this->Html->link('Nuevo Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'add'), array('class' => 'btn btn-lg btn-success pull-right')) ?>
     <h1>Pendientes de Pago</h1>
 
 
@@ -14,6 +10,14 @@
 <?php echo $this->Form->create('Egreso', array('controller' => 'egresos', 'action' => 'add')); ?>
 
 <div class="row">
+
+    <div class="pull-right">
+        <?php echo $this->Form->create('Gasto', array('action' => 'index')); ?>
+        <?php echo $this->Form->input('proveedor_id', array('onchange' => 'this.form.submit();', 'empty' => 'Filtrar por Proveedor', 'label' => false)) ?>
+        <?php echo $this->Form->end() ?>
+    </div>
+
+
     <div class="col-md-2">
         
         <input id="selectall" type="checkbox" data-role="none"/>

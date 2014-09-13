@@ -4,10 +4,24 @@
 	Router::mapResources('Printers.PrinterJobs');
 
 
-
+/**
+*		Paginas del CORE o App Global (no tenant)
+*/
 	Router::connect('/', array('plugin'=>'users','controller' => 'users', 'action' => 'login'));	
 	Router::connect('/bye', array('plugin'=>'users','controller' => 'users', 'action' => 'logout'));
+	Router::connect('/pages/toc', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'toc'));
 
+
+	Router::connect('/users', array('plugin' => 'users', 'controller' => 'users'));
+	Router::connect('/users/index/*', array('plugin' => 'users', 'controller' => 'users'));
+	Router::connect('/users/:action/*', array('plugin' => 'users', 'controller' => 'users'));
+	Router::connect('/users/users/:action/*', array('plugin' => 'users', 'controller' => 'users'));
+	Router::connect('/register', array('plugin' => 'users', 'controller' => 'users', 'action' => 'add'));
+
+
+	/* OUATH */
+	Router::connect('/auth_login/*', array( 'plugin' => 'users', 'controller' => 'users', 'action' => 'auth_login'));
+	Router::connect('/auth_callback/*', array( 'plugin' => 'users', 'controller' => 'users', 'action' => 'auth_callback'));
 
 
 
@@ -62,6 +76,9 @@
 	unset($myPlugins);
 
 	
+
+
+
 
 
 

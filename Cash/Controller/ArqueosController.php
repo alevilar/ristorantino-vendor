@@ -191,7 +191,7 @@ class ArqueosController extends CashAppController
             
             if (!$error) {
                 $this->Session->setFlash("Se guardó un nuevo arqueo de caja");
-                $this->redirect('edit/'.$this->Arqueo->id);
+                $this->redirect(array('action'=>'edit', $this->Arqueo->id));
             } else {
                 $this->Session->setFlash(__('No se pudo guardar el Arqueo', true));
                 $error = true;
@@ -224,7 +224,7 @@ class ArqueosController extends CashAppController
                 }
                 if (!$error) {
                     $this->__enviarArqueoPorMail($this->Arqueo->id);                    
-                    $this->redirect('index');
+                    $this->redirect(array('action'=>'index'));
                 }
                 
             } else {

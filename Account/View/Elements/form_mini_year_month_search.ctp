@@ -1,4 +1,4 @@
-<?
+<?php
 if ( empty($modelName) ) {
     $modelName = Inflector::classify($this->name);
 }
@@ -32,29 +32,31 @@ echo $this->Form->create($modelName, array(
             ));
         ?>
     </div>
+
+    <?php if (!empty($proveedores)) { ?>
     <div class="col-md-2">
         <?php
-        if (!empty($proveedores)) {
             echo $this->Form->input('proveedor_id', array(
                 'label'=>false, 
                 'empty' => 'Proveedor',
                 'placeholder' => 'Proveedor'));
-        } else {
-            echo "&nbsp;";
-        }
-        ?>
+                ?>
+        
     </div>
+    <?php } ?>
+
+
+     <?php if (!empty($clasificaciones)) { ?>
     <div class="col-md-2">
-        <?php
-        if (!empty($clasificaciones)) {
+       <?php
         echo $this->Form->input('clasificacion_id', array(
             'empty' => 'Clasificacion',
             'label'=>false));
-        } else {
-            echo "&nbsp;";
-        }
         ?>
     </div>
+    <?php } ?>
+
+    
     <div class="col-md-2">
         <?php
         echo $this->Form->input('fecha_desde', array('label'=>false, 'type' => 'date', 'pladeholder'=>'Desde'));
