@@ -10,13 +10,9 @@
 	Router::connect('/', array('plugin'=>'users','controller' => 'users', 'action' => 'login'));	
 	Router::connect('/bye', array('plugin'=>'users','controller' => 'users', 'action' => 'logout'));
 	Router::connect('/pages/tos', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'tos'));
+	
 
-
-	Router::connect('/users', array('plugin' => 'users', 'controller' => 'users'));
-	Router::connect('/users/index/*', array('plugin' => 'users', 'controller' => 'users'));
-	Router::connect('/users/:action/*', array('plugin' => 'users', 'controller' => 'users'));
-	Router::connect('/users/users/:action/*', array('plugin' => 'users', 'controller' => 'users'));
-	Router::connect('/register', array('plugin' => 'users', 'controller' => 'users', 'action' => 'add'));
+	Router::connect('/register', array('plugin' => 'users', 'controller' => 'users', 'action' => 'register'));
 
 
 	/* OUATH */
