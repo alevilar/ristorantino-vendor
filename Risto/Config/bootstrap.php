@@ -41,6 +41,25 @@ Inflector::rules('plural', array(
 
 
 
+/* Load Plugins listed in configuration file */
+if ( Configure::check('Plugins') ) {
+    // load configuration extra plugins
+    $plugs = Configure::read('Plugins');
+    if ( is_array($plugs)) {
+
+        foreach ($plugs as $pName=>$options ) {
+            if ( is_integer($pName) ) {
+                $pName = $options;
+                $options = array();
+            }
+            CakePlugin::load($pName,$options );
+        }
+    }
+    unset($plugs);
+}
+
+
+
 
 
 CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
