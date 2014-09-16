@@ -8,12 +8,29 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8">
 
+        <?php 
+        if ( Configure::check('Site.favicon') ) {
+            $favicon = Configure::check('Site.favicon');
+            if ( is_array( $favicon ) ) {
+                foreach ( $favicon as $f=>$ops) {
+                    echo $this->Html->meta('icon', $this->Html->url( $f ), $ops ); 
+                }
+            } else {
+                echo $this->Html->meta('icon', $this->Html->url( $favicon ) ); 
+                
+            }
+        } else {
+            echo $this->Html->meta('icon', $this->Html->url('/favicon.png')); 
+        }
+        ?>
+
+
         <?php echo $this->Html->charset(); ?>
         <title><?php echo $title_for_layout; ?></title>
         <?php
 
         
-        echo $this->Html->meta('icon');
+        //echo $this->Html->meta('icon');
 
         echo $this->Html->css(array(
             '/risto/lib/bootstrap/css/bootstrap.min',
@@ -56,13 +73,6 @@
                 <?php echo $this->element('Risto.user_login_nav'); ?>
 
                 <div class="navbar-header">
-                    <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
                     <?php 
                     echo $this->fetch("navbar-brand");
                     if ( Configure::check('Site.logo_path') ) {
@@ -73,10 +83,10 @@
 
                     if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
                         // link a dashboard del sitio tenant
-                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'navbar-brand'));
+                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'navbar-brand tenant-name'));
                     } else {
                         // link a HOME
-                        echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand')) ;
+                        echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name')) ;
                     }
                     ?>
                 </div>
