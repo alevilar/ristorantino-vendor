@@ -8,7 +8,6 @@
 *		Paginas del CORE o App Global (no tenant)
 */
 	Router::connect('/', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'home'));	
-	Router::connect('/home', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'home'));	
 	Router::connect('/login', array('plugin'=>'users','controller' => 'users', 'action' => 'login'));	
 	Router::connect('/bye', array('plugin'=>'users','controller' => 'users', 'action' => 'logout'));
 	Router::connect('/pages/tos', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'tos'));
