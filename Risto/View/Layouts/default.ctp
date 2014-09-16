@@ -10,7 +10,7 @@
 
         <?php 
         if ( Configure::check('Site.favicon') ) {
-            $favicon = Configure::check('Site.favicon');
+            $favicon = Configure::read('Site.favicon');
             if ( is_array( $favicon ) ) {
                 foreach ( $favicon as $f=>$ops) {
                     echo $this->Html->meta('icon', $this->Html->url( $f ), $ops ); 
