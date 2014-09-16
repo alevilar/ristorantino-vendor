@@ -10,12 +10,7 @@ class ClientesController extends AppController {
 
        public $presetVars = true; // using the model configuration
          
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator', 'Session', 'Search.Prg');
+
 
 /**
  * index method

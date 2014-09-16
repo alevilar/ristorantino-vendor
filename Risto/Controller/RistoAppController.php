@@ -54,6 +54,13 @@ class RistoAppController extends Controller {
                 )
             ),        
         ),
+        'Paginator',      
+        'Search.Prg' => array(
+            'presetForm' => array(
+                'paramType' => 'querystring'
+                )
+            ),
+        
         'ExtAuth.ExtAuth',
         'DebugKit.Toolbar',        
     );

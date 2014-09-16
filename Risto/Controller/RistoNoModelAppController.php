@@ -19,11 +19,24 @@ App::uses('RistoAppController', 'Risto.Controller');
  *
  * @since         DebugKit 0.1
  */
-class RistoNoModelAppController extends RistoAppController {
+class RistoNoModelAppController extends Controller {
 
 
     public $uses = false;
 
+
+    public $helpers = array(
+        'Html' => array(
+            'className' => 'Bs3Helpers.Bs3Html'
+            ),
+        'Form' => array(
+            'className' => 'Bs3Helpers.Bs3Form'
+            ),
+        'Session',
+        'Number',
+        'Time',
+        'Text'
+    );
 
     public $components = array(
         'Session',
@@ -42,10 +55,22 @@ class RistoNoModelAppController extends RistoAppController {
                 )
             ),        
         ),
-        'ExtAuth.ExtAuth',
         
+        'ExtAuth.ExtAuth',
         'DebugKit.Toolbar',        
     );
+
+
+
+    public function beforeFilter()
+     {    
+
+        parent::beforeFilter();
+        // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
+        $this->response->header('Access-Control-Allow-Origin', '*');
+        return true;
+        
+      }
 
    
 }

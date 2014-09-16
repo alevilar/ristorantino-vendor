@@ -10,7 +10,6 @@ class Producto extends ProductAppModel {
     public $actsAs = array(
         'SoftDelete', 
         'Search.Searchable',
-        'MtSites.MultiTenant',
         'Containable',
         );
 

@@ -52,10 +52,8 @@ Risto.Adition.menu = {
         var este = this;
         // si no hay categorias las cargo via AJAX
         $.getJSON( URL_DOMAIN + TENANT + '/product/categorias/listar.json', function(data){
-            console.debug( data.categorias );
             if ( data.categorias ) {
                 este.__iniciarCategoriasTreeServer( data.categorias );
-                console.info( 'inicializada' );
             }            
         } );
     },

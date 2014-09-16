@@ -9,7 +9,6 @@ class Mesa extends MesaAppModel {
 	public $displayField = 'numero';
 
 	public $actsAs = array(
-		'MtSites.MultiTenant',
 		'SoftDelete', 
 		'Search.Searchable',
 		'Containable',

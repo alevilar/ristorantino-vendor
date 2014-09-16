@@ -1,4 +1,3 @@
-<?php echo $this->Html->script('mesas/index_head', false);?>
 
 <div id="mesas-index">
 

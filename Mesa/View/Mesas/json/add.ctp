@@ -1,4 +1,4 @@
-<?
+<?php
 
 $mozo['Mesa']['id'] = $insertedId;
 $mozo['msg']        = $validationErrors;
