@@ -25,6 +25,9 @@ class RistoNoModelAppController extends Controller {
     public $uses = false;
 
 
+    public $layout = 'Risto.default';
+
+
     public $helpers = array(
         'Html' => array(
             'className' => 'Bs3Helpers.Bs3Html'
