@@ -95,7 +95,7 @@
                 <div id="mesajes alert  alert-dismissible" class="col-md-12" role="alert">
                     <?php
                     echo $this->Session->flash();
-                    echo $this->Session->flash('auth');
+                    echo $this->Session->flash('auth');                    
                     ?>
                 </div>
             </div>
