@@ -50,7 +50,8 @@ class RistoAppController extends Controller {
             'authorize' => array('MtSites.MtSites'),
             'authenticate' => array(
                 'Form' => array(
-                    'recursive' => 1
+                    'recursive' => 1,
+                    'contain' => array('Site')
                 )
             ),        
         ),
