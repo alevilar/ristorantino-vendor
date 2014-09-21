@@ -10,6 +10,8 @@ var Mesa = function(mozo, jsonData) {
         
         this.id             = ko.observable();
         this.created        = ko.observable();
+        this.checkin        = ko.observable();
+        this.checkout        = ko.observable();
         this.total          = ko.observable( 0 );
         this.numero         = ko.observable( 0 );
         this.menu           = ko.observable( 0 );

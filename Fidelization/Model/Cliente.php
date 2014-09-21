@@ -69,7 +69,7 @@ class Cliente extends FidelizationAppModel {
  */
 	public $hasMany = array(
 		'Mesa' => array(
-			'className' => 'Mesa',
+			'className' => 'Mesa.Mesa',
 			'foreignKey' => 'cliente_id',
 			'dependent' => false,
 			'conditions' => '',

@@ -1,6 +1,7 @@
 <?php echo $this->element('jq_templates'); ?>
 
-                  
+      
+<?php if (Configure::read('Site.type') == SITE_TYPE_RESTAURANTE) {  ?>
 
 <!--
                         LISTADO MESAS
@@ -47,6 +48,60 @@
 </div>
 <!-- Fin Pagina 1 -->
 
+<?php } else { ?>
+
+
+<!--
+                        LISTADO MESAS GRILLA CALENDAR
+
+-->
+<div data-role="page" id="listado-mesas" class="calendar">
+    <div  data-role="header">
+
+     <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
+            <a href="#mesa-add" id="mesa-abrir-mesa-btn" data-rel="dialog"  class="abrir-mesa" data-role="button" data-theme="e">
+                Abrir <?php echo Configure::read('Mesa.tituloMesa')?>
+            </a>  
+
+
+            <h1><span style="color: #fcf0b5" data-bind="text: adn().mesas().length">0</span> <?php echo Inflector::pluralize( Configure::read('Mesa.tituloMesa') )?></h1>
+
+            <a href='#adicion-opciones' data-icon="gear" data-rel="dialog" class="ui-btn-right">Opciones</a>                    
+    </div>
+                    
+    <div  data-role="content" class="content_mesas">           
+
+        <div class="calendar-container">    
+
+            <div class="calendar-grid">
+
+                <div class="controll">
+                    <div class="col-header btn-controls">
+                        <a href="#" class="ui-btn-active controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevWeek()'>&lt;&lt;</a>
+                        <a href="#" class="ui-btn-active controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevDay()'>&lt;</a>
+                        <a href="#" class="ui-btn-active controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backDay()'>&gt;</a>
+                        <a href="#" class="ui-btn-active controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backWeek()'>&gt;&gt;</a>
+                    </div>
+
+                    <div class="content day-list">
+                        <table>
+                           <thead>
+                                <tr data-bind='template: { name: "calendar-header-month", foreach: Risto.Adition.adicionar.calendarGrid.months }'></tr>
+                                <tr data-bind='template: { name: "calendar-header-day", foreach: Risto.Adition.adicionar.calendarGrid.days }'></tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+                <div data-bind='template: { name: "calendar-mozo-row", foreach: Risto.Adition.adicionar.mozos }'></div>
+                
+            </div>                      
+        </div>
+    </div><!-- /navbar -->
+
+</div>
+<!-- Fin Pagina 1 -->
+<?php } ?>
 
 
 <!-- Opciones del cajero-->

@@ -90,6 +90,10 @@ define("TIPO_DOCUMENTO_CUIT", 1); // Tipo Documento CUIT
 
 
 
+define('SITE_TYPE_RESTAURANTE', 'restaurante');
+define('SITE_TYPE_HOTEL', 'hotel');
+define('SITE_TYPE_GENERIC', 'generic');
+
 
 /* TIENEN QUE SER LOS MISMOS ID´s QUE EN LA TABLA !!! */
 define('MESA_ABIERTA', 1);
@@ -236,6 +240,13 @@ function aplanar_mesas($mesas)
 }
 
 
+/**
+ * 
+ *  Crea un array de fechas $desde - $hasta
+ *  @param string $desde 'YYYY-MM-DD HH:II:SS'
+ *  @param string $hasta 'YYYY-MM-DD HH:II:SS'
+ *
+ */
 function crear_fechas($desde, $hasta) {
      $arr = array();
      $td = strtotime($desde);

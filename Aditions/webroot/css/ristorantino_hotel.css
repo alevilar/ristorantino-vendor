@@ -1,0 +1,206 @@
+#listado-mozos-para-mesas{
+    padding: 0px;
+    margin: 0px;
+    background-color: #E7E7E7;
+}
+
+
+.calendar-container .controll{
+	height: 84px;
+}
+
+
+.controll .btn-controls a{
+	display: inline-block;
+	width: 20%;
+	height: 48px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 48px;
+	color: white;
+}
+
+.calendar-container{
+	position: relative;
+}
+
+.calendar-grid {
+	position: relative;
+}
+
+
+.calendar-grid .col-header{
+	float: left;
+	width: 10%;
+	position: relative;
+}
+
+.calendar-grid .content{
+	float: left;
+	width: 90%;
+	position: relative;
+}
+
+
+
+.calendar-container table{
+    width: 100%;    
+}
+
+
+.day-list table, .calendar-container table.mozo-days{
+	height: 48px;    
+    clear: both;
+    position: absolute;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	table-layout: fixed;
+}
+
+
+
+
+.day-list table .day, .calendar-container table.mozo-days .day{
+	height: 48px;
+	border-right: 1px dotted #333;
+}
+
+
+.calendar-container  table.mozo-mesas {
+	position: relative;
+	table-layout: fixed;
+	width: 100%;
+	height: 20px;
+	top:10px;
+}
+
+
+.calendar-container  table.mozo-mesas .mark{
+	right: -16px;
+	position: relative;
+	height: 20px;
+	
+}
+
+
+.calendar-container  table.mozo-mesas td.ocupada .mark{
+	background: rgb(225, 255, 4);
+}
+
+.calendar-container  table.mozo-mesas td.abierta .mark{
+	background: rgb(122, 24, 124);
+}
+	
+
+	
+.calendar-container  table.mozo-mesas .mark a{
+	display: block;
+	text-align: center;
+	font-size: 9pt;
+	font-weight: lighter;
+	line-height: initial;
+	text-decoration: none;
+}
+
+	
+.calendar-container  table.mozo-mesas .checkin-checkout .mark{
+	-webkit-border-radius: 55px;
+	-moz-border-radius: 55px;
+	border-radius: 55px;
+}
+
+.calendar-container  table.mozo-mesas .checkin-not-showed .mark{
+	-webkit-border-top-right-radius: 55px;
+	-webkit-border-bottom-right-radius: 55px;
+	-moz-border-radius-topright: 55px;
+	-moz-border-radius-bottomright: 55px;
+	border-top-right-radius: 55px;
+	border-bottom-right-radius: 55px;
+	overflow: hidden;
+}
+
+.calendar-container  table.mozo-mesas .checkin-not-showed .mark::before {
+    content: '';
+    width: 13px;
+    background: red;
+}
+
+.calendar-container  table.mozo-mesas .checkout-not-showed .mark{
+	-webkit-border-top-left-radius: 55px;
+	-webkit-border-bottom-left-radius: 55px;
+	-moz-border-radius-topleft: 55px;
+	-moz-border-radius-bottomleft: 55px;
+	border-top-left-radius: 55px;
+	border-bottom-left-radius: 55px;
+}
+
+.calendar-container  table.mozo-mesas .mozo-col{
+
+}
+ 
+
+#listado-mesas .mozo-row{
+    height: 48px;    
+    clear: both;
+    position: relative;
+    opacity: 0.8;
+}
+
+#listado-mesas .mozo-row:hover{
+	opacity: 1;
+}
+
+#listado-mesas .mozo-row .col-header a{
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 48px;
+    text-decoration: none;
+}
+
+
+
+.calendar-grid th.month:nth-child(even){
+	border-bottom: 2px solid #2F2AA5;
+	color: #2F2AA5;
+}
+
+.calendar-grid th.month:nth-child(odd){
+	border-bottom: 2px solid #7A2F2F;
+	color: #7A2F2F;
+}
+
+.calendar-grid th.day{
+    font-size: 9pt; 
+    font-weight: lighter;
+    height: 58px;
+}
+
+
+ 
+th.rotate{
+ text-align: center;
+ vertical-align: middle;
+  height: 60px;
+  width: 40px;
+  min-width: 40px;
+  max-width: 40px;
+  position: relative;
+  vertical-align: bottom;
+  padding: 0;
+  font-size: 12px;
+}
+
+th.rotate > div{
+  position: relative;
+  top: 0px;
+  left: 40px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
+  height: 100hv;
+  transform: rotate(-90deg);
+  transform-origin: left bottom 0;
+  overflow: hidden;
+  width: 68px;
+}
+

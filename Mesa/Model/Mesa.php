@@ -84,6 +84,26 @@ class Mesa extends MesaAppModel {
 			'type' => 'value',
 			'field' => 'Mesa.time_cobro <='
 			),
+		'checkin' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
+		'checkout' => array(
+			'datetime' => array(
+				'rule' => array('datetime'),
+				//'message' => 'Your custom message here',
+				//'allowEmpty' => false,
+				//'required' => false,
+				//'last' => false, // Stop validation after this rule
+				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+			),
+		),
 		);
 
 
@@ -104,6 +124,7 @@ class Mesa extends MesaAppModel {
 		public $belongsTo = array(
 			'Mesa.Estado',
 			'Mesa.Mozo',
+			'Mesa.NombreMesa',
 			'Fidelization.Cliente',
 			'Fidelization.Descuento',
 		);
@@ -715,5 +736,78 @@ function calcular_subtotal($id = null){
 			  ));
 		  $this->getEventManager()->dispatch($event);
 		}
+
+
+
+/**
+ * Description
+ * @param type $nombre_mesa_id 
+ * @param type $left 
+ * @param type $right 
+ * @return type
+ */
+	public function getMesasForRoom($nombre_mesa_id, $left, $right) {
+		$this->recursive = 0;
+		$options = array('conditions' => array(
+					'Mesa.checkin <=' => $right . ' 00:00:00',
+					'Mesa.checkout >=' => $left . ' 23:59:59',
+					'Mesa.nombre_mesa_id' => $nombre_mesa_id
+		));
+		// print_r($this->find('all', $options));die;
+		return $this->find('all', $options);
 	}
-	?>
+
+	public function hasRoomMesaInDate($room, $date) {
+		$options = array('conditions' => array(
+			'Mesa.nombre_mesa_id' => $room['Room']['id'],
+			'Mesa.checkin <=' => $date . ' 23:59:59',
+			'Mesa.checkout >=' => $date . ' 00:00:00',
+		));
+		$this->recursive = 0;
+		$Mesa = $this->find('first', $options);
+		return (!empty($Mesa)) ? true : false;
+	}
+
+
+	public function getMesasForRoomInDate($room, $date) {
+		$Mesa_ids = array();
+		$options = array(
+			'conditions' => array(
+				'Mesa.nombre_mesa_id' => $room['Room']['id'],
+				'Mesa.checkin <=' => $date . ' 23:59:59',
+				'Mesa.checkout >=' => $date . ' 00:00:00',
+			),
+			'fields' => array('id')
+		);
+		$this->recursive = 0;
+		$Mesas = $this->find('all', $options);
+		if ($Mesas) {
+			$Mesa_ids = Hash::extract($Mesas, '{n}.Mesa.id');
+		}
+		return $Mesa_ids;
+	}
+
+/**
+ * change the room state if today is between period of Mesa for a given nombre_mesa_id or room object
+ * @param int|array $room
+ * @param string $checkin 
+ * @param string $checkout 
+ * @return void
+ */
+	public function changeRoomStateIfTodayInPeriod($room, $checkin, $checkout) {
+		if (!is_array($room) && (is_string($room) || is_int($room))) {
+			$room = $this->Room->findById($room);
+		}
+		$today = date('Y-m-d');
+		if ($this->hasRoomMesaInDate($room, $today)) {
+			return $this->Room->changeRoomState($room, 2); // 2 = Ocupada
+		} else {
+			if ($room['Room']['room_state_id'] != 4) {
+				return $this->Room->changeRoomState($room, 1);
+			}
+		}
+	}
+
+
+	}
+	

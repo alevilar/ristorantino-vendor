@@ -15,7 +15,7 @@ class IvaResponsabilidad extends RistoTenantAppModel {
 
 	public $belongsTo = array(
 		'TipoFactura' => array(
-			'className' => 'TipoFactura',
+			'className' => 'Risto.TipoFactura',
 			'foreignKey' => 'tipo_factura_id',
 			'conditions' => '',
 			'fields' => '',
@@ -32,7 +32,7 @@ class IvaResponsabilidad extends RistoTenantAppModel {
 	 */
 	public $hasMany = array(
 		'Cliente' => array(
-			'className' => 'Cliente',
+			'className' => 'Fidelization.Cliente',
 			'foreignKey' => 'iva_responsabilidad_id',
 			'dependent' => false,
 			'conditions' => '',

@@ -52,6 +52,9 @@
 //                        'knockout-1.2.1.debug',
                         '/aditions/js/knockout.mapping-2.0.debug',
                 
+                        '/aditions/js/moment-with-locales.min',
+                        '/aditions/js/moment-range',
+                        
 
                         '/aditions/js/cake_saver',
                         '/aditions/js/risto',
@@ -64,7 +67,8 @@
                         '/aditions/js/adicion.event_handler',
                         '/aditions/js/mesa.estados.class',
                         '/aditions/js/mesa.class',
-                        '/aditions/js/comanda.class',
+
+                            '/aditions/js/comanda.class',
                         '/aditions/js/comanda_fabrica.class',
                         '/aditions/js/adicion.class', // depende de Mozo, Mesa y Comanda
                         '/aditions/js/producto',
@@ -74,18 +78,33 @@
                         '/aditions/js/descuento.class',
                         '/aditions/js/pago.class',
                         '/aditions/js/detalle_comanda.class',
+                        '/aditions/js/adicion.grilla.calendar',
                         '/aditions/js/ko_adicion_model',
                         '/aditions/js/adition.events',
                         '/aditions/js/menu',
+
     //                    'http://code.jquery.com/mobile/latest/jquery.mobile.min.js',
                         
                         '/aditions/js/jquery.mobile-1.0.1.min',
                         ));
+
+
+                        // Para todos los HOteles
+                        if ( Configure::check('Site.type') && Configure::read('Site.type') == SITE_TYPE_HOTEL) {
+                            // add JS
+                            echo $this->Html->script(  '/aditions/js/mesa.hotel.class_extend' );
+
+                            // Add CSS
+                            echo $this->Html->css('/aditions/css/ristorantino_hotel');
+                        }
+                
                 } else {
                     echo $this->Html->script('todos.min');
                 }
             ?>
 <?php
+
+
     //scripts de Cake
     echo $scripts_for_layout;
     
