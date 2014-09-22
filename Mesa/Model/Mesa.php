@@ -124,7 +124,6 @@ class Mesa extends MesaAppModel {
 		public $belongsTo = array(
 			'Mesa.Estado',
 			'Mesa.Mozo',
-			'Mesa.NombreMesa',
 			'Fidelization.Cliente',
 			'Fidelization.Descuento',
 		);
