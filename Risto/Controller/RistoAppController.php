@@ -28,7 +28,7 @@ class RistoAppController extends Controller {
             'className' => 'Bs3Helpers.Bs3Html'
             ),
         'Form' => array(
-            'className' => 'Bs3Helpers.Bs3Form'
+            'className' => 'Risto.PxForm'
             ),
         'Session',
         'Paginator',
