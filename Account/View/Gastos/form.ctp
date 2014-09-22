@@ -1,5 +1,5 @@
 <?php 
-echo $this->Html->script('/lib/bootstrap/plugins/bootstrap3-typeahead');
+echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
 ?>
 <div class="gastos form">
     <?php echo $this->Form->create('Gasto', array('url'=>$this->action,'type' => 'file', 'id'=>'GastoAddForm')); ?>

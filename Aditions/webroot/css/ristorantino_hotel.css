@@ -121,11 +121,6 @@
 	overflow: hidden;
 }
 
-.calendar-container  table.mozo-mesas .checkin-not-showed .mark::before {
-    content: '';
-    width: 13px;
-    background: red;
-}
 
 .calendar-container  table.mozo-mesas .checkout-not-showed .mark{
 	-webkit-border-top-left-radius: 55px;
@@ -136,9 +131,16 @@
 	border-bottom-left-radius: 55px;
 }
 
-.calendar-container  table.mozo-mesas .mozo-col{
-
+.calendar-container  table.mozo-mesas .mozo-col.libre:hover{
+	background-color: silver;
 }
+
+.calendar-container  table.mozo-mesas .mozo-col.libre:hover::before{
+	content: "CKIN";
+	font-size: 8pt;
+	font-weight: lighter;
+}
+
  
 
 #listado-mesas .mozo-row{
@@ -146,6 +148,7 @@
     clear: both;
     position: relative;
     opacity: 0.8;
+    border-top: 1px solid grey;
 }
 
 #listado-mesas .mozo-row:hover{

@@ -285,7 +285,7 @@ listado de mesas reservadas para la grilla Calendar -->
 <script id="calendar-mozo-mesas-data-day-grid" type="text/x-jquery-tmpl">
 
        {{if this.data.diasEstadia == 0}}
-            <td class="mozo-col" data-bind="attr: {'data-day': dayName}"></td>
+            <td class="mozo-col libre" data-bind="attr: {'data-day': dayName}"></td>
         {{else}}
            <td class="mozo-col ocupada" data-bind="attr:{colspan:diasEstadia, 'data-checkin': checkin, 'data-checkout': checkout}">                                 
               <div class="mark">
