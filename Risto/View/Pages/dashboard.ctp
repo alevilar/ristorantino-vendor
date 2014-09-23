@@ -11,7 +11,14 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
   <p>
    <ul class="dashboard-buttons">
     <li>
-        <?php echo $this->Html->link('Adición', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-adicion')); ?>
+        <?php 
+
+        if (Configure::read('Site.type') == 'restaurante' ) {
+          echo $this->Html->link('Adición', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-adicion')); 
+        } else {
+          echo $this->Html->link('Reservas', array('plugin'=>'reservation_manager', 'controller' => 'reservations'), array('id' => 'bton-reservations')); 
+        }
+        ?>
     </li>
    
 
@@ -32,9 +39,6 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
   <ul class="dashboard-buttons">
 
 
-    <li>  
-        <?php echo $this->Html->link('Reservas', array('plugin'=>'reservation_manager', 'controller' => 'reservations'), array('id' => 'bton-reservations')); ?>
-    </li>
 
     <li>  
         <?php echo $this->Html->link('Estadisticas', array('plugin' => 'stats', 'controller' => 'stats', 'action' => 'mesas_total'), array('id' => 'bton-estadisticas')); ?>
