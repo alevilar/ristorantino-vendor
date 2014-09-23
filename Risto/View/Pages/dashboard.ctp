@@ -16,7 +16,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
         if (Configure::read('Site.type') == 'restaurante' ) {
           echo $this->Html->link('Adición', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-adicion')); 
         } else {
-          echo $this->Html->link('Reservas', array('plugin'=>'reservation_manager', 'controller' => 'reservations'), array('id' => 'bton-reservations')); 
+          echo $this->Html->link('Reservas', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-reservations')); 
         }
         ?>
     </li>
