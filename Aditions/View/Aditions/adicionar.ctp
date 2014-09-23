@@ -1,4 +1,5 @@
 <?php echo $this->element('jq_templates'); ?>
+<?php echo $this->element('jq_calendar'); ?>
 
       
 <?php if (Configure::read('Site.type') == SITE_TYPE_RESTAURANTE) {  ?>
@@ -59,10 +60,11 @@
     <div  data-role="header">
 
      <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
+     <!--
             <a href="#mesa-add" id="mesa-abrir-mesa-btn" data-rel="dialog"  class="abrir-mesa" data-role="button" data-theme="e">
                 Abrir <?php echo Configure::read('Mesa.tituloMesa')?>
             </a>  
-
+        -->
 
             <h1><span style="color: #fcf0b5" data-bind="text: adn().mesas().length">0</span> <?php echo Inflector::pluralize( Configure::read('Mesa.tituloMesa') )?></h1>
 
@@ -395,6 +397,15 @@
             </div>
 
             <div class="mesa-view">
+                <div class="date-checkin-checkout" data-bind="visible: adn().currentMesa().checkin() || adn().currentMesa().checkin() ">
+                    <div class="date-checkin" data-bind="visible: adn().currentMesa().checkin()">
+                        <span class="title">Checkin:</span> <span class="data" data-bind="text: moment(adn().currentMesa().checkin()).format('dddd, DD/MM/YY')"></span>
+                    </div>
+                    <div class="date-checkout" data-bind="visible: adn().currentMesa().checkout()">
+                        <span class="title">Checkout:</span> <span class="data" data-bind="text: moment(adn().currentMesa().checkout()).format('dddd, DD/MM/YY')"></span>
+                    </div>
+                </div>
+
                 <h3 class="titulo-comanda">Productos Comandados</h3>
 
                 <!-- template -->
@@ -407,8 +418,10 @@
     <div data-role="footer">
         <h3>
             <span id="mesa-cant-comensales"  style="float: left">            
-                <a data-role="button" data-bind="visible: !adn().currentMesa().cant_comensales()"><?php echo __( 'Ingresar %s', Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))) ?></a>
-                <span data-bind="visible: adn().currentMesa().cant_comensales() > 0"><span data-bind="text: adn().currentMesa().cant_comensales()"></span> <?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))  ?></span>
+                <a data-role="button" data-bind="visible: !parseInt(adn().currentMesa().cant_comensales())">
+                    <?php echo __( 'Ingresar %s', Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))) ?>
+                </a>
+                <span data-bind="visible: parseInt( adn().currentMesa().cant_comensales()) > 0"><span data-bind="text: adn().currentMesa().cant_comensales()"></span> <?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))  ?></span>
             </span>
             <span class="mesa-total"><span data-bind="text: adn().currentMesa().textoTotalCalculado()"></span></span>
             <span class="hora-abrio">Abrió a las <span data-bind="text: adn().currentMesa().timeCreated()"></span></span>

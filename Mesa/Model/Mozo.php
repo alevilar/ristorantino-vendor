@@ -133,6 +133,7 @@ class Mozo extends MesaAppModel {
             
             $contain = $this->Mesa->defaultContain;
             $contain['conditions'] = $conditionsMesa;
+            unset($contain[0]);
             $optionsCreated = array(
                 'contain' => array('Mesa' => $contain),
                 'conditions'=> $conditions,

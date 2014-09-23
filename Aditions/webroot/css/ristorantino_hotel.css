@@ -9,6 +9,9 @@
 	height: 84px;
 }
 
+.controll .btn-controls{
+	top: 24px;
+}
 
 .controll .btn-controls a{
 	display: inline-block;
@@ -72,27 +75,34 @@
 	position: relative;
 	table-layout: fixed;
 	width: 100%;
-	height: 20px;
-	top:10px;
+	top:3px;
 }
+
+
+
+.calendar-container  table.mozo-mesas .mark a.mesa-abierta{
+	background: #eee;
+}
+
+
+.calendar-container  table.mozo-mesas .mark a.mesa-cerrada{
+	background: brown;
+	color: white;
+}
+
+.calendar-container  table.mozo-mesas .mark a.mesa-cobrada{
+	background: green;
+}
+
+
 
 
 .calendar-container  table.mozo-mesas .mark{
 	right: -16px;
 	position: relative;
-	height: 20px;
-	
 }
 
 
-.calendar-container  table.mozo-mesas td.ocupada .mark{
-	background: rgb(225, 255, 4);
-}
-
-.calendar-container  table.mozo-mesas td.abierta .mark{
-	background: rgb(122, 24, 124);
-}
-	
 
 	
 .calendar-container  table.mozo-mesas .mark a{
@@ -102,44 +112,117 @@
 	font-weight: lighter;
 	line-height: initial;
 	text-decoration: none;
+	height: 32px;
+	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	text-decoration: none;
+	line-height: 30px;
+	background: yellow;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
+	overflow: hidden;
 }
 
 	
-.calendar-container  table.mozo-mesas .checkin-checkout .mark{
-	-webkit-border-radius: 55px;
-	-moz-border-radius: 55px;
-	border-radius: 55px;
-}
-
-.calendar-container  table.mozo-mesas .checkin-not-showed .mark{
+.calendar-container  table.mozo-mesas .checkin-not-showed .mark a{
 	-webkit-border-top-right-radius: 55px;
 	-webkit-border-bottom-right-radius: 55px;
 	-moz-border-radius-topright: 55px;
 	-moz-border-radius-bottomright: 55px;
 	border-top-right-radius: 55px;
 	border-bottom-right-radius: 55px;
-	overflow: hidden;
+	
 }
 
 
-.calendar-container  table.mozo-mesas .checkout-not-showed .mark{
+.calendar-container  table.mozo-mesas .checkout-not-showed .mark a{
+	-webkit-border-top-left-radius: 55px;
+	-webkit-border-bottom-left-radius: 55px;
+	-moz-border-radius-topleft: 55px;
+	-moz-border-radius-bottomleft: 55px;
+	border-top-left-radius: 55px;
+	border-bottom-left-radius: 55px;	
+}
+
+
+.calendar-container  table.mozo-mesas .mozo-col{
+	padding-top: 3px;
+	padding-bottom: 3px;
+}
+
+
+
+
+.calendar-container  table.mozo-mesas .mozo-col.libre div{
+	right: -16px;
+	position: relative;
+}
+
+.calendar-container  table.mozo-mesas .mozo-col.libre.posible-ancla-mark div{
+	display: block;
+	text-align: center;
+	font-size: 9pt;
+	font-weight: lighter;
+	line-height: initial;
+	text-decoration: none;
+	height: 28px;
+	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	text-decoration: none;
+	line-height: 30px;
+	border: 2px dotted yellow;
+
 	-webkit-border-top-left-radius: 55px;
 	-webkit-border-bottom-left-radius: 55px;
 	-moz-border-radius-topleft: 55px;
 	-moz-border-radius-bottomleft: 55px;
 	border-top-left-radius: 55px;
 	border-bottom-left-radius: 55px;
+
+	overflow: hidden;
 }
 
-.calendar-container  table.mozo-mesas .mozo-col.libre:hover{
-	background-color: silver;
-}
 
-.calendar-container  table.mozo-mesas .mozo-col.libre:hover::before{
-	content: "CKIN";
-	font-size: 8pt;
+
+.calendar-container  table.mozo-mesas .mozo-col.libre.ancla-mark div{
+	display: block;
+	text-align: center;
+	font-size: 9pt;
 	font-weight: lighter;
+	line-height: initial;
+	text-decoration: none;
+	height: 32px;
+	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	text-decoration: none;
+	line-height: 30px;
+	background: yellow;
+	-webkit-border-top-left-radius: 55px;
+	-webkit-border-bottom-left-radius: 55px;
+	-moz-border-radius-topleft: 55px;
+	-moz-border-radius-bottomleft: 55px;
+	border-top-left-radius: 55px;
+	border-bottom-left-radius: 55px;
+
+	overflow: hidden;
+	background: red;
 }
+
+.calendar-container  table.mozo-mesas .mozo-col.libre.future-mark div{
+	display: block;
+	text-align: center;
+	font-size: 9pt;
+	font-weight: lighter;
+	line-height: initial;
+	text-decoration: none;
+	height: 32px;
+	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	text-decoration: none;
+	line-height: 30px;
+	background: yellow;
+
+	overflow: hidden;
+	background: red;
+}
+
 
  
 
@@ -147,12 +230,15 @@
     height: 48px;    
     clear: both;
     position: relative;
-    opacity: 0.8;
     border-top: 1px solid grey;
 }
 
-#listado-mesas .mozo-row:hover{
-	opacity: 1;
+
+.mozo-row .mozos-list-vertical{
+	line-height: 48px;
+	text-align: center;
+	font-size: 18pt;
+
 }
 
 #listado-mesas .mozo-row .col-header a{
@@ -207,3 +293,26 @@ th.rotate > div{
   width: 68px;
 }
 
+
+
+
+
+.date-checkin-checkout{
+	margin-top: 10px;
+	margin-bottom: 10px;
+	padding: 30px 0px;
+	font-size: 14pt;
+
+	margin-top: 10px;
+	background: beige;
+	text-align: center;
+}
+
+.date-checkin-checkout .title{
+	color: #A3A3A3;
+ }
+
+ .date-checkin-checkout > div{ 
+ 	display: inline-block;
+	width: 48%;
+ }

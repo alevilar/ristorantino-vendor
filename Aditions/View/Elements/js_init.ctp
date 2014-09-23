@@ -2,7 +2,7 @@
 <script type="text/javascript">
     <!--
 
-
+        moment.locale("es");
         
 
 

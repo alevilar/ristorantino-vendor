@@ -5,27 +5,85 @@
 
 
 	$('#listado-mesas').live('pageshow',function(event, ui){
-		console.info("aca adentro");
 
+		/**
+        pintar celdas para marcar
+        **/
+		var $ancla = null, 
+			$anterior = null;
+
+		$('#listado-mesas').delegate('td.libre', 'mousedown', function(e) {
+			if ( $ancla === null ) {
+				$ancla = $anterior = $(this);
+				$(this).addClass('ancla-mark');
+			}
+        });
+
+		$('#listado-mesas').delegate('td.libre', 'mouseover', function(e) {
+			if ( $ancla && $anterior ) {
+				if ( $anterior.next()[0] == $(this)[0] ) {
+					$(this).addClass('future-mark');
+					$anterior = $(this);
+				}
+				if ( $anterior.prev()[0] == $(this)[0] ) {
+					$anterior.removeClass('future-mark');
+					$anterior = $(this);
+				}
+			}
+        });
+
+        $('body').bind( 'mouseup', function(e) {
+        	console.debug("levantoooola %o", $ancla);
+        	if ( $ancla ) {
+        		$ancla.removeClass('ancla-mark');
+        		console.debug( $ancla );
+        		console.debug( $ancla[0].parentNode );
+				$ancla.parent().find('.future-mark').removeClass('future-mark');
+				$ancla = $anterior = null;
+        	}
+        });
+
+
+        /**
+        Popsible ancla ON HOVER
+        **/        
+        $('#listado-mesas').delegate('td.libre', 'mouseover', function(e) {
+			if ( $ancla === null ) {
+				$(this).addClass('posible-ancla-mark');
+			}
+        });
+
+		$('#listado-mesas').delegate('td.libre', 'mouseout', function(e) {
+			if ( $ancla === null ) {
+				$(this).removeClass('posible-ancla-mark');
+			}
+        });
+
+
+
+        /**
+        Creacion de mesa nueva con chekin - checkout
+        **/
 		var dayCin, dayCout, mozo;
-		$('#listado-mesas').delegate('td.mozo-col', 'mousedown', function(e) {
+		$('#listado-mesas').delegate('td.libre', 'mousedown', function(e) {
 			dayCin = $(this).data('day');
 			if (!dayCin) {
 				// si no hay dia es porque me pare sobre una reserva, entonces tomo su fecha checkout
 				dayCin = $(this).data('checkout');
 			}
-			mozo =  $(this).parents('.mozo-row').find('.listado-mozos-para-mesas a').data('mozo-id');
+			mozo =  $(this).parents('.mozo-row').data('mozo-id');
 			console.debug(mozo);
         });
 
 
-        $('#listado-mesas').delegate('td.mozo-col', 'mouseup', function(e) {
-			dayCout = $(this).data('day');
+        $('#listado-mesas').delegate('td.libre', 'mouseup', function(e) {
+			dayCout = moment( $(this).data('day') ).add(1, 'day').format('YYYY-MM-DD');
+			console.debug(dayCout);
 			if (!dayCout) {
 				// si no hay dia es porque me pare sobre una reserva, entonces tomo su fecha checkout
 				dayCout = $(this).data('checkin');
 			}
-			var mozo2 =  $(this).parents('.mozo-row').find('.listado-mozos-para-mesas a').data('mozo-id');
+			var mozo2 =  $(this).parents('.mozo-row').data('mozo-id');
 			if ( dayCin && dayCout && mozo2 == mozo && dayCout != dayCin )  {
 				var miniMesa = {
 					mozo_id: mozo,
@@ -38,21 +96,22 @@
                 Risto.Adition.adicionar.setCurrentMesa( mesa );
                 $.mobile.changePage('#mesa-view');
 			}
+            dayCin = dayCout = mozo = null;
         });
 
     });
-
 
     $('#listado-mesas').live('pagebeforehide',function(event, ui){
          $('#listado-mesas').undelegate('td.mozo-col', 'mousedown');
          $('#listado-mesas').undelegate('td.mozo-col', 'mouseup');
     });
+
     
     
 
 
 	var CalendarGrid = function() {
-        this.cantDayShown	= ko.observable(40);        
+        this.cantDayShown	= ko.observable(35);        
         this.months         = ko.observableArray( [] );
         this.days           = ko.observableArray( [] );
         
