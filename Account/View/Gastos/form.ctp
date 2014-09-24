@@ -2,7 +2,7 @@
 echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
 ?>
 <div class="gastos form">
-    <?php echo $this->Form->create('Gasto', array('url'=>$this->action,'type' => 'file', 'id'=>'GastoAddForm')); ?>
+    <?php echo $this->Form->create('Gasto', array( 'type' => 'file', 'id'=>'GastoAddForm')); ?>
     <?php echo $this->Form->hidden('id'); ?>
     <?php echo $this->Form->hidden('pagar', array('value' => true)); ?>
     <div class="row">
@@ -28,8 +28,9 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
             echo $this->Form->input('tipo_factura_id');
             echo $this->Form->input('factura_nro');
             
-            echo $this->Form->hidden('file');
-            echo $this->Form->input('_file', array('type'=>'file', 'accept'=> "image/*", 'label' => 'PDF, Imagen, Archivo'));  
+            //echo $this->Form->hidden('file');
+            echo $this->Form->input('newfile',array('label'=>'PDF, Imagen, Archivo', 'type'=>'file'));
+            //echo $this->Form->input('file', array('type'=>'file', 'accept'=> "image/*", 'label' => 'PDF, Imagen, Archivo'));  
             
             if (!empty($this->request->data['Gasto']['file'])) {
                 $ext = substr(strrchr($this->request->data['Gasto']['file'],'.'),1);

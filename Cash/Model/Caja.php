@@ -1,5 +1,6 @@
 <?php
 
+App::uses('CashAppModel', 'Cash.Model');
 
 class Caja extends CashAppModel {
 

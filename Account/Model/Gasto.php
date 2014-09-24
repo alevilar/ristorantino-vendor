@@ -15,7 +15,15 @@ class Gasto extends AccountAppModel {
     public $actsAs = array(
         'Search.Searchable',
         'Containable',
-        );
+        'FileUpload.FileUpload' => array(
+            'uploadDir' => 'img',
+            'fields' => array(
+                'name' => 'file', 
+                'type' => 'file_type', 
+                'size' => 'file_size'
+                ),
+        ),
+    );
     
     public $files = array(
         '_file' => 'file'
@@ -24,32 +32,41 @@ class Gasto extends AccountAppModel {
     public $validate = array(
 		'factura_nro' => array(
 			'no_repetido' => array(
-                                'on' => 'create',
+                'on' => 'create',
 				'rule' => 'factura_no_repetida',
 				'required' => true,
 				'message' => 'Este número de factura ya esta cargada para este mismo proveedor'
 			)
 		),
-                'fecha' => array(
-			'date' => array(
+        'fecha' => array(
+		  'date' => array(
 				'rule' => 'date',
                                 'message' => 'Ingrese una fecha válida',
                                 'allowEmpty' => false,
 				'required' => true,
 			)
 		),
-                'tipo_factura_id' => array(
+        'tipo_factura_id' => array(
 			'numeric' => array(
 				'rule' => 'numeric',
 				'required' => false,
 				'message' => 'Debe especificar un tipo de factura'
 			)
 		),
-                'importe_total' => array(
+        'importe_neto' => array(
+            'numeric' => array(
+                'rule' => 'numeric',
+                'required' => true,
+                'allowEmpty' => false,
+                'message' => 'Debe especificar un importe numérico'
+            )
+        ),
+        'importe_total' => array(
 			'numeric' => array(
 				'rule' => 'numeric',
-				'allowEmpty' => true,
-				'message' => 'Debe especificar un importe total numerico'
+                'required' => true,
+				'allowEmpty' => false,
+				'message' => 'Debe especificar un importe total numérico'
 			)
 		),
 	);

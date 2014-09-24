@@ -19,9 +19,7 @@ class Categoria extends ProductAppModel
         'SoftDelete',
         'FileUpload.FileUpload' => array(
             'fields' => array(
-                'name' => 'image_url', 
-                'type' => 'file_type', 
-                'size' => 'file_size'
+                'name' => 'image_url',
                 ),
         ),
         

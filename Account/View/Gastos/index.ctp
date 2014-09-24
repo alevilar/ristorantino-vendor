@@ -7,15 +7,16 @@
 
 </div>
 <hr>
-<?php echo $this->Form->create('Egreso', array('controller' => 'egresos', 'action' => 'add')); ?>
-
-<div class="row">
 
     <div class="pull-right">
         <?php echo $this->Form->create('Gasto', array('action' => 'index')); ?>
         <?php echo $this->Form->input('proveedor_id', array('onchange' => 'this.form.submit();', 'empty' => 'Filtrar por Proveedor', 'label' => false)) ?>
         <?php echo $this->Form->end() ?>
     </div>
+
+<?php echo $this->Form->create('Egreso', array('controller' => 'egresos', 'action' => 'add')); ?>
+
+<div class="row">
 
 
     <div class="col-md-2">

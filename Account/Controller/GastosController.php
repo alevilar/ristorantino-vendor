@@ -8,12 +8,9 @@ class GastosController extends AccountAppController
     public $name = 'Gastos';
     
 
-    public $components = array(     
-        'RequestHandler',  
-        'Search.Prg',
-        'Paginator', 
+    public $helpers = array(
+        'FileUpload.FileUpload',
         );
-
 
   
     public function index()
@@ -102,7 +99,7 @@ class GastosController extends AccountAppController
         
         $this->request->data['Gasto']['fecha'] = date('Y-m-d', strtotime('now'));
 
-        $tipo_facturas = $this->Gasto->TipoFactura->find('list');
+        $tipoFacturas = $this->Gasto->TipoFactura->find('list');
         $this->set('tipo_impuestos', $this->Gasto->TipoImpuesto->find('all', array('recursive' => -1)));
         $impuestos = $this->Gasto->Impuesto->find('all');
         $clasificaciones = $this->Gasto->Clasificacion->generateTreeList();
@@ -110,7 +107,7 @@ class GastosController extends AccountAppController
             'order' => array('Proveedor.name')
                 ));
                
-        $this->set(compact('proveedores', 'tipo_facturas', 'clasificaciones'));
+        $this->set(compact('proveedores', 'tipoFacturas', 'clasificaciones'));
         $this->render('form');
     }
 
@@ -123,11 +120,12 @@ class GastosController extends AccountAppController
 
         if (!empty($this->request->data)) {
             if ($this->Gasto->save($this->request->data)) {
-                $this->Session->setFlash(__('The Gasto has been saved', true));
+                $this->Session->setFlash(__('The Gasto has been saved'));
 
                 $this->redirect(array('action' => 'index'));
             } else {
-                $this->Session->setFlash(__('The Gasto could not be saved. Please, try again.', true));
+                $this->Session->setFlash(__('The Gasto could not be saved. Please, try again.'), 'Risto.flash_error');
+                debug($this->Gasto->validationErrors);
             }
         }
 

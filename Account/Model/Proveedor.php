@@ -20,6 +20,8 @@ class Proveedor extends AccountAppModel {
             'cuit' => array(
                     'rule' => 'validate_cuit',
                     'message' => 'CUIT inválido',
+                    'allowEmpty' => true,
+                    'required' => false,
             ),
             'isUnique' => array(
                 'rule' => 'isUnique',
@@ -32,7 +34,7 @@ class Proveedor extends AccountAppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	public $hasMany = array( 'Account.Gasto' );
         
-    function validate_cuit(){
+    public function validate_cuit(){
         if (!empty($this->data['Proveedor']['cuit'])) {
              return validate_cuit_cuil($this->data['Proveedor']['cuit']);
         }

@@ -22,8 +22,12 @@ foreach ($tipoDePagos as $tipoDePago):
 ?>
 	<tr<?php echo $class;?>>
 		<td>
-			<?php echo $tipoDePago['TipoDePago']['id']; ?>
-                    <?php echo $this->Html->image($tipoDePago['TipoDePago']['image_url'], array('width'=>40)); ?>
+			<?php
+			echo $tipoDePago['TipoDePago']['id']; 
+			if ( $tipoDePago['TipoDePago']['image_url'] ) {
+            	echo $this->Html->image( $tipoDePago['TipoDePago']['image_url'], array('width'=>40)); 
+			}
+            ?>
 		</td>
 		<td>
 			<?php echo $tipoDePago['TipoDePago']['name']; ?>

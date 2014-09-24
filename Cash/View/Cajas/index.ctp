@@ -30,4 +30,4 @@
 </table>
 
 
-<?php echo $this->Html->link("Nueva Caja", 'add'); ?>
+<?php echo $this->Html->link("Nueva Caja", array('action'=>'add')); ?>

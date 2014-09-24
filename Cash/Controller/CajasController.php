@@ -25,7 +25,7 @@ class CajasController extends CashAppController {
             if (!empty($this->request->data)) {
                 if ($this->Caja->save($this->request->data)) {
                     $this->Session->setFlash('Se ha guardado la caja correctamente');
-                    $this->redirect('index');
+                    $this->redirect(array('action'=>'index'));
                 } else {
                     $this->Session->setFlash('Error al guardar');
                 }
@@ -37,7 +37,7 @@ class CajasController extends CashAppController {
             if (!empty($this->request->data)) {
                 if ($this->Caja->save($this->request->data)) {
                     $this->Session->setFlash('Se ha guardado la caja correctamente');
-                    $this->redirect('index');
+                    $this->redirect(array('action'=>'index'));
                 } else {
                     $this->Session->setFlash('Error al guardar');
                 }

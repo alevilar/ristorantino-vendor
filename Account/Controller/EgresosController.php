@@ -61,7 +61,6 @@ class EgresosController extends AccountAppController
         $suma_gastos = 0;
         $cant_gastos = 0;
         $gastosAll = array();
-
         if (!empty($this->request->data['Gasto'])) {
             
             // re armo el array de gastos limpiando los que no fueron seleccionados para pagar
