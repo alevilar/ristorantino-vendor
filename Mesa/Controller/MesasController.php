@@ -119,8 +119,9 @@ class MesasController extends MesaAppController {
 
         //$retData = $this->Mesa->cerrar_mesa();
         $mesa = $this->Mesa->read(null, $mesa_id);
-        $mesa['Mesa']['estado_id'] == MESA_CERRADA;
-        if( !$this->Mesa->save($mesa) ) {
+        $this->Mesa->set('estado_id', MESA_CERRADA);
+
+        if( !$this->Mesa->save() ) {
             $this->setFlash('Error al cerrar la mesa', 'flash_error');
         }
 
@@ -243,9 +244,7 @@ class MesasController extends MesaAppController {
         }
 
         if ($this->request->is(array('post', 'put'))) {
-            debug("aNTESSS");
             if ($this->Mesa->save($this->request->data)) {
-                debug("DEss");
                 $this->Session->setFlash(__('Se ha editado correctamente', 'Risto.flash_success'));
                 $this->redirect(array('action'=>'index'));
             } else {
@@ -275,12 +274,13 @@ class MesasController extends MesaAppController {
                         )
         ));
 
-        $items = $this->request->data['Comanda'];
+        $items = $this->request->data['Comanda'];        
         $mesa = $this->request->data;
         $mozos = $this->Mesa->Mozo->listFullName();
         
         $this->id = $id;
-        
+        $this->request->data['Mesa']['checkin'] = date('Y-m-d', strtotime($this->request->data['Mesa']['checkin']));
+        $this->request->data['Mesa']['checkout'] = date('Y-m-d', strtotime($this->request->data['Mesa']['checkout']));
         $estados = $this->Mesa->Estado->find('list');
         $this->set('estados', $estados);        
         $this->set(compact('mesa', 'items', 'mozos'));

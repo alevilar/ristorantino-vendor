@@ -320,6 +320,21 @@ Risto.Adition.adicionar = {
     },
 
 
+    /**
+     *  Tira un prompt para settear la cantidad de cubiertos
+     */
+    guardarObservacionMesa: function(){
+        var obs = this.currentMesa().observation();
+        if ( obs ) {
+             var data = {
+                'data[Mesa][observation]': obs
+            };
+            
+            this.currentMesa().editar(data);
+        }        
+    },
+
+
      /**
      *  Modifica el mozo atual por el que se le pasa como parametro
      *  Dispara el evento "adicionCambioMozo"

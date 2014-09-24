@@ -86,7 +86,7 @@
 
 
 .calendar-container  table.mozo-mesas .mark a.mesa-cerrada{
-	background: brown;
+	background: #B0875D;
 	color: white;
 }
 
@@ -125,23 +125,29 @@
 
 	
 .calendar-container  table.mozo-mesas .checkin-not-showed .mark a{
-	-webkit-border-top-right-radius: 55px;
-	-webkit-border-bottom-right-radius: 55px;
-	-moz-border-radius-topright: 55px;
-	-moz-border-radius-bottomright: 55px;
-	border-top-right-radius: 55px;
-	border-bottom-right-radius: 55px;
+	
+	-webkit-border-top-left-radius: 0px;
+	-webkit-border-bottom-left-radius: 0px;
+	-moz-border-radius-topleft: 0px;
+	-moz-border-radius-bottomleft: 0px;
+	border-top-left-radius: 0px;
+	border-bottom-left-radius: 0px;
 	
 }
 
 
-.calendar-container  table.mozo-mesas .checkout-not-showed .mark a{
-	-webkit-border-top-left-radius: 55px;
-	-webkit-border-bottom-left-radius: 55px;
-	-moz-border-radius-topleft: 55px;
-	-moz-border-radius-bottomleft: 55px;
-	border-top-left-radius: 55px;
-	border-bottom-left-radius: 55px;	
+.calendar-container  table.mozo-mesas  .checkout-not-showed .mark a{
+	-webkit-border-top-right-radius: 0px;
+	-webkit-border-bottom-right-radius: 0px;
+	-moz-border-radius-topright: 0px;
+	-moz-border-radius-bottomright: 0px;
+	border-top-right-radius: 0px;
+	border-bottom-right-radius: 0px;
+}
+
+.calendar-container  table.mozo-mesas .mark .mesa-cliente{
+	position: relative;
+	left: 10px;
 }
 
 
@@ -165,11 +171,14 @@
 	font-weight: lighter;
 	line-height: initial;
 	text-decoration: none;
-	height: 28px;
+	height: 27px;
 	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
-	line-height: 30px;
-	border: 2px dotted yellow;
+	line-height: 20px;
+	
+	background: #eee;
+	opacity: 0.5;
+	border: 1px dashed grey;
 
 	-webkit-border-top-left-radius: 55px;
 	-webkit-border-bottom-left-radius: 55px;
@@ -201,9 +210,8 @@
 	-moz-border-radius-bottomleft: 55px;
 	border-top-left-radius: 55px;
 	border-bottom-left-radius: 55px;
-
-	overflow: hidden;
-	background: red;
+	border-right: none;
+	overflow: hidden;	
 }
 
 .calendar-container  table.mozo-mesas .mozo-col.libre.future-mark div{
@@ -218,9 +226,10 @@
 	text-decoration: none;
 	line-height: 30px;
 	background: yellow;
-
+	opacity: 0.5;
 	overflow: hidden;
-	background: red;
+	border-top: 1px dashed grey;
+	border-bottom: 1px dashed grey;
 }
 
 
@@ -314,5 +323,5 @@ th.rotate > div{
 
  .date-checkin-checkout > div{ 
  	display: inline-block;
-	width: 48%;
+	width: 33%;
  }

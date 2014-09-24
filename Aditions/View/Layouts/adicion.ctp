@@ -106,9 +106,10 @@
 
 
     //scripts de Cake
+    echo $this->element('js_init');
+    
     echo $scripts_for_layout;
     
-    echo $this->element('js_init');
 ?>
 
 

@@ -32,7 +32,14 @@
 
                     <legend><?php __('Totales de %s', Configure::read('Mesa.tituloMesa')); ?></legend>
                     <?php
+                    
+                    echo $this->Form->input('checkin', array( 'type'=>'date'));
+                    echo $this->Form->input('checkout', array( 'type'=>'date' ));
+
                     echo $this->Form->input('cant_comensales', array('label'=> __("Cantidad de %s", Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) )));
+
+                    echo $this->Form->input('observation', array());
+
                     echo $this->Form->input('total', array(
                         'required' => 'required'));
                     

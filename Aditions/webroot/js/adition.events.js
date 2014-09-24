@@ -207,6 +207,7 @@ $(document).bind("mobileinit", function(){
 
     // enrquiqueecr con JQM el listado ed comandas de la mesa en msa-view
     $('#mesa-view').live('pageshow',function(event, ui) {
+
         $('#comanda-detalle-collapsible').trigger('create');
 
          // CLICKS
@@ -259,6 +260,25 @@ $(document).bind("mobileinit", function(){
             mesa.cambioDeEstadoAjax( MESA_ESTADOS_POSIBLES.reabierta );
         });
 
+        var observationChanges = '';
+        $('#mesa-textarea-observation').bind('focus', function() {
+            observationChanges = Risto.Adition.adicionar.currentMesa().observation();
+            $('#mesa-observacion-submit').show('fade');
+        });
+
+        $('#mesa-textarea-observation').bind('focusout', function() {
+            if ( observationChanges == Risto.Adition.adicionar.currentMesa().observation() ){
+                $('#mesa-observacion-submit').hide('fade');
+            }
+        });
+
+        $('#mesa-observacion-submit').bind('click', function(){
+             Risto.Adition.adicionar.guardarObservacionMesa();
+             $('#mesa-observacion-submit').hide('fade');
+        });
+        
+        
+
     });
 
     $('#mesa-view').live('pagebeforehide',function(event, ui){  
@@ -270,6 +290,9 @@ $(document).bind("mobileinit", function(){
         $('#mesa-action-reimprimir').unbind('click');
         $('#mesa-borrar').unbind('click');
         $('#mesa-reabrir').unbind('click');
+        $('#mesa-textarea-observation').unbind('focus');
+        $('#mesa-textarea-observation').unbind('focusout');
+        $('#mesa-observacion-submit').unbind('click');
     });
 
 

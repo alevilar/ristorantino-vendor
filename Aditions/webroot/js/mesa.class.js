@@ -11,7 +11,20 @@ var Mesa = function(mozo, jsonData) {
         this.id             = ko.observable();
         this.created        = ko.observable();
         this.checkin        = ko.observable();
-        this.checkout        = ko.observable();
+        this.checkout       = ko.observable();
+        this.observation    = ko.observable('');
+
+        // Observables Dependientes
+        this.diasEstadia = ko.dependentObservable( function(){
+            var mm = moment(this.checkin());
+            var m2 = moment(this.checkout());
+            mm.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
+            m2.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
+            return Math.abs( mm.diff(m2, "days") );
+        },this);
+        this.diasEstadiaRecortado = ko.observable(0);
+
+
         this.total          = ko.observable( 0 );
         this.numero         = ko.observable( 0 );
         this.menu           = ko.observable( 0 );

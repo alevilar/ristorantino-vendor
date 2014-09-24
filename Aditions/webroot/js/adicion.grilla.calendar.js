@@ -33,11 +33,8 @@
         });
 
         $('body').bind( 'mouseup', function(e) {
-        	console.debug("levantoooola %o", $ancla);
         	if ( $ancla ) {
         		$ancla.removeClass('ancla-mark');
-        		console.debug( $ancla );
-        		console.debug( $ancla[0].parentNode );
 				$ancla.parent().find('.future-mark').removeClass('future-mark');
 				$ancla = $anterior = null;
         	}
@@ -72,13 +69,11 @@
 				dayCin = $(this).data('checkout');
 			}
 			mozo =  $(this).parents('.mozo-row').data('mozo-id');
-			console.debug(mozo);
         });
 
 
         $('#listado-mesas').delegate('td.libre', 'mouseup', function(e) {
 			dayCout = moment( $(this).data('day') ).add(1, 'day').format('YYYY-MM-DD');
-			console.debug(dayCout);
 			if (!dayCout) {
 				// si no hay dia es porque me pare sobre una reserva, entonces tomo su fecha checkout
 				dayCout = $(this).data('checkin');
@@ -194,7 +189,6 @@
 		},
 	}
 
-
-	Risto.Adition.adicionar.calendarGrid = new CalendarGrid;
+	Risto.CalendarGrid = CalendarGrid;
 	
 })(jQuery, moment);

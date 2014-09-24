@@ -1,16 +1,14 @@
 Date.diffDays = function ( day1, day2 ) {
-	var mm = moment(day1);
-	var m2 = moment(day2);
-	mm.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
-	m2.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
+	var mm = Date.clearHour(day1);
+	var m2 = Date.clearHour(day2);
 	return mm.diff(m2, "days");
 }
 
-Mesa.prototype.cantDiasEntreCheckinCheckout = function () {
-    	var cin = moment( this.checkin() );
-    	var cout = moment( this.checkout() );
 
-    	return cin.diff(cout, 'days' );
+Date.clearHour = function ( day1 ) {
+	var mm = moment(day1);
+	mm.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
+	return mm;
 }
 
 
@@ -20,6 +18,7 @@ Mesa.prototype.cantDiasEntreCheckinCheckout = function () {
 * @param moment-js day
 **/
 Mozo.prototype.tieneMesaEl = function ( day ) {		
+		if ( !day ) return false;
 
 		var i = 0, 
 			cin, 
@@ -32,10 +31,10 @@ Mozo.prototype.tieneMesaEl = function ( day ) {
 
 		while ( i < this.mesas().length ) {
 
-			cin = moment( this.mesas()[i].checkin() );
-			cout = moment( this.mesas()[i].checkout() ).subtract(1, 'day');
-
+			cin = Date.clearHour( this.mesas()[i].checkin() );
+			cout = Date.clearHour( this.mesas()[i].checkout() );
 			rangoMesa = moment().range(cin, cout);
+
 			if (  day.within( rangoMesa ) ) {				
 				return this.mesas()[i];
 			}
@@ -50,43 +49,63 @@ Mozo.prototype.tieneMesaEl = function ( day ) {
 Mozo.prototype.mesasFromDataRangeByRange = function () {
 		 var days = Risto.Adition.adicionar.calendarGrid.days(),
 		 	 curDay,
-		 	 mesa,
+		 	 mesa, 
+		 	 diasEstadia,
 		 	 cout, cin, cmin, cmax,
 		 	 rangoGrilla, //rango de la grilla para una reserva particular
 		 	 cols = [],
 		 	 diffDays = 0,
+		 	 iant,
 		 	 i = 0;
-
-		if ( days ) {
+		if ( days ) {			
 			while ( i < days.length ) {
 				curDay = days[i];
 				mesa = this.tieneMesaEl( curDay );
-				
-				mesa.grillaExtraClass = 'checkin-checkout';
 
-				diffDays = 0;
+				if ( !mesa.hasOwnProperty('grillaExtraClass')) {
+					mesa.grillaExtraClass = ko.observable('checkin-checkout');
+				}
+
+				if ( !mesa.hasOwnProperty('diasEstadiaRecortado')) {
+					mesa.diasEstadiaRecortado = ko.observable( 0 );
+				}
+
+				
 				if ( mesa ) {
-					cmin = cin =  moment( mesa.checkin() );
+					cin =  moment( mesa.checkin() );
 					cmax = cout =  moment( mesa.checkout() );
+						
+					diasEstadia = mesa.diasEstadia();
+				
 
 					// check limit de grilla inicial con checkin
 					if ( Date.diffDays( cin, days[0] ) < 0 ) {
-						cmin = days[0];
-						mesa.grillaExtraClass = 'checkin-not-showed';
+						// recortado
+						diasEstadia = Math.abs( diasEstadia - Math.abs(Date.diffDays( cin, days[0] )) );											
+						mesa.grillaExtraClass('checkin-not-showed');
+					} else {
+						if ( mesa.grillaExtraClass() == 'checkin-not-showed' ) {
+							// si estaba recortado y luego se movio la grilla, resetear clase
+							mesa.grillaExtraClass('checkin-checkout');
+						}
 					}
 
 					// check limit de grilla final con checkout
 					if ( Date.diffDays( cout, days[days.length-1] ) > 0 ) {
-						cmax = days[days.length-1];
-						mesa.grillaExtraClass = 'checkin-not-showed';
+
+						diasEstadia =  Math.abs( diasEstadia - Math.abs(Date.diffDays( cout, days[days.length-1] )) )+1;						
+						mesa.grillaExtraClass('checkout-not-showed');
+					} else {
+						if ( mesa.grillaExtraClass() == 'checkout-not-showed' ) {
+							mesa.grillaExtraClass('checkin-checkout');
+						}
 					}
 
-					// para el colspan
-					mesa.diasEstadia = Math.abs( Date.diffDays( cmin, cmax ) );
+					mesa.diasEstadiaRecortado( diasEstadia );
 
 					// avanzar dias hasta el dia del checkout para seguir buscando
-					if ( mesa.diasEstadia  ) {
-						i = i + mesa.diasEstadia ;
+					if ( mesa.diasEstadiaRecortado()  ) {
+						i = i + mesa.diasEstadiaRecortado() ;
 					} else {
 						i++;
 						// tambien devuelve la mesa en el dia del checkout, pero no me interesa ese dia
@@ -95,7 +114,6 @@ Mozo.prototype.mesasFromDataRangeByRange = function () {
 							dayName: curDay.format('YYYY-MM-DD')
 						};
 					}
-
 				} else {
 					// avanzar 1 dia
 					i++;

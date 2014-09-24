@@ -33,7 +33,8 @@
             	<div></div>
             </td>
         {{else}}
-           <td class="mozo-col ocupada" data-bind="attr:{colspan:diasEstadia, 'data-checkin': checkin, 'data-checkout': checkout}">                                 
+           <td class="mozo-col ocupada" 
+               data-bind="attr:{colspan:diasEstadiaRecortado, 'data-checkin': checkin, 'data-checkout': checkout, 'class': grillaExtraClass}">
               <div class="mark">
                  <a  data-bind="click: seleccionar, attr: {accesskey: numero, id: 'mesa-id-'+id(), 'class': estado().icon}" 
                     href="#mesa-view" >
@@ -70,7 +71,7 @@
 
          <table class="mozo-mesas">
               <tbody>
-                  <tr data-bind='template: { name: "calendar-mozo-mesas-data-day-grid", foreach: $item.data.mesasFromDataRangeByRange() }'></tr>
+                  <tr data-bind='template: { name: "calendar-mozo-mesas-data-day-grid", foreach: mesasFromDataRangeByRange() }'></tr>
               </tbody>
          </table>
 

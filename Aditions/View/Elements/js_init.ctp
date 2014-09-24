@@ -3,6 +3,7 @@
     <!--
 
         moment.locale("es");
+        Risto.Adition.adicionar.calendarGrid = new Risto.CalendarGrid;
         
 
 
