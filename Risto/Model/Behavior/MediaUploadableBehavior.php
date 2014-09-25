@@ -25,6 +25,13 @@ class MediaUploadableBehavior extends ModelBehavior {
 	            )
 	        )
 	    );
+
+
+  	$Model->validate['media_file'] = array(
+                'rule'    => 'uploadError',
+                'message' => __('Falló al subir el archivo. Es mas grande que %s?', ini_get('upload_max_filesize')),
+            );
+
   }
 
 
@@ -46,6 +53,7 @@ class MediaUploadableBehavior extends ModelBehavior {
 	  	}
 	    if(isset($Model->data[$Model->alias][$this->_form_field_name])){
 	      $data = array('Media' => $Model->data[$Model->alias][$this->_form_field_name]);
+	      debug($data);
 	      $data['Media']['file'] = file_get_contents($Model->data[$Model->alias][$this->_form_field_name]['tmp_name']);
 	      $data['Media']['model'] = $Model->name;
 	      if ( !$Model->Media->save($data)) {

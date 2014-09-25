@@ -21,12 +21,11 @@ class PxHtmlHelper extends Bs3HtmlHelper {
 
 
 	public function imageMedia ( $media, $options = array() ) {
-
-		if( is_integer($media) ) {
-			$id = $media;
-		}
-		if ( !empty( $media['id'] ) && !empty($media['id'] ) ) {
-			$id = $media['id'];
+        if( is_numeric($media) ) {
+            $id = $media;
+        }
+        if ( !empty( $media['id'] ) && !empty($media['id'] ) ) {
+            $id = $media['id'];
         }
         if (!empty($id)){
 			$url = $this->Html->url(array('plugin' => 'risto', 'controller'=>'medias', 'action'=>'view', $id ));
@@ -45,7 +44,6 @@ class PxHtmlHelper extends Bs3HtmlHelper {
 		$image = sprintf($this->_tags['image'], $path, $this->_parseAttributes($options, null, '', ' '));
 	
 		return $image;
-
 	}
 
 

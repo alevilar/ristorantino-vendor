@@ -10,6 +10,7 @@ class Egreso extends AccountAppModel {
     public $actsAs = array(
         'Search.Searchable',
         'Containable',
+        'Risto.MediaUploadable',
         );
 
     public $order = array(
@@ -206,7 +207,7 @@ class Egreso extends AccountAppModel {
         {
             parent::beforeSave($options);
            
-            list($join) = $this->joinModel($this->hasAndBelongsToMany['Gasto']['with']);
+           // list($join) = $this->joinModel($this->hasAndBelongsToMany['Gasto']['with']);
             $this->unbindModel( array('hasAndBelongsToMany' => array('Gasto')) );
 //            $this->bindModel( array('hasMany' => array($join)) );
             

@@ -38,18 +38,10 @@ echo $this->Form->input('total', array('type' => 'number'));
     
     <?php
 
-if (!empty($this->request->data['Egreso']['file'])) {
-    $ext = substr(strrchr($this->request->data['Egreso']['file'], '.'), 1);
-    if (in_array(strtolower($ext), array('jpg', 'png', 'gif', 'jpeg'))) {
-        $iii = $this->Html->image($this->request->data['Egreso']['file'], array('width' => 150, 'alt' => 'Bajar', 'escape' => false));
-    } else {
-        $iii = "Descargar $ext";
-    }
-    if (!empty($this->request->data['Egreso']['file'])) {
-        echo $this->Html->link($iii, "/" . IMAGES_URL . $this->request->data['Egreso']['file'], array('target' => '_blank', 'escape' => false));
-    }
+if (!empty($this->request->data['Egreso']['media_id'])) {    
+        echo $this->Html->imageMedia( $this->request->data['Egreso']['media_id'] , array('class'=>'thumb'));
 }
-echo $this->Form->input('_file', array('type' => 'file', 'accept' => "image/*", 'label' => 'PDF, Imagen, Archivo'));
+echo $this->Form->input('media_file', array('type' => 'file', 'label' => 'Subir PDF, Imagen, Archivo'));
 
 
 echo $this->Form->input('observacion');

@@ -7,7 +7,6 @@ App::uses('AditionsAppController', 'Aditions.Controller');
 
 class AditionsController extends AditionsAppController {
     
-	public $helpers = array('Html', 'Form');
 	public $uses = array('Mesa.Mozo','Mesa.Mesa');
 	public $current_mozo_id;
 	public $current_mesa_id;

@@ -9,8 +9,7 @@ class Pago extends MesaAppModel {
 
 	public $actsAs = array(
         'Search.Searchable',
-        'Containable',
-        'Risto.MediaUploadable',
+        'Containable',        
         );
 
 

@@ -28,6 +28,7 @@ class Mozo extends MesaAppModel {
             'numero' => 'notempty',
             'nombre' => 'notempty',
             'apellido' => 'notempty',
+            
 	);
 
         
@@ -113,10 +114,16 @@ class Mozo extends MesaAppModel {
             }
             
             // condiciones para traer mesas abiertas y pendientes de cobro
-            $conditionsMesa = array(
-                "Mesa.estado_id <" => MESA_COBRADA,
-                'Mesa.deleted' => 0,        
-            );
+            if ( Configure::read('Site.type') == SITE_TYPE_HOTEL ) {
+                $conditionsMesa = array(
+                    'Mesa.deleted' => 0,        
+                );
+            } else {
+                $conditionsMesa = array(
+                    "Mesa.estado_id <" => MESA_COBRADA,
+                    'Mesa.deleted' => 0,        
+                );
+            }
             
             // si vino el parametro lastAccess, traer solo las mesas actualizadas luego del ultimo pedido
             if ( !empty($lastAccess) ) {
@@ -136,9 +143,7 @@ class Mozo extends MesaAppModel {
             foreach ( $mesasABM as $abmMesas ) {
                 // traer todos los mozos, con su array de mesas
                 $abmMesas['Mozo']['mesas'] = $abmMesas['Mesa'];
-                if (!empty($abmMesas['Mesa'])) {
-                    $mozosMesa['mozos'][] = $abmMesas['Mozo'];    
-                }
+                $mozosMesa['mozos'][] = $abmMesas['Mozo'];    
             }
             
 

@@ -24,7 +24,7 @@
             <?php  
            
             if( !empty($imagenes[$catId])) {
-                    echo $this->Html->image('menu/'.$imagenes[$catId],array('height'=>'22px;')); 
+                    echo $this->Html->imageMedia( $imagenes[$catId],array('height'=>'22px;')); 
             }
             echo "($catId) $catName";
             ?></span>

@@ -64,8 +64,10 @@ $raeh = Risto.Adition.EventHandler = {
             
         });
         
+    },
+
+    mesaOcultada: function(e){
         e.mesa.mozo().sacarMesa( e.mesa );
-        
     },
     
     mesaBorrada: function(e){

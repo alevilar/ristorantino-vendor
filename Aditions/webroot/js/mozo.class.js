@@ -136,7 +136,7 @@ Mozo.prototype = {
             }
         }
         return null;
-    }
+    },
 
 
     full_image_url: function () {

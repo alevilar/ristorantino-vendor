@@ -9,16 +9,11 @@ echo "<span class='total'> " . $this->Number->currency($egreso['Egreso']['total'
 echo "<span class='tipo_de_pago'> " . $this->Html->imageMedia($egreso['TipoDePago']['media_id']) . "</span>";
 
 echo "<p>";
-$ext = substr(strrchr($egreso['Egreso']['file'],'.'),1);
-if ( in_array(strtolower($ext), array('jpg', 'png', 'gif', 'jpeg')) ) {
-    $iii = $this->Html->image($egreso['Egreso']['file'], array('width' => 344, 'alt' => 'Bajar', 'escape' => false));
-} else {
-    $iii = "Descargar $ext";
+
+if ( $egreso['Egreso']['media_id'] ) {
+    $img = $this->Html->imageMedia( $egreso['Egreso']['media_id'] );
+    echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'download', $egreso['Egreso']['media_id'] ), array( 'escape' => false) );
 }
-if (!empty($egreso['Egreso']['file'])) {
-    echo $this->Html->link($iii, "/" . IMAGES_URL . $egreso['Egreso']['file'], array('target' => '_blank', 'escape' => false));
-}
-echo "</p>";
 
 
 if (!empty($egreso['Egreso']['observacion'])) {
