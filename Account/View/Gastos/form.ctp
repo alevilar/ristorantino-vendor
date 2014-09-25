@@ -29,7 +29,7 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
             echo $this->Form->input('factura_nro');
             
             //echo $this->Form->hidden('file');
-            echo $this->Form->input('newfile',array('label'=>'PDF, Imagen, Archivo', 'type'=>'file'));
+            echo $this->Form->input('media_file',array('label'=>'PDF, Imagen, Archivo', 'type'=>'file'));
             //echo $this->Form->input('file', array('type'=>'file', 'accept'=> "image/*", 'label' => 'PDF, Imagen, Archivo'));  
             
             if (!empty($this->request->data['Gasto']['file'])) {

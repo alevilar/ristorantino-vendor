@@ -37,7 +37,7 @@ $this->Paginator->options(array('url' => array('?' => $urlTex)));
 
             <tr>
                 <td>
-                    <?php echo $this->Html->image($g['TipoDePago']['image_url'], array('class' => 'thumb')); ?>
+                    <?php echo $this->Html->imageMedia($g['TipoDePago']['media_id'], array('class' => 'thumb')); ?>
                 </td>
                 
                 <td><?php echo $this->Number->currency($g['Egreso']['total']); ?></td>

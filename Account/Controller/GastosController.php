@@ -8,10 +8,6 @@ class GastosController extends AccountAppController
     public $name = 'Gastos';
     
 
-    public $helpers = array(
-        'FileUpload.FileUpload',
-        );
-
   
     public function index()
     {

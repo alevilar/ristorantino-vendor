@@ -7,9 +7,8 @@ class CategoriasController extends ProductAppController
 {
 
     public $name = 'Categorias';
-    public $helpers = array(
-        'FileUpload.FileUpload',
-        );
+  
+
 
     //var $layout;
     function beforeFilter()
@@ -20,7 +19,7 @@ class CategoriasController extends ProductAppController
     function index()
     {
         $this->Categoria->recursive = 0;
-        $this->set('imagenes', $this->Categoria->find('list', array('fields' => array('Categoria.id', 'Categoria.image_url'))));
+        $this->set('imagenes', $this->Categoria->find('list', array('fields' => array('Categoria.id', 'Categoria.media_id'))));
         $this->set('categorias', $this->Categoria->generateTreeList(null, null, null, '-&nbsp;-&nbsp;-&nbsp;'));
     }
 
@@ -66,37 +65,12 @@ class CategoriasController extends ProductAppController
         $this->redirect(array('action' => 'index'));
     }
 
-    function edit($id = null)
-    {
+    function edit($id = null) {
+        
+        if ( $this->request->is('post') || $this->request->is('put')) {
 
-        if (!empty($this->request->data['Categoria']['newfile']['name'])) {
-            $path = IMG_MENU;
-
-            $name = Inflector::slug(strstr($this->request->data['Categoria']['newfile']['name'], '.', true));
-            $ext = substr(strrchr($this->request->data['Categoria']['newfile']['name'], "."), 1);
-            $nameFile = $name . ".$ext";
-
-            if (file_exists($path . $nameFile)) {
-                $i = 1;
-                $nameFile = $name . "_$i.$ext";
-                while (file_exists($path . $nameFile)) {
-                    $i++;
-                    $nameFile = $name . "_$i.$ext";
-                }
-            }
-
-            $this->request->data['Categoria']['image_url'] = $name . ".$ext";
-
-            move_uploaded_file($this->request->data['Categoria']['newfile']['tmp_name'], $path . $nameFile);
-        }
-
-        if (!empty($this->request->data)) {
-            if (empty($id)) {
-                $this->Categoria->create();
-            }
             if ($this->Categoria->save($this->request->data)) {
                 $this->Session->setFlash(__('The Categoria has been saved'), 'Risto.flash_success');
-//				$this->redirect(array('action'=>'index'));
             } else {
                 $this->Session->setFlash(__('The Categoria could not be saved. Please, try again.'), 'Risto.flash_error');
             }
@@ -105,7 +79,7 @@ class CategoriasController extends ProductAppController
                 $this->redirect(array('action'=>'index'));
             }
         }
-        if (empty($this->request->data)) {
+        if (empty($this->request->data) && $id ) {
             $this->request->data = $this->Categoria->read(null, $id);
         }
         $this->set('categorias', $this->Categoria->generateTreeList(null, null, null, '-- '));

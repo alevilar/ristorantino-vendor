@@ -171,13 +171,14 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
 
 
 <script id="mozo-view" type="text/x-template">
-	<% if ( _.isEmpty( image_url ) ) {%>
+	<% if ( _.isEmpty( media_id ) ) {%>
 		<button class='mozo'>
 			<img src="adition/img/frame.png" width="64"/>
 			<span style="position: absolute;margin-left: -34px;margin-top: 23px;"><%= numero %></span>
 		</button>    		
 	<% } else { %>
-		<button class='mozo'><img src="<?php echo IMAGES_URL?>thumb_<%= image_url %>" width="64"  class="img-circle"/></button>
+        <?php $mozoUrl = $this->Html->url(array('plugin'=>'risto','controller'=>'medias','action'=>'media')); ?>
+		<button class='mozo'><img src="<%= full_image_url %>" width="64"  class="img-circle"/></button>
 	<% } %>
 	<div class="mesas-list"></div>
 </script>
@@ -211,13 +212,13 @@ el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. --
     <header>
         <span class="mesa-estado"><%= "Estado" %></span>
 
-        <% if ( _.isEmpty( Mozo.image_url ) ) {%>
+        <% if ( _.isEmpty( Mozo.media_id ) ) {%>
                 <button class='mozo'>
                         <img src="adition/img/frame.png" width="64" style="position: relative; top: 10px; left: 10px;"/>
                         <span style="position: relative; margin-left: 17px;margin-top: 13px;" class="mozo-numero"><%= Mozo.numero %></span>
                 </button>    		
         <% } else { %>
-                <button class='mozo'><img src="<?php echo IMAGES_URL?>thumb_<%= Mozo.image_url %>" width="64"  class="img-circle" style="position: absolute; top: 10px; left: 10px;"/></button>
+                <button class='mozo'><img src="<%= Mozo.full_image_url %>" width="64"  class="img-circle" style="position: absolute; top: 10px; left: 10px;"/></button>
         <% } %>
 
         <h3 class="header text-center">

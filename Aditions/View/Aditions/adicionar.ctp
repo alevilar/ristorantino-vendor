@@ -627,7 +627,7 @@
             <li>
                 <a href="#" onclick='new Risto.Adition.pago(<?php echo $pagoJson?>)'>
             <?php
-            echo $this->Html->image($tp['TipoDePago']['image_url']);
+            echo $this->Html->imageMedia($tp['TipoDePago']['media_id']);
             echo '<br />';
             echo $pago['name'];
             ?>

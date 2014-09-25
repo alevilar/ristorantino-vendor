@@ -17,11 +17,7 @@ class Categoria extends ProductAppModel
         'Tree',
         'Containable',
         'SoftDelete',
-        'FileUpload.FileUpload' => array(
-            'fields' => array(
-                'name' => 'image_url',
-                ),
-        ),
+        'Risto.MediaUploadable' ,
         
     );
     //public $cacheQueries = true;
@@ -84,4 +80,3 @@ class Categoria extends ProductAppModel
 
 }
 
-?>

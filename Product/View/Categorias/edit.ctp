@@ -1,7 +1,7 @@
         <?php    
         
-        if ( !empty($this->request->data['Categoria']['image_url'])) {
-        	echo $this->Html->image(MENU_FOLDER.'/'.$this->request->data['Categoria']['image_url'], array('width'=>100));	
+        if ( !empty($this->request->data['Media']) && !empty($this->request->data['Media']['id'] )) {
+        	echo $this->Html->imageData( $this->request->data['Media'], array('width'=>100));	
         }
         ?>
 
@@ -17,10 +17,8 @@
             }
 		echo $this->Form->input('parent_id',array('type'=>'select', 'options'=> $categorias, 'default'=>1,'label'=>'Categoria Padre'));
 		echo $this->Form->input('name',array('label'=>'Nombre'));
-                echo $this->Form->input('image_url',array('type'=>'hidden'));
                 
-                $catim = empty($this->request->data['Categoria']['image_url'])? '' : '('.$this->request->data['Categoria']['image_url'].')';
-                echo $this->Form->input('newfile',array('label'=>'Foto/Imagen '.$catim, 'type'=>'file'));
+        echo $this->Form->input('media_file',array('label'=>'Foto/Imagen', 'type'=>'file'));
 		echo $this->Form->input('description',array('label'=>'Descripción'));
 	?>
 <?php echo $this->Form->end('Submit');?>

@@ -78,7 +78,7 @@ if ( $gasto['Gasto']['importe_total'] - $gasto['Gasto']['importe_pagado'] ) {
 <ul>
 <?php foreach ($gasto['Egreso'] as $pags){ ?>    
     <li>
-        <span class="tipo_de_pago"><?php echo $this->Html->image($pags['TipoDePago']['image_url'], array('alt'=>$pags['TipoDePago']['name'], 'title'=>$pags['TipoDePago']['name'])); ?></span>
+        <span class="tipo_de_pago"><?php echo $this->Html->imageMedia($pags['TipoDePago']['media_id'], array('alt'=>$pags['TipoDePago']['name'], 'title'=>$pags['TipoDePago']['name'])); ?></span>
         Fecha: <?php echo date('d-m-y', strtotime($pags['fecha']))?>
         Importe: <?php echo $this->Number->currency($pags['AccountEgresosGasto']['importe'])?>
         <?php echo $this->Html->link('ir al pago', array('controller'=>'egresos', 'action'=>'view', $pags['id'])) ?>

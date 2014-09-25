@@ -91,9 +91,10 @@
 <!-- Template: Caomanda add: listado de categorias                                  -->
 <script id="listaCategoriasTree" type="text/x-jquery-tmpl">
    <a  href="#" data-theme="b" data-inline="true" 
-       data-bind="css: {'sin-imagen': !image_url, 'con-imagen': image_url}"
+       data-bind="css: {'sin-imagen': !media_id, 'con-imagen': media_id}"
        class="">
-           <image class="menu-img" data-bind="visible: image_url, attr: {src: URL_DOMAIN +'img/menu/'+image_url}"/>           
+           <?php $urlForCategory = $this->Html->url(array('plugin'=>'risto', 'controller'=>'medias', 'action'=>'view')); ?>
+           <image class="menu-img" data-bind="visible: media_id, attr: {src: '<?php echo $urlForCategory ?>/'+media_id}"/>           
            <span data-bind="text: name"></span>
    </a>
 </script>

@@ -25,7 +25,7 @@ class RistoAppController extends Controller {
 
     public $helpers = array(
         'Html' => array(
-            'className' => 'Bs3Helpers.Bs3Html'
+            'className' => 'Risto.PxHtml'
             ),
         'Form' => array(
             'className' => 'Risto.PxForm'

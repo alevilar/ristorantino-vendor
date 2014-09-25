@@ -81,7 +81,7 @@ foreach ($pagos as $pago):
 			<?php echo $this->Html->link($pago['Mesa']['numero'], array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'edit', $pago['Mesa']['id'] )); ?>
 		</td>
                 <td class="text-center">
-			<?php echo $this->Html->image($pago['TipoDePago']['image_url'], array('height'=> '45', 'title'=>$pago['TipoDePago']['name'], 'alt'=>$pago['TipoDePago']['name'])); ?>
+			<?php echo $this->Html->imageMedia($pago['TipoDePago']['media_id'], array('height'=> '45', 'title'=>$pago['TipoDePago']['name'], 'alt'=>$pago['TipoDePago']['name'])); ?>
 		</td>
                 <td class="text-right">
 			<?php echo $this->Number->currency($pago['Pago']['valor']); ?>

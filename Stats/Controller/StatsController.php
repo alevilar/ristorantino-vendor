@@ -251,7 +251,7 @@ class StatsController extends StatsAppController
                 $tipoPagos[$m['TipoDePago']['id']] = null;
                 $tipoPagosList[$m['TipoDePago']['id']] = array(
                     'name' => $m['TipoDePago']['name'],
-                    'image_url' =>  $m['TipoDePago']['image_url'],
+                    'media_id' =>  $m['TipoDePago']['media_id'],
                 ) ;
                 
                 if ( empty($totales[$m['TipoDePago']['id']]) ) {

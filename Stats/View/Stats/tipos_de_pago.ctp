@@ -25,7 +25,7 @@
             <tr>
                 <th class="text-center">Fecha</th>
                 <?php foreach ($tipoPagosList as $mz) { ?>
-                <th class="text-center"><?php echo $this->Html->image($mz['image_url'], array(
+                <th class="text-center"><?php echo $this->Html->imageMedia($mz['media_id'], array(
                     'height'=>'50px',
                     'title' => $mz['name'],
                     'alt' => $mz['name'],

@@ -24,8 +24,8 @@ foreach ($tipoDePagos as $tipoDePago):
 		<td>
 			<?php
 			echo $tipoDePago['TipoDePago']['id']; 
-			if ( $tipoDePago['TipoDePago']['image_url'] ) {
-            	echo $this->Html->image( $tipoDePago['TipoDePago']['image_url'], array('width'=>40)); 
+			if ( $tipoDePago['TipoDePago']['media_id'] ) {
+            	echo $this->Html->imageMedia( $tipoDePago['TipoDePago']['media_id'], array('width'=>40)); 
 			}
             ?>
 		</td>

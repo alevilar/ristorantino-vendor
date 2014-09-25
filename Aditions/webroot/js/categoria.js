@@ -13,7 +13,7 @@ Risto.Adition.categoria.prototype = {
     Hijos: [],
     Producto: [],
     Sabor: [],
-    image_url: '',
+    media_id: '',
     
     
     initialize: function(jsonData, parent){
@@ -24,7 +24,7 @@ Risto.Adition.categoria.prototype = {
             } 
         }
         
-        this.image_url = jsonData.image_url;
+        this.media_id = jsonData.media_id;
         
         if (jsonData.Sabor) {
             this.Sabor = [];

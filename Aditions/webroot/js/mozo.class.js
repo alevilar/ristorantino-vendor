@@ -137,4 +137,9 @@ Mozo.prototype = {
         }
         return null;
     }
+
+
+    full_image_url: function () {
+        return URL_DOMAIN + TENANT + "/risto/medias/media/view/" + this.media_id();
+    }
 };

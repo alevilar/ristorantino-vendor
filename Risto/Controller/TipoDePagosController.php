@@ -25,34 +25,7 @@ class TipoDePagosController extends RistoAppController {
 
 	public function edit($id = null) {
                 
-        if( !empty($this->request->data['TipoDePago']['newfile']['name'])){
-            $path = WWW_ROOT.'img/';
-          
-            $cadToVec = explode('.', $this->request->data['TipoDePago']['newfile']['name']);
-            $name = Inflector::slug( $cadToVec[0] );
-            $ext = $cadToVec[1];
-            $nameFile = $name.".$ext";
-            
-            if ( file_exists($path.$nameFile) ){
-                $i = 1;
-                $nameFile = $name."_$i.$ext";
-                while ( file_exists($path.$nameFile) ) {
-                    $i ++;
-                    $nameFile = $name."_$i.$ext";
-                }
-            }                     
-            
-            $this->request->data['TipoDePago']['image_url'] = $name.".$ext";
-            debug($path.$nameFile);
-            move_uploaded_file($this->request->data['TipoDePago']['newfile']['tmp_name'], $path.$nameFile) ;
-            
-        }
-        
-                
-		if (!empty($this->request->data)) {
-                    if ( !empty($id)) {
-                        $this->TipoDePago->create();
-                    }
+		if ( $this->request->is('post') || $this->request->is('put') ) {            
 			if ($this->TipoDePago->save($this->request->data)) {
 				$this->Session->setFlash(__('The TipoDePago has been saved'));
 				$this->redirect(array('action'=>'index'));
@@ -61,7 +34,7 @@ class TipoDePagosController extends RistoAppController {
 			}
 		}
 
-		if (empty($this->request->data)) {
+		if (empty($this->request->data) && $id ) {
 			$this->request->data = $this->TipoDePago->read(null, $id);
 		}
 

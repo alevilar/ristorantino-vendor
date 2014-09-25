@@ -10,10 +10,10 @@ class Mozo extends MesaAppModel {
 
     var $actsAs = array(
         'SoftDelete', 
-        'Containable'
+        'Containable',
+        'Risto.MediaUploadable',
         );
     
-    public $imageUploadFieldName = 'image_url_upload';
     
     var $order = array(
         'Mozo.activo DESC', 
@@ -28,14 +28,6 @@ class Mozo extends MesaAppModel {
             'numero' => 'notempty',
             'nombre' => 'notempty',
             'apellido' => 'notempty',
-            'image_url' => array(
-                'uploadError' => array( 
-		        'rule'    => 'uploadError',
-		        'message' => 'La foto no pudo ser subida.',
-		        'required' => false,
-		        'allowEmpty' => true
-                ),
-            ),
 	);
 
         

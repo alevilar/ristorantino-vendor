@@ -6,7 +6,7 @@
 echo "<span class='fecha'>(" . date('d-m-y', strtotime($egreso['Egreso']['fecha'])) . ")</span>";
 echo "<span class='total'> " . $this->Number->currency($egreso['Egreso']['total']) . "</span>";
 
-echo "<span class='tipo_de_pago'> " . $this->Html->image($egreso['TipoDePago']['image_url']) . "</span>";
+echo "<span class='tipo_de_pago'> " . $this->Html->imageMedia($egreso['TipoDePago']['media_id']) . "</span>";
 
 echo "<p>";
 $ext = substr(strrchr($egreso['Egreso']['file'],'.'),1);

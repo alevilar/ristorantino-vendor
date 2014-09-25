@@ -15,19 +15,9 @@ class Gasto extends AccountAppModel {
     public $actsAs = array(
         'Search.Searchable',
         'Containable',
-        'FileUpload.FileUpload' => array(
-            'uploadDir' => 'img',
-            'fields' => array(
-                'name' => 'file', 
-                'type' => 'file_type', 
-                'size' => 'file_size'
-                ),
-        ),
+        'Risto.MediaUploadable' ,       
     );
     
-    public $files = array(
-        '_file' => 'file'
-    );
     
     public $validate = array(
 		'factura_nro' => array(

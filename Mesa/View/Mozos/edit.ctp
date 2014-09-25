@@ -5,14 +5,12 @@
 	<fieldset>
  		<legend><?php echo __('Editar %s', Configure::read('Mesa.tituloMozo'));?></legend>
 	<?php
-        if (!empty($this->request->data['Mozo']['image_url']) ) {
-            echo $this->Html->image(THUMB_FOLDER . DS .$this->request->data['Mozo']['image_url'], array('img-polaroid', 'style'=>'width: 68px')); 
-        }
+        echo $this->Html->imageMedia( $this->request->data['Mozo']['media_id'], array('img-polaroid', 'style'=>'width: 68px')); 
 		echo $this->Form->input('id');
 		echo $this->Form->input('numero');
                 echo $this->Form->input('nombre');
                 echo $this->Form->input('apellido');
-                echo $this->Form->input('image_url_upload', array('type'=>'file'));
+                echo $this->Form->input('media_file', array('type'=>'file', 'label'=>'Foto'));
                 echo $this->Form->input('activo',array());
 	?>
      <?php echo $this->Form->end('Submit');?>           

@@ -37,8 +37,8 @@ foreach ($mozos as $mesa):
 		</td>
 		<td>
              <?php 
-             if (!empty($mesa['Mozo']['image_url']) ) {
-             	echo $this->Html->image(THUMB_FOLDER . DS .$mesa['Mozo']['image_url'], array('img-polaroid', 'style'=>'width: 68px')); 
+             if (!empty($mesa['Mozo']['media_id']) ) {
+             	echo $this->Html->imageMedia( $mesa['Mozo']['media_id'], array('img-polaroid', 'style'=>'width: 68px')); 
 			 } else {
 			 	echo "&nbsp;";
 			 }

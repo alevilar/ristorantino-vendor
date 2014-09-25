@@ -29,11 +29,19 @@
 				<?php App::uses('MtSites', 'MtSites.MtSites'); ?>
 				<?php if ( $this->Session->check('Auth.User.Site') ): ?>
 					<?php foreach ( $this->Session->read('Auth.User.Site') as $s ): ?>
-						<?php echo  $this->Html->link( $s['name'] , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'list-group-item' ));?>
-					<?php endforeach; ?>
-				<?php endif; ?>
+						<div class="list-group-item" style="font-size: 15pt;">
+							
+							<?php echo  $this->Html->link( $s['name'] , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'' ));?>
 
-			 </div>
+	                        <?php echo $this->Form->postLink("X", array( 'tenant' => false, 'plugin'=>'install' ,'controller' => 'site_setup', 'action' => 'deletesite/'.$s['alias']), array(
+	                        		'confirm' => 'Are you sure want to delete site named '.$s['name'].'?',
+	                        		'class'=>'btn btn-danger btn-xs pull-right',
+	                        		'title' => __("Eliminar")
+	                        		)); ?>
+						</div>
+					<?php endforeach; ?>
+            	<?php endif; ?>
+            </div>
 		<?php } ?>
 		</div>
 	</div>
