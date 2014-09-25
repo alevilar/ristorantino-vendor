@@ -42,6 +42,11 @@ Risto.Adition.menu = {
     reset: function() {
         this.seleccionarCategoria( this.categoriasTree() );
     },
+
+    updateLocal: function ( categorias ) {
+        localStorage.removeItem( 'categoriasTree' );
+        this.__iniciarCategoriasTreeServer( categorias );
+    },
     
     update: function(){
         localStorage.removeItem( 'categoriasTree' );

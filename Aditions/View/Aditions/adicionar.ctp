@@ -158,16 +158,13 @@
     </div>
     <div data-role="content">
         
+            <?php if ( Configure::read('Adicion.usarCajero') ) { ?>
             <a href="#listado-mesas-cerradas" data-role="button">Modo Cajero</a>
+            <?php } ?>
             
             
-            
-            <a href="#" onclick="window.location.reload(true);" data-ajax="false" data-role="button" data-icon="refresh">Refrescar Adición</a>
-            
-            <a href="<?php echo $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'cobradas'));?>" data-role="button" data-rel="dialog"><?php echo __('%s Cobradas', Inflector::pluralize( Configure::read('Mesa.tituloMesa')) ) ?></a>
-            
-            <a href="#" data-role="button" title="Actualizar Menú" onclick="Risto.Adition.menu.update()"><?php echo $this->Html->image('refresh.png', array('class'=> 'btn-comanda-icon'))?> Actualizar Menú</a>
-            
+            <a href="#" onclick="window.location.reload(true);" data-ajax="false" data-role="button" data-icon="refresh">
+                Refrescar Adición</a>
             
             
              <div class="ui-grid-a">
@@ -363,17 +360,21 @@
                         <a href="#mesa-cambiar-mozo" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/cambiarmozo.png')?>Cambiar <?php echo Configure::read('Mesa.tituloMozo')?></a>
                     </li>
                     
+                    <?php if (Configure::read('Site.type') == SITE_TYPE_RESTAURANTE) { ?>
                     <li id="mesa-action-cambiar-numero">
                         <a href="#mesa-cambiar-numero" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/cambiarmesa.png')?>Cambiar N°</a>
                     </li>
+                    <?php } ?>
                     
                     <li id="mesa-action-reabrir" data-bind="attr: {'estado': 'mesa-reabrir_'+adn().currentMesa().estado().icon}">
                         <a href="#listado-mesas" id="mesa-reabrir"><?php echo $this->Html->image('/aditions/css/img/reabrir.png')?>Re Abrir</a>
                     </li>
                     
+                    <?php if (Configure::read('Site.type') == SITE_TYPE_RESTAURANTE) { ?>
                     <li style="" id="mesa-action-menu" data-bind="attr: {'estado': 'mesa-borrar_'+adn().currentMesa().estado().icon}">
                         <a href="#" id="mesa-menu"><?php echo $this->Html->image('/aditions/css/img/write.png')?>Menú <span style="color: red" data-bind="visible: adn().currentMesa().menu() != 0,text: adn().currentMesa().menu"></span></a>
                     </li>
+                    <?php } ?>
                     
                     <li>
                         &nbsp;

@@ -71,13 +71,11 @@ class CategoriasController extends ProductAppController
 
             if ($this->Categoria->save($this->request->data)) {
                 $this->Session->setFlash(__('The Categoria has been saved'), 'Risto.flash_success');
+
             } else {
                 $this->Session->setFlash(__('The Categoria could not be saved. Please, try again.'), 'Risto.flash_error');
             }
 
-            if (empty($id)) {
-                $this->redirect(array('action'=>'index'));
-            }
         }
         if (empty($this->request->data) && $id ) {
             $this->request->data = $this->Categoria->read(null, $id);

@@ -63,10 +63,11 @@
         // $vec['time'] = $mesasLastUpdatedTime; // curren Unix server time
         // $vec['modified'] = $modified;
 
-        $mesas = json_encode($mesas);
+        $mesas = json_encode($mesas, JSON_NUMERIC_CHECK);
         ?>
 
-        var jsonMesas = <?php echo $mesas; ?>;
+        var jsonMesas = <?php echo $mesas; ?>,
+            categorias = <?php echo json_encode($categorias, JSON_NUMERIC_CHECK); ?>;
 
         //Risto.Adition.handleMesasRecibidas.created( jsonMesas );    
 
@@ -74,10 +75,12 @@
 
         $(function(){
             Risto.Adition.adicionar.initialize( jsonMesas );
+            Risto.Adition.menu.updateLocal( categorias );
         });
 
         // unset, free var
         delete jsonMesas;
+        delete categorias;
 
     -->
     </script>

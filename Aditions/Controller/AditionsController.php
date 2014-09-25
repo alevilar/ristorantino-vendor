@@ -7,7 +7,7 @@ App::uses('AditionsAppController', 'Aditions.Controller');
 
 class AditionsController extends AditionsAppController {
     
-	public $uses = array('Mesa.Mozo','Mesa.Mesa');
+	public $uses = array('Mesa.Mozo','Mesa.Mesa','Product.Categoria');
 	public $current_mozo_id;
 	public $current_mesa_id;
 	public $current_mesa_numero;
@@ -29,6 +29,7 @@ class AditionsController extends AditionsAppController {
 	 */
 	function adicionar()
         {
+        	$this->set('categorias', $this->Categoria->array_listado());
             $this->set('tipo_de_pagos', $this->Mozo->Mesa->Pago->TipoDePago->find('all'));
             $this->set('mesas', $this->Mozo->mesasAbiertas());
             $this->set('mozos', $this->Mozo->dameActivos());

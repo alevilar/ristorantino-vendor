@@ -39,6 +39,13 @@
 
 <div class="row">
 
+<?php 
+if (empty($gastos)) {
+    ?>
+    <div class="alert alert-success"><?php echo __('No hay gastos pendientes de pago') ?></div>
+    <?php
+}
+ ?>
 
     <table class="table table-hover table-responsive table-condensed">
 

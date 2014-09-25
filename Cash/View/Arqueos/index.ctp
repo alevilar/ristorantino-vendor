@@ -10,7 +10,21 @@ echo $this->Html->css('/cash/css/style_cash');
 
 
 <div class="pull-right">
-<?php foreach ($cajas as $cId=>$cName) { ?>
+<?php 
+
+// si no hay cajas creadas mostrar mensaje
+if ( empty($cajas)) {
+    ?>
+    <div class="alert alert-danger"><?php echo __('Debe crear al menos 1 caja para poder hacer el arqueo') ?></div>
+    <?php
+    echo $this->Html->link(__('Crear Caja')
+                        , array('controller'=>'cajas', 'action'=>'add')
+                        , array('class'=>'btn btn-danger btn-block'));
+}
+
+
+// listar link de hacer arqueo para cada caja
+ foreach ($cajas as $cId=>$cName) { ?>
     <?php 
         echo $this->Html->link('Hacer Arqueo de '.$cName, array('controller'=>'arqueos', 'action'=>'add', $cId), array('class'=>'btn btn-md  btn-primary'));
         echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";

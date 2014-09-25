@@ -89,7 +89,7 @@ class GastosController extends AccountAppController
                     $this->redirect(array('controller' => 'gastos', 'action' => 'index'));
                 }
             } else {
-                $this->Session->setFlash("Error al guardar el gasto");
+                $this->Session->setFlash("Error al guardar el gasto", 'Risto.flash_error');
             }
         }
         
@@ -128,7 +128,7 @@ class GastosController extends AccountAppController
         if (empty($this->request->data)) {
             $this->request->data = $this->Gasto->read(null, $id);
             if ($this->request->data['Gasto']['cierre_id']) {
-                $this->Session->setFlash('El gasto ya está "Cerrado", no puede ser modificado');
+                $this->Session->setFlash('El gasto ya está "Cerrado", no puede ser modificado', 'Risto.flash_error');
                 $this->redirect(array('action'=>'view', $id));
             }
         }

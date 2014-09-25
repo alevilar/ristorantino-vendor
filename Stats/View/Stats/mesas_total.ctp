@@ -104,7 +104,7 @@
                             } else {
                                 echo('class="colortres"');
                             }
-                            ?>>$Cubierto</th>
+                            ?>><?php echo "$".Configure::read('Mesa.tituloCubierto') ?></th>
 
                             <th <?php
                             if ($i == 0) {

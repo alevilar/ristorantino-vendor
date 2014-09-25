@@ -227,14 +227,7 @@ class Mesa extends MesaAppModel {
 		$this->data['Mesa']['subtotal'] = $this->calcular_subtotal();
 		$this->data['Mesa']['total'] = $this->calcular_total();
 		$this->data['Mesa']['time_cerro'] = date( "Y-m-d H:i:s",strtotime('now'));
-		// si no estoy usando cajero, entonces poner como que ya esta cerrada y cobrada
-		$usarCajero = Configure::read('Adicion.usarCajero');
-		if ( !$usarCajero )  {
-			$this->data['Mesa']['time_cobro'] = date( "Y-m-d H:i:s",strtotime('now'));
-			$this->data['Mesa']['estado_id']  = MESA_COBRADA;
-		} else {
-			$this->data['Mesa']['time_cobro'] = DATETIME_NULL;
-		}
+		$this->data['Mesa']['time_cobro'] = DATETIME_NULL;
 
 		$event = new CakeEvent('Mesa.cerrada', $this, array(
 			  'id' => $mesa_id
