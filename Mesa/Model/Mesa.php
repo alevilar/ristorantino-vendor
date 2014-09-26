@@ -154,9 +154,6 @@ class Mesa extends MesaAppModel {
 			return false;
 		}
 
-		// borrar los pagos que habia sobre la mesa en el caso de reabrirla
-		$this->__deletePagosSiReabre();
-
 		// en caso de pasar de estado abierta a cerrada, aplicar cierre ejecutando cerrar_mesa()
 		$this->__cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada();
 
@@ -177,23 +174,6 @@ class Mesa extends MesaAppModel {
 	 }
 
 
-	// Si la mesa estaba cobrada, y la paso a un estado anterio, por ejemplo, la abro
-	// enctonces debo eliminar todos los pagos realizados para que no me los duplique
-	// cuando la vuelva a cobrar
-	 private function __deletePagosSiReabre () {
-		 if ( !empty($this->data['Mesa']['id']) 
-			 && !empty($this->data['Mesa']['estado_id'])
-			 && $this->data['Mesa']['estado_id'] != MESA_COBRADA
-			 ) {               
-			 if ( $this->estaCobrada($this->data['Mesa']['id'], $force_db = true) ) {
-				
-				 $this->Pago->deleteAll(array(
-				  'Pago.mesa_id' => $this->data['Mesa']['id']
-				  ));
-				 
-			 }
-		 }
-	 }
 
 
 	//  function getMozoNumero($id = null)
@@ -649,9 +629,7 @@ function calcular_subtotal($id = null){
 			if (!empty($mesa_id)) {
 				$this->id = $mesa_id;
 			}
-			$this->Pago->deleteAll(array(
-				'mesa_id' => $mesa_id
-				), $cascada = false);
+						
 			$result = $this->saveField('estado_id', MESA_ABIERTA);
 		}
 		

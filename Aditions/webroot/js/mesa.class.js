@@ -733,6 +733,19 @@ Mesa.prototype = {
 	    },
 
 
+	totalPagos: function () {
+		var pagos = this.Pago(),
+           sumPagos = 0;
+
+       if (pagos && pagos.length) {
+           for (var p in pagos) {
+               if ( pagos[p].valor() ) {
+                sumPagos += parseFloat(pagos[p].valor());
+               }
+           }          
+       }
+       return sumPagos;
+	},
 
 
     /**
@@ -740,25 +753,10 @@ Mesa.prototype = {
      *  @return Float
      */
     vuelto : function () {
-       var pagos = this.Pago(),
-           sumPagos = 0,
-           totMesa = Risto.Adition.adicionar.currentMesa().totalCalculado(),
-           vuelto = 0,
-           retText = 0;
-       if (pagos && pagos.length) {
-           for (var p in pagos) {
-               if ( pagos[p].valor() ) {
-                sumPagos += parseFloat(pagos[p].valor());
-               }
-           }
-           vuelto = (sumPagos - totMesa);
-           if (vuelto <= 0 ){
-               retText = (vuelto);
-           } else {
-               retText = (vuelto);
-           }
-       }
-       return retText;
+       var pagos = this.totalPagos(),
+           totMesa = Risto.Adition.adicionar.currentMesa().totalCalculado();
+       
+        return pagos - totMesa;
     },
 
 
@@ -782,6 +780,11 @@ Mesa.prototype = {
         }, function(d){
             
         });
+
+        if ( this.totalPagos() && this.vuelto() >= 0) {
+        	// es porque la mesa esta cobrada
+        	this.setEstadoCobrada();
+        }
     }
 
 };

@@ -68,8 +68,7 @@ public function addForMesa ( $mesa_id ) {
 public function add() {
   if ( $this->request->is('post') || $this->request->is('put') ) {
     
-    $mesa = $this->request->data['Mesa'];
-    $mesa['estado_id'] = MESA_COBRADA;
+    $mesa = $this->request->data['Mesa'];    
     $mesa['time_cobro'] = date( "Y-m-d H:i:s", strtotime('now'));
     $importeMesa = $this->Pago->Mesa->calcular_total($mesa['id']);
 
@@ -87,13 +86,21 @@ public function add() {
               $sumaPagos += $pago['valor'];
           }
       }
+
       if ( $sumaPagos > $importeMesa ) {
-          // creo un importe en efectivo que devuelva el cambio
-          $this->request->data['Pago'][] = array(
-              'mesa_id' => $this->request->data['Mesa']['id'],
-              'tipo_de_pago_id' => TIPO_DE_PAGO_EFECTIVO,
-              'valor' => $importeMesa - $sumaPagos,
-              );
+          // Hay que restar el cambio o vuelto
+          $vuelto =  $sumaPagos - $importeMesa;
+          // al primer pago en efectivo que encuentro le resto el Vuelto, para que me quede correcto el pago
+          foreach ( $this->request->data['Pago'] as $key=>$pago ) {
+              if ( $this->request->data['Pago'][$key]['tipo_de_pago_id'] == TIPO_DE_PAGO_EFECTIVO ) {
+                $this->request->data['Pago'][$key]['valor'] -= $vuelto;
+              }
+          }
+      }
+
+      if ($sumaPagos >= $importeMesa) {
+        // si se pago la totalidad de la mesa
+        $mesa['estado_id'] = MESA_COBRADA;
       }
 
       $newPagos = array(
