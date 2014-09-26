@@ -150,6 +150,8 @@ class Mesa extends MesaAppModel {
 		
 	public function beforeSave( $options = array() ) 
 	{
+		$this->data['Mesa']['modified'] = date('Y-m-d H:i:s');
+		
 		if ( !parent::beforeSave($options) ) {
 			return false;
 		}
@@ -630,7 +632,7 @@ function calcular_subtotal($id = null){
 				$this->id = $mesa_id;
 			}
 						
-			$result = $this->saveField('estado_id', MESA_ABIERTA);
+			return $this->saveField('estado_id', MESA_ABIERTA);
 		}
 		
 		

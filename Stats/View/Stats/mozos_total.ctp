@@ -31,7 +31,7 @@
             <tr>
                 <th class="text-center">Fecha</th>
                 <?php foreach ($mozos as $mz) { ?>
-                <th class="text-center"><span class="glyphicon glyphicon-cutlery"></span></th>
+                <th class="text-center"><span class="glyphicon glyphicon-user"></span></th>
                 <th class="text-right"><span class="glyphicon glyphicon-usd"></span></th>
                 <?php } ?>
             </tr>

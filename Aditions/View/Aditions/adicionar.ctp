@@ -425,7 +425,9 @@
                 <span data-bind="visible: parseInt( adn().currentMesa().cant_comensales()) > 0"><span data-bind="text: adn().currentMesa().cant_comensales()"></span> <?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))  ?></span>
             </span>
             <span class="mesa-total"><span data-bind="text: adn().currentMesa().textoTotalCalculado()"></span></span>
+            <?php if (Configure::read('Site.type') != SITE_TYPE_HOTEL) { ?>
             <span class="hora-abrio">Abrió a las <span data-bind="text: adn().currentMesa().timeCreated()"></span></span>
+            <?php } ?>
         </h3>
     </div>
 </div>

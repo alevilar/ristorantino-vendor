@@ -334,11 +334,15 @@ class MesasController extends MesaAppController {
     public function reabrir($id){
 
         $this->Session->setFlash( __('Se reabrió la %s', Configure::read('Mesa.tituloMesa') ), 'Risto.flash_success');
-        $this->Mesa->reabrir($id);
-        if ( !$this->request->is('ajax') ) {            
-            $this->redirect($this->referer());
+        if ( $this->Mesa->reabrir($id) ) {
+            if ( !$this->request->is('ajax') ) {            
+                $this->redirect($this->referer());
+            } else {
+                exit;
+            }
         } else {
-            exit;
+            throw new CakeException(__("Falló al reabrir la mesa"));
+            
         }
     }
     
