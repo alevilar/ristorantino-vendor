@@ -99,7 +99,14 @@ Mesa.prototype = {
             
             // si aun no fue mappeado
             mapOps = {
-//                'ignore': ["Cliente"],
+              	'Pago': {
+                    create: function(ops) {
+                        return new Risto.Adition.pago(ops.data);
+                    },
+                    key: function(data) {
+                        return ko.utils.unwrapObservable( data.id );
+                    }
+                },
                 'Comanda': {
                     create: function(ops) {
                         return new Risto.Adition.comanda(ops.data);
@@ -692,6 +699,89 @@ Mesa.prototype = {
                 date = new Date();
             }
             return txt + date.getHours() + ':' + date.getMinutes() + 'hs';
-        }
+        },
+
+
+
+
+
+	    /**
+	     * El vuelto a devolver pero ingresando un texto
+	     * Ej: Vuelto: $35
+	     * @return String
+	     */
+	    vueltoText : function () {
+	       var pagos = this.Pago(),
+	           sumPagos = 0,
+	           totMesa = Risto.Adition.adicionar.currentMesa().totalCalculado(),
+	           vuelto = 0,
+	           retText = 'Total: '+Risto.Adition.adicionar.currentMesa().textoTotalCalculado();
+	       if (pagos && pagos.length) {
+	           for (var p in pagos) {
+	               if ( pagos[p].valor() ) {
+	                sumPagos += parseFloat(pagos[p].valor());
+	               }
+	           }
+	           vuelto = (totMesa - sumPagos);
+	           if (vuelto <= 0 ){
+	               retText = retText+'   -  Vuelto: $  '+Math.abs(vuelto);
+	           } else {
+	               retText = retText+'   -  ¡¡¡¡ Faltan: $  '+vuelto+' !!!';
+	           }
+	       }
+	       return retText;
+	    },
+
+
+
+
+    /**
+     *  Toma los valores ingresados en los pagos y calcula el vuelto a devolver
+     *  @return Float
+     */
+    vuelto : function () {
+       var pagos = this.Pago(),
+           sumPagos = 0,
+           totMesa = Risto.Adition.adicionar.currentMesa().totalCalculado(),
+           vuelto = 0,
+           retText = 0;
+       if (pagos && pagos.length) {
+           for (var p in pagos) {
+               if ( pagos[p].valor() ) {
+                sumPagos += parseFloat(pagos[p].valor());
+               }
+           }
+           vuelto = (sumPagos - totMesa);
+           if (vuelto <= 0 ){
+               retText = (vuelto);
+           } else {
+               retText = (vuelto);
+           }
+       }
+       return retText;
+    },
+
+
+
+    savePagos: function () {
+    	var m = this;
+    	var mes = {
+            Mesa: {
+                id: m.id(),
+                estado_id: m.estado_id(),
+                time_cobro: m.time_cobro(),
+                model: 'Mesa'
+            },
+            Pago: m.Pago()
+        };
+        
+        // guardo los pagos
+        $cakeSaver.send({
+            url: URL_DOMAIN + TENANT + '/mesa/pagos/add',
+            obj: mes
+        }, function(d){
+            
+        });
+    }
 
 };

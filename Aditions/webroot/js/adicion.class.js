@@ -139,8 +139,6 @@ Risto.Adition.adicionar = {
     // microtime de la ultima actualizacion de las mesas
     mesasLastUpdatedTime : ko.observable( 0 ),
     
-    // pagos seleccionado de la currentMesa en proceso de pago. es una variable temporal de estado
-    pagos: ko.observableArray( [] ),
     
     
     /**
@@ -415,60 +413,9 @@ Risto.Adition.adicionar = {
     },
 
 
-    /**
-     *  Toma los valores ingresados en los pagos y calcula el vuelto a devolver
-     *  @return Float
-     */
-    vuelto : function () {
-       var pagos = this.pagos(),
-           sumPagos = 0,
-           totMesa = Risto.Adition.adicionar.currentMesa().totalCalculado(),
-           vuelto = 0,
-           retText = undefined;
-       if (pagos && pagos.length) {
-           for (var p in pagos) {
-               if ( pagos[p].valor() ) {
-                sumPagos += parseFloat(pagos[p].valor());
-               }
-           }
-           vuelto = (sumPagos - totMesa);
-           if (vuelto <= 0 ){
-               retText = (vuelto);
-           } else {
-               retText = (vuelto);
-           }
-       }
-       return retText;
-    },
 
 
 
-    /**
-     * El vuelto a devolver pero ingresando un texto
-     * Ej: Vuelto: $35
-     * @return String
-     */
-    vueltoText : function () {
-       var pagos = this.pagos(),
-           sumPagos = 0,
-           totMesa = Risto.Adition.adicionar.currentMesa().totalCalculado(),
-           vuelto = 0,
-           retText = 'Total: '+Risto.Adition.adicionar.currentMesa().textoTotalCalculado();
-       if (pagos && pagos.length) {
-           for (var p in pagos) {
-               if ( pagos[p].valor() ) {
-                sumPagos += parseFloat(pagos[p].valor());
-               }
-           }
-           vuelto = (totMesa - sumPagos);
-           if (vuelto <= 0 ){
-               retText = retText+'   -  Vuelto: $  '+Math.abs(vuelto);
-           } else {
-               retText = retText+'   -  ¡¡¡¡ Faltan: $  '+vuelto+' !!!';
-           }
-       }
-       return retText;
-    }
 };
 
 

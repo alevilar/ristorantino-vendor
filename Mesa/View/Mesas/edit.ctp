@@ -40,8 +40,7 @@
 
                     echo $this->Form->input('observation', array());
 
-                    echo $this->Form->input('total', array(
-                        'required' => 'required'));
+                    echo $this->Form->input('total');
                     
 
                     echo "<br>";

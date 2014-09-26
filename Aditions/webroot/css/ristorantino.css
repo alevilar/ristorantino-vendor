@@ -315,15 +315,52 @@ ul.tipo_de_pagos ,.tipo_de_pagos ul{
 
 
 
+
+
+#mesa-cobrar .vuelto{
+    float: right; 
+    font-size: 24px; 
+    color: #003366
+}
+
+#mesa-cobrar ul.pagos_creados{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+.text-success{
+    color: green;
+}
+
+.text-danger{
+    color: red;
+}
+
+.text-warning{
+    color: yellow;
+}
+
+
+
 .pagos_creados{}
 
 .pagos_creados li{
     display: inline-block;
-    width: 33%;
+    width: 6em;
+    margin-right: 10px; 
 }
 
 .pagos_creados li img{
-    width: 60px;
+    width: 100%;
+}
+
+
+.pagos_creados li input{
+    width: 100%;
+    text-align: center;
+    background: beige;
+    padding: 0px;
 }
 
 .es_entrada{

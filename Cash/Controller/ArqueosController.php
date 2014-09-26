@@ -4,7 +4,6 @@ App::uses('CashAppController', 'Cash.Controller');
 
 class ArqueosController extends CashAppController
 {
-    const TIPO_DE_PAGO_EFECTIVO = 1;
 
     public $uses = array('Cash.Arqueo', 'Account.Egreso', 'Mesa.Pago');
     
@@ -71,7 +70,7 @@ class ArqueosController extends CashAppController
         $sumaEgCant = 0;
         foreach ($egresosList as $el) {            
             if (empty($this->request->data['Arqueo']['egreso'])) {
-                if ($el['TipoDePago']['id'] == ArqueosController::TIPO_DE_PAGO_EFECTIVO ) {
+                if ($el['TipoDePago']['id'] == TIPO_DE_PAGO_EFECTIVO ) {
                     if ( $computa_egresos ) {
                         $this->request->data['Arqueo']['egreso'] = $el[0]['total'];
                     }
@@ -114,7 +113,7 @@ class ArqueosController extends CashAppController
         $sumaIngCant = 0;
         foreach ($ingresosList as $el) {
             if ( empty($this->request->data['Arqueo']['ingreso']) ) {
-                if ($el['TipoDePago']['id'] == ArqueosController::TIPO_DE_PAGO_EFECTIVO) {
+                if ($el['TipoDePago']['id'] == TIPO_DE_PAGO_EFECTIVO) {
                     if ( $computa_ingresos ) {
                         $this->request->data['Arqueo']['ingreso'] = $el[0]['total'];
                     }

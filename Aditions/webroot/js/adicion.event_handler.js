@@ -45,24 +45,7 @@ $raeh = Risto.Adition.EventHandler = {
      */
     mesaCobrada: function(e){
         // envio los datos al servidor
-        var m = e.mesa;
-        var mes = {
-            Mesa: {
-                id: m.id(),
-                estado_id: m.estado_id(),
-                time_cobro: m.time_cobro(),
-                model: 'Mesa'
-            },
-            Pago: m.Pago()
-        };
-        
-        // guardo los pagos
-        $cakeSaver.send({
-            url: URL_DOMAIN + TENANT + '/mesa/pagos/add',
-            obj: mes
-        }, function(d){
-            
-        });
+        var m = e.mesa;       
         
     },
 
@@ -195,15 +178,20 @@ $raeh = Risto.Adition.EventHandler = {
             mozoId = domObj.getAttribute('data-mozo-id');   
         }
         
-        $mesasDom.show();
-        $('a.ui-btn-active', $listMozosContainer).removeClass('ui-btn-active');
-        if ( mozoId ) {
-                $( 'li[mozo!='+mozoId+']', $mesasContainer).hide();
-                $( 'li[mozo='+mozoId+']', $mesasContainer).show();
-                $('a[data-mozo-id='+mozoId+']', $listMozosContainer).addClass('ui-btn-active');
-        } else {
-            $listMozosContainer.find('a:first' ).addClass('ui-btn-active');
-            $('li', '#mesas_container' ).show();
+        if ( typeof $mesasDom != 'undefined' ) {
+            $mesasDom.show();
+        }
+        if ( typeof $listMozosContainer != 'undefined' ) {
+            $('a.ui-btn-active', $listMozosContainer).removeClass('ui-btn-active');
+        
+            if ( mozoId ) {
+                    $( 'li[mozo!='+mozoId+']', $mesasContainer).hide();
+                    $( 'li[mozo='+mozoId+']', $mesasContainer).show();
+                    $('a[data-mozo-id='+mozoId+']', $listMozosContainer).addClass('ui-btn-active');
+            } else {
+                $listMozosContainer.find('a:first' ).addClass('ui-btn-active');
+                $('li', '#mesas_container' ).show();
+            }
         }
     }
     

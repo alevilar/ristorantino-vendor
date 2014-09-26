@@ -128,8 +128,7 @@
 <script id="li-pagos-creados" type="text/x-jquery-tmpl">
      <li>
          <img src="" data-bind="attr: {src: image(), alt: TipoDePago().name, title: TipoDePago().name}"/>
-         <label>Ingresar Valor $: </label>
-         <input name="valor" data-bind="value: valor, valueUpdate: 'keyup'" placeholder="Ej: 100.4"/>
+         <input name="valor" data-bind="value: valor, valueUpdate: 'keyup'" placeholder="Ej: 100.4" class="ui-input-text ui-body-e ui-corner-all ui-shadow-inset"/>
      </li>
 </script>
 

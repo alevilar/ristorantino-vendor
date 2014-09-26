@@ -45,13 +45,15 @@ public function addForMesa ( $mesa_id ) {
       throw new NotFoundException(__('Invalid %s', Configure::read('Mesa.tituloMesa')));
   }
 
-  if ($this->request->is('post')) {
+  if ($this->request->is('post') || $this->request->is('put')) {
+    debug($this->request->data);
       $this->Pago->create();
       if ($this->Pago->save($this->request->data)) {
         $this->Session->setFlash(__('The Pago has been saved.'));
-        return $this->redirect( $this->request->data['Pago']['redirect'] );
+        $this->redirect( $this->request->data['Pago']['redirect'] );
       } else {
-        $this->Session->setFlash(__('The Pago could not be saved. Please, try again.'));
+        debug($this->Pago->validationErrors);
+        $this->Session->setFlash(__('The Pago could not be saved. Please, try again.'),'Risto.flash_error');
       }
   } else {
     $this->request->data['Pago']['redirect'] = $this->referer();
@@ -61,43 +63,49 @@ public function addForMesa ( $mesa_id ) {
   $this->set('tipo_de_pagos', $this->Pago->TipoDePago->find('list'));
 }
 
+
+
 public function add() {
-  if ( $this->request->is('post') ) {
-    if (!empty($this->request->data['Mesa'])) {
-        $this->request->data['Mesa']['estado_id'] = MESA_COBRADA;
-        $this->request->data['Mesa']['time_cobro'] = date( "Y-m-d H:i:s", strtotime('now'));
-        $this->Pago->Mesa->save($this->request->data['Mesa']);
-    }
+  if ( $this->request->is('post') || $this->request->is('put') ) {
+    
+    $mesa = $this->request->data['Mesa'];
+    $mesa['estado_id'] = MESA_COBRADA;
+    $mesa['time_cobro'] = date( "Y-m-d H:i:s", strtotime('now'));
+    $importeMesa = $this->Pago->Mesa->calcular_total($mesa['id']);
 
-    $importeMesa = $this->Pago->Mesa->calcular_total($this->request->data['Mesa']['id']);
-
-    if ( !empty( $this->request->data['Pago'] ) && count($this->request->data['Pago']) == 1 && empty($this->request->data['Pago'][0]['valor']) ) {
-        if (!empty($this->request->data['Mesa'])) {
+    if ( !empty( $this->request->data['Pago'] ) ) {
+      if ( count($this->request->data['Pago']) == 1 && empty($this->request->data['Pago'][0]['valor']) ) {
+            // si vino 1 solo pago y sin valor, le agrego el valor total de la
             $this->request->data['Pago'][0]['valor'] = $importeMesa;
-        }
-    }
+      }
 
-    $sumaPagos = 0;
-    foreach ( $this->request->data['Pago'] as $key=>$pago ) {
-        if ( !array_key_exists('valor', $pago ) || empty($pago['valor']) ) {
-            unset($this->request->data['Pago'][$key]);
-        } else {
-            $sumaPagos += $pago['valor'];
-        }
-    }
-    if ( $sumaPagos != $importeMesa ) {
-                        // creo un importe en efectivo que devuelva el cambio
-        $this->request->data['Pago'][] = array(
-            'mesa_id' => $this->request->data['Mesa']['id'],
-            'tipo_de_pago_id' => TIPO_DE_PAGO_EFECTIVO,
-            'valor' => $importeMesa - $sumaPagos,
-            );
-    }
+      $sumaPagos = 0;    
+      foreach ( $this->request->data['Pago'] as $key=>$pago ) {
+          if ( !array_key_exists('valor', $pago ) || empty($pago['valor']) ) {
+              unset($this->request->data['Pago'][$key]);
+          } else {
+              $sumaPagos += $pago['valor'];
+          }
+      }
+      if ( $sumaPagos > $importeMesa ) {
+          // creo un importe en efectivo que devuelva el cambio
+          $this->request->data['Pago'][] = array(
+              'mesa_id' => $this->request->data['Mesa']['id'],
+              'tipo_de_pago_id' => TIPO_DE_PAGO_EFECTIVO,
+              'valor' => $importeMesa - $sumaPagos,
+              );
+      }
 
-    if ($this->Pago->saveAll($this->request->data['Pago'])) {
-        $this->Session->setFlash(__('The Pago has been saved'));
-    } else {
-        $this->Session->setFlash(__('The Pago could not be saved. Please, try again.'));
+      $newPagos = array(
+        'Mesa' => $mesa,
+        'Pago' => $this->request->data['Pago'],
+        );
+
+      if ( $this->Pago->Mesa->saveAll( $newPagos ) ) {
+          $this->Session->setFlash(__('The Pago has been saved'));
+      } else {
+          $this->Session->setFlash(__('The Pago could not be saved. Please, try again.'), 'Risto.flash_error');
+      }
     }
   }
   if (!$this->request->is('ajax')) {

@@ -216,7 +216,8 @@ $(document).bind("mobileinit", function(){
         });
 
         $('#mesa-action-cobrar').bind('click',function(){
-            Risto.Adition.adicionar.pagos( [] );
+           
+
         });
         
         var $hrefEdit = $('a:first-child','#mesa-action-edit'),
@@ -467,8 +468,7 @@ $(document).bind("mobileinit", function(){
 
     $('#mesa-cobrar').live('pagebeforehide',function(event, ui){
         $('#mesa-cajero-reabrir').unbind('click');
-        $('.mesa-reimprimir', '#mesa-cobrar').unbind('click');
-        Risto.Adition.adicionar.pagos([]);
+        $('.mesa-reimprimir', '#mesa-cobrar').unbind('click');        
     });
 
 
@@ -567,19 +567,30 @@ $(document).bind("mobileinit", function(){
      */
     $('#mesa-cobrar').live('pageshow', function(){
 
+      $('.tipo-de-pagos-disponibles','#mesa-cobrar').delegate('a', 'click', function() {
+
+
+
+        var json = $(this).data('pago-json');
+        var tipoDePago = eval("(function(){return " + json + ";})()");
+
+        var pagoObj = {
+          TipoDePago: tipoDePago
+        }
+
+        var nuevoPago = new Risto.Adition.pago( pagoObj );
+
+        Risto.Adition.adicionar.currentMesa().Pago.push( nuevoPago );
+
+        $('.pagos_creados li:last','#mesa-cobrar').find('input').focus();
+        
+      });
+      
+
         // Al apretar el boton de cobro de pago procesa los pagos correspondientes
         $('#mesa-pagos-procesar').bind('click', function(){
-            // lipieza de pagos, selecciono solo los que se les haya agregado algun valor en el input
-            for (var p in Risto.Adition.adicionar.pagos() ) {
-                if ( Risto.Adition.adicionar.pagos()[p] ) {
-                    // agrego el pago a la mesa
-                    Risto.Adition.adicionar.currentMesa().Pago.push( Risto.Adition.adicionar.pagos()[p] );
-                }
-            }
-
-            // reinicio los pagos
-            Risto.Adition.adicionar.pagos([]);
-
+            Risto.Adition.adicionar.currentMesa().savePagos();
+            
             // cambio el estado de la mesa para disparar el evento
             Risto.Adition.adicionar.currentMesa().setEstadoCobrada();
         });
@@ -587,6 +598,7 @@ $(document).bind("mobileinit", function(){
 
     $('#mesa-cobrar').live('pagebeforehide', function(){
         $('#mesa-pagos-procesar').unbind('click');
+        $('.tipo-de-pagos-disponibles','#mesa-cobrar').undelegate('a', 'click');
     });
 
 

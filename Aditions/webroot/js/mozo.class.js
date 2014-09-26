@@ -61,7 +61,7 @@ Mozo.prototype = {
                 'mesas': {
                     create: function(ops) {
                         return new Mesa(mozoNuevo, ops.data);
-        }
+                    }
                 }
             }
         

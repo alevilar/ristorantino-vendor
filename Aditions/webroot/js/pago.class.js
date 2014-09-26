@@ -16,29 +16,25 @@ Risto.Adition.pago.prototype = {
     mesa_id     : function( ) {},
     tipo_de_pago_id: undefined,
     
-    initialize: function(jsonOb){
-        
-        this.valor = ko.observable();
-        this.mesa_id = Risto.Adition.adicionar.currentMesa().id();
-        
-        this.TipoDePago = ko.observable(null);
-        if (jsonOb) {
-            this.TipoDePago(jsonOb);
-            
-            this.tipo_de_pago_id = this.TipoDePago().id;
-        }
-        
-        Risto.Adition.adicionar.pagos.push(this);
-        
-        // hacer auto focus al ultimo ingresado
-        var inputs = $('.pagos_creados').find('[name="valor"]');
-        inputs[inputs.length-1].focus();
+    initialize: function( jsonOb ){        
+        this.id = ko.observable();        
+        this.valor = ko.observable(); 
+        this.TipoDePago = ko.observable( null );       
+        this.tipo_de_pago_id = ko.observable( jsonOb.TipoDePago.id );
+        this.mesa_id = ko.observable( null );    
+
+        ko.mapping.fromJS(jsonOb, {}, this);
+        Risto.modelizar(this);
+        return this;
     },
     
     image: function(){
-        if (this.TipoDePago() && this.TipoDePago().media_id) {
+        if (this.TipoDePago() && typeof this.TipoDePago().media_id == 'function' ) {
+            return URL_DOMAIN + TENANT + '/risto/medias/view/' + this.TipoDePago().media_id();
+        } else {
             return URL_DOMAIN + TENANT + '/risto/medias/view/' + this.TipoDePago().media_id;
         }
+
         return '';
     }
 }

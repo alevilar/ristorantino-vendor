@@ -612,44 +612,57 @@
 -->
 <div data-role="page" id="mesa-cobrar" data-theme="e" class="dialog-reancho dialog-arriba">
     <div data-role="header">
-        <h1><?php echo Configure::read('Mesa.tituloMesa')?> <span data-bind="text: adn().currentMesa().numero()"></span> | <span data-bind="text: adn().vueltoText()"></span></h1>
-        <a href="#mesa-view" data-direction="reverse" data-theme="e">Ir a la <?php echo Configure::read('Mesa.tituloMesa')?></a>
+        <h1><?php echo Configure::read('Mesa.tituloMesa')?> <span data-bind="text: adn().currentMesa().numero()"></span> | <span data-bind="text: adn().currentMesa().vueltoText()"></span></h1>
     </div>
 
     <div data-role="content">                  
-        <h2>Cobrar la <?php echo Configure::read('Mesa.tituloMesa')?> <span data-bind="text: adn().currentMesa().numero"></span> <span class="mesa-total" style="float: right; color: red;">Total $<span data-bind="text: adn().currentMesa().total()"></span></span></h2>
+        <h2>Cobrar la <?php echo Configure::read('Mesa.tituloMesa')?> <span data-bind="text: adn().currentMesa().numero"></span> <span class="mesa-total" style="float: right; color: red;">Total $<span data-bind="text: adn().currentMesa().totalCalculado()"></span></span></h2>
         
-        <ul class="tipo_de_pagos">
+        <ul class="tipo_de_pagos tipo-de-pagos-disponibles">
         <?php 
         foreach ( $tipo_de_pagos as $tp ){
             $pago = $tp['TipoDePago'];
-            $pagoJson =  json_encode( $pago , JSON_NUMERIC_CHECK);
+            // para que el json no tenga proglemas con el DOM "
+            $pagoJson =  str_replace('"',"'", json_encode( $pago , JSON_NUMERIC_CHECK) );
             ?>
             <li>
-                <a href="#" onclick='new Risto.Adition.pago(<?php echo $pagoJson?>)'>
-            <?php
-            echo $this->Html->imageMedia($tp['TipoDePago']['media_id']);
-            echo '<br />';
-            echo $pago['name'];
-            ?>
+                <a href="#" data-pago-json="<?php echo $pagoJson; ?>">
+                    <?php
+                    echo $this->Html->imageMedia($tp['TipoDePago']['media_id']);
+                    echo '<br />';
+                    echo $pago['name'];
+                    ?>
                 </a>
-                </li>
-                <?php
+            </li>
+            <?php
         }
         ?>
         </ul>
         
-        <h4>Pagos Seleccionados <span style="float: right; font-size: 24px; color: #003366">Vuelto: $<span data-bind="text: adn().vuelto()"></span></span></h4>
-        <ul class="pagos_creados"
-            data-bind='template: { name: "li-pagos-creados", foreach: adn().pagos }'>
-        </ul>
-        
+        <div class="pagos-seleccionados">
+            <div class="vuelto">
+                <span class="vuelto-title text-success" data-bind="visible: adn().currentMesa().vuelto() >= 0"
+                >Vuelto: $</span>
+                <span class="vuelto-title text-danger" data-bind="visible: adn().currentMesa().vuelto() < 0"
+                >Falta Pagar: $</span>
+                <span class="vuelto-value"  data-bind="text: Math.abs(adn().currentMesa().vuelto())"></span>
+            </div>
+
+            <h4>Pagos Seleccionados</h4>
+
+            
+
+            <ul class="pagos_creados"
+                data-bind='template: { name: "li-pagos-creados", foreach: adn().currentMesa().Pago }'>
+            </ul>
+            
             <div class="ui-grid-c">
-                <div class="ui-block-a"><a href="#" data-role="button" data-rel="back">Cancelar</a></div>
-                <div class="ui-block-b"><a href="#" data-role="button" data-rel="back" id="mesa-cajero-reabrir">Re Abrir</a></div>
-                <div class="ui-block-c"><a href="#" data-role="button" data-rel="back" class="mesa-reimprimir">Imprimir Ticket</a></div>
-                <div class="ui-block-d"><a href="#" data-role="button" data-rel="back" data-theme="b" id="mesa-pagos-procesar">Cobrar</a></div>
-	    </div>
+                    <div class="ui-block-a"><a href="#" data-role="button" data-rel="back">Cancelar</a></div>
+                    <div class="ui-block-b"><a href="#" data-role="button" data-rel="back" id="mesa-cajero-reabrir">Re Abrir</a></div>
+                    <div class="ui-block-c"><a href="#" data-role="button" data-rel="back" class="mesa-reimprimir">Imprimir Ticket</a></div>
+                    <div class="ui-block-d"><a href="#" data-role="button" data-rel="back" data-theme="b" id="mesa-pagos-procesar">Cobrar</a></div>
+    	    </div>
+        </div>
     </div>
     
             

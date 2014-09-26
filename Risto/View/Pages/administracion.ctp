@@ -34,8 +34,7 @@
         echo $this->Html->link(__('Adicionales'), array('plugin'=>'product', 'controller'=>'sabores', 'action'=>'index'), array('class' => 'list-group-item'));
         
         echo $this->Html->link(__('Observaciones de Productos'), array('plugin'=>'comanda', 'controller'=>'observaciones', 'action'=>'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link(__('Observaciones de Comandas'), array('plugin'=>'comanda', 'controller'=>'observacion_comandas', 'action'=>'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link(__('Productos Pedidos'), array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Observaciones de Comandas'), array('plugin'=>'comanda', 'controller'=>'observacion_comandas', 'action'=>'index'), array('class' => 'list-group-item'));       
         echo $this->Html->link(__('Tags'), array('plugin'=>'product', 'controller'=>'tags', 'action'=>'index'), array('class' => 'list-group-item'));
         ?>
     </div>

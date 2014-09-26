@@ -117,6 +117,7 @@ class Mozo extends MesaAppModel {
             if ( Configure::read('Site.type') == SITE_TYPE_HOTEL ) {
                 $conditionsMesa = array(
                     'Mesa.deleted' => 0,        
+                    'Mesa.checkin >' => date('Y-m-d', strtotime('-1 month')),
                 );
             } else {
                 $conditionsMesa = array(

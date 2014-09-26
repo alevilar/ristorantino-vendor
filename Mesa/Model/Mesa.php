@@ -29,6 +29,7 @@ class Mesa extends MesaAppModel {
 
 	public $defaultContain = array(
 					'Mozo',
+					'Pago.TipoDePago',
 					'Cliente' => array(
 						'Descuento',
 						'TipoDocumento',
@@ -254,25 +255,24 @@ function calcular_total_productos ($id = null) {
 			)
 		));
 
-
 	$total = 0;
 	foreach ( $comandas as $c ) {
 		$totParcial = 0;
 		foreach ( $c['DetalleComanda'] as $dc ) {
+			$totDetalleComanda = 0;			
 			$cant = $dc['cant'] - $dc['cant_eliminada'];
 			if ( $cant > 0 && !empty($dc['Producto']) ) {				
-				$totParcial += $dc['Producto']['precio'];
+				$totDetalleComanda += $dc['Producto']['precio'];
 
 				foreach ( $dc['DetalleSabor'] as $ds ) {
-					$totParcial += $ds['Sabor']['precio'];
+					$totDetalleComanda += $ds['Sabor']['precio'];
 				}
-
-				$totParcial = $totParcial * $cant;
+				$totParcial += $totDetalleComanda * $cant;
 			}
 		}
 		$total += $totParcial;
 	}
-	
+
 	return $total;
 }
 

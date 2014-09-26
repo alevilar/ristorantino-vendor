@@ -13,6 +13,23 @@ class Pago extends MesaAppModel {
         );
 
 
+    
+    public $validate = array(
+        'mesa_id' => array(
+            'notEmpty' => array(
+                'rule'     => 'notEmpty',
+            ),
+            'numeric' => array(
+                'rule'     => 'numeric',
+            ),     
+            'comparison'    => array(
+                'rule' => array('comparison', '>', 0),
+                'message' => 'El ID debe ser mayor a cero'
+            ),
+        ),
+    );
+
+
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	public $belongsTo = array(
@@ -58,4 +75,3 @@ class Pago extends MesaAppModel {
             ),        
         );
 }
-?>
