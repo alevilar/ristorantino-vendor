@@ -60,10 +60,10 @@ class MediaUploadableBehavior extends ModelBehavior {
 		        )
 		    );
 	  	}
-	  	debug($Model->data[$Model->alias][$this->_form_field_name]);
-	    if(isset($Model->data[$Model->alias][$this->_form_field_name]) 
-	    	&& isset($Model->data[$Model->alias]['error'])
-	    	&& $Model->data[$Model->alias]['error'] == 0
+
+	    if( isset($Model->data[$Model->alias][$this->_form_field_name]) 
+	    	&& isset( $Model->data[$Model->alias][$this->_form_field_name]['error'] )
+	    	&& $Model->data[$Model->alias][$this->_form_field_name]['error'] == 0
 	    	){
 	      $data = array('Media' => $Model->data[$Model->alias][$this->_form_field_name]);
 	      $data['Media']['file'] = file_get_contents($Model->data[$Model->alias][$this->_form_field_name]['tmp_name']);
