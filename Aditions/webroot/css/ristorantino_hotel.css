@@ -5,22 +5,47 @@
 }
 
 
-.calendar-container .controll{
-	height: 84px;
-}
 
-.controll .btn-controls{
+
+.btn-controls{
 	top: 24px;
 }
+
+.control-header{
+	position: fixed;
+	background: #505050;
+	width: 100%;
+	position: fixed;
+	width: 98%;
+	height: 84px;
+	z-index: 999;
+	border-bottom: 2px solid grey;
+	padding: 0 1%;
+	color: beige;
+}
+
+.mozos-grid{
+}
+
+table.calendar-header{
+	width: 100%;
+}
+
+table.calendar-header th{
+	width: 2.7%;
+}
+
 
 .controll .btn-controls a{
 	display: inline-block;
 	width: 20%;
-	height: 48px;
 	text-align: center;
 	vertical-align: middle;
 	line-height: 48px;
 	color: white !important;
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
 }
 
 
@@ -28,10 +53,10 @@
 	position: relative;
 }
 
-.calendar-grid {
-	position: relative;
-}
 
+.calendar-data{
+	margin-top: 68px;
+}
 
 .calendar-grid .col-header{
 	float: left;
@@ -47,12 +72,8 @@
 
 
 
-.calendar-container table{
-    width: 100%;    
-}
 
-
-.day-list table, .calendar-container table.mozo-days{
+.calendar-container table.mozo-days{
 	height: 48px;    
     clear: both;
     position: absolute;
@@ -64,7 +85,9 @@
 }
 
 
-
+.ui-content{
+	padding: 1% !important;
+}
 
 .day-list table .day, .calendar-container table.mozo-days .day{
 	height: 48px;
@@ -263,13 +286,13 @@
 
 
 .calendar-grid th.month:nth-child(even){
-	border-bottom: 2px solid #2F2AA5;
-	color: #2F2AA5;
+	border-bottom: 2px solid #99C9FD;
+	color: #99C9FD;
 }
 
 .calendar-grid th.month:nth-child(odd){
-	border-bottom: 2px solid #7A2F2F;
-	color: #7A2F2F;
+	border-bottom: 2px solid #FF7272;
+	color: #FF7272;
 }
 
 .calendar-grid th.day{
