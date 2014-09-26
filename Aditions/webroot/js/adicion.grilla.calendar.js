@@ -12,73 +12,71 @@
 		var $ancla = null, 
 			$anterior = null;
 
-		$('#listado-mesas').delegate('td.libre', 'mousedown', function(e) {
+
+		function agregarAncla ( $el ) {
 			if ( $ancla === null ) {
-				$ancla = $anterior = $(this);
-				$(this).addClass('ancla-mark');
+				$ancla = $anterior = $el;
+				$el.addClass('ancla-mark');
 			}
-        });
+		}
 
-		$('#listado-mesas').delegate('td.libre', 'mouseover', function(e) {
+		function mostrarSiguienteAncla ( $el ) {
 			if ( $ancla && $anterior ) {
-				if ( $anterior.next()[0] == $(this)[0] ) {
-					$(this).addClass('future-mark');
-					$anterior = $(this);
+				if ( $anterior.next()[0] == $el[0] ) {
+					$el.addClass('future-mark');
+					$anterior = $el;
 				}
-				if ( $anterior.prev()[0] == $(this)[0] ) {
+				if ( $anterior.prev()[0] == $el[0] ) {
 					$anterior.removeClass('future-mark');
-					$anterior = $(this);
+					$anterior = $el;
 				}
 			}
-        });
+		}
 
-        $('body').bind( 'mouseup', function(e) {
-        	if ( $ancla ) {
+
+		function cortarAncla( $el ) {
+			if ( $ancla ) {
         		$ancla.removeClass('ancla-mark');
 				$ancla.parent().find('.future-mark').removeClass('future-mark');
 				$ancla = $anterior = null;
         	}
-        });
+		}
 
 
-        /**
-        Popsible ancla ON HOVER
-        **/        
-        $('#listado-mesas').delegate('td.libre', 'mouseover', function(e) {
+		function mostrarPosibleAncla( $el ) {
 			if ( $ancla === null ) {
-				$(this).addClass('posible-ancla-mark');
+				$el.addClass('posible-ancla-mark');
 			}
-        });
+		}
 
-		$('#listado-mesas').delegate('td.libre', 'mouseout', function(e) {
+		function ocultarPosibleAncla( $el ) {
 			if ( $ancla === null ) {
-				$(this).removeClass('posible-ancla-mark');
+				$el.removeClass('posible-ancla-mark');
 			}
-        });
+		}
 
 
-
-        /**
+		/**
         Creacion de mesa nueva con chekin - checkout
         **/
 		var dayCin, dayCout, mozo;
-		$('#listado-mesas').delegate('td.libre', 'mousedown', function(e) {
-			dayCin = $(this).data('day');
+
+		function iniciarCheckin( $el ) {
+			dayCin = $el.data('day');
 			if (!dayCin) {
 				// si no hay dia es porque me pare sobre una reserva, entonces tomo su fecha checkout
-				dayCin = $(this).data('checkout');
+				dayCin = $el.data('checkout');
 			}
-			mozo =  $(this).parents('.mozo-row').data('mozo-id');
-        });
+			mozo =  $el.parents('.mozo-row').data('mozo-id');
+		}
 
-
-        $('#listado-mesas').delegate('td.libre', 'mouseup', function(e) {
-			dayCout = moment( $(this).data('day') ).add(1, 'day').format('YYYY-MM-DD');
+		function iniciarCheckout( $el ) {
+			dayCout = moment( $el.data('day') ).add(1, 'day').format('YYYY-MM-DD');
 			if (!dayCout) {
 				// si no hay dia es porque me pare sobre una reserva, entonces tomo su fecha checkout
-				dayCout = $(this).data('checkin');
+				dayCout = $el.data('checkin');
 			}
-			var mozo2 =  $(this).parents('.mozo-row').data('mozo-id');
+			var mozo2 =  $el.parents('.mozo-row').data('mozo-id');
 			if ( dayCin && dayCout && mozo2 == mozo && dayCout != dayCin )  {
 				var miniMesa = {
 					mozo_id: mozo,
@@ -92,13 +90,41 @@
                 $.mobile.changePage('#mesa-view');
 			}
             dayCin = dayCout = mozo = null;
+		}
+
+
+		$(this).delegate('td.libre', 'mousedown', function(e) {
+			agregarAncla( $(this) );
+			iniciarCheckin( $(this) );
+        });
+
+		$(this).delegate('.mozo-mesas td.libre', 'mouseenter', function(e) {
+			mostrarPosibleAncla( $(this) );
+			mostrarSiguienteAncla( $(this) );
+        });
+
+        $('body').bind( 'mouseup', function(e) {
+        	cortarAncla( $(this) );
+        });
+
+
+		$(this).delegate('.mozo-mesas td.libre', 'mouseleave', function(e) {
+			ocultarPosibleAncla( $(this) );
+        });
+
+
+        $(this).delegate('.mozo-mesas td.libre', 'mouseup', function(e) {
+			iniciarCheckout( $(this) );
         });
 
     });
 
     $('#listado-mesas').live('pagebeforehide',function(event, ui){
-         $('#listado-mesas').undelegate('td.mozo-col', 'mousedown');
-         $('#listado-mesas').undelegate('td.mozo-col', 'mouseup');
+         $(this).undelegate('td.libre', 'mousedown');
+         $(this).undelegate('.mozo-mesas td.libre', 'mouseenter');
+         $('body').unbind( 'mouseup');
+         $(this).undelegate('.mozo-mesas td.libre', 'mouseleave');
+         $(this).undelegate('.mozo-mesas td.libre', 'mouseup');
     });
 
     
