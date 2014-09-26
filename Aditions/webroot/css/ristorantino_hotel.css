@@ -35,6 +35,11 @@ table.calendar-header th{
 	width: 2.7%;
 }
 
+table.calendar-header th.highlight{
+	font-weight: bolder;
+	color: white;
+}
+
 
 .controll .btn-controls a{
 	display: inline-block;
@@ -99,7 +104,7 @@ table.calendar-header th{
 	position: relative;
 	table-layout: fixed;
 	width: 100%;
-	top:3px;
+	top:0px;
 }
 
 
@@ -179,13 +184,13 @@ table.calendar-header th{
 .calendar-container  table.mozo-mesas .mozo-col{
 	padding-top: 3px;
 	padding-bottom: 3px;
+	height: 38px;
 }
 
 
 
-
 .calendar-container  table.mozo-mesas .mozo-col.libre div{
-	right: -16px;
+	right: -10px;
 	position: relative;
 }
 
@@ -273,6 +278,10 @@ table.calendar-header th{
 	text-align: center;
 	font-size: 18pt;
 
+}
+
+.mozo-row .mozos-list-vertical.highlight{
+	color: white !important;
 }
 
 #listado-mesas .mozo-row .col-header a{

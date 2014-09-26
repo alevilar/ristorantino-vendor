@@ -13,7 +13,7 @@
         echo $this->Form->input('nombre');
         echo $this->Form->input('apellido');
         echo $this->Form->input('media_file', array('type'=>'file', 'label'=>'Foto'));
-        echo $this->Form->input('activo',array());
+        echo $this->Form->input('activo',array('default'=>true));
 	?>
      <?php echo $this->Form->end('Submit');?>           
 	</fieldset>

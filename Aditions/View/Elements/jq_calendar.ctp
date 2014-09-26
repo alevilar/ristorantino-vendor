@@ -11,7 +11,7 @@
 
 
 <script id="calendar-header-day" type="text/x-jquery-tmpl">
-  <th class="day">
+  <th class="day"  data-bind="attr: {'data-day': $item.data.format('YYYY-MM-DD')}">
       <div>
         <span data-bind="text: format('D')"></span><br />
         <span data-bind="text: format('ddd')"></span>

@@ -93,6 +93,22 @@
 		}
 
 
+		function resaltarThDay( $el ) {
+			var day = $el.data('day');
+			if ( day ) {
+				$('.calendar-header th[data-day="'+ day +'"]').addClass('highlight');
+				$el.parents('.mozo-row').find('.mozos-list-vertical').addClass('highlight');
+			}			
+		}
+
+		function quitarResaltadoThDay( $el ) {
+			var day = $el.data('day');
+			if ( day ) {
+				$('.calendar-header th[data-day="'+ day +'"]').removeClass('highlight');
+				$el.parents('.mozo-row').find('.mozos-list-vertical').removeClass('highlight');
+			}			
+		}
+
 		$(this).delegate('td.libre', 'mousedown', function(e) {
 			agregarAncla( $(this) );
 			iniciarCheckin( $(this) );
@@ -101,6 +117,7 @@
 		$(this).delegate('.mozo-mesas td.libre', 'mouseenter', function(e) {
 			mostrarPosibleAncla( $(this) );
 			mostrarSiguienteAncla( $(this) );
+			resaltarThDay( $(this) );
         });
 
         $('body').bind( 'mouseup', function(e) {
@@ -110,6 +127,7 @@
 
 		$(this).delegate('.mozo-mesas td.libre', 'mouseleave', function(e) {
 			ocultarPosibleAncla( $(this) );
+			quitarResaltadoThDay( $(this) );
         });
 
 
