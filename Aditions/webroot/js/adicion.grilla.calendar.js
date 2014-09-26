@@ -135,6 +135,25 @@
 			iniciarCheckout( $(this) );
         });
 
+
+        $(this).delegate('.mozo-mesas td.libre', 'mouseup', function(e) {
+			iniciarCheckout( $(this) );
+        });
+
+        $(this).delegate('.control-header', 'mousewheel DOMMouseScroll', function(e) {
+        	e.preventDefault();
+        	if (e.originalEvent.wheelDelta > 0 || e.originalEvent.detail < 0) {
+		        // scroll up
+				Risto.Adition.adicionar.calendarGrid.prevDay()
+		    }
+		    else {
+		        // scroll down
+		        Risto.Adition.adicionar.calendarGrid.backDay()
+		    }
+
+        });
+        
+
     });
 
     $('#listado-mesas').live('pagebeforehide',function(event, ui){
@@ -143,6 +162,7 @@
          $('body').unbind( 'mouseup');
          $(this).undelegate('.mozo-mesas td.libre', 'mouseleave');
          $(this).undelegate('.mozo-mesas td.libre', 'mouseup');
+         $(this).undelegate('.control-header', 'mousewheel DOMMouseScroll');
     });
 
     
@@ -171,13 +191,11 @@
 		},
 
 		setFromToDate: function ( from, to) {
-
 			var days = [],
 				months = {};
 
 			moment().range( from , to ).by('days', function(moment) {
 			  	days.push( moment );
-
 			  	// armar meses array
 			  	monthKey = "__" + moment.month();
 			  	if ( months.hasOwnProperty(monthKey) ) {
@@ -189,20 +207,17 @@
 			  		}
 			  	}
 			});
-
 			// armar array (convertir de object a array)
 		  	var aMonths = [];
 		  	for (var i in months) {
 		  		aMonths.push( months[i] );
 		  	}
-
-			this.days(days);
 			this.months(aMonths);
-
+			this.days(days);
 		},
 
 		backDay: function () {
-			var first = Risto.Adition.adicionar.calendarGrid.days()[0].subtract(1, 'day');
+			var first = moment(Risto.Adition.adicionar.calendarGrid.days()[0]).subtract(1, 'day');
 			var last = Risto.Adition.adicionar.calendarGrid.days()[Risto.Adition.adicionar.calendarGrid.days().length-2];
 
 			Risto.Adition.adicionar.calendarGrid.setFromToDate(first, last);
@@ -210,7 +225,7 @@
 
 		prevDay: function () {
 			var first = Risto.Adition.adicionar.calendarGrid.days()[1],
-				last = Risto.Adition.adicionar.calendarGrid.days()[Risto.Adition.adicionar.calendarGrid.days().length-1].add(1, 'day');
+				last = moment(Risto.Adition.adicionar.calendarGrid.days()[Risto.Adition.adicionar.calendarGrid.days().length-1]).add(1, 'day');
 
 			Risto.Adition.adicionar.calendarGrid.setFromToDate(first, last);
 		},
@@ -218,7 +233,7 @@
 
 		backWeek: function () {
 			var weekCantDays = 15;
-			var first = Risto.Adition.adicionar.calendarGrid.days()[0].subtract(weekCantDays, 'day');
+			var first = moment(Risto.Adition.adicionar.calendarGrid.days()[0]).subtract(weekCantDays, 'day');
 			var last = Risto.Adition.adicionar.calendarGrid.days()[Risto.Adition.adicionar.calendarGrid.days().length-weekCantDays-1];
 
 			Risto.Adition.adicionar.calendarGrid.setFromToDate(first, last);
@@ -226,8 +241,8 @@
 
 		prevWeek: function () {
 			var weekCantDays = 15;
-			var first = Risto.Adition.adicionar.calendarGrid.days()[weekCantDays-1],
-				last = Risto.Adition.adicionar.calendarGrid.days()[Risto.Adition.adicionar.calendarGrid.days().length-1].add(weekCantDays, 'day');
+			var first = Risto.Adition.adicionar.calendarGrid.days()[weekCantDays],
+				last = moment(Risto.Adition.adicionar.calendarGrid.days()[Risto.Adition.adicionar.calendarGrid.days().length-1]).add(weekCantDays, 'day');
 
 			Risto.Adition.adicionar.calendarGrid.setFromToDate(first, last);
 		},

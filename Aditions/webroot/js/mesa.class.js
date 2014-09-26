@@ -42,6 +42,7 @@ var Mesa = function(mozo, jsonData) {
         this.Cliente        = ko.observable( null );
         this.estado         = ko.observable( MESA_ESTADOS_POSIBLES.abierta );
         this.estado_id      = ko.observable();
+        this.time_cobro     = ko.observable();
         this.Pago           = ko.observableArray( [] );
         this.cant_comensales= ko.observable(0);
         

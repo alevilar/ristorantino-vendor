@@ -151,6 +151,10 @@ class Mesa extends MesaAppModel {
 	public function beforeSave( $options = array() ) 
 	{
 		$this->data['Mesa']['modified'] = date('Y-m-d H:i:s');
+		if ( !empty($this->data['Pago']) && !empty($this->data['Mesa']['id']) ) {
+			$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
+			$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
+		}
 		
 		if ( !parent::beforeSave($options) ) {
 			return false;

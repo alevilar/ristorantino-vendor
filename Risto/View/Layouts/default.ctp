@@ -75,18 +75,22 @@
                 <div class="navbar-header">
                     <?php 
                     echo $this->fetch("navbar-brand");
-                    if ( Configure::check('Site.logo_path') ) {
-                        $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array('height'=>'50'));
-                        echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
-                    }
-
 
                     if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
+                        if ( Configure::check('Site.logo_path') ) {
+                            $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array('height'=>'50'));
+                            echo $this->Html->link($imgLogo, array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
+                        }
                         // link a dashboard del sitio tenant
                         echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'navbar-brand tenant-name'));
                     } else {
                         // link a HOME
-                        echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name')) ;
+                        if ( Configure::check('Site.logo_path') ) {
+                            $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array('height'=>'50'));
+                            echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
+                        } else {
+                            echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name')) ;
+                        }
                     }
                     ?>
                 </div>

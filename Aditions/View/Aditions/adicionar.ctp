@@ -12,6 +12,18 @@
 <div data-role="page" id="listado-mesas">
 
 	<div  data-role="header">
+
+            <?php
+            if ( Configure::check('Site.logo_path') ) {
+                $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array('height'=>'20'));
+                echo $this->Html->link($imgLogo, array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard')
+                    , array(
+                        'data-ajax' => 'false',
+                        'data-role' => 'none',
+                        'class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
+            }
+            ?>
+
             <h1><span style="color: #fcf0b5" data-bind="text: adn().mesas().length">0</span> <?php echo Inflector::pluralize( Configure::read('Mesa.tituloMesa') )?></h1>
 
             <a href='#adicion-opciones' data-icon="gear" data-rel="dialog" class="ui-btn-right">Opciones</a>
@@ -62,7 +74,17 @@
         <div class="calendar-grid">
             <div class="controll control-header">
                 <div class="col-header btn-controls">
-                    <div>                            
+                    <?php
+                    if ( Configure::check('Site.logo_path') ) {
+                                    $imgLogo = $this->Html->image(Configure::read('Site.logo_path'));
+                                    echo $this->Html->link($imgLogo, array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array(
+                                            'data-ajax' => 'false',
+                                            'data-role' => 'none',
+                                            'class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
+                                }
+                    ?>
+
+                    <div class="control-actions">                            
                         <a href="#" class="ui-btn-active controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevWeek()'>&lt;&lt;</a>
                         <a href="#" class="ui-btn-active controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevDay()'>&lt;</a>
                         <a href="#" class="ui-btn-active controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backDay()'>&gt;</a>

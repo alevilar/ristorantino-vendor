@@ -94,6 +94,11 @@ public function add() {
           foreach ( $this->request->data['Pago'] as $key=>$pago ) {
               if ( $this->request->data['Pago'][$key]['tipo_de_pago_id'] == TIPO_DE_PAGO_EFECTIVO ) {
                 $this->request->data['Pago'][$key]['valor'] -= $vuelto;
+                if ( $this->request->data['Pago'][$key]['valor'] == 0 ) {
+                  // si da cero borrarlo porque no tiene sentido guardarlo
+                  unset($this->request->data['Pago'][$key]);
+                }
+                break;
               }
           }
       }
