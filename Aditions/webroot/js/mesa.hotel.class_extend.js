@@ -6,7 +6,12 @@ Date.diffDays = function ( day1, day2 ) {
 
 
 Date.clearHour = function ( day1 ) {
-	var mm = moment(day1);
+	var mm;
+	if ( day1 ) {
+		mm = moment(day1);
+	} else {
+		mm = moment();
+	}
 	mm.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
 	return mm;
 }
@@ -32,7 +37,8 @@ Mozo.prototype.tieneMesaEl = function ( day ) {
 		while ( i < this.mesas().length ) {
 
 			cin = Date.clearHour( this.mesas()[i].checkin() );
-			cout = Date.clearHour( this.mesas()[i].checkout() );
+			// 1 dia antes del checkout porque sino me la devolveria 2 veces
+			cout = Date.clearHour( this.mesas()[i].checkout() ).subtract(1,'day');
 			rangoMesa = moment().range(cin, cout);
 
 			if (  day.within( rangoMesa ) ) {				
@@ -51,7 +57,7 @@ Mozo.prototype.mesasFromDataRangeByRange = function () {
 		 	 curDay,
 		 	 mesa, 
 		 	 diasEstadia,
-		 	 cout, cin, cmin, cmax,
+		 	 cout, cin,
 		 	 rangoGrilla, //rango de la grilla para una reserva particular
 		 	 cols = [],
 		 	 diffDays = 0,
@@ -72,8 +78,8 @@ Mozo.prototype.mesasFromDataRangeByRange = function () {
 
 				
 				if ( mesa ) {
-					cin =  moment( mesa.checkin() );
-					cmax = cout =  moment( mesa.checkout() );
+					cin =  Date.clearHour( mesa.checkin() );
+					cout =  Date.clearHour( mesa.checkout() );
 						
 					diasEstadia = mesa.diasEstadia();
 				

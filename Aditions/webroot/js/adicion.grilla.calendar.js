@@ -146,9 +146,9 @@
 	CalendarGrid.prototype =  {
 		
 		initialize: function () {
-			var from  = moment().toDate(),
-				to    = moment().add( this.cantDayShown(), 'days' ).toDate();
-
+			var from  = Date.clearHour(), //devuelve el dia actual con las horas min y segs en 00
+				to    = moment(from).add( this.cantDayShown(), 'days' );
+				
 			this.setFromToDate(from, to);				
 		},
 

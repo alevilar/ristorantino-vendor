@@ -284,15 +284,21 @@ table.calendar-header th{
 }
 
 
+.calendar-grid th.month span{
+	position: absolute;
+	margin-top: -10px;
+}
 
 .calendar-grid th.month:nth-child(even){
 	border-bottom: 2px solid #99C9FD;
 	color: #99C9FD;
+	height: 17px;
 }
 
 .calendar-grid th.month:nth-child(odd){
 	border-bottom: 2px solid #FF7272;
 	color: #FF7272;
+	height: 17px;
 }
 
 .calendar-grid th.day{
