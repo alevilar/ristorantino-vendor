@@ -29,6 +29,28 @@ var Risto = {
 
 
 
+Date.diffDays = function ( day1, day2 ) {
+    var mm = Date.clearHour(day1);
+    var m2 = Date.clearHour(day2);
+    return mm.diff(m2, "days");
+}
+
+
+Date.clearHour = function ( day1 ) {
+    var mm;
+    if ( day1 ) {
+        mm = moment(day1);
+    } else {
+        mm = moment();
+    }
+    mm.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
+    return mm;
+}
+
+
+
+
+
 
 function mysqlTimeStampToDate(timestamp) {
     if (timestamp) {

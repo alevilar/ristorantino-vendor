@@ -1,21 +1,3 @@
-Date.diffDays = function ( day1, day2 ) {
-	var mm = Date.clearHour(day1);
-	var m2 = Date.clearHour(day2);
-	return mm.diff(m2, "days");
-}
-
-
-Date.clearHour = function ( day1 ) {
-	var mm;
-	if ( day1 ) {
-		mm = moment(day1);
-	} else {
-		mm = moment();
-	}
-	mm.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
-	return mm;
-}
-
 
 
 
@@ -34,12 +16,8 @@ Mozo.prototype.tieneMesaEl = function ( day ) {
 
 		var rangoGrilla = moment().range(firstDay, lastDay);
 
-		while ( i < this.mesas().length ) {
-
-			cin = Date.clearHour( this.mesas()[i].checkin() );
-			// 1 dia antes del checkout porque sino me la devolveria 2 veces
-			cout = Date.clearHour( this.mesas()[i].checkout() ).subtract(1,'day');
-			rangoMesa = moment().range(cin, cout);
+		while ( i < this.mesas().length ) {			
+			rangoMesa = this.mesas()[i].momentRange();
 
 			if (  day.within( rangoMesa ) ) {				
 				return this.mesas()[i];

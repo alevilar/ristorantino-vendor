@@ -14,7 +14,14 @@ var Mesa = function(mozo, jsonData) {
         this.checkout       = ko.observable();
         this.observation    = ko.observable('');
 
+
+        this.momentRange    = ko.observable( );
+
         // Observables Dependientes
+        this.momentRange = ko.dependentObservable( function(){
+            return moment().range( Date.clearHour(this.checkin()), Date.clearHour(this.checkout()).subtract(1, 'day') );
+        },this);
+
         this.diasEstadia = ko.dependentObservable( function(){
             var mm = moment(this.checkin());
             var m2 = moment(this.checkout());

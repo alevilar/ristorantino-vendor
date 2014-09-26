@@ -150,7 +150,7 @@ table.calendar-header th{
 
 	
 .calendar-container  table.mozo-mesas .checkin-not-showed .mark a{
-	
+	margin-left: -20px;	
 	-webkit-border-top-left-radius: 0px;
 	-webkit-border-bottom-left-radius: 0px;
 	-moz-border-radius-topleft: 0px;
@@ -281,6 +281,10 @@ table.calendar-header th{
     vertical-align: middle;
     line-height: 48px;
     text-decoration: none;
+}
+
+.listado-mozos-para-mesas{
+	border-right: 1px solid grey;
 }
 
 
