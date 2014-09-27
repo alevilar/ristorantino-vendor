@@ -17,7 +17,7 @@
 	    	</li>
 
 	    	<li role="menu">
-		    	<?php echo $this->Html->link( __('Reset Password'), array(
+		    	<?php echo $this->Html->link( __('Edit My Profile'), array(
 		    		'tenant' => false,
 		    		'plugin'=>'users', 'controller'=>'users','action'=>'my_edit'), array('escape'=>false)); ?>
 	    	</li>
