@@ -332,7 +332,7 @@
                 <ul data-role="listview"  data-bind="attr: {'estado': adn().currentMesa().estado().icon}">
                     
                     <li id="mesa-action-comanda" data-bind="attr: {'estado': 'comanda-add-menu_'+adn().currentMesa().estado().icon}">
-                        <a href="#comanda-add-menu" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/chef_64.png')?>Comanda</a>
+                        <a href="#comanda-add-menu" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/products_64.png')?>Agregar Producto</a>
                     </li>
                     
                     <li id="mesa-action-cliente" data-bind="attr: {'estado': 'mesa-cliente_'+adn().currentMesa().estado().icon}">
