@@ -3,6 +3,7 @@
 	<fieldset>
  		<legend><?php __('Add Estado');?></legend>
 	<?php
+		echo $this->Form->input('id');
 		echo $this->Form->input('name');
 		echo $this->Form->input('color', array(
 			'options' => array(

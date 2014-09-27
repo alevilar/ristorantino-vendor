@@ -399,13 +399,14 @@
             </div>
 
             <div class="mesa-view">
-                <?php if (Configure::read('Site.type') !=  SITE_TYPE_RESTAURANTE) { ?>
                     <div class="observaciones">
                         <textarea id="mesa-textarea-observation"  data-bind="value: adn().currentMesa().observation" placeholder="Agregar una Observación"></textarea>
 
                         <button id="mesa-observacion-submit" type="button" value="Guardar" style="display: none" data-enhance="false" data-role="none">Guardar</button>
                         <button id="mesa-observacion-cancel" type="button" value="Guardar" style="display: none" data-enhance="false" data-role="none">Cancelar</button>
                     </div>
+                    
+                <?php if (Configure::read('Site.type') !=  SITE_TYPE_RESTAURANTE) { ?>
 
                     <div class="date-checkin-checkout" data-bind="visible: adn().currentMesa().checkin() || adn().currentMesa().checkin() ">
                         <div class="date-checkin" data-bind="visible: adn().currentMesa().checkin()">
