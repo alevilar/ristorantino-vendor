@@ -141,7 +141,16 @@ class Mozo extends MesaAppModel {
             foreach ( $mesasABM as $abmMesas ) {
                 // traer todos los mozos, con su array de mesas
                 $abmMesas['Mozo']['mesas'] = $abmMesas['Mesa'];
-                $mozosMesa['mozos'][] = $abmMesas['Mozo'];    
+
+                if ( !empty($lastAccess) ) {
+                    // enviar solo los que tienen mesas modificadas
+                    if (!empty($abmMesas['Mesa']) ) {
+                        $mozosMesa['mozos'][] = $abmMesas['Mozo'];    
+                    }
+                } else {
+                    // enviar a todos
+                    $mozosMesa['mozos'][] = $abmMesas['Mozo'];    
+                }
             }
             
 

@@ -1,7 +1,7 @@
 ﻿<?php    
 
-echo $this->Html->script('jquery/jquery.jeditable.mini', false);
-echo $this->Html->script('ale_fieldupdates', false);
+echo $this->Html->script('/risto/js/jquery/jquery.jeditable.mini', array('inline'=>false));
+echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 
 
 ?>
