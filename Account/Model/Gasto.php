@@ -172,7 +172,15 @@ class Gasto extends AccountAppModel {
             
             $this->_calcularImporteNeto();
             
-            if (empty($this->data['Gasto']['proveedor_id']) && !empty($this->data['Gasto']['proveedor_list'])) {
+            $this->__proveedorAddOnBeforeSave();
+            
+            return true;
+        }
+
+
+
+        private function getProveedorFromFieldData () {
+            if ( !empty($this->data['Gasto']['proveedor_list'])) {                
                 $cuit = null;
                 $name = trim($this->data['Gasto']['proveedor_list']);
                 if ( preg_match_all('/(?:\s|^)(\d{11}|\d{2}-\d{8}-\d{1})(?:\s|$)/', $this->data['Gasto']['proveedor_list'], $m) ) {
@@ -193,8 +201,17 @@ class Gasto extends AccountAppModel {
                         'name' => $name,
                     )
                 );
-                
-                $provExist = $this->Proveedor->findByCuit($cuit);
+
+                return $data;
+            }
+            return false;
+        }
+
+        private function __proveedorAddOnBeforeSave () {
+
+            $data = $this->getProveedorFromFieldData();
+            if ( $data && empty($this->data['Gasto']['proveedor_id'])  ) {
+                $provExist = $this->Proveedor->findByCuit( $data['Proveedor']['cuit'] );
                 if ( empty($provExist) ) {                   
                     $this->Proveedor->create();
                     if ( $this->Proveedor->save($data) ) {
@@ -206,8 +223,6 @@ class Gasto extends AccountAppModel {
                     $this->data['Gasto']['proveedor_id'] = $provExist['Proveedor']['id'];
                 }
             }
-            
-            return true;
         }
        
         
@@ -356,11 +371,33 @@ class Gasto extends AccountAppModel {
         
         function factura_no_repetida(){
             if (!empty($this->data['Gasto']['factura_nro'])){
-                $cant = $this->find('count', array(
+
+                $data = $this->getProveedorFromFieldData();
+        
+                $provExist = false;
+                if ( $data ) {
+                    $this->Proveedor->recursive = -1;
+                    $provExist = $this->Proveedor->findByCuit( $data['Proveedor']['cuit'] );
+                }
+                $ops = array(
                     'conditions' => array(
                         'Gasto.factura_nro' => $this->data['Gasto']['factura_nro']
                     ),
-                ));
+                );
+
+                $cant = true;
+                if ( $provExist ) {
+                    $ops['conditions']['Gasto.proveedor_id'] = $provExist['Proveedor']['id'];
+                } elseif ( empty($this->data['Gasto']['proveedor_list']) ) {
+                    // es sin proveedor
+                    $ops['conditions']['Gasto.proveedor_id'] = 'NULL';
+                } else {
+                    $cant = 0;
+                }
+
+                if ( $this->data['Gasto']) {
+                    $cant = $this->find('count', $ops);
+                }
                 return !($cant > 0);
             }
             return true;

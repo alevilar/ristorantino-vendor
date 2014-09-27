@@ -33,6 +33,7 @@ class TipoImpuestosController extends AccountAppController {
 				$this->Session->setFlash(__('The TipoImpuesto could not be saved. Please, try again.'));
 			}
 		}
+		$this->render('form');
 	}
 
 	function edit($id = null) {
@@ -51,6 +52,7 @@ class TipoImpuestosController extends AccountAppController {
 		if (empty($this->request->data)) {
 			$this->request->data = $this->TipoImpuesto->read(null, $id);
 		}
+		$this->render('form');
 	}
 
 	function delete($id = null) {
