@@ -30,7 +30,7 @@ class EstadosController extends MesaAppController
 
 
 	  public function edit($id = null) {
-	    if ( $this->request->is('post') ) {
+	    if ( $this->request->is('post') || $this->request->is('put')) {
 		   	if ( $this->Estado->save($this->request->data ) ) {
 		   		$this->Session->setFlash(__('Nuevo estado "'. $this->request->data['Estado']['name'] .'" guardadt'));
 	   			$this->redirect(array('action'=>'index'));
