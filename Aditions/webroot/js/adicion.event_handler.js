@@ -175,7 +175,7 @@ $raeh = Risto.Adition.EventHandler = {
         if ( typeof domObj == 'number') {
             mozoId = domObj;    
         } else {
-            mozoId = domObj.getAttribute('data-mozo-id');   
+            mozoId = $(domObj).data('mozo-id');   
         }
         
         if ( typeof $mesasDom != 'undefined' ) {

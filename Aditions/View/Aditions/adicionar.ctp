@@ -2,7 +2,7 @@
 <?php echo $this->element('jq_calendar'); ?>
 
       
-<?php if (Configure::read('Site.type') == SITE_TYPE_RESTAURANTE) {  ?>
+<?php if (Configure::read('Site.type') != SITE_TYPE_HOTEL ) {  ?>
 
 <!--
                         LISTADO MESAS
@@ -12,17 +12,6 @@
 <div data-role="page" id="listado-mesas">
 
 	<div  data-role="header">
-
-            <?php
-            if ( Configure::check('Site.logo_path') ) {
-                $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array('height'=>'20'));
-                echo $this->Html->link($imgLogo, array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard')
-                    , array(
-                        'data-ajax' => 'false',
-                        'data-role' => 'none',
-                        'class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
-            }
-            ?>
 
             <h1><span style="color: #fcf0b5" data-bind="text: adn().mesas().length">0</span> <?php echo Inflector::pluralize( Configure::read('Mesa.tituloMesa') )?></h1>
 

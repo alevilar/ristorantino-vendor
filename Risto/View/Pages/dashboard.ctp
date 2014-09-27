@@ -13,7 +13,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
     <li>
         <?php 
 
-        if (Configure::read('Site.type') == 'restaurante' ) {
+        if ( Configure::read('Site.type') != SITE_TYPE_HOTEL ) {
           echo $this->Html->link('Adición', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-adicion')); 
         } else {
           echo $this->Html->link('Reservas', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-reservations')); 
