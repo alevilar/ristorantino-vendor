@@ -63,7 +63,7 @@
         
         
         // recalcular saldo
-        $('input','#ArqueoAddForm').on('keyup', calcularSaldo);
+        $('input','#ArqueoAddForm').bind('change', calcularSaldo);
         
         // si es Nuevo arqueo, poner el valor del saldo en su input
         if ((typeof $('#ArqueoId').val() == 'string') && !$('#ArqueoId').val()) {
@@ -96,12 +96,12 @@
             $("#billetines").show('fade');
         });
         
-        $('#ZetaMontoNeto').on('keyup', function(){
+        $('#ZetaMontoNeto').change(function(){
             var valor = new Number(this.value);
             $('#ZetaMontoIva').val(parseInt(valor * 0.21 * 100)/100);
         });
         
-        $('#ZetaNotaCreditoNeto').on('keyup', function(){
+        $('#ZetaNotaCreditoNeto').change(function(){
             var valor = new Number(this.value);
             $('#ZetaNotaCreditoIva').val(parseInt(valor * 0.21 * 100)/100);
         });
@@ -122,15 +122,15 @@
             $('#ArqueoImporteFinal').trigger('change');
         }
         
-        $('#BilletesB100').on('keyup',sumarBilletes);
-        $('#BilletesB50').on('keyup',sumarBilletes);
-        $('#BilletesB20').on('keyup',sumarBilletes);
-        $('#BilletesB10').on('keyup',sumarBilletes);
-        $('#BilletesB5').on('keyup', sumarBilletes);
-        $('#BilletesB2').on('keyup', sumarBilletes);
-        $('#BilletesB1').on('keyup', sumarBilletes);
-        $('#BilletesB0').on('keyup', sumarBilletes);
-        $('#BilletesBA').on('keyup', sumarBilletes);
+        $('#BilletesB100').change(sumarBilletes);
+        $('#BilletesB50').change(sumarBilletes);
+        $('#BilletesB20').change(sumarBilletes);
+        $('#BilletesB10').change(sumarBilletes);
+        $('#BilletesB5').change(sumarBilletes);
+        $('#BilletesB2').change(sumarBilletes);
+        $('#BilletesB1').change(sumarBilletes);
+        $('#BilletesB0').change(sumarBilletes);
+        $('#BilletesBA').change(sumarBilletes);
 
     });
 
