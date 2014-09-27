@@ -236,7 +236,12 @@ class MesasController extends MesaAppController {
 
 
     public function edit($id = null) {
-
+        if (empty($id)) {
+            throw new InternalErrorException(__("Error, se debe pasar un ID de Mesa"));
+        }
+        if (!$this->Mesa->exists($id)) {
+            throw new NotFoundException(__("Error, la mesa no es válida"));   
+        }
 
         if (!$id && !$this->request->is('post') ) {
             $this->Session->setFlash(__('Invalid Id', 'Risto.flash_error'));
