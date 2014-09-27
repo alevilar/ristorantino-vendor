@@ -16,9 +16,15 @@
 		    	<?php echo $this->Html->link( __('User Dashboard'), '/', array('escape'=>false)); ?>
 	    	</li>
 
+	    	<li role="menu">
+		    	<?php echo $this->Html->link( __('Reset Password'), array(
+		    		'tenant' => false,
+		    		'plugin'=>'users', 'controller'=>'users','action'=>'my_edit'), array('escape'=>false)); ?>
+	    	</li>
+
 		    <li role="presentation" class="divider"></li>
 		    
-		    <li role="presentation">
+		    <li role="menu">
 		    	<?php echo $this->Html->link(__('Log Out')
 		    						, array(
 		    							'controller' => 'users', 
