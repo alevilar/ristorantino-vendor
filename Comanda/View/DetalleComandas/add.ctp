@@ -63,7 +63,7 @@ $text = json_encode(array(
 
  	var sform = <?php echo $text ?>;
 
-	$btndc.on('click', function(){
+	$btndc.bind('click', function(){
 		var $prod = $('<div>').html(sform.prod),
 			$cant = $('<div>').html(sform.cant),
 			$cont = $('<div>');

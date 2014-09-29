@@ -69,7 +69,7 @@ echo $this->Form->create($modelName, array(
     </div>
     <div class="col-md-1">
         <?php
-        echo  $this->Form->input('importe_neto', array('label'=>false, 'placeholder'=>'Neto'));
+        echo  $this->Form->input('importe_neto', array('label'=>false, 'placeholder'=>'Neto', 'required' => false));
         ?>
     </div>
     <div class="col-md-1">

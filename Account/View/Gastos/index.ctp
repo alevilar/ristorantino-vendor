@@ -181,7 +181,7 @@ echo $this->Form->end();
         });
 
         var $btnSubmit = $("#ver-btn-crear-pago");
-        $inputs.on('change', function(){
+        $inputs.bind('change', function(){
             if ( $('input[type="checkbox"]:checked', '#EgresoAddForm').length ) {
                 $btnSubmit.show();
             } else {

@@ -189,9 +189,11 @@ class Gasto extends AccountAppModel {
                     // sacar el cuit al string
                     $name = trim( str_replace($cuit, '', $this->data['Gasto']['proveedor_list']) );
                     
-                    if ( !validate_cuit_cuil($cuit) ) {
+                    if ( !empty($cuit) && !validate_cuit_cuil($cuit) ) {
                         $cuit = null;                    
                         $name.= ' [CUIT ERROR: '.$cuit.'?, por favor resolver editando a mano]';
+                    }elseif ( empty($cuit)) {
+                        $cuit = null;
                     }
                 }
                 
@@ -211,7 +213,12 @@ class Gasto extends AccountAppModel {
 
             $data = $this->getProveedorFromFieldData();
             if ( $data && empty($this->data['Gasto']['proveedor_id'])  ) {
-                $provExist = $this->Proveedor->findByCuit( $data['Proveedor']['cuit'] );
+                if ( empty($data['Proveedor']['cuit']) ) {
+                    $provExist = false;
+                } else {
+                    $provExist = $this->Proveedor->findByCuit( $data['Proveedor']['cuit'] );
+                }
+                
                 if ( empty($provExist) ) {                   
                     $this->Proveedor->create();
                     if ( $this->Proveedor->save($data) ) {

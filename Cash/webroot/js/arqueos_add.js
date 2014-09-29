@@ -56,7 +56,7 @@
     $(function() {
         
         // imprimir cierre Z en ajax
-        $("#btn-imprimir-z").on('click', function(){
+        $("#btn-imprimir-z").bind('click', function(){
             $.get(this.href);
             return false;
         });
@@ -72,7 +72,7 @@
         
         
         // el boton esta afuera del formulario
-        $('#btn-submit').on('click', function(){
+        $('#btn-submit').bind('click', function(){
 //           $('#ArqueoAddForm').submit();
         });
         
@@ -92,7 +92,7 @@
 
         });
         
-        $("#ArqueoImporteFinal").on('focus',function(){
+        $("#ArqueoImporteFinal").bind('focus',function(){
             $("#billetines").show('fade');
         });
         

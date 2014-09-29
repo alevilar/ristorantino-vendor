@@ -144,13 +144,13 @@
 
 
         // Autocomplete
-        $('input.auto-complete').on('change',function(){
+        $('input.auto-complete').bind('change',function(){
             // borrar cuando se elimina el texto del proveedor
             if ( !this.value ) {
                 $("#GastoProveedorId").attr('value','');
             }
         });
-        $('input.auto-complete').on('focusout', function(){
+        $('input.auto-complete').bind('focusout', function(){
             $('input.auto-complete').popover('hide');
         });
         // popover con informacion para crear nuevos proveedores
@@ -180,7 +180,7 @@
                     b(data, state);
                 });
             }
-        }).on('select', function(a,b,c){
+        }).bind('select', function(a,b,c){
             var id = $(b).attr('data-id');
             if (id) {
                 $("#GastoProveedorId").val(id);

@@ -60,7 +60,7 @@ echo $this->Form->end();
 
 
 <script type="text/javascript">
-    $('#CancelBtn').on('click', function() {
+    $('#CancelBtn').bind('click', function() {
         $("#descripcion-cierre").hide("fade")
     });
 
