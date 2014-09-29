@@ -94,6 +94,7 @@
 
 
 		function resaltarThDay( $el ) {
+			$('.calendar-header th.highlight').removeClass('highlight');
 			var day = $el.data('day');
 			if ( day ) {
 				$('.calendar-header th[data-day="'+ day +'"]').addClass('highlight');

@@ -206,7 +206,7 @@ function aplanar_mesa($mesa)
         $codename = $nm['Cliente']['IvaResponsabilidad']['TipoFactura']['codename'];
         $nm['cliente_tipofactura'] = '"'.$codename.'"';
     } else {
-        $nm['cliente_tipofactura'] = '"B"';
+        $nm['cliente_tipofactura'] = '';
     }
     
     $dto = 0;
