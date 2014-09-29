@@ -33,11 +33,15 @@
 							
 							<?php echo  $this->Html->link( $s['name'] , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'' ));?>
 
-	                        <?php echo $this->Form->postLink("X", array( 'tenant' => false, 'plugin'=>'install' ,'controller' => 'site_setup', 'action' => 'deletesite/'.$s['alias']), array(
+	                        <?php 
+	                        /*
+	                        echo $this->Form->postLink("X", array( 'tenant' => false, 'plugin'=>'install' ,'controller' => 'site_setup', 'action' => 'deletesite/'.$s['alias']), array(
 	                        		'confirm' => 'Are you sure want to delete site named '.$s['name'].'?',
 	                        		'class'=>'btn btn-danger btn-xs pull-right',
 	                        		'title' => __("Eliminar")
-	                        		)); ?>
+	                        		));
+							*/
+	                        		 ?>
 						</div>
 					<?php endforeach; ?>
             	<?php endif; ?>
