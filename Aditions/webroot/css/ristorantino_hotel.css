@@ -57,6 +57,9 @@ table.calendar-header th.highlight{
 	-moz-border-radius: 50px;
 	border-radius: 50px;
 	height: 39px;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 .controll .btn-controls .navbar-brand{
