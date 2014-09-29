@@ -170,7 +170,7 @@
 
 
 	var CalendarGrid = function() {
-        this.cantDayShown	= ko.observable(35);        
+        this.cantDayShown	= ko.observable(24);        
         this.months         = ko.observableArray( [] );
         this.days           = ko.observableArray( [] );
         

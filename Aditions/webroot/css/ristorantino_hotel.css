@@ -37,7 +37,7 @@ table.calendar-header{
 }
 
 table.calendar-header th{
-	width: 2.7%;
+
 }
 
 table.calendar-header th.highlight{
@@ -110,6 +110,18 @@ table.calendar-header th.highlight{
 	padding: 1% !important;
 }
 
+table.mozo-days, table.calendar-header, table.mozo-mesas{
+	min-width: 1024px;
+}
+
+table.mozo-days td, table.calendar-header th{
+	width: 4%;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+	overflow: hidden;
+}
+
 .day-list table .day, .calendar-container table.mozo-days .day{
 	height: 48px;
 	border-right: 1px dotted #333;
@@ -144,7 +156,7 @@ table.calendar-header th.highlight{
 
 
 .calendar-container  table.mozo-mesas .mark{
-	right: -16px;
+	right: -10%;
 	position: relative;
 }
 
