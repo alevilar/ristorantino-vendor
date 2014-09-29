@@ -34,8 +34,8 @@ Risto.Adition.cliente.prototype = {
         var tipo = '';
         if ( this.IvaResponsabilidad && this.IvaResponsabilidad.TipoFactura && typeof this.IvaResponsabilidad.TipoFactura != 'function' ) {
             tipo = this.IvaResponsabilidad.TipoFactura.name();    
+        console.debug(this.IvaResponsabilidad);
         }
-        
         return tipo;
     },
     

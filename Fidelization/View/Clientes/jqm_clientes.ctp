@@ -29,7 +29,7 @@
                             </li>
                                 <?php foreach($clientes as $c): 
                                     $porcentaje  = !empty($c['Descuento']['porcentaje']) ? $c['Descuento']['porcentaje'] : 0;
-                                    $tipofactura = !empty($c['Cliente']['tipofactura'])? $c['Cliente']['tipofactura']: 'B';
+                                    $tipofactura = !empty($c['Cliente']['tipofactura'])? $c['Cliente']['tipofactura']: '';
                                     $clienteName = !empty($c['Cliente']['nombre']) ? $c['Cliente']['nombre']: '' ;
 
                                     $cliente = array(
