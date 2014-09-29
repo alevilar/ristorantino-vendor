@@ -220,11 +220,8 @@ $(document).bind("mobileinit", function(){
 
         });
         
-        var $hrefEdit = $('a:first-child','#mesa-action-edit'),
-            hrefToEditMesa = $hrefEdit.attr('data-href');
-        if ( hrefToEditMesa ) {
-            $hrefEdit.attr('href', hrefToEditMesa + "/" + Risto.Adition.adicionar.currentMesa().id() );
-        }
+        var $hrefEdit = $('a:first-child','#mesa-action-edit');
+        
 
 
           $('#mesa-menu').bind( 'click', function(){
@@ -548,7 +545,7 @@ $(document).bind("mobileinit", function(){
               data: data,
               success: function () {
                     history.back();
-              },
+              }
             });
             return false;
         });

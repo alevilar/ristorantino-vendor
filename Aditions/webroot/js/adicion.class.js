@@ -410,7 +410,7 @@ Risto.Adition.adicionar = {
         if ( this.currentMesa() && this.currentMesa().currentComanda() && this.currentMesa().currentComanda().currentSabores() ) {
             return this.currentMesa().currentComanda().currentSabores();    
         }
-    },
+    }
 
 
 

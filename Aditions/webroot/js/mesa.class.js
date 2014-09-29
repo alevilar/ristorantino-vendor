@@ -25,8 +25,8 @@ var Mesa = function(mozo, jsonData) {
         this.diasEstadia = ko.dependentObservable( function(){
             var mm = moment(this.checkin());
             var m2 = moment(this.checkout());
-            mm.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
-            m2.set('hour',00).set('minute',00).set('second',00).set('millisecond',00);
+            mm.set('hour',0).set('minute',0).set('second',0).set('millisecond',0);
+            m2.set('hour',0).set('minute',0).set('second',0).set('millisecond',0);
             return Math.abs( mm.diff(m2, "days") );
         },this);
         this.diasEstadiaRecortado = ko.observable(0);
@@ -192,6 +192,7 @@ Mesa.prototype = {
     urlGetData: function() { return URL_DOMAIN + TENANT + '/mesa/mesas/ticket_view/'+this.id() },
     urlView: function() { return URL_DOMAIN + TENANT + '/mesa/mesas/view/'+this.id() },
     urlEdit: function() { return URL_DOMAIN + TENANT + '/mesas/ajax_edit/'+this.id() },
+    urlFullEdit: function() { return URL_DOMAIN + TENANT + '/mesas/edit/'+this.id() },
     urlDelete: function() { return URL_DOMAIN + TENANT +'/mesa/mesas/delete/'+this.id() },
     urlComandaAdd: function() { return URL_DOMAIN + TENANT +'/mesa/comandas/add/'+this.id() },
     urlReimprimirTicket: function() { return URL_DOMAIN + TENANT +'/mesa/mesas/imprimirTicket/'+this.id() },

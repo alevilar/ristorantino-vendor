@@ -122,7 +122,9 @@ class MesasController extends MesaAppController {
         $this->Mesa->set('estado_id', MESA_CERRADA);
 
         if( !$this->Mesa->save() ) {
-            $this->setFlash('Error al cerrar la mesa', 'flash_error');
+            if( !$this->request->is('ajax') ){
+                $this->setFlash('Error al cerrar la mesa', 'flash_error');
+            }
         }
 
         if( !$this->request->is('ajax') ){
@@ -240,7 +242,7 @@ class MesasController extends MesaAppController {
             throw new InternalErrorException(__("Error, se debe pasar un ID de Mesa"));
         }
         if (!$this->Mesa->exists($id)) {
-            throw new NotFoundException(__("Error, la mesa no es válida"));   
+            throw new NotFoundException(__("Error, la mesa no existe"));   
         }
 
         if (!$id && !$this->request->is('post') ) {
@@ -293,12 +295,16 @@ class MesasController extends MesaAppController {
 
     public function delete($id = null) {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid id for %s', Configure::read('Mesa.tituloMesa')));
+            if (!$this->request->is('ajax')){
+                $this->Session->setFlash(__('Invalid id for %s', Configure::read('Mesa.tituloMesa')));
+            }
         }
         if ($this->Mesa->delete($id)) {
-            $this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMesa')));     
-        } else {
+            if (!$this->request->is('ajax')){
+                $this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMesa')));     
+            } 
         }
+
         if (!$this->request->is('ajax')){
             $this->redirect($this->referer());
         } else {
@@ -337,10 +343,9 @@ class MesasController extends MesaAppController {
 
 
     public function reabrir($id){
-
-        $this->Session->setFlash( __('Se reabrió la %s', Configure::read('Mesa.tituloMesa') ), 'Risto.flash_success');
-        if ( $this->Mesa->reabrir($id) ) {
+        if ( $this->Mesa->reabrir($id) ) {           
             if ( !$this->request->is('ajax') ) {            
+                $this->Session->setFlash( __('Se reabrió la %s', Configure::read('Mesa.tituloMesa') ), 'Risto.flash_success');
                 $this->redirect($this->referer());
             } else {
                 exit;
@@ -365,7 +370,9 @@ class MesasController extends MesaAppController {
                 
         $this->Mesa->id = $mesa_id;
         if ($this->Mesa->saveField('cliente_id', $cliente_id) ) {
-            $this->Session->setFlash(__('Se agregó un %s', Configure::read('Mesa.tituloCliente')));
+            if (!$this->request->is('ajax')){
+                $this->Session->setFlash(__('Se agregó un %s', Configure::read('Mesa.tituloCliente')));
+            } 
         }
     }
     

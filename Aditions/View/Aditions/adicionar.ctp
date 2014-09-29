@@ -386,8 +386,8 @@
                     </li>
                     
                     <li style="width: 49%; float: right;" id="mesa-action-edit" data-bind="attr: {'estado': 'mesa-borrar_'+adn().currentMesa().estado().icon}">
-                        <a href="#" data-external="true" target="_blank"                        
-                         data-href="<?php echo $this->Html->url(array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'edit')) ?>">
+                        <a href="#" data-external="true" target="_blank"
+                            data-bind="attr:{href: adn().currentMesa().urlFullEdit()}">
                          <?php echo $this->Html->image('/aditions/css/img/editarmesa.png')?>Editar</a>
                     </li>
                     

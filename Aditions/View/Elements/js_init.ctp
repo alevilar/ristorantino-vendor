@@ -3,7 +3,9 @@
     <!--
 
         moment.locale("es");
-        Risto.Adition.adicionar.calendarGrid = new Risto.CalendarGrid;
+        if ( typeof Risto.CalendarGrid != 'undefined' ) {
+            Risto.Adition.adicionar.calendarGrid = new Risto.CalendarGrid;
+        }
         
 
 

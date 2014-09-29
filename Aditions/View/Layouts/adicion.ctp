@@ -19,10 +19,26 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
 
 
+        <?php 
+        if ( Configure::check('Site.favicon') ) {
+            $favicon = Configure::read('Site.favicon');
+            if ( is_array( $favicon ) ) {
+                foreach ( $favicon as $f=>$ops) {
+                    echo $this->Html->meta('icon', $this->Html->url( $f ), $ops ); 
+                }
+            } else {
+                echo $this->Html->meta('icon', $this->Html->url( $favicon ) ); 
+                
+            }
+        } else {
+            echo $this->Html->meta('icon', $this->Html->url('/favicon.png')); 
+        }
+        ?>
+        
     
         <base href="<?php echo $this->Html->url('/')?>" />
             <?php
-		echo $this->Html->meta('icon');
+		
 		
 		// para los modal window
 		echo $this->Html->css(array(
@@ -36,39 +52,25 @@
                     '/aditions/css/jquery-mobile/jquery.mobile-custom',
                     ));
 
-
                 echo $this->element('Risto.per_role_style');
-                
                
-                $debug = Configure::read('debug');
 
-                if ( $debug > 0 || true) {
+                if ( Configure::read('debug') > 0 ) {
                     echo $this->Html->script( array(
                         '/aditions/js/jquery-1.6.4',
                         '/aditions/js/jquery.tmpl.min',
-
-
                         '/aditions/js/knockout-2.0.0.min.js',
-//                        'knockout-1.2.1.debug',
                         '/aditions/js/knockout.mapping-2.0.debug',
-                
                         '/aditions/js/moment-with-locales.min',
                         '/aditions/js/moment-range',
-                        
-
                         '/aditions/js/cake_saver',
                         '/aditions/js/risto',
-
-    //                    'knockout.updateData',
-
-                        // OJO !! EL ORDEN IMPORTA !!
                         '/aditions/js/adition.package',
                         '/aditions/js/mozo.class',
                         '/aditions/js/adicion.event_handler',
                         '/aditions/js/mesa.estados.class',
                         '/aditions/js/mesa.class',
-
-                            '/aditions/js/comanda.class',
+                        '/aditions/js/comanda.class',
                         '/aditions/js/comanda_fabrica.class',
                         '/aditions/js/adicion.class', // depende de Mozo, Mesa y Comanda
                         '/aditions/js/producto',
@@ -78,29 +80,36 @@
                         '/aditions/js/descuento.class',
                         '/aditions/js/pago.class',
                         '/aditions/js/detalle_comanda.class',
-                        '/aditions/js/adicion.grilla.calendar',
                         '/aditions/js/ko_adicion_model',
                         '/aditions/js/adition.events',
                         '/aditions/js/menu',
-
-    //                    'http://code.jquery.com/mobile/latest/jquery.mobile.min.js',
-                        
                         '/aditions/js/jquery.mobile-1.0.1.min',
                         ));
 
-
+                        
                         // Para todos los HOteles
                         if ( Configure::check('Site.type') && Configure::read('Site.type') == SITE_TYPE_HOTEL) {
                             // add JS
-                            echo $this->Html->script(  '/aditions/js/mesa.hotel.class_extend' );
-
-                            // Add CSS
-                            echo $this->Html->css('/aditions/css/ristorantino_hotel');
+                            echo $this->Html->script(  array( 
+                                '/aditions/js/adicion.grilla.calendar',
+                                '/aditions/js/mesa.hotel.class_extend' ,
+                                ));
                         }
-                
                 } else {
-                    echo $this->Html->script('todos.min');
+                    if ( Configure::check('Site.type') && Configure::read('Site.type') == SITE_TYPE_HOTEL) {
+                        echo $this->Html->script('/aditions/todos_hotel.min');
+                    } else {
+                        echo $this->Html->script('/aditions/todos');
+                    }
                 }
+
+
+                // Para todos los HOteles
+                if ( Configure::check('Site.type') && Configure::read('Site.type') == SITE_TYPE_HOTEL) {
+                    // Add CSS
+                    echo $this->Html->css('/aditions/css/ristorantino_hotel');
+                }
+
             ?>
 <?php
 

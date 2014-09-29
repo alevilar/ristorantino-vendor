@@ -1,6 +1,5 @@
 
 
-(function($, moment){
 
 
 
@@ -246,9 +245,8 @@
 				last = moment(Risto.Adition.adicionar.calendarGrid.days()[Risto.Adition.adicionar.calendarGrid.days().length-1]).add(weekCantDays, 'day');
 
 			Risto.Adition.adicionar.calendarGrid.setFromToDate(first, last);
-		},
+		}
 	}
 
 	Risto.CalendarGrid = CalendarGrid;
 	
-})(jQuery, moment);
