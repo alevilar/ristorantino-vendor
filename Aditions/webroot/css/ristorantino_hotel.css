@@ -152,6 +152,12 @@ table.mozo-days td, table.calendar-header th{
 	color: beige;
 }
 
+.calendar-container  table.mozo-mesas .mark a.mesa-inactiva{
+	background: #5D5E5F;
+	color: #DBDFBF;
+	opacity: 0.5;
+}
+
 
 
 

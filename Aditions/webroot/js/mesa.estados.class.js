@@ -48,6 +48,12 @@ var MESA_ESTADOS_POSIBLES =  {
         id: 3,
         icon: 'mesa-oculta'
     },
+    ocultada: {
+        msg: 'Inactiva',
+        event: Risto.Adition.EventHandler.mesaOcultada,
+        id: 4,
+        icon: 'mesa-inactiva'
+    },
     borrada: {
         msg: 'Borrada',
         event: Risto.Adition.EventHandler.mesaBorrada,
