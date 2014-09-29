@@ -105,7 +105,7 @@ echo $this->Html->css('/cash/css/style_cash');
                                 echo $this->Form->hidden('caja_id');
                             }
                             echo $this->Form->input('datetime', array('class' => "form-control muted", 'type' => 'datetime', 'label' => 'Fecha y Hora'));
-                            echo $this->Form->input('importe_final', array('type' => 'number', 'required' => true));
+                            echo $this->Form->input('importe_final', array('type' => 'number', 'required' => true, 'step' => 'any'));
                             echo $this->Form->input('saldo', array('disabled' => true));
                             echo $this->Form->input('observacion', array('label' => 'Obs. del Arqueo'));
                             ?>
