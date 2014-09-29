@@ -90,7 +90,11 @@ Risto.Adition.detalleComanda.prototype = {
      * O sea, la cantidad agregada menos la quitada
      */
     realCant: function(){
-        return parseInt( this.cant() ) - parseInt( this.cant_eliminada() );
+        var cant = parseFloat( this.cant() ) - parseInt( this.cant_eliminada() );
+        if (cant < 0) {
+            cant = 0;
+        }
+        return cant;        
     },
     
     
@@ -162,8 +166,6 @@ Risto.Adition.detalleComanda.prototype = {
             this.modificada(true);
         }
         var dc = this;
-        console.debug(URL_DOMAIN);
-        console.debug(dc.id());
         $cakeSaver.send({
            url: URL_DOMAIN + TENANT + '/comanda/detalle_comandas/edit/' + dc.id(),
            obj: dc
@@ -182,6 +184,18 @@ Risto.Adition.detalleComanda.prototype = {
             this.es_entrada( 1 );
         }
         
+    },
+    
+
+    fraccionar: function() {
+        var cant = prompt("Fraccionar Unidad");
+        if ( isNaN( cant )) {
+            alert('ERROR: Debe ingresar un valor numérico');
+        }
+        if ( cant && !isNaN(cant)) {
+            this.cant(cant);
+            this.cant_eliminada(0);
+        }
     },
     
     

@@ -168,7 +168,6 @@
                     'data[Proveedor][buscar_proveedor]': a
                 };
                 var url = this.$element.data('url');
-                console.info(url);
                 $.post(url, obj).done(function(data, state){
                     if (!data.length) {                        
                         $('input.auto-complete').popover('show');                        

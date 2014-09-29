@@ -19,9 +19,19 @@ ul.listado-adicion{
 }
 
 
+#mesa-abrir-mesa-generica-btn{
+    min-width: 85px;
+}
+
+#mesa-abrir-mesa-btn{
+    min-width: 85px;
+}
+
+
 ul.listado-adicion li {
     height: auto;
     margin: 0.5%;
+    min-width: 70px;
 }
 ul.listado-adicion li a {
     margin: 0;
@@ -375,6 +385,11 @@ ul.tipo_de_pagos ,.tipo_de_pagos ul{
     margin-left: -17px;
     position: relative;
     margin-left: 2px;
+}
+@media (max-width: 700px) { 
+    .mesa-time, .mesa-tipofactura{
+        display: none !important;
+    }
 }
 
 .cant_comensales{
