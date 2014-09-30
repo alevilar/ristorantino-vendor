@@ -103,7 +103,6 @@ table.calendar-header th.highlight{
     position: absolute;
 	top: 0;
 	left: 0;
-	height: 100%;
 	width: 100%;
 	table-layout: fixed;
 }
@@ -126,7 +125,7 @@ table.mozo-days td, table.calendar-header th{
 }
 
 .day-list table .day, .calendar-container table.mozo-days .day{
-	height: 48px;
+	height: 35px;
 	border-right: 1px dotted #333;
 }
 
@@ -177,12 +176,11 @@ table.mozo-days td, table.calendar-header th{
 	text-align: center;
 	font-size: 9pt;
 	font-weight: lighter;
-	line-height: initial;
 	text-decoration: none;
-	height: 32px;
+	height: 28px;
+	line-height: 28px;
 	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
-	line-height: 30px;
 	background: yellow;
 	-webkit-border-radius: 50px;
 	-moz-border-radius: 50px;
@@ -226,8 +224,7 @@ table.mozo-days td, table.calendar-header th{
 
 .calendar-container  table.mozo-mesas .mozo-col{
 	padding-top: 3px;
-	padding-bottom: 3px;
-	height: 38px;
+	padding-bottom: 3px;	
 }
 
 
@@ -242,13 +239,12 @@ table.mozo-days td, table.calendar-header th{
 	text-align: center;
 	font-size: 9pt;
 	font-weight: lighter;
-	line-height: initial;
 	text-decoration: none;
-	height: 27px;
+	height: 23px;
+	line-height: 23px;
+	margin: 0xp; padding: 0px;
 	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
-	text-decoration: none;
-	line-height: 20px;
-	
+	text-decoration: none;	
 	background: #eee;
 	opacity: 0.5;
 	border: 1px dashed grey;
@@ -271,11 +267,10 @@ table.mozo-days td, table.calendar-header th{
 	font-size: 9pt;
 	font-weight: lighter;
 	line-height: initial;
-	text-decoration: none;
-	height: 32px;
+	text-decoration: none;	
+	height: 23px;
 	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
-	line-height: 30px;
 	background: yellow;
 	-webkit-border-top-left-radius: 55px;
 	-webkit-border-bottom-left-radius: 55px;
@@ -294,11 +289,10 @@ table.mozo-days td, table.calendar-header th{
 	font-weight: lighter;
 	line-height: initial;
 	text-decoration: none;
-	height: 32px;
 	font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 	text-decoration: none;
-	line-height: 30px;
 	background: yellow;
+	height: 23px;
 	opacity: 0.5;
 	overflow: hidden;
 	border-top: 1px dashed grey;
@@ -308,8 +302,7 @@ table.mozo-days td, table.calendar-header th{
 
  
 
-#listado-mesas .mozo-row{
-    height: 48px;    
+#listado-mesas .mozo-row{    
     clear: both;
     position: relative;
     border-top: 1px solid grey;
@@ -317,9 +310,9 @@ table.mozo-days td, table.calendar-header th{
 
 
 .mozo-row .mozos-list-vertical{
-	line-height: 48px;
+	line-height: initial;
 	text-align: center;
-	font-size: 18pt;
+	font-size: 13pt;
 
 }
 
@@ -331,12 +324,13 @@ table.mozo-days td, table.calendar-header th{
     display: block;
     text-align: center;
     vertical-align: middle;
-    line-height: 48px;
     text-decoration: none;
 }
 
 .listado-mozos-para-mesas{
 	border-right: 1px solid grey;
+	line-height: 35px;
+	height: 35px;
 }
 
 
@@ -359,36 +353,8 @@ table.mozo-days td, table.calendar-header th{
 
 .calendar-grid th.day{
     font-size: 9pt; 
-    font-weight: lighter;
-    height: 58px;
+    font-weight: lighter;    
 }
-
-
- 
-th.rotate{
- text-align: center;
- vertical-align: middle;
-  height: 60px;
-  width: 40px;
-  min-width: 40px;
-  max-width: 40px;
-  position: relative;
-  vertical-align: bottom;
-  padding: 0;
-  font-size: 12px;
-}
-
-th.rotate > div{
-  position: relative;
-  top: 0px;
-  left: 40px; /* 80 * tan(45) / 2 = 40 where 80 is the height on the cell and 45 is the transform angle*/
-  height: 100hv;
-  transform: rotate(-90deg);
-  transform-origin: left bottom 0;
-  overflow: hidden;
-  width: 68px;
-}
-
 
 
 
