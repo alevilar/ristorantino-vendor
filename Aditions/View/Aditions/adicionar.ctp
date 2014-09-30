@@ -46,7 +46,7 @@
                         data-numero="99"
                         data-role="button" 
                         title="<?php echo Configure::read('Mesa.generica_name')?>"
-                        data-theme="a"><?php echo $this->Html->image('flash.png')?></a>
+                        data-theme="a"><?php echo $this->Html->image('/aditions/css/img/flash.png')?></a>
                     
                     <?php
                 }

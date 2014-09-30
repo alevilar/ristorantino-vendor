@@ -55,7 +55,7 @@
                 echo $this->element('Risto.per_role_style');
                
 
-                if ( Configure::read('debug') > 0 ) {
+                if ( Configure::read('debug') > 0 && 1 == 2) {
                     echo $this->Html->script( array(
                         '/aditions/js/jquery-1.6.4',
                         '/aditions/js/jquery.tmpl.min',
@@ -99,7 +99,7 @@
                     if ( Configure::check('Site.type') && Configure::read('Site.type') == SITE_TYPE_HOTEL) {
                         echo $this->Html->script('/aditions/todos_hotel.min');
                     } else {
-                        echo $this->Html->script('/aditions/todos');
+                        echo $this->Html->script('/aditions/todos.min');
                     }
                 }
 

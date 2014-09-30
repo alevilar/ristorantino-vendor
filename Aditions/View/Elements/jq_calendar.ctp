@@ -37,11 +37,7 @@
                data-bind="attr:{colspan:diasEstadiaRecortado, 'data-checkin': checkin, 'data-checkout': checkout, 'class': grillaExtraClass}">
               <div class="mark">
                  <a  data-bind="click: seleccionar, attr: {accesskey: numero, id: 'mesa-id-'+id(), 'class': estado().icon}" 
-                    href="#mesa-view" >
-                    <span  class="mesa-tipofactura" data-bind="visible: clienteTipoFacturaText()">
-                      <span data-bind="text: clienteTipoFacturaText()"></span>
-                  </span>
-                    &nbsp;
+                    href="#mesa-view" >                    
                     <span class="mesa-cliente" data-bind="text: clienteNameData()"></span>
                 </a>
               </div>

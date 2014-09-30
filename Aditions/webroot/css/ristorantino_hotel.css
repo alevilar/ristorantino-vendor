@@ -212,9 +212,15 @@ table.mozo-days td, table.calendar-header th{
 	border-bottom-right-radius: 0px;
 }
 
+
+.calendar-container  table.mozo-mesas .mesa-tipofactura{
+	position: relative !important;
+	left: 0px;
+}
+
 .calendar-container  table.mozo-mesas .mark .mesa-cliente{
 	position: relative;
-	left: 10px;
+	font-size: 8pt;
 }
 
 
