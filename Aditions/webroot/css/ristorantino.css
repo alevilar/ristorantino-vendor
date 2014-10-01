@@ -245,6 +245,16 @@ ul.listado-adicion .mesa-mozo,ul.listado-adicion .mozo-cant-mesas {
     margin-top: -7px;
 }
 
+.mesa-view #mesa-textarea-observation{
+    border: none;
+    color: rgb(207, 0, 0);
+}
+
+.mesa-view #mesa-textarea-observation:focus{
+    border: 1px solid grey;
+    background: #FBFEFF;
+}
+
 .mesa-actions ul li {
     border-right-color: #B3B3B3;
     border-right-width: 1px;

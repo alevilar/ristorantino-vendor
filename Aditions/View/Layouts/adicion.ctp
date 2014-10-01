@@ -55,7 +55,7 @@
                 echo $this->element('Risto.per_role_style');
                
 
-                if ( Configure::read('debug') > 0 || 1 == 2) {
+                if ( Configure::read('debug') > 0 ) {
                     echo $this->Html->script( array(
                         '/aditions/js/jquery-1.6.4',
                         '/aditions/js/jquery.tmpl.min',
