@@ -7,21 +7,8 @@
 class PxFormHelper extends Bs3FormHelper {
 
 
-	public function date($fieldName, $dateFormat = 'yyyy-MM-dd', $timeFormat = null, $attributes = array()) {
-		die("asas");
-		debug($dateFormat);
-		if ( !empty($timeFormat) ) {
-			$dateFormat = $dateFormat." hh:mm A/PM";
-		}
 
-		return $this->text($fieldName, array(				
-                'class' => 'datepicker form-control',
-                'data-format' =>  $dateFormat,
-            ));
-	}
-
-
-	public function dateTime($fieldName, $dateFormat = 'yyyy-MM-dd', $timeFormat = 'hh:mm A/PM', $attributes = array()) {
+	public function dateTime($fieldName, $dateFormat = 'yyyy-MM-dd', $timeFormat = null, $attributes = array()) {
 		$dateFormat = 'yyyy-MM-dd';
 		$timeFormat = 'hh:mm';
 		if ( !empty($timeFormat) ) {

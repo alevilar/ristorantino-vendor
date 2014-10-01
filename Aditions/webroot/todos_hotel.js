@@ -13201,6 +13201,8 @@ Mozo.prototype.mesasFromDataRangeByRange = function () {
 		 	 cols = [],
 		 	 diffDays = 0,
 		 	 iant,
+		 	 diffMin, diffMax,
+		 	 className = '',
 		 	 i = 0;
 		if ( days ) {			
 			while ( i < days.length ) {
@@ -13222,12 +13224,27 @@ Mozo.prototype.mesasFromDataRangeByRange = function () {
 						
 					diasEstadia = mesa.diasEstadia();
 				
+					diffMin = Date.diffDays( cin, days[0] );
+					diffMax = Date.diffDays( cout, days[days.length-1] );
 
 					// check limit de grilla inicial con checkin
-					if ( Date.diffDays( cin, days[0] ) < 0 ) {
-						// recortado
-						diasEstadia = Math.abs( diasEstadia - Math.abs(Date.diffDays( cin, days[0] )) );											
-						mesa.grillaExtraClass('checkin-not-showed');
+					if ( diffMin < 0 || diffMax  > 0 ) {
+						className = '';
+
+						if ( diffMin < 0 && diffMax > 0) {
+							// recortado
+							diasEstadia = days.length;
+							className = 'checkin-not-showed  checkout-not-showed';
+						} else if ( diffMin < 0 ) {
+							// recortado
+							diasEstadia = Math.abs( diasEstadia - Math.abs(Date.diffDays( cin, days[0] )) );											
+							className = 'checkin-not-showed';
+						} else if ( diffMax > 0 ) {
+							// check limit de grilla final con checkout
+							diasEstadia =  Math.abs( diasEstadia - Math.abs(Date.diffDays( cout, days[days.length-1] )) )+1;						
+							className = 'checkout-not-showed';
+						}
+						mesa.grillaExtraClass(className);
 					} else {
 						if ( mesa.grillaExtraClass() == 'checkin-not-showed' ) {
 							// si estaba recortado y luego se movio la grilla, resetear clase
@@ -13235,16 +13252,6 @@ Mozo.prototype.mesasFromDataRangeByRange = function () {
 						}
 					}
 
-					// check limit de grilla final con checkout
-					if ( Date.diffDays( cout, days[days.length-1] ) > 0 ) {
-
-						diasEstadia =  Math.abs( diasEstadia - Math.abs(Date.diffDays( cout, days[days.length-1] )) )+1;						
-						mesa.grillaExtraClass('checkout-not-showed');
-					} else {
-						if ( mesa.grillaExtraClass() == 'checkout-not-showed' ) {
-							mesa.grillaExtraClass('checkin-checkout');
-						}
-					}
 
 					mesa.diasEstadiaRecortado( diasEstadia );
 
