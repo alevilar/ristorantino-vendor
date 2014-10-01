@@ -1,22 +1,30 @@
-<div class="clientes index col-md-12">
+<div class="clientes index">
+	<?php echo $this->Html->link(__('Crear Nuevo %s', Configure::read('Mesa.tituloCliente')), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')) ?>
 	<h2><?php echo Inflector::pluralize( Configure::read('Mesa.tituloCliente')) ?></h2>
+
+
+	<div class"">
+	<hr />
+	<h4>Buscador</h4>
+	<?php echo $this->Form->create('Cliente', array('formStyle'=>'inline')) ?>
+            <?php echo $this->Form->input('codigo', array('placeholder'=>'Código')); ?>
+            <?php echo $this->Form->input('nombre', array('required' => false, 'placeholder'=>'Nombre')); ?>
+            <?php echo $this->Form->input('mail', array('placeholder'=>'Mail')); ?>
+            <?php echo $this->Form->input('tipo_documento_id', array('required' => false, 'options'=>$tipoDocumentos)); ?>
+            <?php echo $this->Form->input('nrodocumento', array('placeholder'=>'Nº Documento')); ?>
+            <?php echo $this->Form->input('telefono', array('placeholder'=>'Teléfono')); ?>
+            <?php echo $this->Form->input('iva_responsabilidad_id', array('required' => false, 'options'=>$ivaResponsabilidades)); ?>
+            <?php echo $this->Form->input('descuento_id', array('options' =>$descuentos)); ?>
+            <?php echo $this->Form->input('domicilio', array('placeholder'=>'Domicilio')); ?>
+            <?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary')); ?>
+    <?php echo $this->Form->end() ?>
+    <hr />
+	</div>
+
+
 	<table class="table">
             
-            <thead>
-                <?php echo $this->Form->create('Cliente') ?>
-                <tr>
-                        <th><?php echo $this->Form->text('codigo'); ?></th>
-                        <th><?php echo $this->Form->text('nombre', array('required' => false)); ?></th>
-                        <th><?php echo $this->Form->text('mail'); ?></th>
-                        <th><?php echo $this->Form->select('tipo_documento_id', $tipoDocumentos, array('required' => false)); ?></th>
-                        <th><?php echo $this->Form->text('nrodocumento'); ?></th>
-                        <th><?php echo $this->Form->text('telefono'); ?></th>
-                        <th><?php echo $this->Form->select('iva_responsabilidad_id', $ivaResponsabilidades, array('required' => false)); ?></th>
-                        <th><?php echo $this->Form->select('descuento_id', $descuentos); ?></th>
-                        <th><?php echo $this->Form->text('domicilio'); ?></th>
-                        <th><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary')); ?></th>
-                </tr>
-                <?php echo $this->Form->end() ?>
+            <thead>                
 
                 <tr>
                     
@@ -34,6 +42,8 @@
                     <th class="actions"><?php echo __('Actions'); ?></th>
                 </tr>
             </thead> 
+
+            <tbody>
 	<?php foreach ($clientes as $cliente): ?>
 	<tr>
 		<td><?php echo h($cliente['Cliente']['codigo']); ?></td>
@@ -73,6 +83,7 @@
 		</td>
 	</tr>
 <?php endforeach; ?>
+	</tbody>
 	</table>
 	<p>
 	<?php

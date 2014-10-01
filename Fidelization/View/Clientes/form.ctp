@@ -1,7 +1,7 @@
 <div class="clientes form">
 <?php echo $this->Form->create('Cliente'); ?>
 	<fieldset>
-		<legend><?php echo __('Edit %s', Configure::read('Mesa.tituloCliente')); ?></legend>
+		<legend><?php echo Configure::read('Mesa.tituloCliente'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
 		
@@ -13,7 +13,7 @@
 		echo $this->Form->input('descuento_id', array('empty'=>'Sin Descuento'));
 
 		echo $this->Form->input('codigo');
-		echo $this->Form->input('mail');
+		echo $this->Form->input('mail', array('type'=>'email'));
 		echo $this->Form->input('telefono');
 		echo $this->Form->input('domicilio');
 	?>
