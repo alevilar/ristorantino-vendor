@@ -113,20 +113,20 @@ echo $this->Html->css('/cash/css/style_cash');
 
                         <div class="col-md-6">
                             <?php
-                            echo $this->Form->input('importe_inicial', array('type' => 'number', 'class' => 'form-control muted'));
+                            echo $this->Form->input('importe_inicial', array('class' => 'form-control muted'));
                             if (!empty($this->data['Arqueo']['ingreso']) || (!empty($caja) && !empty($caja['Caja']['name']) && !empty($caja['Caja']['computa_ingresos']) )) {
-                                echo $this->Form->input('ingreso', array('type' => 'number', 'label' => 'Ventas en efectivo', 'class' => 'form-control muted'));
+                                echo $this->Form->input('ingreso', array('label' => 'Ventas en efectivo', 'class' => 'form-control muted'));
                             } else {
                                 echo $this->Form->hidden('ingreso');
                             }
 
                             if (!empty($this->data['Arqueo']['egreso']) || (!empty($caja) && !empty($caja['Caja']['name']) && !empty($caja['Caja']['computa_egresos']) )) {
-                                echo $this->Form->input('egreso', array('type' => 'number', 'label' => 'Pagos en efectivo', 'class' => 'form-control muted'));
+                                echo $this->Form->input('egreso', array('label' => 'Pagos en efectivo', 'class' => 'form-control muted'));
                             } else {
                                 echo $this->Form->hidden('egreso');
                             }
-                            echo $this->Form->input('otros_ingresos', array('type' => 'number', 'class' => 'form-control muted'));
-                            echo $this->Form->input('otros_egresos', array('type' => 'number', 'class' => 'form-control muted'));
+                            echo $this->Form->input('otros_ingresos', array('class' => 'form-control muted'));
+                            echo $this->Form->input('otros_egresos', array('class' => 'form-control muted'));
                             ?>
                         </div>  
                     </div>
@@ -162,14 +162,13 @@ echo $this->Html->css('/cash/css/style_cash');
                         <div class="col-md-6">
                             <?php
                             echo $this->Form->input('Zeta.total_ventas', array(
-                                'type' => 'number',
                                 'label' => 'Ventas del Día',
                                 'class' => 'form-control muted', 
                                 'required' => false
                                 )
                             );
-                            echo $this->Form->input('Zeta.monto_neto', array('type' => 'number', 'required' => false));
-                            echo $this->Form->input('Zeta.nota_credito_neto', array('type' => 'number'));
+                            echo $this->Form->input('Zeta.monto_neto', array('required' => false));
+                            echo $this->Form->input('Zeta.nota_credito_neto', array());
                             echo $this->Form->input('Zeta.observacion', array('label' => 'Obs. General Z'));
                             ?>
                         </div>
@@ -177,14 +176,13 @@ echo $this->Html->css('/cash/css/style_cash');
                         <div class="col-md-6">
                             <?php
                             echo $this->Form->input('Zeta.numero_comprobante', array(
-                                'type' => 'number',
                                 'step' => '1',
                                 'label' => '#Comprobante',
                                 'class' => 'form-control muted', 'required' => false
                                 )
                             );
-                            echo $this->Form->input('Zeta.monto_iva', array('type' => 'number'));
-                            echo $this->Form->input('Zeta.nota_credito_iva', array('type' => 'number'));
+                            echo $this->Form->input('Zeta.monto_iva', array());
+                            echo $this->Form->input('Zeta.nota_credito_iva', array());
                             echo $this->Form->input('Zeta.observacion_comprobante_tarjeta', array('label' => 'Obs. Tarjetas'));
                             ?>
                         </div>
