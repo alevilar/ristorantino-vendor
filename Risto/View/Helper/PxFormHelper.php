@@ -22,7 +22,8 @@ class PxFormHelper extends Bs3FormHelper {
 
 
 	public function dateTime($fieldName, $dateFormat = 'yyyy-MM-dd', $timeFormat = 'hh:mm A/PM', $attributes = array()) {
-		
+		$dateFormat = 'yyyy-MM-dd';
+		$timeFormat = 'hh:mm';
 		if ( !empty($timeFormat) ) {
 			$clasname = 'datetimepicker';
 			$dateFormat = $dateFormat.' '.$timeFormat ;

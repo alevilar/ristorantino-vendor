@@ -63,7 +63,7 @@
         
         
         // recalcular saldo
-        $('input','#ArqueoAddForm').bind('change', calcularSaldo);
+        $('input','#ArqueoAddForm').bind('keyup', calcularSaldo);
         
         // si es Nuevo arqueo, poner el valor del saldo en su input
         if ((typeof $('#ArqueoId').val() == 'string') && !$('#ArqueoId').val()) {
@@ -96,12 +96,12 @@
             $("#billetines").show('fade');
         });
         
-        $('#ZetaMontoNeto').change(function(){
+        $('#ZetaMontoNeto').bind('keyup', function(){
             var valor = new Number(this.value);
             $('#ZetaMontoIva').val(parseInt(valor * 0.21 * 100)/100);
         });
         
-        $('#ZetaNotaCreditoNeto').change(function(){
+        $('#ZetaNotaCreditoNeto').bind('keyup', function(){
             var valor = new Number(this.value);
             $('#ZetaNotaCreditoIva').val(parseInt(valor * 0.21 * 100)/100);
         });
@@ -119,18 +119,18 @@
             var bA = new Number($('#BilletesBA').val());
             
             $('#ArqueoImporteFinal').val(b100+b50+b20+b10+b5+b2+b1+b0+bA);
-            $('#ArqueoImporteFinal').trigger('change');
+            $('#ArqueoImporteFinal').trigger('keyup');
         }
         
-        $('#BilletesB100').change(sumarBilletes);
-        $('#BilletesB50').change(sumarBilletes);
-        $('#BilletesB20').change(sumarBilletes);
-        $('#BilletesB10').change(sumarBilletes);
-        $('#BilletesB5').change(sumarBilletes);
-        $('#BilletesB2').change(sumarBilletes);
-        $('#BilletesB1').change(sumarBilletes);
-        $('#BilletesB0').change(sumarBilletes);
-        $('#BilletesBA').change(sumarBilletes);
+        $('#BilletesB100').bind('keyup', sumarBilletes);
+        $('#BilletesB50').bind('keyup', sumarBilletes);
+        $('#BilletesB20').bind('keyup', sumarBilletes);
+        $('#BilletesB10').bind('keyup', sumarBilletes);
+        $('#BilletesB5').bind('keyup', sumarBilletes);
+        $('#BilletesB2').bind('keyup', sumarBilletes);
+        $('#BilletesB1').bind('keyup', sumarBilletes);
+        $('#BilletesB0').bind('keyup', sumarBilletes);
+        $('#BilletesBA').bind('keyup', sumarBilletes);
 
     });
 
