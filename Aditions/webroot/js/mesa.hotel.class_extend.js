@@ -28,9 +28,18 @@ Mozo.prototype.tieneMesaEl = function ( day ) {
 
 	};
 
+Risto.mesaHoteltrDisplay = Mozo.prototype.mesaHoteltrDisplay = function ( mesa ) {
+	//console.info("estoy aca y veo la mesa %o y args %o y canmesas %o", mesa, arguments, this.mesas().length);
+	if ( mesa && mesa.diasEstadia() > 0 ) {		
+    	return "calendar-mozo-mesas-data-day-grid";
+	} else {
+    	return "calendar-mozo-mesas-data-day-grid-libre";
+    }
+}
 
 
 Mozo.prototype.mesasFromDataRangeByRange = function () {
+	
 		 var days = Risto.Adition.adicionar.calendarGrid.days(),
 		 	 curDay,
 		 	 mesa, 
@@ -56,7 +65,7 @@ Mozo.prototype.mesasFromDataRangeByRange = function () {
 					mesa.diasEstadiaRecortado = ko.observable( 0 );
 				}
 
-				
+
 				if ( mesa ) {
 					cin =  Date.clearHour( mesa.checkin() );
 					cout =  Date.clearHour( mesa.checkout() );

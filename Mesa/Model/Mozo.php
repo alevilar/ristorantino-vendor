@@ -163,7 +163,8 @@ class Mozo extends MesaAppModel {
             return $this->find('list', array(
                 'fields'=>array(
                     'Mozo.id',
-                    'numero_y_nombre',
+                    'numero'
+                    //'numero_y_nombre',
                     ),
                 'conditions' => array(
                     'Mozo.activo' => 1

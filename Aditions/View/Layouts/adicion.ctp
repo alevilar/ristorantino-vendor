@@ -15,7 +15,7 @@
 		<?php echo $title_for_layout; ?>
 	</title>
         
-        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no;"> 
+        <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; minimum-scale=1.0; user-scalable=no;"> 
         <meta name="apple-mobile-web-app-capable" content="yes">
 
 
@@ -44,12 +44,19 @@
 		echo $this->Html->css(array(
 //                    'http://code.jquery.com/mobile/latest/jquery.mobile.min.css',
 //                    'jquery-mobile/jquery.mobile-1.0',
-                    '/aditions/css/jquery-mobile/jquerymobile.coqus',
 //                    'jquery-mobile/jquery.mobile-1.0rc1.min',
 //                    'jquery-mobile/jquery-mobile-fluid960',
-                    '/aditions/css/jquery-mobile/jquery.mobile.actionsheet',
+                  //  '/aditions/css/jquery-mobile/jquery.mobile.actionsheet', 
+
+                    '/aditions/jquery-mobile/ristorantino.min',
                     '/aditions/css/ristorantino',
-                    '/aditions/css/jquery-mobile/jquery.mobile-custom',
+                    
+                    '/aditions/jquery-mobile/jquery.mobile.structure-1.4.4.min',
+                    '/aditions/jquery-mobile/jquery.mobile.icons.min',
+                    
+
+
+                    //'/aditions/css/jquery-mobile/jquerymobile.coqus',
                     ));
 
                 echo $this->element('Risto.per_role_style');
@@ -57,10 +64,14 @@
 
                 if ( Configure::read('debug') > 0 ) {
                     echo $this->Html->script( array(
-                        '/aditions/js/jquery-1.6.4',
-                        '/aditions/js/jquery.tmpl.min',
-                        '/aditions/js/knockout-2.0.0.min.js',
-                        '/aditions/js/knockout.mapping-2.0.debug',
+                        '/aditions/js/jquery.min',
+                       // '/aditions/js/jquery.tmpl.min',
+
+                        '/aditions/js/knockout-3.2.0',
+                        '/aditions/js/knockout.mapping-2.4.1',
+                        //'/aditions/js/knockout-2.0.0.min.js',
+                        //'/aditions/js/knockout.mapping-2.0.debug',
+
                         '/aditions/js/moment-with-locales.min',
                         '/aditions/js/moment-range',
                         '/aditions/js/cake_saver',
@@ -83,7 +94,9 @@
                         '/aditions/js/ko_adicion_model',
                         '/aditions/js/adition.events',
                         '/aditions/js/menu',
-                        '/aditions/js/jquery.mobile-1.0.1.min',
+
+                        '/aditions/jquery-mobile/jquery.mobile-1.4.4.min',
+                        //'/aditions/js/jquery.mobile-1.0.1.min',
                         ));
 
                         

@@ -30,15 +30,13 @@
 		//echo $this->Form->input('time_paso_pedido');
 		//echo $this->Form->input('time_cerro');
 
-		echo $this->Form->input('time_abrio', array(
-                'class' => 'datetimepicker form-control',
-                'data-format' =>  "yyyy-MM-dd hh:mm:ss",
-            ));
+		echo $this->Form->input('time_abrio');
+		echo $this->Form->input('time_cerro');
 
-		echo $this->Form->input('time_cerro', array(
-                'class' => 'datetimepicker form-control',
-                'data-format' =>  "yyyy-MM-dd hh:mm:ss",
-            ));
+		if (Configure::read('Site.type')== SITE_TYPE_HOTEL) {
+			echo $this->Form->input('checkin', array('type'=>'date'));
+			echo $this->Form->input('checkout', array('type'=>'date'));
+		}
 
 		echo $this->Form->input('total', array(           
             'label'=>'Importe Total'

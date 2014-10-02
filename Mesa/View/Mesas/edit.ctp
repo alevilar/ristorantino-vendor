@@ -21,46 +21,64 @@
 
 
                 <?php echo $this->Form->create('Mesa'); ?>
-                    <legend><?php __('Datos Generales'); ?></legend>
-                    <?php
-                    echo $this->Form->input('id');
-                    echo $this->Form->input('estado_id');
-                    echo $this->Form->input('numero', array('label' => __('Número de %s', Configure::read('Mesa.tituloMesa') ) ));
-                    echo $this->Form->input('mozo_id', array('label'=>Configure::read('Mesa.tituloMozo')));
-                    ?>
+                <legend><?php __('Datos Generales'); ?></legend>
+
+                <div class="row">
+                    <div class="col-md-6">
+                    <?php echo $this->Form->input('estado_id'); ?>
+                    </div>
+                    <div class="col-md-6">
+                    <?php echo $this->Form->input('mozo_id', array('label'=>Configure::read('Mesa.tituloMozo'))); ?>
+                    </div>
+                </div>
+                <?php
+                echo $this->Form->input('id');
+                
+                echo $this->Form->input('numero', array('label' => __('Número de %s', Configure::read('Mesa.tituloMesa') ) ));
+                ?>
+
+                <legend><?php __('Totales de %s', Configure::read('Mesa.tituloMesa')); ?></legend>
+
+            <div class="row">
+                <div class="col-md-4">
+                <?php  echo $this->Form->input('cant_comensales', array('label'=> Inflector::pluralize( Configure::read('Mesa.tituloCubierto')  ))); ?>
+                </div>
+                <div class="col-md-4">
+                    <?php  echo $this->Form->input('checkin', array( 'type'=>'date', 'required'=>false)); ?>
+                </div>
+
+                <div class="col-md-4">
+                    <?php  echo $this->Form->input('checkout', array( 'type'=>'date', 'required'=>false )); ?>
+                </div>
+
+            </div>
+
+                <?php
+
+               
+                echo $this->Form->input('observation', array());
+
+                echo $this->Form->input('total', array('label'=>'Importe Total'));
+                
+
+                echo "<br>";
+
+                echo $this->Html->link(__('Borrar %s', Configure::read('Mesa.tituloMesa') )
+                                , array('action' => 'delete'
+                                , $this->Form->value('Mesa.id'))
+                                , array('class' => 'btn btn-default pull-right  btn-lg')
+                                , sprintf('Seguro que querés borrar la Número # %s?', $this->Form->value('Mesa.numero'))); 
+
+                
+
+                echo $this->Form->submit('Guardar Cambios', array('class'=>'btn btn-primary btn-lg'));
+
+                
 
 
-                    <legend><?php __('Totales de %s', Configure::read('Mesa.tituloMesa')); ?></legend>
-                    <?php
-                    
-                    echo $this->Form->input('checkin', array( 'type'=>'date'));
-                    echo $this->Form->input('checkout', array( 'type'=>'date' ));
+                echo $this->Form->end();
 
-                    echo $this->Form->input('cant_comensales', array('label'=> __("Cantidad de %s", Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) )));
-
-                    echo $this->Form->input('observation', array());
-
-                    echo $this->Form->input('total');
-                    
-
-                    echo "<br>";
-
-                    echo $this->Html->link(__('Borrar %s', Configure::read('Mesa.tituloMesa') )
-                                    , array('action' => 'delete'
-                                    , $this->Form->value('Mesa.id'))
-                                    , array('class' => 'btn btn-default pull-right  btn-lg')
-                                    , sprintf('Seguro que querés borrar la Número # %s?', $this->Form->value('Mesa.numero'))); 
-
-                    
-
-                    echo $this->Form->submit('Guardar Cambios', array('class'=>'btn btn-primary btn-lg'));
-
-                    
-
-
-                    echo $this->Form->end();
-
-                    ?>
+                ?>
         </div>
 
 

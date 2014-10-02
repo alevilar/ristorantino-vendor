@@ -335,6 +335,13 @@ Mesa.prototype = {
         return '';
     },
     
+
+    jqmDataTheme: function () {
+        if (this.estado()){
+            return this.estado().jqmlTheme;
+        }
+        return '';
+    },
     
     /**
          *  dependentObservable

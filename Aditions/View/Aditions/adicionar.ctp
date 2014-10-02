@@ -12,8 +12,15 @@
 <div data-role="page" id="listado-mesas">
 
 	<div  data-role="header">
+ 
 
-            <h1><span style="color: #fcf0b5" data-bind="text: adn().mesas().length">0</span> <?php echo Inflector::pluralize( Configure::read('Mesa.tituloMesa') )?></h1>
+            <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
+            <a href="#mesa-add" id="mesa-abrir-mesa-btn" data-rel="dialog"  class="abrir-mesa" data-role="button" data-theme="e">
+                Abrir <?php echo Configure::read('Mesa.tituloMesa')?>
+            </a>  
+
+
+            <h1><span data-bind="text: adn().mesas().length">0</span> <?php echo Inflector::pluralize( Configure::read('Mesa.tituloMesa') )?></h1>
 
             <a href='#adicion-opciones' data-icon="gear" data-rel="dialog" class="ui-btn-right">Opciones</a>
             
@@ -35,7 +42,7 @@
             <?php endif; ?>
     </div>
                     
-    <div  data-role="content" class="content_mesas">       
+    <div  data-role="main" class="ui-content content_mesas">       
 
             <?php $usar_generica =  Configure::read('Mesa.usar_generica');
                 if ( !empty($usar_generica) ) {
@@ -46,16 +53,12 @@
                         data-numero="99"
                         data-role="button" 
                         title="<?php echo Configure::read('Mesa.generica_name')?>"
-                        data-theme="a"><?php echo $this->Html->image('/aditions/css/img/flash.png')?></a>
+                        data-theme="e"><?php echo $this->Html->image('/aditions/css/img/flash.png')?></a>
                     
                     <?php
                 }
-            ?>    
-
-            <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
-            <a href="#mesa-add" id="mesa-abrir-mesa-btn" data-rel="dialog"  class="abrir-mesa" data-role="button" data-theme="a">
-                Abrir<br><?php echo Configure::read('Mesa.tituloMesa')?>
-            </a>  
+            ?>   
+            
 
             <ul id="mesas_container" class="listado-adicion" data-bind='template: { name: "listaMesas", foreach: adn().mesas }'>
                     
@@ -74,7 +77,7 @@
 -->
 <div data-role="page" id="listado-mesas" class="calendar">
 
-    <div class="calendar-container calendar-header">
+    <div data-role="header" class="calendar-container calendar-header">
         <div class="calendar-grid">
             <div class="controll control-header">
                 <div class="col-header btn-controls">
@@ -89,10 +92,10 @@
                     ?>
 
                     <div class="control-actions">                            
-                        <a href="#" class="ui-btn-active controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevWeek()'>&lt;&lt;</a>
-                        <a href="#" class="ui-btn-active controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevDay()'>&lt;</a>
-                        <a href="#" class="ui-btn-active controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backDay()'>&gt;</a>
-                        <a href="#" class="ui-btn-active controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backWeek()'>&gt;&gt;</a>
+                        <a href="#" class="ui-btn ui-btn-b controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevWeek()'>&lt;&lt;</a>
+                        <a href="#" class="ui-btn ui-btn-b controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevDay()'>&lt;</a>
+                        <a href="#" class="ui-btn ui-btn-b controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backDay()'>&gt;</a>
+                        <a href="#" class="ui-btn ui-btn-b controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backWeek()'>&gt;&gt;</a>
                     </div>
                 </div>
 
@@ -108,12 +111,12 @@
         </div>
     </div>
                     
-    <div  data-role="content" class="content_mesas">           
+    <div  data-role="main" class="ui-content content_mesas">           
 
         <div class="calendar-container calendar-data">    
             <div class="calendar-grid">
-                <div class="mozos-grid" data-bind='template: { name: "calendar-mozo-row", foreach: Risto.Adition.adicionar.mozos }'></div>
-            </div>                      
+                <div class="mozos-grid" data-bind='template: { name: "calendar-mozo-row", foreach: Risto.Adition.adicionar.mozos, as: "mozo"}'></div>
+            </div>
         </div>
     </div><!-- /navbar -->
 
@@ -127,7 +130,7 @@
     <div data-role="header">
         <h1>Opciones de Cajero</h1>
     </div>
-    <div data-role="content">
+    <div data-role="main" class="ui-content">
         
             <a href="#listado-mesas" data-role="button">Modo Adicionista</a>
             
@@ -172,7 +175,7 @@
     <div data-role="header">
         <h1>Opciones</h1>
     </div>
-    <div data-role="content">
+    <div data-role="main" class="ui-content">
         
             <?php if ( Configure::read('Adicion.usarCajero') ) { ?>
             <a href="#listado-mesas-cerradas" data-role="button">Modo Cajero</a>
@@ -207,7 +210,7 @@
         </div>
 
                     
-        <div  data-role="content" class="content_mesas">
+        <div  data-role="main" class="ui-content content_mesas">
                 <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
                 <ul id="ul-mesas-cajero" class="listado-adicion" data-bind='template: { name: "listaMesasCajero", foreach: adn().mesasCerradas }'>
                        
@@ -227,13 +230,12 @@
                         MESA-ADD
 
 -->
-<div  data-role="page"  id="mesa-add" data-theme="e" class="dialog-ancho dialog-arriba">
+<div  data-role="page"  id="mesa-add" class="dialog-ancho dialog-arriba">
         <div  data-role="header"  data-position="inline">
             <h1>Abrir <?php echo Configure::read('Mesa.tituloMesa') ?></h1>
-            <a href="#"  data-rel="back">Cancelar</a>
         </div>
     
-        <div data-role="content">
+        <div data-role="main" class="ui-content">
             <form name="form-mesa-add" action="#" id="form-mesa-add" class="pasos">
                 
                 <div  id="add-mesa-paso1">
@@ -259,7 +261,7 @@
                             <label for="mesa-add-numero">Ingresar el número</label>
                             <input type="number" min="1" name="numero" data-risto="mesa" id="mesa-add-numero" required="required"/>
                             <div class="ui-grid-a">
-                                <div class="ui-block-a"><button type="button"  data-theme="c" id="add-mesa-paso2-volver">Volver</button></div>
+                                <div class="ui-block-a"><button type="button" id="add-mesa-paso2-volver">Volver</button></div>
                                 <div class="ui-block-b"><button type="button"  data-theme="b" id="add-mesa-paso2-submit">Siguiente</button></div>
                             </div>
 
@@ -274,7 +276,7 @@
                             <input type="number" name="cant_comensales" id="mesa-add-cant_comensales"/>
 
                             <div class="ui-grid-a">
-                                <div class="ui-block-a"><button type="button"  data-theme="c" id="add-mesa-paso3-volver">Volver</button></div>
+                                <div class="ui-block-a"><button type="button" id="add-mesa-paso3-volver">Volver</button></div>
 
                                 <div class="ui-block-b"><button type="submit"  data-theme="b" id="add-mesa-paso3-submit">Abrir <?php echo Configure::read('Mesa.tituloMesa')?></button></div>
                             </div>
@@ -294,12 +296,12 @@
                         OBSERVACIONES DE CADA PRODUCTO
 
 -->
-<div  data-role="page"  id="comanda-add-product-obss">
+<div  data-role="page"  id="comanda-add-product-obss" data-theme="e">
     <div  data-role="header"  data-position="inline">
         <h1>Observacion</h1>
         <a href="#"  data-rel="back"  onclick="$('#form-comanda-producto-observacion').submit();" data-theme="b">Guardar Observación</a>
     </div>
-    <div data-role="content">
+    <div data-role="main" class="ui-content">
         <form name="comanda" id="form-comanda-producto-observacion">
             <textarea name="obs" id="obstext" autofocus="autofocus"></textarea>
         </form>
@@ -320,8 +322,8 @@
                         MESA_VIEW
 
 -->
-<div data-role="page" id="mesa-view">
-	<div  data-role="header" data-bind="css: {'ui-bar-f': adn().currentMesa().estaCerrada()}">
+<div data-role="page" id="mesa-view" data-theme="a">
+	   <div  data-role="header">
             <a href="#listado-mesas" data-direction="reverse">Volver</a>
             <h1>
                 <span class="mesa-id" style="float: left;">
@@ -342,12 +344,12 @@
             </h1>
         </div>
 
-        <div  data-role="content" class="" data-scroll="true">
+        <div  data-role="main" class="ui-content" data-scroll="true">
             <div class="mesa-actions">
                 <ul data-role="listview"  data-bind="attr: {'estado': adn().currentMesa().estado().icon}">
                     
                     <li id="mesa-action-comanda" data-bind="attr: {'estado': 'comanda-add-menu_'+adn().currentMesa().estado().icon}">
-                        <a href="#comanda-add-menu" data-rel="dialog"><?php echo $this->Html->image('/aditions/css/img/products_64.png')?>Agregar Producto</a>
+                        <a href="#comanda-add-menu"><?php echo $this->Html->image('/aditions/css/img/products_64.png')?>Agregar Producto</a>
                     </li>
                     
                     <li id="mesa-action-cliente" data-bind="attr: {'estado': 'mesa-cliente_'+adn().currentMesa().estado().icon}">
@@ -406,12 +408,6 @@
                          <?php echo $this->Html->image('/aditions/css/img/editarmesa.png')?>Editar</a>
                     </li>
                     
-                    
-                    
-                    
-                    
-                   
-                    
                 </ul>
             </div>
 
@@ -445,7 +441,7 @@
             
         </div>
     
-    <div data-role="footer">
+    <footer data-role="footer">
         <h3>
             <span id="mesa-cant-comensales"  style="float: left">            
                 <a data-role="button" data-bind="visible: !parseInt(adn().currentMesa().cant_comensales())">
@@ -458,7 +454,7 @@
             <span class="hora-abrio">Abrió a las <span data-bind="text: adn().currentMesa().timeCreated()"></span></span>
             <?php } ?>
         </h3>
-    </div>
+    </footer>
 </div>
 
 
@@ -466,9 +462,10 @@
                         COMANDA-ADD
 
 -->
-<div data-role="page" id="comanda-add-menu" class="comanda dialog-ancho dialog-arriba">
-    <div data-role="header">                   
-
+<div data-role="page" id="comanda-add-menu" data-theme="b">
+    <div data-role="header">
+            <a href="#listado-mesas" data-direction="reverse">Volver</a>
+            
             <div data-role="controlgroup" data-type="horizontal" style="float: right;">
 
                 <a style="min-width: 160px" href="#" data-role="button" title="Haga click para desactivar la impresión de comanda" data-bind="click: function(){adn().currentMesa().currentComanda().comanda.imprimir( 0 )}, visible: adn().currentMesa().currentComanda().comanda.imprimir()"><?php echo $this->Html->image('print48.png', array('class'=> 'btn-comanda-icon'))?>Si Imprime</a>
@@ -478,9 +475,12 @@
                 <a href="#mesa-view" data-role="button" id="comanda-add-guardar"  data-icon="check" data-theme="b">Enviar Comanda</a>
 
             </div>
+
+            <h1>Comanda para la mesa <span data-bind="text: adn().currentMesa().numero()"></span> Mozo <span data-bind="text: adn().currentMesa().mozo().numero()"></span></h1>
+            
     </div>
 
-    <div data-role="content" style="min-height: 300px">
+    <div data-role="main" class="ui-content" style="min-height: 300px">
         
         <div style="display: none" id="comanda-add-observacion" class="ui-corner-bottom ui-overlay-shadow ui-content">
             <h4 style="color: #fff">Agregar observación general para la comanda</h4>
@@ -537,7 +537,7 @@
 	<a href="#" data-icon="check" data-theme="b" data-rel="back" data-bind="click: function(){adn().currentMesa().currentComanda().saveSabores()}">Guardar</a>        
     </div>
 
-    <div data-role="content">                  
+    <div data-role="main" class="ui-content">                  
            <div id="ul-sabores" 
                 data-bind="template: {name: 'listaSabores', foreach: adn().currentSabores()} ">
            </div>
@@ -559,7 +559,7 @@
         <h1>Seleccionar nuevo <?php echo Configure::read('Mesa.tituloMozo')?> para la <?php echo Configure::read('Mesa.tituloMesa')?> <span data-bind="text: adn().currentMesa().numero()"></span></h1>
     </div>
 
-    <div data-role="content">           
+    <div data-role="main" class="ui-content">           
         
         <div>
             El <?php echo Configure::read('Mesa.tituloMozo')?> actual es el <span data-bind="text: adn().currentMesa().mozo().numero"></span>
@@ -583,7 +583,7 @@
             
             
             <fieldset class="ui-grid-a">
-                <div class="ui-block-a"><a href="#" data-role="button" data-rel="back" data-theme="e">Cancelar</a></div>
+                <div class="ui-block-a"><a href="#" data-role="button" data-rel="back">Cancelar</a></div>
                 <div class="ui-block-b"><button type="submit" data-theme="b">Cambiar de <?php echo Configure::read('Mesa.tituloMozo') ?></button></div>
 	    </fieldset>
         </form>
@@ -604,7 +604,7 @@
         <h1>Cambiar número de la <?php echo Configure::read('Mesa.tituloMesa') ?> <span data-bind="text: adn().currentMesa().numero"></span></h1>
     </div>
 
-    <div data-role="content">    
+    <div data-role="main" class="ui-content">    
         <p>
         El número actual es <span data-bind="text: adn().currentMesa().numero"></span>
         </p>
@@ -636,7 +636,7 @@
         <h1><?php echo Configure::read('Mesa.tituloMesa')?> <span data-bind="text: adn().currentMesa().numero()"></span> | <span data-bind="text: adn().currentMesa().vueltoText()"></span></h1>
     </div>
 
-    <div data-role="content">                  
+    <div data-role="main" class="ui-content">                  
         <h2>Cobrar la <?php echo Configure::read('Mesa.tituloMesa')?> <span data-bind="text: adn().currentMesa().numero"></span> <span class="mesa-total" style="float: right; color: red;">Total $<span data-bind="text: adn().currentMesa().totalCalculado()"></span></span></h2>
         
         <ul class="tipo_de_pagos tipo-de-pagos-disponibles">

@@ -32,5 +32,14 @@ Risto.Adition.koAdicionModel = {
     
     refreshBinding: function(){
         ko.applyBindings( Risto.Adition.koAdicionModel );
+    },
+
+
+    mesaHoteltrDisplay: function( mesa ) {
+        // Initially "Kari" uses the "active" template, while the others use "inactive"
+         if ( mesa.diasEstadia() > 0 ) 
+            return "calendar-mozo-mesas-data-day-grid";
+        else 
+            return "calendar-mozo-mesas-data-day-grid-libre";
     }
 }

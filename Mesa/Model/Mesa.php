@@ -18,13 +18,34 @@ class Mesa extends MesaAppModel {
 
 	public $validate = array(
 		'mozo_id' => array(
-		 'notempty',
-		 'numeric',
+			 'notempty',
+			 'numeric',
+			 'checkinCheckout' => array(
+					'rule' => 'validateCheckinCheckout',
+					'message' => 'Ya se encuentra ocupada la fecha de checkin checkout',
+			),	
 		 ),
 		'numero' => array(
-		 'notempty',
-		 'numeric',	
-		 ));
+			 'notempty',
+			 'numeric',	
+		 ),
+		'checkin' => array(
+			'notEmptyIfCheckout' => array(
+				'rule' => array('validateNotEmptyIf', 'checkout'),
+				'message' => 'Hay fecha de checkout, debe ingresar un checkin',
+				'allowEmpty' => true,
+				'required' => false,
+			),			
+		),
+		'checkout' => array(			
+			'notEmptyIfCheckin' => array(
+				'rule' => array('validateNotEmptyIf', 'checkin'),
+				'message' => 'Hay fecha de checkin, debe ingresar un checkout',
+				'allowEmpty' => true,
+				'required' => false,
+			),
+		),
+	);
 
 
 	public $defaultContain = array(
@@ -86,24 +107,10 @@ class Mesa extends MesaAppModel {
 			'field' => 'Mesa.time_cobro <='
 			),
 		'checkin' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			'type' => 'value',
 		),
 		'checkout' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			'type' => 'value',
 		),
 		);
 
@@ -181,6 +188,51 @@ class Mesa extends MesaAppModel {
 
 
 
+	 public function validateCheckinCheckout ($data){
+		$data = $this->data;
+	 	if ( !empty($data) && !empty($data['Mesa']['checkin']) && !empty($data['Mesa']['checkout']) && !empty($data['Mesa']['mozo_id']) ) {
+	 		$cant = $this->mesasEntreCheckinCheckout($data['Mesa']['mozo_id'], $data['Mesa']['checkin'], $data['Mesa']['checkout'], 'count');
+	 		if ($cant > 0) {
+	 			return false;
+	 		}
+	 	}
+	 	return true;
+	 }
+
+
+
+	 public function mesasEntreCheckinCheckout ( $mozo_id, $checkin, $checkout, $type = 'all') {
+	 	return $this->find($type, array(
+	 			'conditions' => array(
+	 				'Mesa.mozo_id' => $mozo_id,
+	 				'OR' => array(
+	 						array(
+				 				'DATE(Mesa.checkin) <' => $checkout,
+				 				'DATE(Mesa.checkout) >=' => $checkout
+	 							),
+	 						array(
+				 				'DATE(Mesa.checkin) <=' => $checkin,
+				 				'DATE(Mesa.checkout) >' => $checkin
+	 							),	 						
+	 					)
+	 				)
+	 			));
+	 }
+
+
+	 /**
+	  * valida que si tiene checkin, entonces tenga checkout
+	  * y que unca quede alguno de los 2 vacios
+	  * o vienen los 2 vacios, o vienen los 2 llenos
+	  */
+	 public function validateNotEmptyIf ( $data, $thisCheck) {
+	 	if ( empty($data) ) return true;
+	 	$data = $this->data;
+	 	if ( !array_key_exists($thisCheck, $data['Mesa']) || empty($data['Mesa'][$thisCheck])  ) {
+	 		return false;
+	 	}
+	 	return true;
+	 }
 
 	//  function getMozoNumero($id = null)
 	//  {

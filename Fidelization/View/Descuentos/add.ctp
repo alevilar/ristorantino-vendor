@@ -7,7 +7,7 @@
 	<?php
 		echo $this->Form->input('name');
 		echo $this->Form->input('description');
-		echo $this->Form->input('porcentaje',array('after'=>'Ej:15 (solo introducir el numero, no poner el signo de porcentaje)'));
+		echo $this->Form->input('porcentaje',array('placeholder'=>'Ej:15 (solo introducir el numero, no poner el signo de porcentaje)'));
 	?>
 <?php echo $this->Form->end('Submit');?>
         </fieldset>

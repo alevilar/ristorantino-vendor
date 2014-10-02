@@ -1,9 +1,6 @@
 
 
-
-
-
-	$('#listado-mesas').live('pageshow',function(event, ui){
+Risto.domRegisterForEvents['listado-mesas'].show = function() {
 
 		/**
         pintar celdas para marcar
@@ -152,18 +149,20 @@
 		    }
 
         });
-        
+}
 
-    });
 
-    $('#listado-mesas').live('pagebeforehide',function(event, ui){
-         $(this).undelegate('td.libre', 'mousedown');
+
+
+Risto.domRegisterForEvents['listado-mesas'].hide = function() {
+	     $(this).undelegate('td.libre', 'mousedown');
          $(this).undelegate('.mozo-mesas td.libre', 'mouseenter');
          $('body').unbind( 'mouseup');
          $(this).undelegate('.mozo-mesas td.libre', 'mouseleave');
          $(this).undelegate('.mozo-mesas td.libre', 'mouseup');
          $(this).undelegate('.control-header', 'mousewheel DOMMouseScroll');
-    });
+}
+
 
     
     
