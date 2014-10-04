@@ -121,7 +121,6 @@ Risto.Adition.menu = {
     
     
     seleccionarCategoria: function( cat ){   
-
         this.currentCategoria( cat );
         
         // actualizo el path

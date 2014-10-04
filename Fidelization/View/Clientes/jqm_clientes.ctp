@@ -1,5 +1,4 @@
-<div data-role="page" id="listado_de_clientes">    
-        
+<div data-role="page" id="listado_de_clientes" data-theme="f">    
 
 
        <div data-role="content" >
@@ -11,11 +10,11 @@
                         <?php echo $this->Html->link(__('Crear %s', Configure::read('Mesa.tituloCliente')), array('plugin'=>'fidelization', 'controller'=>'clientes', 'action'=>'simple_add'), array(
                             'data-role' => 'button',
                             'data-inline' => 'true',
-                            'data-theme' => 'b',
-                             'data-rel' => 'dialog',
+                            'data-theme' => 'c',
                         )) ?>
 
-                        <a href="#mesa-view" data-role="button" id="mesa-eliminar-cliente" data-inline="true" data-theme="" data-direction="reverse" data-bind="visible: adn().currentMesa().Cliente()}">
+                        <a href="#mesa-view" data-role="button" id="mesa-eliminar-cliente" data-inline="true" data-theme="d" data-direction="reverse" 
+                            data-bind="visible: Risto.Adition.adicionar.currentMesa().Cliente() !== null}">
                                 Borrar</span>
                         </a>
 
@@ -43,8 +42,8 @@
                                     $jsonCliente =  json_encode($cliente);
 
                                     ?>
-                            <li>&nbsp;
-                                    <a href="#mesa-view" data-direction="reverse" onclick='Risto.Adition.adicionar.currentMesa().setCliente( <?php echo $jsonCliente ?> )'>
+                            <li>
+                                <a href="#mesa-view" data-direction="reverse" onclick='Risto.Adition.adicionar.currentMesa().setCliente( <?php echo $jsonCliente ?> )'>
                                         <?php
                                         if ($c['Cliente']['tipofactura']) {
                                             echo '<span>'.$c['Cliente']['tipofactura'].'&nbsp;</span>';

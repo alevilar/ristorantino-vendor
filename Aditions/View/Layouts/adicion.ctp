@@ -67,7 +67,8 @@
                         '/aditions/js/jquery.min',
                        // '/aditions/js/jquery.tmpl.min',
 
-                        '/aditions/js/knockout-3.2.0',
+                        '/aditions/js/knockout-3.2.0.debug',
+                        // '/aditions/js/knockout-3.2.0',
                         '/aditions/js/knockout.mapping-2.4.1',
                         //'/aditions/js/knockout-2.0.0.min.js',
                         //'/aditions/js/knockout.mapping-2.0.debug',

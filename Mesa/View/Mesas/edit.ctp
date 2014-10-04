@@ -1,5 +1,6 @@
 <div data-role="page" id="mesas-edit">
     <div data-role="content">
+
         <h1 class="center">Detalle de <?php echo Configure::read('Mesa.tituloMesa'); ?></h1>
 
         <div class="mesas form col-md-4 ">
@@ -39,19 +40,19 @@
 
                 <legend><?php __('Totales de %s', Configure::read('Mesa.tituloMesa')); ?></legend>
 
-            <div class="row">
-                <div class="col-md-4">
-                <?php  echo $this->Form->input('cant_comensales', array('label'=> Inflector::pluralize( Configure::read('Mesa.tituloCubierto')  ))); ?>
-                </div>
-                <div class="col-md-4">
-                    <?php  echo $this->Form->input('checkin', array( 'type'=>'date', 'required'=>false)); ?>
-                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                    <?php  echo $this->Form->input('cant_comensales', array('label'=> Inflector::pluralize( Configure::read('Mesa.tituloCubierto')  ))); ?>
+                    </div>
+                    <div class="col-md-4">
+                        <?php  echo $this->Form->input('checkin', array( 'type'=>'date', 'required'=>false)); ?>
+                    </div>
 
-                <div class="col-md-4">
-                    <?php  echo $this->Form->input('checkout', array( 'type'=>'date', 'required'=>false )); ?>
-                </div>
+                    <div class="col-md-4">
+                        <?php  echo $this->Form->input('checkout', array( 'type'=>'date', 'required'=>false )); ?>
+                    </div>
 
-            </div>
+                </div>
 
                 <?php
 
@@ -120,6 +121,7 @@
                 , array('class'=>'btn btn-success'));?>
 
                 <div class="clearfix"></div><br>
+                
             <div class="items_mesas">
 
                 <?php
@@ -196,7 +198,6 @@
                                 ?>
 
                             </div>
-                    </div>
 
 
                     </div>

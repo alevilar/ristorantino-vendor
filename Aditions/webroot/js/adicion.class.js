@@ -124,10 +124,10 @@ Risto.Adition.handleMesasRecibidas = {
 Risto.Adition.adicionar = {
 
     // Mozo Actualmente Activo
-    currentMozo: ko.observable( new Mozo() ),
+    currentMozo: ko.observable(  ),
     
     // Mesa Actualmente activa
-    currentMesa: ko.observable( new Mesa() ),
+    currentMesa: ko.observable( new Mesa(new Mozo()) ),
     
     // listado de mozos
     mozos: ko.observableArray( [] ),

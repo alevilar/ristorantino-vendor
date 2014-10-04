@@ -1,6 +1,6 @@
 <!-- Template: listado de comandas con sus productos-->
 <script id="listaComandas" type="text/html">
-   <div data-role="collapsible">
+   <div data-role="collapsible" data-theme="b">
        <h3>
            <span class="id-comanda">#<span data-bind="text: id()"></span></span>  <span class="hora-comanda"  data-bind="text: timeCreated()"></span>&nbsp;&nbsp;&nbsp;
            <span class="comanda-listado-productos-string" data-bind="text: productsStringListing()"></span>
@@ -40,6 +40,7 @@
                data-role="button"
                data-iconpos="notext" 
                data-icon="comment" 
+               data-rel="dialog"
                href="#comanda-add-product-obss" 
                title="Observación" 
                class="ui-btn ui-btn-inline ui-icon-comment ui-btn-icon-notext ui-corner-all">
@@ -80,12 +81,11 @@
  <!-- Template: Comanda Add menu path-->
  <script id="boton" type="text/html">
         <a data-bind="attr: {
-                         'data-icon': esUltimoDelPath()?'':'back', 
-                         'css': {'ui-btn-active': esUltimoDelPath()}
+                         'css': {'ui-btn-active': esUltimoDelPath() === true}
                          }, 
                       click: seleccionar" 
             class="ui-btn ui-btn-inline ui-btn ui-icon-carat-r ui-btn-icon-left">
-                 <img href="" data-bind="attr: name" ></span><span data-bind="text: name" ></span>
+                 <span data-bind="text: name" ></span>
              </span>
          </a>
 </script>
@@ -145,10 +145,10 @@
 <!-- Template: Listado de productos del detalle Comanda -->
 <script id="li-productos-detallecomanda" type="text/html">
  <li>
-     <span data-type="horizontal" data-role="controlgroup">
+     <span data-type="horizontal" data-role="controlgroup" data-theme="b">
         <a id="mesa-action-detalle-comanda-sacar-item" data-bind="click: deseleccionarYEnviar" data-role="button" data-icon="minus" data-iconpos="notext" href="#" title="-">
             -</a>
-        <a data-bind="css: { es_entrada: esEntrada()}" data-role="button" data-iconpos="notext" data-icon="entrada" href="#" title="Entrada">
+        <a data-bind="css: { es_entrada: esEntrada}" data-role="button" data-iconpos="notext" data-icon="alert" href="#" title="Entrada">
             Entrada
         </a>
      </span>
@@ -167,9 +167,12 @@ listado de mesas que será refrescado continuamente mediante
 el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. -->
 <script id="listaMesas" type="text/html">
     <li data-bind="attr: {mozo: mozo().id(), 'id': 'mesa-li-id-'+id(), 'class': estado().icon}">
-        <a  data-bind="click: seleccionar, attr: {accesskey: numero, id: 'mesa-id-'+id()}"
+        <a  data-bind="click: seleccionar, 
+                       attr: {accesskey: numero, id: 'mesa-id-'+id()},
+                       css: {'ui-btn-b': estaAbierta(), 'ui-btn-d': estaCerrada(), 'ui-btn-e': estaCobrada() }
+                       "
             href="#mesa-view" 
-            class="ui-link ui-btn ui-btn-a ui-shadow ui-corner-all">
+            class="ui-link ui-btn ui-shadow ui-corner-all">
             <span class="mesa-span ui-btn-inner">
                 <span class="ui-btn-text">
                     <span class="mesa-numero" data-bind="text: numero"></span>

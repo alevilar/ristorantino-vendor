@@ -7,7 +7,7 @@
  * tambien se le puede pasar un jsonData para ser mappeado con knockout
  */
 var Mesa = function(mozo, jsonData) {
-        
+        if (!mozo) return null;
         this.id             = ko.observable();
         this.created        = ko.observable();
         this.checkin        = ko.observable();
@@ -29,16 +29,18 @@ var Mesa = function(mozo, jsonData) {
             m2.set('hour',0).set('minute',0).set('second',0).set('millisecond',0);
             return Math.abs( mm.diff(m2, "days") );
         },this);
-        this.diasEstadiaRecortado = ko.observable(0);
 
 
+        this.initialize(mozo, jsonData);
+
+console.debug(mozo);
         this.total          = ko.observable( 0 );
         this.numero         = ko.observable( 0 );
         this.menu           = ko.observable( 0 );
-        this.mozo           = ko.observable( new Mozo() );
+        this.mozo           = ko.observable( mozo );
         this.currentComanda = ko.observable( new Risto.Adition.comandaFabrica() );
         this.Comanda        = ko.observableArray( [] );
-        this.mozo_id        = this.mozo().id;
+        this.mozo_id        = mozo.id;
         this.Cliente        = ko.observable( null );
         this.estado         = ko.observable( MESA_ESTADOS_POSIBLES.abierta );
         this.estado_id      = ko.observable();
@@ -49,7 +51,7 @@ var Mesa = function(mozo, jsonData) {
         // agrego atributos generales
         Risto.modelizar(this);
         
-        return this.initialize(mozo, jsonData);
+        return this;
 }
 
 
@@ -370,7 +372,16 @@ Mesa.prototype = {
      */
     estaAbierta : function(){
 
-        return MESA_ESTADOS_POSIBLES.abierta == this.getEstado();
+        return Boolean(MESA_ESTADOS_POSIBLES.abierta == this.getEstado());
+    },
+
+
+    /**
+     * Me dice si la mesa esta en estado cobrada
+     * @return boolean true si ya cerro, false si esta abierta
+     */
+    estaCobrada : function(){
+        return Boolean(MESA_ESTADOS_POSIBLES.cobrada == this.getEstado());
     },
 
     /**
@@ -649,7 +660,7 @@ Mesa.prototype = {
          * @return boolean
          **/
         estaCerrada : function(){
-            return MESA_ESTADOS_POSIBLES.cerrada == this.estado();
+            return Boolean(MESA_ESTADOS_POSIBLES.cerrada == this.estado());
         },
         
         

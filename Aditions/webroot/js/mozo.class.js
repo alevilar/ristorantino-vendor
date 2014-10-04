@@ -43,6 +43,9 @@ Mozo.prototype = {
     numero  : function( ) {return 0},
     mesas   : function( ) {return []},
 
+    _init:[], // you can add init functions into this array and will be called on initualize
+
+
     initialize: function( jsonData ) {
         var mozoNuevo = this,
             jsonData = jsonData || {},
@@ -68,6 +71,15 @@ Mozo.prototype = {
         } 
         
         ko.mapping.fromJS(jsonData, mapOps, this);
+
+
+        var len = 0;
+        while ( len < this._init.length ) {
+            this._init[len].apply(this, arguments);
+            len++;
+        }
+
+console.debug( "INICIANDOOOOOO: %o", this.id());
         return this;
     },
 

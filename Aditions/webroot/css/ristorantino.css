@@ -198,6 +198,10 @@ ul.listado-adicion .mesa-mozo,ul.listado-adicion .mozo-cant-mesas {
 .mesa-view #mesa-textarea-observation{
     border: none;
     color: rgb(207, 0, 0);
+    background: rgba(255, 255, 255, 0.4);
+    border: none;
+    box-shadow: none;
+
 }
 
 .mesa-view #mesa-textarea-observation:focus{
@@ -404,15 +408,24 @@ ul.tipo_de_pagos ,.tipo_de_pagos ul{
 }
 
 #comanda-add-menu .btn-comanda-icon{
-    width: 15px;
-    position: relative;
-    left: -15px;
+    width: 23px;
+    position: absolute;
+    left: 10px;
     background: none;
+    height: 23px;
+    top: 5px;
+}
+
+#comanda-add-menu .opciones-comanda{
+    float: right;
+    top: -5px;
+    position: relative;
+    right: 20px;
 }
 
 
 
-.dialog-arriba .ui-header{margin-top: 10px;}
+.dialog-arriba  .ui-dialog-contain {margin-top: 25px;}
 .dialog-ancho .ui-dialog-contain { max-width: 100% !important;}
 .dialog-reancho .ui-dialog-contain{ max-width: 100% !important; width: 94% !important; margin-left: 2% !important;}
 

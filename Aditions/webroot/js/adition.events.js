@@ -40,12 +40,35 @@ $(document).on("mobileinit", function(){
             }
         },
 
+
+
         'comanda-add-product-obss': {
-            show: function(){
+
+            show: function(event, jqObj) {
                 $('#obstext').focus();
+
+                // Guardar cambios
+                $('#comanda-add-product-obss-submit').on('click', function(){
+                    $('#form-comanda-producto-observacion').submit();
+                });
+
+
+                // completar textarea con Opcion texto seleccionado
+                $('.observaciones-list','#comanda-add-product-obss').on('click','.options-val', function() {
+                    var text = $(this).html();
+                    var currOpsText = $('#obstext').val();
+                    if ( currOpsText ) {
+                        text = currOpsText + ', ' + text;
+                    }
+                    $('#obstext').val( text );
+                });
             },
 
-            hide: function(){}
+
+            hide: function (event, jqObj) {
+                 $('.observaciones-list','#comanda-add-product-obss').off('click','.options-val');
+                 $('#comanda-add-product-obss-submit').off('click');
+            }
         },
 
 
@@ -54,18 +77,18 @@ $(document).on("mobileinit", function(){
             show: function () {
                 //creacion de comandas
                 // producto seleccionado
-                $(document).bind(  MENU_ESTADOS_POSIBLES.productoSeleccionado.event , productoSeleccionado);        
+                $(document).on(  MENU_ESTADOS_POSIBLES.productoSeleccionado.event , productoSeleccionado);        
 
                 // boton para mostrar el formulario de observacion
-                $('#comanda-obervacion-a').bind('click', function(){
+                $('#comanda-obervacion-a').on('click', function(){
                     $('#comanda-add-observacion').toggle('slow');
                     $('textarea','#comanda-add-observacion').focus();
                 });
                 
              
-                $('#ul-productos-seleccionados').delegate(
-                        '.ui-options-btn',
+                $('#ul-productos-seleccionados').on(                        
                         'click',
+                        '.ui-options-btn',
                         function(){
                             var $ops = $(this).parent().find('.ui-options'),
                                 $opsBtn = $(this).parent().find('.ui-options-btn');
@@ -78,9 +101,15 @@ $(document).on("mobileinit", function(){
                                 $opsBtn.addClass('ui-options-btn-open');
                             }
                         }
-                );            
+                );
 
-                $('#comanda-add-guardar').bind('click', function(){
+
+                $('#ul-productos-seleccionados').on( 'click', 'a[href="#comanda-add-product-obss"]', function() {
+                            jQuery.mobile.changePage(this.href);
+                        }
+                );
+
+                $('#comanda-add-guardar').on('click', function(){
                     Risto.Adition.adicionar.currentMesa().currentComanda().save();
                     Risto.Adition.menu.reset();
                 });
@@ -95,24 +124,24 @@ $(document).on("mobileinit", function(){
                     }
                 }
 
-                $('#ul-categorias').delegate("a", "click", seleccionar);
-                $('#ul-productos').delegate("a", "click", seleccionar);
+                $('#ul-categorias').on("click", "a", seleccionar);
+                $('#ul-productos').on("click", "a", seleccionar);
                 
                     
                 // Eventos para la observacion General de la Comanda ADD
                 (function(){
                     var $domObs = $('#comanda-add-observacion');
-                    $("#mesa-comanda-add-obs-gen-cancel").bind('click', function(){
+                    $("#mesa-comanda-add-obs-gen-cancel").on('click', function(){
                         $domObs.toggle('slow'); 
                         Risto.Adition.adicionar.currentMesa().currentComanda().comanda.borrarObservacionGeneral();
                     });
 
-                    $("#mesa-comanda-add-obs-gen-aceptar").bind('click', function(){
+                    $("#mesa-comanda-add-obs-gen-aceptar").on('click', function(){
                         $domObs.toggle('slow');
                     });
 
                     var domObsList = $('.observaciones-list button', '#comanda-add-menu');
-                    domObsList.bind('click' , function(e){
+                    domObsList.on('click' , function(e){
                         if ( this.value ) {
                             Risto.Adition.adicionar.currentMesa().currentComanda().comanda.agregarTextoAObservacionGeneral( this.value );
                         }
@@ -123,36 +152,16 @@ $(document).on("mobileinit", function(){
             },
 
             hide: function () {
-                $(document).unbind(  MENU_ESTADOS_POSIBLES.productoSeleccionado.event);
-                
-                $('#comanda-obervacion-a').unbind('click');
-                
-                $('a.active','#ul-productos').removeClass('active');
-                
-                $('#comanda-add-observacion').hide();
-                
-                $('#ul-categorias').undelegate("a", 'click');
-                $('#ul-productos').undelegate("a", 'click');
-                
-                
-                $('#ul-productos-seleccionados').undelegate(
-                        '.listado-productos-seleccionados',
-                        'mouseleave'
-                );                
-                
-                $('#ul-productos-seleccionados').undelegate(
-                        '.ui-options-btn',
-                        'click'
-                ); 
-                    
-                    
-
-                $("#mesa-comanda-add-obs-gen-cancel").unbind('click');
-                $("#mesa-comanda-add-obs-gen-aceptar").unbind('click');
-                $('.observaciones-list button', '#comanda-add-menu').unbind('click');
-                $('#comanda-add-guardar').unbind('click');
-                
-
+                $(document).off(  MENU_ESTADOS_POSIBLES.productoSeleccionado.event);
+                $('#comanda-obervacion-a').off('click');
+                $('#ul-productos-seleccionados').off('click', '.ui-options-btn');
+                $('#comanda-add-guardar').off('click');
+                $('#ul-categorias').off("click", "a");
+                $('#ul-productos').off("click", "a");
+                $("#mesa-comanda-add-obs-gen-cancel").off('click');
+                $("#mesa-comanda-add-obs-gen-aceptar").on('click');
+                $('.observaciones-list button', '#comanda-add-menu').off('click');
+                $('#ul-productos-seleccionados').off( 'click', 'a[href="#comanda-add-product-obss"]');
             }
         },
 

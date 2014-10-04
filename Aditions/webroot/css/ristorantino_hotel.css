@@ -95,18 +95,20 @@ table.calendar-header th.highlight{
 
 
 
+
+
 .calendar-container table.mozo-days{
-	height: 48px;    
     clear: both;
     position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	table-layout: fixed;
+	border-spacing: 0px;
 }
 
 
-.ui-content{
+.ui-page.calendar .ui-content{
 	padding: 1% !important;
 }
 
@@ -120,6 +122,8 @@ table.mozo-days td, table.calendar-header th{
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	overflow: hidden;
+	color: #333;
+	text-shadow: none;
 }
 
 .day-list table .day, .calendar-container table.mozo-days .day{
@@ -133,6 +137,8 @@ table.mozo-days td, table.calendar-header th{
 	table-layout: fixed;
 	width: 100%;
 	top:0px;
+	border-spacing: 0px;
+	margin-top: 2px;
 }
 
 
@@ -222,7 +228,8 @@ table.mozo-days td, table.calendar-header th{
 
 .calendar-container  table.mozo-mesas .mozo-col{
 	padding-top: 3px;
-	padding-bottom: 3px;	
+	padding-bottom: 3px;
+	height: 25px;
 }
 
 

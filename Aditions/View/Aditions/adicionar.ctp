@@ -14,10 +14,12 @@
 	<div  data-role="header">
  
 
-            <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
-            <a href="#mesa-add" id="mesa-abrir-mesa-btn" data-rel="dialog"  class="abrir-mesa" data-role="button" data-theme="e">
+           
+             <!-- aca va el listado de mesas que se carga dinamicamente en un script de abajo -->
+            <a href="#mesa-add" id="mesa-abrir-mesa-btn" data-rel="dialog"  class="abrir-mesa" data-role="button" data-theme="f">
                 Abrir <?php echo Configure::read('Mesa.tituloMesa')?>
             </a>  
+
 
 
             <h1><span data-bind="text: adn().mesas().length">0</span> <?php echo Inflector::pluralize( Configure::read('Mesa.tituloMesa') )?></h1>
@@ -44,6 +46,7 @@
                     
     <div  data-role="main" class="ui-content content_mesas">       
 
+
             <?php $usar_generica =  Configure::read('Mesa.usar_generica');
                 if ( !empty($usar_generica) ) {
                     ?>
@@ -53,7 +56,7 @@
                         data-numero="99"
                         data-role="button" 
                         title="<?php echo Configure::read('Mesa.generica_name')?>"
-                        data-theme="e"><?php echo $this->Html->image('/aditions/css/img/flash.png')?></a>
+                        data-theme="f"><?php echo $this->Html->image('/aditions/css/img/flash.png')?></a>
                     
                     <?php
                 }
@@ -92,10 +95,10 @@
                     ?>
 
                     <div class="control-actions">                            
-                        <a href="#" class="ui-btn ui-btn-b controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevWeek()'>&lt;&lt;</a>
-                        <a href="#" class="ui-btn ui-btn-b controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevDay()'>&lt;</a>
-                        <a href="#" class="ui-btn ui-btn-b controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backDay()'>&gt;</a>
-                        <a href="#" class="ui-btn ui-btn-b controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backWeek()'>&gt;&gt;</a>
+                        <a href="#" class="ui-btn ui-btn-c controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevWeek()'>&lt;&lt;</a>
+                        <a href="#" class="ui-btn ui-btn-c controll back" onclick='Risto.Adition.adicionar.calendarGrid.prevDay()'>&lt;</a>
+                        <a href="#" class="ui-btn ui-btn-c controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backDay()'>&gt;</a>
+                        <a href="#" class="ui-btn ui-btn-c controll prev" onclick='Risto.Adition.adicionar.calendarGrid.backWeek()'>&gt;&gt;</a>
                     </div>
                 </div>
 
@@ -115,7 +118,49 @@
 
         <div class="calendar-container calendar-data">    
             <div class="calendar-grid">
-                <div class="mozos-grid" data-bind='template: { name: "calendar-mozo-row", foreach: Risto.Adition.adicionar.mozos, as: "mozo"}'></div>
+                <div class="mozos-grid" data-bind='foreach: Risto.Adition.adicionar.mozos, as: "mozo"'>
+                    
+                    <div  class="mozo mozo-row" data-bind="attr:{'data-mozo-id': id}">
+                      <div class="mozos-list-vertical col-header">
+
+                          <div class="vertical listado-mozos-para-mesas">
+                              <span data-bind="attr:{'data-mozo-id': id}, text: numero"></span>
+                          </div>              
+
+                      </div>
+
+                      <div class="content mesas-list">
+                          <table class="mozo-days">
+                              <tbody>
+                                  <tr data-bind='foreach: Risto.Adition.adicionar.calendarGrid.days, as: "day"'>
+                                      <td class="mozo-col day"  data-bind="attr: {'data-day': format('YYYY-MM-DD')}"></td>
+                                  </tr>
+                              </tbody>
+                         </table>
+
+                         <table class="mozo-mesas">
+                              <tbody>
+                                  <tr data-bind='foreach: mesasFromDataRangeByRange'>
+                                    
+                                       <td class="mozo-col" 
+                                           data-bind="attr:{ colspan: diasEstadiaRecortado, 'data-day': dayName,  'data-checkin': checkin, 'data-checkout': checkout},
+                                                        'css': grillaExtraClass">
+                                          <div class="mark" data-bind="if: id">
+                                             <a  data-bind="click: seleccionar, attr: {accesskey: numero, id: 'mesa-id-'+id()}, 'css': getEstadoIcon()" 
+                                                href="#mesa-view" >                    
+                                                <span class="mesa-cliente" data-bind="text: clienteNameData()"></span>
+                                            </a>
+                                          </div>
+                                      </td>
+                                  </tr>
+                              </tbody>
+                         </table>
+
+                      </div>
+                  </div>
+
+
+                </div>
             </div>
         </div>
     </div><!-- /navbar -->
@@ -296,10 +341,11 @@
                         OBSERVACIONES DE CADA PRODUCTO
 
 -->
-<div  data-role="page"  id="comanda-add-product-obss" data-theme="e">
+<div  data-role="dialog"  id="comanda-add-product-obss" data-theme="e">
     <div  data-role="header"  data-position="inline">
+        <a href="#"  data-rel="back"  data-theme="b">Volver</a>
         <h1>Observacion</h1>
-        <a href="#"  data-rel="back"  onclick="$('#form-comanda-producto-observacion').submit();" data-theme="b">Guardar Observación</a>
+        <a href="#"  data-rel="back" id="comanda-add-product-obss-submit" data-theme="c">Guardar Observación</a>
     </div>
     <div data-role="main" class="ui-content">
         <form name="comanda" id="form-comanda-producto-observacion">
@@ -308,7 +354,7 @@
         
         <div class="observaciones-list">
                 <?php foreach($observaciones as $o) { ?>
-                <a data-role="button" data-inline="true" href="#" onclick="$('#obstext').val( $('#obstext').val()+', <?php echo $o?>' )"><?php echo $o?></a>
+                <a data-role="button" data-inline="true" href="#" class="options-val"><?php echo $o?></a>
                 <?php } ?>
         </div>
     </div>
@@ -346,7 +392,7 @@
 
         <div  data-role="main" class="ui-content" data-scroll="true">
             <div class="mesa-actions">
-                <ul data-role="listview"  data-bind="attr: {'estado': adn().currentMesa().estado().icon}">
+                <ul data-role="listview"  data-bind="attr: {'estado': adn().currentMesa().estado().icon}" data-theme="b">
                     
                     <li id="mesa-action-comanda" data-bind="attr: {'estado': 'comanda-add-menu_'+adn().currentMesa().estado().icon}">
                         <a href="#comanda-add-menu"><?php echo $this->Html->image('/aditions/css/img/products_64.png')?>Agregar Producto</a>
@@ -466,17 +512,21 @@
     <div data-role="header">
             <a href="#listado-mesas" data-direction="reverse">Volver</a>
             
-            <div data-role="controlgroup" data-type="horizontal" style="float: right;">
+            <div data-role="controlgroup" data-type="horizontal" class="opciones-comanda">
 
                 <a style="min-width: 160px" href="#" data-role="button" title="Haga click para desactivar la impresión de comanda" data-bind="click: function(){adn().currentMesa().currentComanda().comanda.imprimir( 0 )}, visible: adn().currentMesa().currentComanda().comanda.imprimir()"><?php echo $this->Html->image('print48.png', array('class'=> 'btn-comanda-icon'))?>Si Imprime</a>
-                <a style="min-width: 160px" href="#" data-role="button" title="Haga click para activar impresión de comanda" data-bind="click: function(){adn().currentMesa().currentComanda().comanda.imprimir( 1 )}, visible: !adn().currentMesa().currentComanda().comanda.imprimir()" ><?php echo $this->Html->image('dontprint48.png', array('class'=> 'btn-comanda-icon'))?>No Imprime</a>
 
-                <a style="min-width: 160px" href="#" id="comanda-obervacion-a" data-role="button" title="Agregar Observación"><?php echo $this->Html->image('pencil_48.png', array('class'=> 'btn-comanda-icon'))?>Observación</a>
-                <a href="#mesa-view" data-role="button" id="comanda-add-guardar"  data-icon="check" data-theme="b">Enviar Comanda</a>
+                <a style="min-width: 160px" href="#" data-role="button" title="Haga click para activar impresión de comanda" data-bind="click: function(){adn().currentMesa().currentComanda().comanda.imprimir( 1 )}, visible: !adn().currentMesa().currentComanda().comanda.imprimir()" >
+                <?php echo $this->Html->image('dontprint48.png', array('class'=> 'btn-comanda-icon'))?>No Imprime</a>
+
+                <a style="min-width: 160px" href="#" id="comanda-obervacion-a"  data-icon="comment"  data-role="button" title="Agregar Observación">Observación</a>
+
+
+                <a href="#mesa-view" data-role="button" id="comanda-add-guardar"  data-icon="check" data-theme="c">Enviar Comanda</a>
 
             </div>
 
-            <h1>Comanda para la mesa <span data-bind="text: adn().currentMesa().numero()"></span> Mozo <span data-bind="text: adn().currentMesa().mozo().numero()"></span></h1>
+            <h1>Cargando Productos para la <?php echo Configure::read('Mesa.tituloMesa') ?> <span data-bind="text: adn().currentMesa().numero()"></span>  <?php echo Configure::read('Mesa.tituloMozo') ?> <span data-bind="text: adn().currentMesa().mozo().numero()"></span></h1>
             
     </div>
 

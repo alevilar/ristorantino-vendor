@@ -47,32 +47,3 @@
           </td>
 </script>
 
-
-
-<script id="calendar-mozo-row" type="text/html">
-  <div  class="mozo mozo-row" data-bind="attr:{'data-mozo-id': id}">
-      <div class="mozos-list-vertical col-header">
-
-          <div class="vertical listado-mozos-para-mesas">
-              <span data-bind="attr:{'data-mozo-id': id}, text: numero"></span>
-          </div>              
-
-      </div>
-
-      <div class="content mesas-list">
-          <table class="mozo-days">
-              <tbody>
-                  <tr data-bind='template: { name: "calendar-mozo-mesas-day-grid", foreach: Risto.Adition.adicionar.calendarGrid.days, as: "day" }'></tr>
-              </tbody>
-         </table>
-
-         <table class="mozo-mesas">
-              <tbody>
-                  <tr data-bind='template: { name: Risto.mesaHoteltrDisplay, foreach: mozo.mesasFromDataRangeByRange, as:"mesa" }'></tr>
-              </tbody>
-         </table>
-
-      </div>
-  </div>
-
-</script>                
