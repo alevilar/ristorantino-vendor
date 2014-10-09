@@ -600,6 +600,7 @@ $(document).bind("mobileinit", function(){
 
         // Al apretar el boton de cobro de pago procesa los pagos correspondientes
         $('#mesa-pagos-procesar').bind('click', function(){
+            
             Risto.Adition.adicionar.currentMesa().savePagos();            
         });
     });

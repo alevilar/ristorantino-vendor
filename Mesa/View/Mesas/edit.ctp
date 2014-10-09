@@ -101,13 +101,16 @@
                 , array('plugin'=>'comanda', 'controller'=>'DetalleComandas', 'action'=>'add', $this->request->data['Mesa']['id'])
                 , array('class'=>'btn btn-success'));?>
 
-                <div class="clearfix"></div><br>
+            <div class="clearfix"></div>
+            <hr />
+
+
             <div class="items_mesas">
 
-                <?php
-                $totalSumado = 0;
-                foreach ($items as $comanda):
-                    ?>
+            <?php
+            $totalSumado = 0;
+            foreach ($items as $comanda):
+                ?>
                 <div class="list-group-item">                
                 <?php
                     echo "Comanda #" . $comanda['id']. "  (".date('H:i, d M',strtotime($comanda['created'])).")";
@@ -128,66 +131,61 @@
                     }
                     ?>
 
-                    
+                
 
-                    <?php foreach ($comanda['DetalleComanda'] as $detalle) { ?>
-                            <div  class="list-group-item small">
-                            <?php echo "Cant Pedida: " . $detalle['cant'] . ($detalle['cant_eliminada'] != '0' ? " Sacada: " . $detalle['cant_eliminada'] : '') ?>
-                                <br>
-                               
-                            
-
-
-                                <span style="color: #AD0101; font-weight: normal; font-size: 120%; <?php if (($detalle['cant'] - $detalle['cant_eliminada']) == 0) echo "text-decoration: line-through;" ?> ">
-                                <?php echo $detalle['cant'] - $detalle['cant_eliminada'] . ")  " . (!empty($detalle['Producto']['name']) ? $detalle['Producto']['name'] : '') . " [p-u $ " . $detalle['Producto']['precio'] . "]" ?>
-                                </span>
-
-                                 <?php
-                                 echo $this->Html->link("Editar"
-                                        , array('plugin'=>'comanda','controller' => 'DetalleComandas', 'action' => 'edit', $detalle['id'])
-                                        , array('class'=>'small')
-                                        );
-                                 echo " - ";
-                                 echo $this->Html->link(__('Delete')
-                                        , array('plugin'=>'comanda', 'controller' => 'DetalleComandas', 'action'=>'delete', $detalle['id'])
-                                        , array('class'=>'small')
-                                        , sprintf(__('Are you sure you want to delete # %s?'), $detalle['id']));
-                                ?>
+                <?php foreach ($comanda['DetalleComanda'] as $detalle) : ?>
+                        <div  class="list-group-item small">
+                        <?php echo "Cant Pedida: " . $detalle['cant'] . ($detalle['cant_eliminada'] != '0' ? " Sacada: " . $detalle['cant_eliminada'] : '') ?>
+                            <br>
+                           
+                        
 
 
-                                    <?php
-                                    if (count($detalle['DetalleSabor']) > 0) {
-                                        $primero = true;
-                                        echo "<cite>";
-                                        echo "(";
-                                        foreach ($detalle['DetalleSabor'] as $sabor) {
-                                            if (!$primero) {
-                                                echo ", ";
-                                            }
-                                            $primero = false;
-                                            echo $sabor['Sabor']['name'] . ($sabor['Sabor']['precio'] != '0' ? " [ $" . $sabor['Sabor']['precio'] . "]" : '');
+                            <span style="color: #AD0101; font-weight: normal; font-size: 120%; <?php if (($detalle['cant'] - $detalle['cant_eliminada']) == 0) echo "text-decoration: line-through;" ?> ">
+                            <?php echo $detalle['cant'] - $detalle['cant_eliminada'] . ")  " . (!empty($detalle['Producto']['name']) ? $detalle['Producto']['name'] : '') . " [p-u $ " . $detalle['Producto']['precio'] . "]" ?>
+                            </span>
 
-                                            $totalSumado += ($detalle['cant'] - $detalle['cant_eliminada']) * $sabor['Sabor']['precio'];
+                             <?php
+                             echo $this->Html->link("Editar"
+                                    , array('plugin'=>'comanda','controller' => 'DetalleComandas', 'action' => 'edit', $detalle['id'])
+                                    , array('class'=>'small')
+                                    );
+                             echo " - ";
+                             echo $this->Html->link(__('Delete')
+                                    , array('plugin'=>'comanda', 'controller' => 'DetalleComandas', 'action'=>'delete', $detalle['id'])
+                                    , array('class'=>'small')
+                                    , sprintf(__('Are you sure you want to delete # %s?'), $detalle['id']));
+                            ?>
+
+
+                                <?php
+                                if (count($detalle['DetalleSabor']) > 0) {
+                                    $primero = true;
+                                    echo "<cite>";
+                                    echo "(";
+                                    foreach ($detalle['DetalleSabor'] as $sabor) {
+                                        if (!$primero) {
+                                            echo ", ";
                                         }
-                                        echo ")";
-                                        echo "</cite>";
+                                        $primero = false;
+                                        echo $sabor['Sabor']['name'] . ($sabor['Sabor']['precio'] != '0' ? " [ $" . $sabor['Sabor']['precio'] . "]" : '');
+
+                                        $totalSumado += ($detalle['cant'] - $detalle['cant_eliminada']) * $sabor['Sabor']['precio'];
                                     }
-
-                                    $totalSumado += ($detalle['cant'] - $detalle['cant_eliminada']) * $detalle['Producto']['precio'];
+                                    echo ")";
+                                    echo "</cite>";
                                 }
-                                ?>
 
-                            </div>
-                    </div>
+                                $totalSumado += ($detalle['cant'] - $detalle['cant_eliminada']) * $detalle['Producto']['precio'];
+                        ?>
+                        </div>
+                    <?php endforeach; ?>
 
+                </div>
 
-                    </div>
-                    <?php
-                endforeach;
-                ?>
+            <?php endforeach; ?>
 
             </div>
-         
 
         </div>
 

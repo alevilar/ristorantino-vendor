@@ -790,6 +790,13 @@ Mesa.prototype = {
             
         });
 
+        
+        if ( this.Pago().length == 1 && !this.Pago()[0].valor() ) {
+            // es porque la mesa esta cobrada
+            this.setEstadoCobrada();
+        }
+
+
         if ( this.totalPagos() && this.vuelto() >= 0) {
         	// es porque la mesa esta cobrada
         	this.setEstadoCobrada();
