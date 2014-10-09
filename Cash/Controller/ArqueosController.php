@@ -24,10 +24,11 @@ class ArqueosController extends CashAppController
     
     private function __presetIngresosEgresos ($caja = null) {
         
-        if ( !empty($this->request->data['Arqueo']['id']) ) {
-            $hasta = $this->request->data['Arqueo']['datetime'];
-        } else {
+        if ( empty($this->request->data['Arqueo']['id']) ) {
+            // Nuevo Arqueo
             $hasta = date('Y-m-d H:i:s', strtotime('now'));
+        } else {
+            $hasta = $this->request->data['Arqueo']['datetime'];
         }
         $conditions = array(
             'order' => array('Arqueo.datetime DESC'),
@@ -46,7 +47,10 @@ class ArqueosController extends CashAppController
                 $desde = date('Y-m-d H:i:s', strtotime('-4 month') );
         } else {
             $desde = $ultimoArqueo['Arqueo']['datetime'];
-            $this->request->data['Arqueo']['importe_inicial'] = $ultimoArqueo['Arqueo']['importe_final'];
+            if ( empty($this->request->data['Arqueo']['importe_inicial']) ) {
+                // pongo el del ultimo arqueo
+                $this->request->data['Arqueo']['importe_inicial'] = $ultimoArqueo['Arqueo']['importe_final'];
+            }
         }
          $egresosList = $this->Egreso->find('all', array(
             'conditions' => array(
@@ -208,7 +212,7 @@ class ArqueosController extends CashAppController
     
     public function edit($id) {
         
-        if (!empty($this->request->data)) {
+        if ( $this->request->is('post') ) {
             $this->Arqueo->create();
             $error = false;
             if ($this->Arqueo->save($this->request->data)) {
@@ -241,7 +245,6 @@ class ArqueosController extends CashAppController
                 $this->request->data['Arqueo']['hacer_cierre_zeta'] = 0;
             }
         }
-        
         $this->Arqueo->Caja->recursive = -1;
         $caja = $this->Arqueo->Caja->read(null, $this->request->data['Arqueo']['caja_id']);
       
@@ -256,7 +259,7 @@ class ArqueosController extends CashAppController
             $this->set('caja', $caja);
         }
         
-        
+
         $this->render('add');
     }
 
