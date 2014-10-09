@@ -1,5 +1,9 @@
 
 
+Mozo.prototype._initFn.push( function(){
+	
+});
+
 
 /**	
 * @param moment-js day
@@ -25,8 +29,7 @@ Mozo.prototype.tieneMesaEl = function ( day ) {
 			i++;
 		}
 		return false;
-
-	};
+};
 
 
 

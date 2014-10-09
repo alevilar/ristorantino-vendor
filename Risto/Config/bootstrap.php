@@ -127,8 +127,11 @@ function jsDate($date)
  * @param integer $precision
  * @param const $extra flags de la funcion round() de PHP ver: http://php.net/manual/es/function.round.php
  */
-function cqs_round($number, $precision = 0)
+function cqs_round($number, $precision = null)
 {
+    if ( is_null($precision) ) {
+        $precision = Configure::read('Restaurante.precision');
+    }
     if ($precision == 0) {
         $num = ceil($number);
     } else {
