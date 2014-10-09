@@ -24,7 +24,7 @@ button,
 .ui-btn {
 	font-size: 1em;
 	line-height: 1.3;
-	    font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
+	 font-family: Helvetica, Arial, sans-serif /*{global-font-family}*/;
 }
 legend,
 .ui-input-text input,
@@ -714,8 +714,8 @@ html head + body .ui-body-c.ui-focus {
 html .ui-bar-d .ui-bar-inherit,
 html .ui-body-d .ui-bar-inherit,
 html body .ui-group-theme-d .ui-bar-inherit {
-	background-color: #7d0004 /*{d-bar-background-color}*/;
-	border-color: #af5405 /*{d-bar-border}*/;
+	background-color: #603813 /*{d-bar-background-color}*/;
+	border-color: #864e1a /*{d-bar-border}*/;
 	color: #ffffff /*{d-bar-color}*/;
 	text-shadow: 0 /*{d-bar-shadow-x}*/ 1px /*{d-bar-shadow-y}*/ 0 /*{d-bar-shadow-radius}*/ #444444 /*{d-bar-shadow-color}*/;
 	font-weight: bold;
@@ -787,10 +787,10 @@ html .ui-bar-d .ui-btn:visited,
 html .ui-body-d .ui-btn:visited,
 html body .ui-group-theme-d .ui-btn:visited,
 html head + body .ui-btn.ui-btn-d:visited {
-	background-color: #8f4242 /*{d-bup-background-color}*/;
-	border-color: #4e2424 /*{d-bup-border}*/;
-	color: #ffffff /*{d-bup-color}*/;
-	text-shadow: 0 /*{d-bup-shadow-x}*/ 1px /*{d-bup-shadow-y}*/ 0 /*{d-bup-shadow-radius}*/ #444444 /*{d-bup-shadow-color}*/;
+	background-color: #c7b299 /*{d-bup-background-color}*/;
+	border-color: #6d6154 /*{d-bup-border}*/;
+	color: #000000 /*{d-bup-color}*/;
+	text-shadow: 0 /*{d-bup-shadow-x}*/ 1px /*{d-bup-shadow-y}*/ 0 /*{d-bup-shadow-radius}*/ #eeeeee /*{d-bup-shadow-color}*/;
 }
 /* Button hover */
 .ui-page-theme-d .ui-btn:hover,
@@ -798,10 +798,10 @@ html .ui-bar-d .ui-btn:hover,
 html .ui-body-d .ui-btn:hover,
 html body .ui-group-theme-d .ui-btn:hover,
 html head + body .ui-btn.ui-btn-d:hover {
-	background-color: #a44b4b /*{d-bhover-background-color}*/;
-	border-color: #5a2929 /*{d-bhover-border}*/;
-	color: #ffffff /*{d-bhover-color}*/;
-	text-shadow: 0 /*{d-bhover-shadow-x}*/ 1px /*{d-bhover-shadow-y}*/ 0 /*{d-bhover-shadow-radius}*/ #444444 /*{d-bhover-shadow-color}*/;
+	background-color: #e4ccaf /*{d-bhover-background-color}*/;
+	border-color: #7d7060 /*{d-bhover-border}*/;
+	color: #000000 /*{d-bhover-color}*/;
+	text-shadow: 0 /*{d-bhover-shadow-x}*/ 1px /*{d-bhover-shadow-y}*/ 0 /*{d-bhover-shadow-radius}*/ #eeeeee /*{d-bhover-shadow-color}*/;
 }
 /* Button down */
 .ui-page-theme-d .ui-btn:active,
@@ -809,10 +809,10 @@ html .ui-bar-d .ui-btn:active,
 html .ui-body-d .ui-btn:active,
 html body .ui-group-theme-d .ui-btn:active,
 html head + body .ui-btn.ui-btn-d:active {
-	background-color: #a44b4b /*{d-bdown-background-color}*/;
-	border-color: #5a2929 /*{d-bdown-border}*/;
-	color: #ffffff /*{d-bdown-color}*/;
-	text-shadow: 0 /*{d-bdown-shadow-x}*/ 1px /*{d-bdown-shadow-y}*/ 0 /*{d-bdown-shadow-radius}*/ #444444 /*{d-bdown-shadow-color}*/;
+	background-color: #e4ccaf /*{d-bdown-background-color}*/;
+	border-color: #7d7060 /*{d-bdown-border}*/;
+	color: #000000 /*{d-bdown-color}*/;
+	text-shadow: 0 /*{d-bdown-shadow-x}*/ 1px /*{d-bdown-shadow-y}*/ 0 /*{d-bdown-shadow-radius}*/ #eeeeee /*{d-bdown-shadow-color}*/;
 }
 /* Active button */
 .ui-page-theme-d .ui-btn.ui-btn-active,
@@ -838,8 +838,8 @@ html .ui-bar-d .ui-slider-track .ui-btn-active,
 html .ui-body-d .ui-slider-track .ui-btn-active,
 html body .ui-group-theme-d .ui-slider-track .ui-btn-active,
 html body div.ui-slider-track.ui-body-d .ui-btn-active {
-	background-color: #702d1c /*{d-active-background-color}*/;
-	border-color: #9c3e27 /*{d-active-border}*/;
+	background-color: #736357 /*{d-active-background-color}*/;
+	border-color: #3f362f /*{d-active-border}*/;
 	color: #ffffff /*{d-active-color}*/;
 	text-shadow: 0 /*{d-active-shadow-x}*/ 1px /*{d-active-shadow-y}*/ 0 /*{d-active-shadow-radius}*/ #444444 /*{d-active-shadow-color}*/;
 }
@@ -849,7 +849,7 @@ html .ui-bar-d .ui-radio-on:after,
 html .ui-body-d .ui-radio-on:after,
 html body .ui-group-theme-d .ui-radio-on:after,
 .ui-btn.ui-radio-on.ui-btn-d:after {
-	border-color: #702d1c /*{d-active-background-color}*/;
+	border-color: #736357 /*{d-active-background-color}*/;
 }
 /* Focus */
 .ui-page-theme-d .ui-btn:focus,
@@ -864,9 +864,9 @@ html .ui-body-d .ui-focus,
 html body .ui-group-theme-d .ui-focus,
 html head + body .ui-btn-d.ui-focus,
 html head + body .ui-body-d.ui-focus {
-	-webkit-box-shadow: 0 0 12px #702d1c /*{d-active-background-color}*/;
-	-moz-box-shadow: 0 0 12px #702d1c /*{d-active-background-color}*/;
-	box-shadow: 0 0 12px #702d1c /*{d-active-background-color}*/;
+	-webkit-box-shadow: 0 0 12px #736357 /*{d-active-background-color}*/;
+	-moz-box-shadow: 0 0 12px #736357 /*{d-active-background-color}*/;
+	box-shadow: 0 0 12px #736357 /*{d-active-background-color}*/;
 }
 
 

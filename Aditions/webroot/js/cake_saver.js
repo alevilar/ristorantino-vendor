@@ -56,14 +56,14 @@ var $cakeSaver = {
         var errorHandler = sendObj.error || function(){};
         var method = sendObj['method'] || this.method;       
         var obAplanado = this.__processObj(obj, obj.model); // objeto aplanado
-        this.__doSend(url, obAplanado, method, errorHandler, fn, obj);
+        return this.__doSend(url, obAplanado, method, errorHandler, fn, obj);
        
     },
     
     
     
     __doSend: function(url, ob, method, errorHandler, fn, obj){
-        $.ajax({
+        return $.ajax({
                 'url': url,
                 'data': ob,
                 'type': method,

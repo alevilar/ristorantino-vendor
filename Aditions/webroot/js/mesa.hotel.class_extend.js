@@ -37,29 +37,7 @@ Mozo.prototype._init.push( function( jsonData ) {
 	};
 
 
-
-	this.mesasFromDataRangeByRange = ko.computed( function () {
-		 var days = Risto.Adition.adicionar.calendarGrid.days(),
-		 	 gridFirstDay = Risto.Adition.adicionar.calendarGrid.firstDay().toDate(),
-		 	 gridLastDay = Risto.Adition.adicionar.calendarGrid.lastDay().toDate(),
-		 	 curDay,
-		 	 mesa, 
-		 	 diasEstadia,
-		 	 cout, cin,
-		 	 rangoGrilla, //rango de la grilla para una reserva particular
-		 	 cols = [],
-		 	 diffDays = 0,
-		 	 iant,
-		 	 diffMin, diffMax,
-		 	 i = 0,
-		 	 mesaRow = [],
-		 	 checkinClass = '', 
-		 	 checkoutClass = '',
-		 	 mesaCel;
-
-		if (this.numero() == 0) return [];
-
-		var mesaClass = function ( map ) {
+	var mesaClass = function ( map ) {
 
 				var obj = {},
 
@@ -90,9 +68,37 @@ Mozo.prototype._init.push( function( jsonData ) {
 
 		}
 
+
+	this.mesasWithinRange = ko.pureComputed( function () {
+	});
+
+
+	this.mesasFromDataRangeByRange = ko.pureComputed( function () {
+		 var days = Risto.Adition.adicionar.calendarGrid.days(),
+		 	 gridFirstDay = Risto.Adition.adicionar.calendarGrid.firstDay().toDate(),
+		 	 gridLastDay = Risto.Adition.adicionar.calendarGrid.lastDay().toDate(),
+		 	 curDay,
+		 	 mesa, 
+		 	 diasEstadia,
+		 	 cout, cin,
+		 	 rangoGrilla, //rango de la grilla para una reserva particular
+		 	 cols = [],
+		 	 diffDays = 0,
+		 	 iant,
+		 	 diffMin, diffMax,
+		 	 i = 0,
+		 	 mesaRow = [],
+		 	 checkinClass = '', 
+		 	 checkoutClass = '',
+		 	 mesaCel;
+
+		if (this.numero() == 0) return [];
+
+
 		if ( days ) {
 			while ( i < days.length ) {
 				checkinClass = checkoutClass = '';
+				diasEstadia = 1;
 				
 				curDay = days[i];
 
@@ -108,11 +114,11 @@ Mozo.prototype._init.push( function( jsonData ) {
 				mesaCel.dayName(curDay.format('YYYY-MM-DD'));
 
 				mesaRow.push( mesaCel );
-
 				if ( mesa ) {
 
 					cin =  Date.clearHour( mesaCel.checkin() ).toDate();
 					cout =  Date.clearHour( mesaCel.checkout() ).toDate();
+					diasEstadia = mesaCel.diasEstadia();
 
 					if ( cin < gridFirstDay ) {
 						// checkin fuera de la grilla
@@ -120,7 +126,7 @@ Mozo.prototype._init.push( function( jsonData ) {
 
 						// restar dias que no se muestran
 						diffMin = Math.abs(Date.diffDays( cin, gridFirstDay ));
-						mesaCel.diasEstadiaRecortado( mesaCel.diasEstadiaRecortado() - diffMin );
+						diasEstadia -= diffMin 
 					}
 
 					if ( cout > gridLastDay ) {
@@ -129,18 +135,21 @@ Mozo.prototype._init.push( function( jsonData ) {
 
 						// restar dias que no se muestran
 						diffMax = Math.abs(Date.diffDays( cout, gridLastDay ));
-						mesaCel.diasEstadiaRecortado( mesaCel.diasEstadiaRecortado() - diffMax );
+						diasEstadia -= diffMax ;
 					}
-						
-					mesaCel.grillaExtraClass( 'ocupada' + checkinClass + checkoutClass );
-
-					// avanzar los dias que dura la estadia de la mesa
-					i += mesaCel.diasEstadiaRecortado() ;
-
-				} else {
-					// avanzar 1 dia
-					i++;
+					
+					mesaCel.diasEstadiaRecortado( diasEstadia );
+					
+					if ( checkinClass || checkoutClass ) {
+						mesaCel.grillaExtraClass( 'ocupada' + checkinClass + checkoutClass );
+					}  else {
+						mesaCel.grillaExtraClass( 'ocupada checkin-checkout' );
+					}
 				}
+
+				// avanzar los dias que dura la estadia de la mesa
+				i += diasEstadia;
+
 			}
 		}
 		return mesaRow;

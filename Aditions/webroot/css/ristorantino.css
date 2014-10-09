@@ -143,11 +143,6 @@ ul.listado-adicion .mesa-mozo,ul.listado-adicion .mozo-cant-mesas {
 }
 
 
-#mesa-abrir-mesa-generica-btn{
-    height: 48px;
-    width: 48px;
-    float: left;
-}
 
 .mesa-total {
     font-size: 152%;
@@ -237,25 +232,40 @@ ul.listado-adicion .mesa-mozo,ul.listado-adicion .mozo-cant-mesas {
 
 
 
-ul#listado-mozos-para-mesas{
-    padding: 0px;
-    margin: 0px;
-    background-color: #E7E7E7;
+#listado-mozos-para-mesas{
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    margin-top: -1em;
 }
 
-#listado-mozos-para-mesas li{
-    display: inline-block;
-    min-width: 40px;
-    min-height: 30px;
-    text-align: center;
-    padding: 0px;
-    margin: 0px;
-    float: left;
+#listado-mozos-para-mesas .mozo-col{
+    display: table-column;
 }
 
-#listado-mozos-para-mesas li a{
-    text-decoration: none;
+#listado-mozos-para-mesas .mozo-row{
+    display: table-row;
+}   
+
+#listado-mozos-para-mesas .mozo-row a.mozo{
+    margin-left: -1em;
+    margin-top: 0em;
+    width: 100%;
 }
+
+#listado-mozos-para-mesas .mozo-cell{
+    display: table-cell;
+    padding: 0px 1%;
+    border-right: 1px solid grey;
+
+}
+
+#listado-mozos-para-mesas .mozo-cell:last-child{
+    border-right: none;    
+}
+
+
+
 
 
 .menu-img{
@@ -507,24 +517,8 @@ ul.tipo_de_pagos ,.tipo_de_pagos ul{
 
 
 
-
-h1.numero-mesa , h2.numero-mesa , h3.numero-mesa{
-    padding-left: 50px;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    background: url('img/azul2.png') no-repeat 0% 50%;
-}
-h1.numero-mozo , h2.numero-mozo , h3.numero-mozo{
-    padding-left: 50px;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    background: url('img/rojo1.png') no-repeat 0% 50%;
-}
-h1.cubiertos , h2.cubiertos , h3.cubiertos{
-    padding-left: 50px;
-    padding-top: 14px;
-    padding-bottom: 14px;
-    background: url('img/verde3.png') no-repeat 0% 50%;
+#mesa-add h3{
+    text-align: center;
 }
 
  .header-cliente{

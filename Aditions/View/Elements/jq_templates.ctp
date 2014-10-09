@@ -164,34 +164,6 @@
 
 <!-- Template: 
 listado de mesas que será refrescado continuamente mediante 
-el ajax que verifica el estado de las mesas (si fue abierta o cerrada alguna. -->
-<script id="listaMesas" type="text/html">
-    <li data-bind="attr: {mozo: mozo().id(), 'id': 'mesa-li-id-'+id(), 'class': estado().icon}">
-        <a  data-bind="click: seleccionar, 
-                       attr: {accesskey: numero, id: 'mesa-id-'+id()},
-                       css: {'ui-btn-b': estaAbierta(), 'ui-btn-d': estaCerrada(), 'ui-btn-e': estaCobrada() }
-                       "
-            href="#mesa-view" 
-            class="ui-link ui-btn ui-shadow ui-corner-all">
-            <span class="mesa-span ui-btn-inner">
-                <span class="ui-btn-text">
-                    <span class="mesa-numero" data-bind="text: numero"></span>
-                    
-                </span>
-            </span>
-            <span class="mesa-mozo" data-bind="text: mozo().numero"></span>
-            <span class="mesa-descuento" data-bind="visible: clienteDescuentoText(),text: clienteDescuentoText()"></span>
-            <span  class="mesa-tipofactura" data-bind="visible: clienteTipoFacturaText()">
-                <span data-bind="text: clienteTipoFacturaText()"></span>
-            </span>
-            <span class="mesa-time" data-bind="text: textoHora()"></span>
-        </a>
-    </li>
-</script>
-
-
-<!-- Template: 
-listado de mesas que será refrescado continuamente mediante 
 es igual al de las mesas de la adicion salvo que al hacer click tienen otro comportamiento
 -->
 <script id="listaMesasCajero" type="text/html">

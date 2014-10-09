@@ -23,7 +23,7 @@ Risto.Adition = {
 
 
 $(document).ready(function(){
-    Risto.Adition.koAdicionModel.refreshBinding();
+    Risto.Adition.koAdicionModel.applyBinding();
     
     $mesasContainer = $('#mesas_container');
     $mesasDom = $mesasContainer.find('li');

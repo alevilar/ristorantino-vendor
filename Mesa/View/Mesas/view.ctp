@@ -27,9 +27,7 @@
             </script>
 
             <script type="text/javascript">
-                if ( !Risto.Adition.koAdicionModel.tieneCurrentMesa() ) {
-//                            document.location = URL_DOMAIN + TENANT + '/adition/adicionar';
-                }
+              
                     
                 (function($){
                     Risto.Adition.koAdicionModel.refreshBinding();

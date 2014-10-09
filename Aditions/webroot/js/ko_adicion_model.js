@@ -1,4 +1,4 @@
-/*--------------------------------------------------------------------------------------------------- KO MODEL
+ /*--------------------------------------------------------------------------------------------------- KO MODEL
  *
  *
  * Clase Vista de knockout.js depende de Risto.Adition.adicionar y Risto.Adition.menu
@@ -21,16 +21,9 @@ Risto.Adition.koAdicionModel = {
     
     adn     : ko.observable( Risto.Adition.adicionar ),
     menu    : ko.observable( Risto.Adition.menu ),
+        
     
-    tieneCurrentMesa: function(){
-        if ( typeof this.adn().currentMesa() == 'object')  {
-            return true;
-        } else {
-            return false;
-        }
-    },
-    
-    refreshBinding: function(){
+    applyBinding: function(){
         ko.applyBindings( Risto.Adition.koAdicionModel );
     }
 }

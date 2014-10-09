@@ -31,13 +31,11 @@ var Mesa = function(mozo, jsonData) {
         },this);
 
 
-        this.initialize(mozo, jsonData);
+        
 
-console.debug(mozo);
         this.total          = ko.observable( 0 );
         this.numero         = ko.observable( 0 );
         this.menu           = ko.observable( 0 );
-        this.mozo           = ko.observable( mozo );
         this.currentComanda = ko.observable( new Risto.Adition.comandaFabrica() );
         this.Comanda        = ko.observableArray( [] );
         this.mozo_id        = mozo.id;
@@ -47,11 +45,395 @@ console.debug(mozo);
         this.time_cobro     = ko.observable();
         this.Pago           = ko.observableArray( [] );
         this.cant_comensales= ko.observable(0);
+        this.mozo           = ko.observable( mozo );
+        
+
+
+
+        this.clienteDescuentoText = ko.computed( function(){
+            var texto = '';
+            if ( this.Cliente() &&  this.Cliente().tieneDescuento && this.Cliente().tieneDescuento() != undefined ) {
+                texto = this.Cliente().getDescuentoText();
+            }
+            return texto;
+        }, this);
+        
+
+
+
+        /**
+         *  dependentObservable
+         *  
+         *  devuelve el nombre del icono (jqm data-icon) que tiene el estado 
+         *  en el que la mesa se encuentra actualmente
+         *  el nombre del icono sirve para manejar cuestiones esteticas y es definido
+         *  en "mesa.estados.class.js"
+         *  
+         *  @return string
+         *
+         */
+         this.getEstadoIcon= ko.computed( function(){
+                if (this.estado()){
+                    return this.estado().icon;
+                }
+                return MESA_ESTADOS_POSIBLES.abierta.icon;
+                
+            }, this);
+            
+
+        /**
+         * devuelve el estado actual de la mesa
+         * @return MesaEstado
+         */
+        this.getEstado = ko.computed( function(){
+            return this.estado();
+        }, this);
+        
+        
+
+
+        
+         /**
+         * dependentObservable
+         * 
+         * Chequea si la mesa esta con el estado: cerrada. (por lo general, lo que interesa
+         * es saber que si no esta cerrada es porque esta abierta :-)
+         * @return boolean
+         **/
+        this.estaCerrada = ko.computed( function(){
+            return Boolean(MESA_ESTADOS_POSIBLES.cerrada == this.estado());
+        }, this);
+        
+
+        /**
+         * Me dice si la mesa esta en estado cobrada
+         * @return boolean true si ya cerro, false si esta abierta
+         */
+        this.estaCobrada = ko.computed( function(){
+            return Boolean(MESA_ESTADOS_POSIBLES.cobrada == this.getEstado());
+        }, this);
+
+
+
+
+        /** jQuery Mobile Class **/
+        this.getPageThemeClass = ko.computed( function () {
+            var classname = 'ui-page-theme-a';
+            if ( this.estaCerrada() ){
+                classname = 'ui-page-theme-d';
+            } else if ( this.estaCobrada() ) {
+                classname = 'ui-page-theme-e';
+            }
+            return classname;
+        }, this);
+
+
+
+
+        /** jquery mobile button class name **/
+        this.getEstadoClassName = ko.computed( function () {
+            var classname = 'ui-btn-b';
+            if ( this.estaCerrada() ){
+                classname = 'ui-btn-d';
+            } else if ( this.estaCobrada() ) {
+                classname = 'ui-btn-e';
+            }
+            return classname;
+        }, this);
+
+
+
+
+
+
+
+        /**
+         * es timeCreated o sea la fecha de creacion del mysql timestamp
+         * @return string timestamp
+         **/
+        this.timeAbrio= ko.computed( function(){
+            if (!this.timeCreated) {
+                Risto.modelizar(this);
+            }
+            return this.timeCreated();
+        }, this);
+
+
+
+
+         /**
+         * Devuelve un texto con la hora
+         * si la mesa esta cerrada, dice "Cerró: 14:35"
+         * si esta aberta dice: "Abrió 13:22"
+         */
+        this.textoHora = ko.computed( function() {
+            var date, txt;
+            if ( this.getEstado() == MESA_ESTADOS_POSIBLES.cerrada ) {
+                txt = 'Cerró a las ';
+                if (typeof this.time_cerro == 'function') {
+                    date =  mysqlTimeStampToDate(this.time_cerro());
+                }
+            } else {
+                txt = 'Abrió a las ';
+                if (typeof this.created == 'function') {
+                    date = mysqlTimeStampToDate(this.created());            
+                }
+            }
+            if ( !date ) {
+                date = new Date();
+            }
+            return txt + date.getHours() + ':' + date.getMinutes() + 'hs';
+        }, this);
+
+
+
+        /**
+         *Devuelve el total neto, sin aplicar descuentos
+         *@return float
+         */
+        this.totalCalculadoNeto= ko.computed( function(){
+            var valorPorCubierto =  Risto.VALOR_POR_CUBIERTO || 0,
+                total = this.cant_comensales() * valorPorCubierto,
+                c = 0;
+
+            for (c in this.Comanda()){
+                for (dc in this.Comanda()[c].DetalleComanda() ){
+                    total += parseFloat( this.Comanda()[c].DetalleComanda()[dc].precio() * this.Comanda()[c].DetalleComanda()[dc].realCant() );
+                }
+            }
+
+            return Math.round( total*100)/100;
+        }, this);
+
+
+
+
+            
+        /**
+         *
+         *  Depende del cliente.
+         *  es un atajo al porcentaje de descuento que tiene el cliente
+         */
+        this.porcentajeDescuento = ko.computed( function(){
+            var porcentaje = 0;
+            if (this.Cliente() && !this.Cliente().hasOwnProperty('length') &&  this.Cliente().Descuento()){
+                if ( typeof this.Cliente().Descuento().porcentaje == 'function') {
+                    porcentaje = this.Cliente().Descuento().porcentaje();
+                }
+            }
+            return parseFloat( porcentaje );
+        }, this);
+            
+        
+
+
+
+        /**
+         *Devuelve el total aplicandole los descuentos
+         *@return float
+         */
+        this.totalCalculado = ko.computed( function(){
+            var total = parseFloat( this.total() );
+            if ( total ) {
+                return total;
+            }
+            
+            total = this.totalCalculadoNeto();
+            
+            var dto = 0;
+               
+            dto = Math.floor(total * this.porcentajeDescuento() / 100);
+            total = total - dto;
+            
+            return total;
+        }, this);
+        
+
+
+        
+        /**
+         *Devuelve el total mostrando un texto
+         *@return String
+         */
+        this.textoTotalCalculado = ko.computed( function(){
+            var total = this.totalCalculadoNeto(), 
+                dto = 0, 
+                totalText = '$'+total ;
+            
+            
+        
+            if ( this.porcentajeDescuento() ) {
+                dto = Math.round( Math.floor( total * this.porcentajeDescuento()  / 100 ) *100 ) /100;
+                totalText = totalText+' - [Dto '+this.porcentajeDescuento()+'%] $'+dto+' = $'+ this.totalCalculado();
+            }
+            
+            return totalText;
+        }, this);
+        
+
+
+
+        /**
+         * El vuelto a devolver pero ingresando un texto
+         * Ej: Vuelto: $35
+         * @return String
+         */
+        this.vueltoText= ko.computed( function () {
+           var pagos = this.Pago(),
+               sumPagos = 0,
+               totMesa = this.totalCalculado(),
+               vuelto = 0,
+               retText = 'Total: '+ this.textoTotalCalculado();
+           if (pagos && pagos.length) {
+               for (var p in pagos) {
+                   if ( pagos[p].valor() ) {
+                    sumPagos += parseFloat(pagos[p].valor());
+                   }
+               }
+               vuelto = (totMesa - sumPagos);
+               if (vuelto <= 0 ){
+                   retText = retText+'   -  Vuelto: $  '+Math.abs(vuelto);
+               } else {
+                   retText = retText+'   -  ¡¡¡¡ Faltan: $  '+vuelto+' !!!';
+               }
+           }
+           return retText;
+        }, this);
+
+
+
+
+
+        /**
+         * A diferencia de los otros totales, este no esta bindeado con knocout por lo tanto da el total real en el momento 
+         * que se llama a esta funcion
+         */
+        this.totalStatic = ko.computed( function(){
+            var total = 0,
+                c, // index de Comandas
+                dc; // index del for DetalleComandas
+                
+            for (c in this.Comanda()){
+                for (dc in this.Comanda()[c].DetalleComanda() ){
+                    total += parseFloat( this.Comanda()[c].DetalleComanda()[dc].precio() * this.Comanda()[c].DetalleComanda()[dc].realCant() );
+                }
+            }
+
+            return Math.round( total*100)/100;
+        }, this);
+        
+        
+       
+       
+        
+        
+        this.clienteTipoFacturaText = ko.computed( function(){
+            var texto = Risto.DEFAULT_TIPOFACTURA_NAME;
+            if ( this.Cliente() && typeof this.Cliente().getTipoFactura == 'function' ) {
+                texto = this.Cliente().getTipoFactura();
+            }
+            return texto;
+        }, this);
+        
+       
+        
+        /**
+         * dependentObservable
+         * 
+         * Devuelve el nombre del Cliente si es que hay alguno setteado
+         * en caso de no haber cliente, devuelve el string vacio ''
+         *
+         *@return string
+         */
+        this.clienteNameData = ko.computed( function() {
+            var cliente = this.Cliente();
+            if (cliente){
+                if (typeof cliente == 'function') {
+                    return cliente.nombre();
+                } else {
+                    return cliente.nombre;
+                }
+            }
+            return '';
+        }, this);
+        
+        
+        
+       
+
+
+        this.totalPagos = ko.computed( function () {
+            var pagos = this.Pago(),
+               sumPagos = 0;
+
+           if (pagos && pagos.length) {
+               for (var p in pagos) {
+                   if ( pagos[p].valor() ) {
+                    sumPagos += parseFloat(pagos[p].valor());
+                   }
+               }          
+           }
+           return sumPagos;
+        }, this);
+
+
+
+        /**
+         *  Toma los valores ingresados en los pagos y calcula el vuelto a devolver
+         *  @return Float
+         */
+        this.vuelto = ko.computed( function () {
+           var pagos = this.totalPagos(),
+               totMesa = this.totalCalculado();
+           
+            return pagos - totMesa;
+        }, this);
+
+
+
+
+
+        
+        /**
+         * devuelve el string que identifica como nombre al estado
+         * es el atributo del objeto estado llamado msg
+         * el objeto de estado de la mesa es el de mesa.estados.class.js
+         */
+        this.getEstadoName = ko.computed( function(){
+            if (this.estado()){
+                return this.estado().msg;
+            }
+            return '';
+        }, this);
+        
+
+        this.jqmDataTheme = ko.computed( function () {
+            if (this.estado()){
+                return this.estado().jqmlTheme;
+            }
+            return '';
+        }, this);
+        
+        
+
+        /**
+         * Me dice si la mesa pidio el cierre y esta pendiente de cobro
+         * @return boolean true si ya cerro, false si esta abierta
+         */
+        this.estaAbierta = ko.computed( function(){
+
+            return Boolean(MESA_ESTADOS_POSIBLES.abierta == this.getEstado());
+        }, this);
+
+
+
+        
+
         
         // agrego atributos generales
         Risto.modelizar(this);
         
-        return this;
+        return this.initialize(mozo, jsonData);
 }
 
 
@@ -59,16 +441,7 @@ console.debug(mozo);
 Mesa.prototype = {
     model       : 'Mesa',
     
-    /**
-     * es timeCreated o sea la fecha de creacion del mysql timestamp
-     * @return string timestamp
-     **/
-    timeAbrio: function(){
-        if (!this.timeCreated) {
-            Risto.modelizar(this);
-        }
-        return this.timeCreated();
-    },
+    
 
     /**
      *@constructor
@@ -91,6 +464,11 @@ Mesa.prototype = {
         // mapea el objeto this usando ko.mapping
         return this.__koMapp( jsonData, mozo );
 //        this.setEstadoById();  
+    },
+
+
+    create: function () {
+         return $cakeSaver.send({url: this.urlAdd(), obj: this});
     },
     
     
@@ -192,6 +570,7 @@ Mesa.prototype = {
 
     /* listado de URLS de accion con la mesa */
     urlGetData: function() { return URL_DOMAIN + TENANT + '/mesa/mesas/ticket_view/'+this.id() },
+    urlAdd: function() { return URL_DOMAIN + TENANT + '/mesa/mesas/add.json' },
     urlView: function() { return URL_DOMAIN + TENANT + '/mesa/mesas/view/'+this.id() },
     urlEdit: function() { return URL_DOMAIN + TENANT + '/mesas/ajax_edit/'+this.id() },
     urlFullEdit: function() { return URL_DOMAIN + TENANT + '/mesas/edit/'+this.id() },
@@ -316,73 +695,7 @@ Mesa.prototype = {
         return false;
     },
 
-    /**
-     * devuelve el estado actual de la mesa
-     * @return MesaEstado
-     */
-    getEstado: function(){
-        return this.estado();
-    },
-    
-    
-    /**
-     * devuelve el string que identifica como nombre al estado
-     * es el atributo del objeto estado llamado msg
-     * el objeto de estado de la mesa es el de mesa.estados.class.js
-     */
-    getEstadoName: function(){
-        if (this.estado()){
-            return this.estado().msg;
-        }
-        return '';
-    },
-    
 
-    jqmDataTheme: function () {
-        if (this.estado()){
-            return this.estado().jqmlTheme;
-        }
-        return '';
-    },
-    
-    /**
-         *  dependentObservable
-         *  
-         *  devuelve el nombre del icono (jqm data-icon) que tiene el estado 
-         *  en el que la mesa se encuentra actualmente
-         *  el nombre del icono sirve para manejar cuestiones esteticas y es definido
-         *  en "mesa.estados.class.js"
-         *  
-         *  @return string
-         *
-         */
-     getEstadoIcon: function(){
-            if (this.estado()){
-                return this.estado().icon;
-            }
-            return MESA_ESTADOS_POSIBLES.abierta.icon;
-            
-        },
-        
-    
-
-    /**
-     * Me dice si la mesa pidio el cierre y esta pendiente de cobro
-     * @return boolean true si ya cerro, false si esta abierta
-     */
-    estaAbierta : function(){
-
-        return Boolean(MESA_ESTADOS_POSIBLES.abierta == this.getEstado());
-    },
-
-
-    /**
-     * Me dice si la mesa esta en estado cobrada
-     * @return boolean true si ya cerro, false si esta abierta
-     */
-    estaCobrada : function(){
-        return Boolean(MESA_ESTADOS_POSIBLES.cobrada == this.getEstado());
-    },
 
     /**
      * @deprecated deberia usar estaCerrada
@@ -407,7 +720,7 @@ Mesa.prototype = {
      *@return integer
      */        
     getCantComensales : function(){
-        return this.cantComensales();
+        return this.cant_comensales();
     },
 
     /**
@@ -556,235 +869,7 @@ Mesa.prototype = {
     },
     
     
-    /**
-     * A diferencia de los otros totales, este no esta bindeado con knocout por lo tanto da el total real en el momento 
-     * que se llama a esta funcion
-     */
-    totalStatic: function(){
-        var total = 0,
-            c, // index de Comandas
-            dc; // index del for DetalleComandas
-            
-        for (c in this.Comanda()){
-            for (dc in this.Comanda()[c].DetalleComanda() ){
-                total += parseFloat( this.Comanda()[c].DetalleComanda()[dc].precio() * this.Comanda()[c].DetalleComanda()[dc].realCant() );
-            }
-        }
-
-        return Math.round( total*100)/100;
-    },
     
-    
-    /**
-     *Devuelve el total neto, sin aplicar descuentos
-     *@return float
-     */
-    totalCalculadoNeto: function(){
-        var valorPorCubierto =  Risto.VALOR_POR_CUBIERTO || 0,
-            total = this.cant_comensales() * valorPorCubierto,
-            c = 0;
-
-        for (c in this.Comanda()){
-            for (dc in this.Comanda()[c].DetalleComanda() ){
-                total += parseFloat( this.Comanda()[c].DetalleComanda()[dc].precio() * this.Comanda()[c].DetalleComanda()[dc].realCant() );
-            }
-        }
-
-        return Math.round( total*100)/100;
-    },
-        
-        
-        /**
-         *
-         *  Depende del cliente.
-         *  es un atajo al porcentaje de descuento que tiene el cliente
-         */
-       porcentajeDescuento : function(){
-            var porcentaje = 0;
-            if (this.Cliente() && !this.Cliente().hasOwnProperty('length') &&  this.Cliente().Descuento()){
-                if ( typeof this.Cliente().Descuento().porcentaje == 'function') {
-                    porcentaje = this.Cliente().Descuento().porcentaje();
-                }
-            }
-            return parseFloat( porcentaje );
-        },
-        
-        /**
-         *Devuelve el total aplicandole los descuentos
-         *@return float
-         */
-        totalCalculado : function(){
-            var total = parseFloat( this.total() );
-            if ( total ) {
-                return total;
-            }
-            
-            total = this.totalCalculadoNeto();
-            
-            var dto = 0;
-               
-            dto = Math.floor(total * this.porcentajeDescuento() / 100);
-            total = total - dto;
-            
-            return total;
-        },
-        
-        
-        /**
-         *Devuelve el total mostrando un texto
-         *@return String
-         */
-        textoTotalCalculado : function(){
-            var total = this.totalCalculadoNeto(), 
-                dto = 0, 
-                totalText = '$'+total ;
-            
-            
-        
-            if ( this.porcentajeDescuento() ) {
-                dto = Math.round( Math.floor( total * this.porcentajeDescuento()  / 100 ) *100 ) /100;
-                totalText = totalText+' - [Dto '+this.porcentajeDescuento()+'%] $'+dto+' = $'+ this.totalCalculado();
-            }
-            
-            return totalText;
-        },
-        
-        
-        
-        
-         /**
-         * dependentObservable
-         * 
-         * Chequea si la mesa esta con el estado: cerrada. (por lo general, lo que interesa
-         * es saber que si no esta cerrada es porque esta abierta :-)
-         * @return boolean
-         **/
-        estaCerrada : function(){
-            return Boolean(MESA_ESTADOS_POSIBLES.cerrada == this.estado());
-        },
-        
-        
-        clienteTipoFacturaText: function(){
-            var texto = Risto.DEFAULT_TIPOFACTURA_NAME;
-            if ( this.Cliente() && typeof this.Cliente().getTipoFactura == 'function' ) {
-                texto = this.Cliente().getTipoFactura();
-            }
-            return texto;
-        },
-        
-        
-        clienteDescuentoText: function(){
-            var texto = '';
-            if ( this.Cliente() &&  this.Cliente().tieneDescuento && this.Cliente().tieneDescuento() != undefined ) {
-                texto = this.Cliente().getDescuentoText();
-            }
-            return texto;
-        },
-        
-        
-        /**
-         * dependentObservable
-         * 
-         * Devuelve el nombre del Cliente si es que hay alguno setteado
-         * en caso de no haber cliente, devuelve el string vacio ''
-         *
-         *@return string
-         */
-        clienteNameData : function() {
-            var cliente = this.Cliente();
-            if (cliente){
-                if (typeof cliente == 'function') {
-                    return cliente.nombre();
-                } else {
-                    return cliente.nombre;
-                }
-            }
-            return '';
-        },
-        
-        
-        
-        /**
-         * Devuelve un texto con la hora
-         * si la mesa esta cerrada, dice "Cerró: 14:35"
-         * si esta aberta dice: "Abrió 13:22"
-         */
-        textoHora : function() {
-            var date, txt;
-            if ( this.getEstado() == MESA_ESTADOS_POSIBLES.cerrada ) {
-                txt = 'Cerró a las ';
-                if (typeof this.time_cerro == 'function') {
-                    date =  mysqlTimeStampToDate(this.time_cerro());
-                }
-            } else {
-                txt = 'Abrió a las ';
-                if (typeof this.created == 'function') {
-                    date = mysqlTimeStampToDate(this.created());            
-                }
-            }
-            if ( !date ) {
-                date = new Date();
-            }
-            return txt + date.getHours() + ':' + date.getMinutes() + 'hs';
-        },
-
-
-
-
-
-	    /**
-	     * El vuelto a devolver pero ingresando un texto
-	     * Ej: Vuelto: $35
-	     * @return String
-	     */
-	    vueltoText : function () {
-	       var pagos = this.Pago(),
-	           sumPagos = 0,
-	           totMesa = Risto.Adition.adicionar.currentMesa().totalCalculado(),
-	           vuelto = 0,
-	           retText = 'Total: '+Risto.Adition.adicionar.currentMesa().textoTotalCalculado();
-	       if (pagos && pagos.length) {
-	           for (var p in pagos) {
-	               if ( pagos[p].valor() ) {
-	                sumPagos += parseFloat(pagos[p].valor());
-	               }
-	           }
-	           vuelto = (totMesa - sumPagos);
-	           if (vuelto <= 0 ){
-	               retText = retText+'   -  Vuelto: $  '+Math.abs(vuelto);
-	           } else {
-	               retText = retText+'   -  ¡¡¡¡ Faltan: $  '+vuelto+' !!!';
-	           }
-	       }
-	       return retText;
-	    },
-
-
-	totalPagos: function () {
-		var pagos = this.Pago(),
-           sumPagos = 0;
-
-       if (pagos && pagos.length) {
-           for (var p in pagos) {
-               if ( pagos[p].valor() ) {
-                sumPagos += parseFloat(pagos[p].valor());
-               }
-           }          
-       }
-       return sumPagos;
-	},
-
-
-    /**
-     *  Toma los valores ingresados en los pagos y calcula el vuelto a devolver
-     *  @return Float
-     */
-    vuelto : function () {
-       var pagos = this.totalPagos(),
-           totMesa = Risto.Adition.adicionar.currentMesa().totalCalculado();
-       
-        return pagos - totMesa;
-    },
 
 
 

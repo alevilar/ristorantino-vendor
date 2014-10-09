@@ -19,8 +19,11 @@ Risto.Adition.pago.prototype = {
     initialize: function( jsonOb ){        
         this.id = ko.observable();        
         this.valor = ko.observable(); 
-        this.TipoDePago = ko.observable( null );       
-        this.tipo_de_pago_id = ko.observable( jsonOb.TipoDePago.id );
+        this.TipoDePago = ko.observable( null );
+
+        if ( jsonOb && jsonOb.TipoDePago && jsonOb.TipoDePago.id ) {
+            this.tipo_de_pago_id = ko.observable( jsonOb.TipoDePago.id );
+        }
         this.mesa_id = ko.observable( null );    
 
         ko.mapping.fromJS(jsonOb, {}, this);

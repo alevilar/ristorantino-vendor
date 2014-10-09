@@ -124,10 +124,10 @@ Risto.Adition.handleMesasRecibidas = {
 Risto.Adition.adicionar = {
 
     // Mozo Actualmente Activo
-    currentMozo: ko.observable(  ),
+    currentMozo: ko.observable(),
     
     // Mesa Actualmente activa
-    currentMesa: ko.observable( new Mesa(new Mozo()) ),
+    currentMesa: ko.observable(),
     
     // listado de mozos
     mozos: ko.observableArray( [] ),
@@ -353,19 +353,7 @@ Risto.Adition.adicionar = {
     },
     
     
-    /**
-     *  Pasado un JSON con los datos y atributos de una mesa, lo convierte
-     *  en un objeto Mesa
-     *  @param Mesa mesaJSON
-     *  @return Mesa
-     */
-    crearNuevaMesa: function( mesaJSON ){
-        var mozo = this.findMozoById(mesaJSON.mozo_id),
-            mesa = new Mesa(mozo, mesaJSON);
-        
-        $cakeSaver.send({url:URL_DOMAIN + TENANT + '/mesa/mesas/add.json', obj: mesa});
-        return mesa;
-    },
+
     
     
     /**

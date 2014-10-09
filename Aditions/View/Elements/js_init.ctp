@@ -55,6 +55,7 @@
 
         //Parametros de configuracion
         Risto.Adition.cubiertosObligatorios   = <?php echo Configure::read('Adicion.cantidadCubiertosObligatorio')?'true':'false'?>;
+        Risto.Adition.NUMERO_MESA_OBLIGATORIO   = <?php echo Configure::read('Adicion.numeroMesaObligatorio')?'true':'false'?>;
 
 
       

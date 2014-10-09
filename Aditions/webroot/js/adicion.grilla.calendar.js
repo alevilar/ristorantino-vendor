@@ -1,5 +1,10 @@
 
-
+/**
+*
+*	Caalback para cuando se muestra la Page de la grilla en jquery mobile
+*	
+*
+****/
 Risto.domRegisterForEvents['listado-mesas'].show = function() {
 
 		/**
@@ -138,7 +143,7 @@ Risto.domRegisterForEvents['listado-mesas'].show = function() {
         });
 
 
-        $(this).on('click', '.mozos-grid a', function(e) {
+        $(this).on('click', '.mozo-mesas a', function(e) {
         	console.debug(this);
         	console.info(e);
 			$.mobile.changePage( this.href );

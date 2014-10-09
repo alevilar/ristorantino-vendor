@@ -79,7 +79,6 @@ Mozo.prototype = {
             len++;
         }
 
-console.debug( "INICIANDOOOOOO: %o", this.id());
         return this;
     },
 
@@ -107,6 +106,10 @@ console.debug( "INICIANDOOOOOO: %o", this.id());
     },
 
 
+    /**
+    *
+    *   Agrega una mesa existente al listado de mesas del mozo
+    **/
     agregarMesa: function(nuevaMesa){
         this.mesas.push(nuevaMesa);
         var evento = $.Event(MOZOS_POSIBLES_ESTADOS.agragaMesa.event);
@@ -123,6 +126,31 @@ console.debug( "INICIANDOOOOOO: %o", this.id());
         }
         return false;
     },
+
+
+
+    /**
+     *  Pasado un JSON con los datos y atributos de una mesa, lo convierte
+     *  en un objeto Mesa
+     *  @param Mesa mesaJSON
+     *  @return Mesa
+     */
+    crearNuevaMesa: function(){        
+        var mesaJSON = {};
+        mesaJSON.mozo_id = this.id();
+        var mesa = new Mesa(this, mesaJSON);
+        mesa.seleccionar();
+
+        this.mesas.push(mesa);
+
+        mesa.create().fail(function(){
+            alert("No se ha podido crear la nueva mesa");
+        });
+
+        return mesa;
+    },
+
+
 
     /**
      * Cuando un mozo es clickeado o elegido, es seleccionado.

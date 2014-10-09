@@ -20,7 +20,11 @@
 
       
 $(document).on("mobileinit", function(){
-    
+    window.location.hash = ''
+//    $.mobile.autoInitializePage = false;
+
+
+
 
     var domRegisterForEvents = {
 
@@ -185,8 +189,9 @@ $(document).on("mobileinit", function(){
 
         'mesa-view': {
 
-            show: function () {
+            show: function (ev, obj) {
 
+               
                 $('#comanda-detalle-collapsible').trigger('create');
 
                  // CLICKS
@@ -259,6 +264,7 @@ $(document).on("mobileinit", function(){
             },
 
             hide: function () {
+                ko.cleanNode( $('#mesa-view')[0] );
                 $('#mesa-action-comanda').unbind('click');
                 $('#mesa-action-cobrar').unbind('click');
                 $('#mesa-menu').unbind('click');
@@ -278,22 +284,10 @@ $(document).on("mobileinit", function(){
         'listado-mesas': {
 
             show: function () {
-                $('#mesas_container').on('click','a', function() {
-                    console.info("apreteee MAN");
+
+                // ir a la mesa seleccionada
+                $('#listado-mozos-para-mesas').on('click','a', function() {                    
                     $.mobile.changePage(this.href);
-                });
-
-
-                var $listadoMozos = $('#listado-mozos-para-mesas');
-                $listadoMozos.removeClass('ui-grid-a');
-
-
-                // al hacer click n un mozo del menu bar
-                // se muestran solo lasmesas de ese mozo
-
-                $listadoMozos.delegate('a', 'click', function(e) {
-                    $raeh.trigger('mostrarMesasDeMozo', e.currentTarget);
-                    return false;        
                 });
 
 
@@ -311,7 +305,6 @@ $(document).on("mobileinit", function(){
             },
 
             hide: function () {
-                console.info("LLENDO SE del listado");
                 $('#listado-mozos-para-mesas').undelegate('a','click');
                 $("#mesa-abrir-mesa-generica-btn").unbind( 'click');
                 $('#mesas_container').off('click','a');
@@ -480,114 +473,92 @@ $(document).on("mobileinit", function(){
 
         'mesa-add': {
 
-            show: function(){
-                $formMesaAdd = $('#form-mesa-add');
-                $p3 = $('#add-mesa-paso3');
-                $p2 = $( '#add-mesa-paso2');
-                $p1 = $( '#add-mesa-paso1');
+            show: function (ev, jqObj) {
+                var mesa = Risto.Adition.adicionar.currentMesa();
+
+                if ( !mesa.numero() && Risto.Adition.NUMERO_MESA_OBLIGATORIO ) {
+                    // si es cero poner en string vacio para el input
+                    mesa.numero('');
+                    return;
+                }
+
+                if ( !mesa.cant_comensales() && Risto.Adition.cubiertosObligatorios ) {
+                    // si es cero poner en string vacio para el input
+                    mesa.cant_comensales('');
+                    return;
+                }
+
+
+                $cubierto = $( '#mesa-add-cubiertos');
+                $numero = $( '#mesa-add-numero');
                 
-                
+
                 // init
-                $p2.hide();
-                $p3.hide();
-                $p1.show();
+                $numero.find('input').focus();
+
+                function irPagNumeroMesa(){
+                    $cubierto.hide();
+                    $numero.show();
+                    $numero.find( 'input').focus();
+                }
+                
+                function irPagCubierto(){
+                    $numero.hide();
+                    $cubierto.show();           
+                    $cubierto.find( 'input').focus();
+                }
                 
 
-                /**
-                 *
-                 * Luego de apretar el submit del formulario agregar mesa....
-                 */
-                function agregarNuevaMesa(e){
-                    domRegisterForEvents['mesa-add'].unbindAll();
-                    e.preventDefault();
-
-                    var rta = $formMesaAdd.serializeArray(), 
-                        miniMesa = {}, // json modelo, para crear la mesa
-                        mesa, // nueva mesa creada
-                        r; // cada atributo del formuario de mesa
-
-                    for (r in rta ) {
-                        if (rta[r].name == 'numero' && !rta[r].value){
-                            alert("Debe completar numero de mesa");
-                            return false;
-                        }
-
-                        if (rta[r].name == 'cant_comensales' && !rta[r].value && Risto.Adition.cubiertosObligatorios){
-                            alert("Debe indicar la cantidad de "+Risto.TITULO_CUBIERTO);
-                            return false;
-                        }
-                        miniMesa[rta[r].name] = rta[r].value;
+                function irASiguiente () {
+                    if ( !mesa.numero() && Risto.Adition.NUMERO_MESA_OBLIGATORIO ) {
+                        irPagNumeroMesa();
+                        return;
                     }
 
-                    mesa = Risto.Adition.adicionar.crearNuevaMesa( miniMesa );
-                    Risto.Adition.EventHandler.mesaSeleccionada( {"mesa": mesa} );
-                    Risto.Adition.adicionar.setCurrentMesa( mesa );
-                    $.mobile.changePage('#mesa-view');
-                    document.getElementById('form-mesa-add').reset(); // limpio el formulario
+                    if ( !mesa.cant_comensales() && Risto.Adition.cubiertosObligatorios ) {
+                        irPagCubierto();
+                        return;
+                    }
 
-                    return false;
-                }
-                
-                function irPaso1(){
-                    $p3.hide();
-                    $p2.hide();
-                    $p1.show();
-                }
-                
-                function irPaso2(){
-                    $p1.hide();
-                    $p3.hide();
-                    $p2.show();           
-                    $('#add-mesa-paso2').find( 'input').focus();
-                }
-                
-                function irPaso3(){
-                    $p1.hide();
-                    $p2.hide();
-                    $p3.show();   
-                    $('#add-mesa-paso3').find( 'input').focus();
+                    // si esta todo OK, entonces ir a la pagina de la mesa
+                    $.mobile.changePage('#mesa-view');
                 }
     
                 
-                // Ir al paso 1
-                $('#add-mesa-paso3-submit').bind('click', irPaso1);
-                $('#add-mesa-paso2-volver').bind('click', irPaso1);
-                
-                // Ir al paso 2
-                $('input[type="radio"]', "#add-mesa-paso1").bind("change", irPaso2);
-                $('#add-mesa-paso3-volver').bind("click", irPaso2);
-
-                // Ir al paso 3
-                $('#add-mesa-paso2-submit').bind('click', irPaso3);
-                
-
-                $('#form-mesa-add').bind('submit', agregarNuevaMesa);
-
+                $('#mesa-add').on('click', 'button.next', irASiguiente);
 
             },
 
-            unbindAll: function() {
-                $('#add-mesa-paso3-submit').unbind('click');
-                 $('#add-mesa-paso2-volver').unbind('click');
-                 $('#add-mesa-paso2-submit').unbind('click');
-                 $formMesaAdd.unbind('submit');
-                 $('#add-mesa-paso3-volver').unbind('click');
-                 $('input[type="radio"]', "#add-mesa-paso1").unbind("change");
-            },
 
-            hide: function(){
-                domRegisterForEvents['mesa-add'].unbindAll();
-                document.getElementById('form-mesa-add').reset();
-
-
+            hide: function(){                
+                $('#mesa-add').off('click', '.next');
             }
         }
 
-
-
-
-
     }
+
+
+
+
+
+    $(document).on('pagecontainerbeforechange', function(event, data){
+
+        if (typeof data.toPage !== 'string') {
+            return;
+        }
+        
+        if (data.toPage.match(/#mesa-view/)) {
+            if ( !Risto.Adition.adicionar.currentMesa().numero() && Risto.Adition.NUMERO_MESA_OBLIGATORIO ) {
+                data.toPage = $('#mesa-add');
+            }
+
+
+            if ( !Risto.Adition.adicionar.currentMesa().getCantComensales() && Risto.Adition.cubiertosObligatorios ) {
+                data.toPage = $('#mesa-add');
+            }
+        }
+
+    });
 
 
 
@@ -630,6 +601,9 @@ $(document).on("mobileinit", function(){
      Risto.domRegisterForEvents = domRegisterForEvents;
 
 });
+
+
+
 
 
 /**
