@@ -10,10 +10,7 @@
 			"homepage": "http://alevilar.com"
 		}
 	],
-	"minimum-stability": "dev",
-	"config": {
-		"vendor-dir": "Vendor"
-	},
+	"minimum-stability": "dev",	
 
 	"repositories": [
         {
