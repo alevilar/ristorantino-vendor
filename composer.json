@@ -17,7 +17,7 @@
         {
             "type": "git",
             "url": "https://github.com/alevilar/adition.git"
-        },
+        }
     ],
 	"require": {
 		"php": ">=5.3.0",
