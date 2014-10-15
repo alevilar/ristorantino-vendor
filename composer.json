@@ -43,7 +43,7 @@
 		"composer/installers": "~1.0",
 		"cakephp/cakephp": "2.5.4",		
 		"cakedc/search": "~2.2",
-		"ristorantino/mt_sites": "master",
+		"ristorantino/mt_sites": "dev-master",
 		"ristorantino/install": "master",
 		"ristorantino/reservation_manager": "master",
 		"ristorantino/users": "master",
