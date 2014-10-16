@@ -17,31 +17,27 @@
 	"repositories": [
         {
             "type": "git",
-            "url": "https://github.com/alevilar/CakePHP-FileUpload-Plugin.git"
+            "url": "https://github.com/ristorantino/MtSites.git"
         },
         {
             "type": "git",
-            "url": "https://github.com/alevilar/MtSites.git"
+            "url": "https://github.com/ristorantino/Install.git"
         },
         {
             "type": "git",
-            "url": "https://github.com/alevilar/Install.git"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/alevilar/ReservationManager.git"
+            "url": "https://github.com/ristorantino/ReservationManager.git"
         },
         {
         	"type": "git",
-            "url": "https://github.com/alevilar/users.git"
+            "url": "https://github.com/ristorantino/users.git"
         },
         {
         	"type": "git",
-            "url": "https://github.com/alevilar/ExtAuth.git"
+            "url": "https://github.com/ristorantino/ExtAuth.git"
         },
         {
             "type": "git",
-            "url": "https://github.com/alevilar/aditions.git"
+            "url": "https://github.com/ristorantino/aditions.git"
         }
     ],
 	"require": {
