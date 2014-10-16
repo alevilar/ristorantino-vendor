@@ -44,7 +44,7 @@
 		"php": ">=5.3.0",
 		"cakephp/cakephp": "2.5.4",		
 		"cakedc/search": "~2.2",
-		"ristorantino/mt_sites": "dev-master",
+		"ristorantino/mt_sites": "~2",
 		"ristorantino/install": "master",
 		"ristorantino/reservation_manager": "master",
 		"ristorantino/users": "master",
