@@ -77,7 +77,6 @@ CakePlugin::load('DebugKit');
 CakePlugin::load('Search');
 CakePlugin::load('Printers', array( 'bootstrap' => true ));
 CakePlugin::load('Mesa', array( 'routes' => true ));
-CakePlugin::load('ReservationManager', array( 'bootstrap' => true ));
 
 CakePlugin::load('Bs3Helpers', array('bootstrap'=>true));
 
