@@ -14,32 +14,6 @@
 	"config": {
 		"vendor-dir": "Vendor"
 	},
-	"repositories": [
-        {
-            "type": "git",
-            "url": "https://github.com/ristorantino/Install.git"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/ristorantino/MtSites"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/ristorantino/ReservationManager.git"
-        },
-        {
-        	"type": "git",
-            "url": "https://github.com/ristorantino/users.git"
-        },
-        {
-        	"type": "git",
-            "url": "https://github.com/ristorantino/ExtAuth.git"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/ristorantino/aditions.git"
-        }
-    ],
 	"require": {
 		"php": ">=5.3.0",
 		"cakephp/cakephp": "2.5",		
