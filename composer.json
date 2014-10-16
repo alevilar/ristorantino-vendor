@@ -20,7 +20,6 @@
 		"cakedc/search": "~2.2",
 		"ristorantino/mt_sites": "~2",
 		"ristorantino/install": "master",
-		"ristorantino/reservation_manager": "master",
 		"ristorantino/users": "master",
 		"cakedc/utils": "1.*",
 		"codaxis/cakephp-bootstrap3-helpers": "1.1",
