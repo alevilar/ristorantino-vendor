@@ -67,7 +67,14 @@ class TipoFactura extends RistoTenantAppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		)
-	);    
+	);
+    public $actsAs = array(
+        'Search.Searchable',
+        'Containable',
+    );
+    public $filterArgs = array(
+        'name' => array('type' => 'like'),
+    );
 
 }
 ?>

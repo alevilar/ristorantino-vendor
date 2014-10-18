@@ -1,15 +1,17 @@
 <div class="pagos index">
-<h2><?php __('Pagos');?></h2>
+<!--<div class="btn-group pull-right">
+<?php echo $this->Html->link(__('Create New %s', __('User')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+<?php echo $this->Html->link(__('Add Existing %s', __('User')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add_existing'), array('class'=>'btn btn-default btn-lg')); ?>
+</div>-->
+<h2><?php echo __d('pagos', 'Pagos'); ?></h2>
+
+
 <p>
 <?php
 $this->Paginator->options(array('url' => $this->request->query));
 
 ?>
 </p>
-
-
-
-
 
         <h2 style="text-align: center;"><?php __('Buscador de Pagos'); ?></h2>
 
@@ -99,7 +101,7 @@ foreach ($pagos as $pago):
 </table>
 </div>
 <div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('previous'), array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('next').' >>', array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>

@@ -16,4 +16,13 @@ class DescuentosController extends FidelizationAppController {
 	public function beforeRender ( ) {
 		$this->set('scaffoldFields', $this->scaffoldFields);
 	}
+
+    public function index() {
+        $this->Prg->commonProcess();
+        $conds = $this->Descuento->parseCriteria( $this->Prg->parsedParams() );
+        $this->Paginator->settings['conditions'] = $conds;
+        $this->Descuento->recursive = 0;
+        $descuentos = $this->Paginator->paginate('Descuento');
+        $this->set('descuentos',$descuentos);
+    }
 }

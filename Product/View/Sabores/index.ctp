@@ -51,8 +51,8 @@ foreach ($sabores as $sabor):
 			<?php echo date('d-m-y H:i:s',strtotime($sabor['Sabor']['created'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $sabor['Sabor']['id'])); ?>
-			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $sabor['Sabor']['id']), null, sprintf(__('¿Esta seguro que desea borrar el sabor: %s?', true), $sabor['Sabor']['name'])); ?>
+			<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $sabor['Sabor']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $sabor['Sabor']['id']), array('class'=>'btn btn-default'), null, sprintf(__('¿Esta seguro que desea borrar el sabor: %s?', true), $sabor['Sabor']['name'])); ?>
 		</td>
 	</tr>
 <?php endforeach; 

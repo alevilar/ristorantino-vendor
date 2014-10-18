@@ -30,8 +30,8 @@
             ?></span>
         </td>
         <td class="actions" align="left">
-            <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $catId)); ?>
-            <?php echo $this->Html->link(__('Borrar'), array('action'=>'delete', $catId), null, sprintf(__('Seguro que querés borrar la categoria # %s?'), $catName)); ?>
+            <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $catId), array('class'=>'btn btn-default')); ?>
+            <?php echo $this->Html->link(__('Borrar'), array('action'=>'delete', $catId), array('class'=>'btn btn-default'), null, sprintf(__('Seguro que querés borrar la categoria # %s?'), $catName)); ?>
         </td>
     </tr>
 <?php } ?>

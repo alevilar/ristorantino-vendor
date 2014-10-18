@@ -78,8 +78,8 @@
 
 		
 		<td class="actions">
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $cliente['Cliente']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $cliente['Cliente']['id']), array(), __('Are you sure you want to delete # %s?', $cliente['Cliente']['id'])); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $cliente['Cliente']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $cliente['Cliente']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $cliente['Cliente']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

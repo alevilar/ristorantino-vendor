@@ -8,6 +8,12 @@ class TipoDocumento extends RistoTenantAppModel {
 		'codigo_fiscal' => array('notempty'),
 		'name' => array('notempty')
 	);
-	
+    public $actsAs = array(
+        'Search.Searchable',
+        'Containable',
+    );
+    public $filterArgs = array(
+        'name' => array('type' => 'like'),
+    );
 }
 ?>

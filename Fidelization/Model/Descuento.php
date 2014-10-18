@@ -10,6 +10,7 @@ class Descuento extends FidelizationAppModel {
     public $actsAs = array(
         'SoftDelete', 
         'Containable',
+        'Search.Searchable',
         );
 
 
@@ -23,6 +24,10 @@ class Descuento extends FidelizationAppModel {
                 )
         )
 	);
+    public $filterArgs = array(
+        'name' => array('type' => 'like'),
+    );
+
 
 }
 ?>

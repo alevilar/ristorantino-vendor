@@ -1,6 +1,17 @@
 <div class="ivaResponsabilidades index">
-	<h2><?php echo __('Iva Responsabilidades'); ?></h2>
+    <div class="btn-group pull-right">
+    <?php echo $this->Html->link(__('Nueva Iva Responsabilidad', __('IvaResponsabilidad')), array('action' => 'add'), array('class'=>'btn btn-success btn-lg')); ?>
+    <?php echo $this->Html->link(__('Nuevo Tipo Factura', __('IvaResponsabilidad')), array('controller' => 'tipo_facturas', 'action' => 'add'), array('class'=>'btn btn-default btn-lg')); ?>
+    </div>
+    <h2><?php echo __('Iva Responsabilidades'); ?></h2>
 	<table class="table">
+    <tr>
+    	<?php echo $this->Form->create('IvaResponsabilidad',array('action'=>'index'));?>
+    	<th colspan= "2"><?php echo $this->Form->input('IvaResponsabilidad.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
+    	<th colspan= "2"><?php echo $this->Form->input('IvaResponsabilidad.codigo_fiscal', array('placeholder'=>'Codigo Fiscal', 'label'=>false, 'required' => 0));?></th>
+    	<th><?php echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'title' => __('Buscar')));?></th>
+    	<?php echo $this->Form->end();?>
+    </tr>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('codigo_fiscal'); ?></th>
@@ -17,9 +28,9 @@
 			<?php echo $this->Html->link($ivaResponsabilidad['TipoFactura']['name'], array('controller' => 'tipo_facturas', 'action' => 'view', $ivaResponsabilidad['TipoFactura']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ivaResponsabilidad['IvaResponsabilidad']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $ivaResponsabilidad['IvaResponsabilidad']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $ivaResponsabilidad['IvaResponsabilidad']['id']), array(), __('Are you sure you want to delete # %s?', $ivaResponsabilidad['IvaResponsabilidad']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $ivaResponsabilidad['IvaResponsabilidad']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -27,18 +38,17 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de {:count} registros totales, iniciando en el registro{:start}, terminando en {:end}')
 	));
 	?>	</p>
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
+	 echo $this->Paginator->prev('<< ' . __('anterior'), array(), null, array('class' => 'btn btn-default'));?>
+	|<? echo $this->Paginator->numbers(array('separator' => ''));?>
+	<? echo $this->Paginator->next(__('siguiente') . '>>', array(), null, array('class' => 'btn btn-default'));?>
 	</div>
 </div>
-<div class="actions">
+<!--<div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('New Iva Responsabilidad'), array('action' => 'add')); ?></li>
@@ -47,4 +57,4 @@
 		<li><?php echo $this->Html->link(__('List %s', Inflector::pluralize(Configure::read('Mesa.tituloCliente'))), array('controller' => 'clientes', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New %s', Configure::read('Mesa.tituloCliente')), array('controller' => 'clientes', 'action' => 'add')); ?> </li>
 	</ul>
-</div>
+</div>-->

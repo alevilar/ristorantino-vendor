@@ -1,5 +1,9 @@
 <div class="printers index">
-	<h2><?php echo __('Printers'); ?></h2>
+	<div class="users index">
+    <h2><?php echo __('Printers'); ?></h2>
+    <div class="btn-group pull-right">
+    <?php echo $this->Html->link(__('New printer', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+    </div>
 	<table class="table">
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -23,9 +27,9 @@
 		<td><?php echo h($printer['Printer']['created']); ?>&nbsp;</td>
 		<td><?php echo h($printer['Printer']['modified']); ?>&nbsp;</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $printer['Printer']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $printer['Printer']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $printer['Printer']['id']), array(), __('Are you sure you want to delete # %s?', $printer['Printer']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $printer['Printer']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $printer['Printer']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $printer['Printer']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $printer['Printer']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

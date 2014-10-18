@@ -29,12 +29,13 @@
         <title><?php echo $title_for_layout; ?></title>
         <?php
 
-        
+
         //echo $this->Html->meta('icon');
 
         echo $this->Html->css(array(
             '/risto/lib/bootstrap/css/bootstrap.min',
             '/risto/lib/bootstrap/css/bootstrap-theme.min',
+            '/risto/lib/bootstrap/css/dataTables.bootstrap',
             '/risto/css/ristorantino/style',
             '/risto/lib/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min',
         ));
@@ -45,6 +46,7 @@
         echo $this->Html->script(array(
             '/risto/js/jquery.min',
             '/risto/lib/bootstrap/js/bootstrap.min',
+            '/risto/lib/bootstrap/js/jquery.dataTables.min',
             '/risto/lib/bootstrap_datetimepicker/js/bootstrap-datetimepicker.min',
         ));
 

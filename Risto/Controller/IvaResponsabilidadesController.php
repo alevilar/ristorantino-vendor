@@ -16,17 +16,29 @@ class IvaResponsabilidadesController extends RistoAppController {
  */
 	public $components = array('Paginator', 'Session');
 
-/**
+    public $paginate = array(
+        'order' => array('IvaResponsabilidad.id' => 'asc'),
+        // 'paramType' => 'querystring',
+    );
+
+
+    /**
  * index method
  *
  * @return void
  */
-	public function index() {
-		$this->IvaResponsabilidad->recursive = 0;
-		$this->set('ivaResponsabilidades', $this->Paginator->paginate());
-	}
+    public function index() {
+        $this->Prg->commonProcess();
+        $conds = $this->IvaResponsabilidad->parseCriteria( $this->Prg->parsedParams() );
+        $this->Paginator->settings['conditions'] = $conds;
+        $this->IvaResponsabilidad->recursive = 0;
+        $ivaResponsabilidades = $this->Paginator->paginate('IvaResponsabilidad');
+        $this->set('ivaResponsabilidades',$ivaResponsabilidades);
+    }
 
-/**
+
+
+    /**
  * view method
  *
  * @throws NotFoundException

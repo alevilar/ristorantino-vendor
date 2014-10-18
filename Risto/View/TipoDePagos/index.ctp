@@ -1,8 +1,10 @@
-﻿
+﻿<div class="tipoDePagos index">
 
-<div class="tipoDePagos index">
-<h2><?php __('Tipo de Pagos');?></h2>
-
+<div class="users index">
+<h2><?php echo __('Tipo de Pagos');?></h2>
+<div class="btn-group pull-right">
+<?php echo $this->Html->link(__('Crear Tipo de pago', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+</div>
 
 <table class="table">
 <tr>
@@ -33,8 +35,8 @@ foreach ($tipoDePagos as $tipoDePago):
 			<?php echo $tipoDePago['TipoDePago']['name']; ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $tipoDePago['TipoDePago']['id'])); ?>
-			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $tipoDePago['TipoDePago']['id']), null, sprintf(__('¿Está seguro que desea borrar el tipo de pago: %s?', true), $tipoDePago['TipoDePago']['name'])); ?>
+			<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $tipoDePago['TipoDePago']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $tipoDePago['TipoDePago']['id']), array('class'=>'btn btn-default'), null, sprintf(__('¿Está seguro que desea borrar el tipo de pago: %s?', true), $tipoDePago['TipoDePago']['name'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

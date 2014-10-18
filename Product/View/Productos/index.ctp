@@ -24,12 +24,11 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 
 
 <div class="productos index">
-<h2><?php __('Productos');?></h2>
 
-<div>
-
-    <?php
-
+<div class="users index">
+<h2><?php echo __('Productos');?></h2>
+<div class="btn-group pull-right">
+<?php
     echo $this->Html->link(__('Nuevo Producto'), array('action'=>'add'), array('class'=>'btn btn-lg btn-success pull-right'));
 
 
@@ -39,6 +38,7 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
     	, 'Está por modificar todos los precios, por su valor futuro. ¿Seguro?');
     ?>
 </div>
+
 <br>
 <p>
     <?php
@@ -140,8 +140,8 @@ foreach ($productos as $producto):
 			<?php echo date('d D, M Y',strtotime($producto['Producto']['created'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $producto['Producto']['id'])); ?>
-			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $producto['Producto']['id']), null, sprintf(__('¿Esta seguro que desea borrar el producto: %s?', true), $producto['Producto']['name'])); ?>
+			<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $producto['Producto']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $producto['Producto']['id']), array('class'=>'btn btn-default'), null, sprintf(__('¿Esta seguro que desea borrar el producto: %s?', true), $producto['Producto']['name'])); ?>
 		</td>
 	</tr>
 <?php 

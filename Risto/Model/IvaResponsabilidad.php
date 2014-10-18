@@ -11,7 +11,13 @@ class IvaResponsabilidad extends RistoTenantAppModel {
 		'name' => array('notempty')
 	);
 
-
+    public $actsAs = array(
+        'Search.Searchable',
+        'Containable',
+    );
+    public $filterArgs = array(
+        'name' => array('type' => 'like'),
+    );
 
 	public $belongsTo = array(
 		'TipoFactura' => array(

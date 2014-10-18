@@ -76,7 +76,8 @@
         </div>
         <div class="clear"></div>
 
-        <?php echo $this->Form->end("Buscar") ?>
+        <?php echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'title' => __('Buscar')));
+              echo $this->Form->end();?>
 
 
         <p class="text-center">
@@ -106,9 +107,9 @@
 
     </div>
     <div class="paging">
-        <?php echo $this->Paginator->prev('<< ' . __('anterior'), array(), null, array('class' => 'disabled')); ?>
+        <?php echo $this->Paginator->prev('<< ' . __('anterior'), array(), null, array('class' => 'btn btn-default')); ?>
         | 	<?php echo $this->Paginator->numbers(); ?>
-        <?php echo $this->Paginator->next(__('próximo') . ' >>', array(), null, array('class' => 'disabled')); ?>
+        <?php echo $this->Paginator->next(__('próximo') . ' >>', array(), null, array('class' => 'btn btn-default')); ?>
     </div>
     
 </div>  

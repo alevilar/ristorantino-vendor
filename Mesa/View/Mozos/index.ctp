@@ -48,10 +48,10 @@ foreach ($mozos as $mesa):
 			<?php echo $mesa['Mozo']['numero']; ?>
 		</td>
 		<td class="actions">
-			<?php // echo $this->Html->link(__('View'), array('action'=>'view', $mozo['Mozo']['id'])); ?>
-			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $mesa['Mozo']['id'])); ?>
+			<?php // echo $this->Html->link(__('View'), array('action'=>'view', $mozo['Mozo']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $mesa['Mozo']['id']), array('class'=>'btn btn-default')); ?>
 			<?php
-               	 echo $this->Html->link(__('Delete'), array('action'=>'delete', $mesa['Mozo']['id']), null, __('¿Desea borrar el %s nº # %s?. Si lo borra perderá las estadísticas.\n Mejor por que no prueba editándolo y desactivarlo?', Configure::read('Mesa.tituloMozo'), $mesa['Mozo']['numero']));
+               	 echo $this->Html->link(__('Delete'), array('action'=>'delete', $mesa['Mozo']['id']), array('class'=>'btn btn-default'), null, __('¿Desea borrar el %s nº # %s?. Si lo borra perderá las estadísticas.\n Mejor por que no prueba editándolo y desactivarlo?', Configure::read('Mesa.tituloMozo'), $mesa['Mozo']['numero']));
                         ?>
 		</td>
 	</tr>
@@ -59,8 +59,8 @@ foreach ($mozos as $mesa):
 </table>
 </div>
 <div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>
 
