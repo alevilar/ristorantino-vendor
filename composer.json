@@ -10,18 +10,19 @@
 			"homepage": "http://alevilar.com"
 		}
 	],
-	"minimum-stability": "dev",	
 	"require": {
 		"php": ">=5.3.0",
 		"cakephp/cakephp": "2.5.4",
 		"cakedc/search": "~2.2",
+		"ristorantino/install": "master@dev",
+		"ristorantino/cash": "master@dev",
+		"ristorantino/account": "master@dev",
 		"ristorantino/mt_sites": "~2",
-		"ristorantino/install": "master",
-		"ristorantino/users": "master",
+		"ristorantino/users": "master@dev",
 		"cakedc/utils": "1.*",
 		"codaxis/cakephp-bootstrap3-helpers": "1.1",
-		"ristorantino/ext-auth": "dev-master",
-		"ristorantino/aditions": "master",
+		"ristorantino/ext-auth": "master@dev",
+		"ristorantino/aditions": "master@dev",
 		"composer/installers": "~1.0"
 	}
 }
