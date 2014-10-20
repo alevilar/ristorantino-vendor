@@ -14,9 +14,9 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
         <?php 
 
         if ( Configure::read('Site.type') != SITE_TYPE_HOTEL ) {
-          echo $this->Html->link('Adición', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-adicion')); 
+          echo $this->Html->link(__('Ventas'), array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-adicion')); 
         } else {
-          echo $this->Html->link('Reservas', array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-reservations')); 
+          echo $this->Html->link(__('Reservas'), array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array('id' => 'bton-reservations')); 
         }
         ?>
     </li>
@@ -27,7 +27,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
     </li>       
 
     <li>  
-        <?php echo $this->Html->link('Arqueo', array('plugin' => 'cash', 'controller' => 'arqueos'), array('id' => 'bton-arqueo')); ?>
+        <?php echo $this->Html->link('Arqueo', array('plugin' => 'cash', 'controller' => 'arqueos'), array('id' => 'bton-caja')); ?>
     </li>  
      
 

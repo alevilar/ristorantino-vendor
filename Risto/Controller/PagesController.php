@@ -32,7 +32,7 @@ class PagesController extends AppNoModelController {
 	
 
 	public function beforeFilter() {
-		if ( count($this->request->params['pass']) && $this->request->params['pass'][0] == 'tos' ) {
+		if ( count($this->request->params['pass']) && ( $this->request->params['pass'][0] == 'tos' || $this->request->params['pass'][0] == 'home')) {
 			$this->Auth->allow(array('display'));
 		}
 	}
