@@ -241,7 +241,7 @@ class StatsController extends StatsAppController
                     'TipoDePago'
                 )
             ));
-
+debug($pagos);
             // traer array de fechas
             $fechas = array_flip(crear_fechas($desde, $hasta));
             $fechas = array_reverse($fechas);

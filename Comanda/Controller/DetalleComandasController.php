@@ -16,7 +16,7 @@ class DetalleComandasController extends ComandaAppController {
      *
      */
 	public function index() {
-
+         $this->set('elementMenu', 'Stats.menu');
         // por default ordenar por sumatoria de dinero vendido
         $conditions['order'] = array('ventas DESC',"cant DESC");
         if ( !empty( $this->request->query ) && $this->request->query['cant_o_tot'] == 1 ) {

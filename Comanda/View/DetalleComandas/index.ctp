@@ -20,9 +20,21 @@
 
             echo $this->Form->input('tags', array('options' => $tags, 'label' => __('Tags'), 'multiple' => true, 'style'=>'width: 100%; height: 135px;'));
 
-            echo $this->Form->input('desde', array('type' => 'text', 'placeholder'=>'Fecha Desde. Formato: YYYY-MM-DD', 'label'=>false));
+            ?>
+            <div class="row">
+                <div class="col-md-6">
+                    <?php
+                    echo $this->Form->input('desde', array('type' => 'date'));
+                    ?>
+                </div>
 
-            echo $this->Form->input('hasta', array('type' => 'text', 'placeholder'=>'Fecha Hasta. Formato: YYYY-MM-DD', 'label'=>false));
+                <div class="col-md-6">
+                    <?php
+                    echo $this->Form->input('hasta', array('type' => 'date'));
+                    ?>
+                </div>
+            </div>
+            <?php           
             
             echo $this->Form->submit('buscar', array('class'=>'btn btn-success btn-block'));
             echo $this->Form->end();

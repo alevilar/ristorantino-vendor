@@ -74,13 +74,7 @@
 }
 
 #bton-contabilidad{
-	background-image: url("contabilidad.png");
-        background-position: center top;
-	background-repeat: no-repeat;
-        padding-bottom: 0px;
-        padding-left: 50px;
-        padding-right: 50px;
-        padding-top: 150px;
+	background-image: url("contabilidad.png");       
 }
 
 #bton-inven {
