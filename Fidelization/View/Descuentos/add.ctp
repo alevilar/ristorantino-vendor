@@ -1,19 +1,13 @@
-
-
 <div class="descuentos form">
 <?php echo $this->Form->create('Descuento');?>
 	<fieldset>
- 		<legend><?php __('Crear Descuento');?></legend>
+ 		<legend><?php echo __('Crear Descuento');?></legend>
 	<?php
-		echo $this->Form->input('name');
-		echo $this->Form->input('description');
-		echo $this->Form->input('porcentaje',array('after'=>'Ej:15 (solo introducir el numero, no poner el signo de porcentaje)'));
+		echo $this->Form->input('name',array('label'=>__('Nombre')));
+		echo $this->Form->input('description',array('label'=>__('Descripción')));
+		echo $this->Form->input('porcentaje',array('after'=>'Ej:15 (solo introducir el numero, no poner el signo de porcentaje)','label'=>__('Porcentaje')));
 	?>
-<?php echo $this->Form->end('Submit');?>
+<?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg'));
+      echo $this->Form->end();?>
         </fieldset>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Listar Descuentos', true), array('action'=>'index'));?></li>
-	</ul>
 </div>

@@ -18,11 +18,11 @@
     
 <tr>
 	
-	<th><?php echo $this->Paginator->sort('Nombre','name');?></th>
-	<th><?php echo $this->Paginator->sort('Categoria','Categoria.name');?></th>
-	<th><?php echo $this->Paginator->sort('Precio','precio');?></th>
-	<th><?php echo $this->Paginator->sort('Creado','created');?></th>
-	<th class="actions"><?php __('Acciones');?></th>
+	<th><?php echo $this->Paginator->sort('name',__('Nombre'));?></th>
+	<th><?php echo $this->Paginator->sort('Categoria.name',__('Categoria'));?></th>
+	<th><?php echo $this->Paginator->sort('precio',__('Precio'));?></th>
+	<th><?php echo $this->Paginator->sort('created',__('Creado'));?></th>
+	<th class="actions"><?php echo __('Acciones');?></th>
 </tr>
 <?php
 if ($this->Paginator->params['paging']['Sabor']['count']!=0) {

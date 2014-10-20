@@ -25,7 +25,7 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
     echo $this->Html->link(__('Nuevo Producto'), array('action'=>'add'), array('class'=>'btn btn-lg btn-success'));
     echo $this->Html->link('<span class="glyphicon glyphicon-usd"></span>Aplicar Precios Futuros'
     	, array('action' => 'actualizarPreciosFuturos')
-    	, array('class' => 'btn btn-warning btn-lg', 'escape' => false )
+    	, array('class' => 'btn btn-default btn-lg', 'escape' => false )
     	, 'Está por modificar todos los precios, por su valor futuro. ¿Seguro?');
     ?>
 </div>

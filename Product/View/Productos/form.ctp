@@ -2,7 +2,7 @@
 <div class="productos form">
 <?php echo $this->Form->create('Producto');?>
 	<fieldset>
- 		<legend><?php __('Editar Producto');?></legend>
+ 		<legend><?php echo __('Editar Producto');?></legend>
 	<?php
 		echo $this->Form->input('id');
 
@@ -44,12 +44,7 @@
         	'placeholder' => 'Ej: "1"'
         	));
 	?>
-<?php echo $this->Form->end('Submit');?>
-	</fieldset>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $this->Form->value('Producto.id')), null, sprintf(__('¿Esta seguro que desea borrar el producto: %s?', true), $this->Form->value('Producto.name'))); ?></li>
-		<li><?php echo $this->Html->link(__('Listar Productos', true), array('action'=>'index'));?></li>
-	</ul>
+    <?php echo $this->Form->submit(__('Agregar'), array('class'=>'btn btn-success btn-lg')); ?>
+    <?php echo $this->Form->end() ?>
+  </fieldset>
 </div>
