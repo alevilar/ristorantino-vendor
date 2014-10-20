@@ -10,7 +10,8 @@ $this->Paginator->options(array('url' => $this->passedArgs));
 	<h1><?php echo Inflector::pluralize( Configure::read('Mesa.tituloMozo') ); ?></h1>
 <table cellpadding="0" cellspacing="0" class="table">
 <tr>
-        <th><?php echo $this->Paginator->sort('activo');?>&nbsp;<?php echo $this->Paginator->sort('nombre');?></th>
+        <th><?php echo $this->Paginator->sort('activo');?></th>
+        <th><?php echo $this->Paginator->sort('nombre');?></th>
         <th>Foto</th>
 	<th><?php echo $this->Paginator->sort('numero');?></th>
 	<th class="actions"><?php echo __('Acciones');?></th>
@@ -26,7 +27,10 @@ foreach ($mozos as $mesa):
 	<tr<?php echo $class;?>>
 			
 		<td>
-                    <span class="mozo-puntito <?php echo $mesa['Mozo']['activo'] ? 'text-success' : '' ?>" style="font-size:26pt">•</span> <?php echo $mesa['Mozo']['nombre']." ".$mesa['Mozo']['apellido']; ?>
+            <span class="mozo-puntito <?php echo $mesa['Mozo']['activo'] ? 'text-success' : '' ?>" style="font-size:26pt">•</span>
+        </td>
+        <td>
+            <?php echo $mesa['Mozo']['nombre']." ".$mesa['Mozo']['apellido']; ?>
 		</td>
 		<td>
              <?php 
@@ -44,7 +48,7 @@ foreach ($mozos as $mesa):
 			<?php // echo $this->Html->link(__('View'), array('action'=>'view', $mozo['Mozo']['id']), array('class'=>'btn btn-default')); ?>
 			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $mesa['Mozo']['id']), array('class'=>'btn btn-default')); ?>
 			<?php
-               	 echo $this->Html->link(__('Delete'), array('action'=>'delete', $mesa['Mozo']['id']), array('class'=>'btn btn-default'), null, __('¿Desea borrar el %s nº # %s?. Si lo borra perderá las estadísticas.\n Mejor por que no prueba editándolo y desactivarlo?', Configure::read('Mesa.tituloMozo'), $mesa['Mozo']['numero']));
+               	 echo $this->Html->link(__('Borrar'), array('action'=>'delete', $mesa['Mozo']['id']), array('class'=>'btn btn-default'), null, __('¿Desea borrar el %s nº # %s?. Si lo borra perderá las estadísticas.\n Mejor por que no prueba editándolo y desactivarlo?', Configure::read('Mesa.tituloMozo'), $mesa['Mozo']['numero']));
                         ?>
 		</td>
 	</tr>

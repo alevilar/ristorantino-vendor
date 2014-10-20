@@ -1,17 +1,19 @@
 
 <div class="sabores index">
-<h2><?php __('Adicionales');?></h2>
-
-
+	<div class="btn-group pull-right">
+	<?php echo $this->Html->link(__('Crear Adicional'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+	</div>
+<h2><?php echo __('Adicionales');?></h2>
 <table class="table">
 
     <tr>
 	<?php echo $this->Form->create('Sabor',array('action'=>'index'));?>
-	<th><?php echo $this->Form->input('Sabor.name',array('placeholder'=>'Adicional', 'label'=>false, 'required' => 0));?></th>
+	<th><strong><?php echo __('Buscar')?></strong></th>
+    <th><?php echo $this->Form->input('Sabor.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
 	<th><?php echo $this->Form->input('categoria_name',array('placeholder'=>'Categoría', 'label'=>false));?></th>
 	<th><?php echo $this->Form->input('Sabor.precio',array('placeholder'=>'Precio', 'label'=>false));?></th>
-	<th>&nbsp; </th>
-	<th><?php echo $this->Form->end('Buscar');?></th>
+	<th><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
+              echo $this->Form->end();?></th>
     </tr>
     
 <tr>
@@ -65,13 +67,17 @@ foreach ($sabores as $sabor):
 
 </table>
 </div>
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'disabled'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'disabled'));?>
 </div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Crear Adicional', true), array('action'=>'add')); ?></li>
-	</ul>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+	));
+	?>
+	</p>
+
+<div class="paging">
+	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
+ | 	<?php echo $this->Paginator->numbers();?>
+	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>

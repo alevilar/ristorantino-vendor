@@ -1,7 +1,7 @@
 <div class="pagos index">
 <!--<div class="btn-group pull-right">
-<?php echo $this->Html->link(__('Create New %s', __('Pago')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
-<?php echo $this->Html->link(__('Add Existing %s', __('Pago')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add_existing'), array('class'=>'btn btn-default btn-lg')); ?>
+<?php echo $this->Html->link(__('Create New %s', __('User')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+<?php echo $this->Html->link(__('Add Existing %s', __('User')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add_existing'), array('class'=>'btn btn-default btn-lg')); ?>
 </div>-->
 <h2><?php echo __d('pagos', 'Pagos'); ?></h2>
 
@@ -12,20 +12,20 @@ $this->Paginator->options(array('url' => $this->request->query));
 
 ?>
 </p>
-
-        <h2 style="text-align: center;"><?php __('Buscador de Pagos'); ?></h2>
-
 <table class="table">
-    
+
 <?php echo $this->Form->create("Pago", array("action" => "index", 'method'=>'get')); ?>
 <thead>
 <tr>
 	<th>&nbsp;</th>
-        <th><?php echo $this->Form->input('mozo_id', array('placeholder' => __('N° %s', Configure::read('Mesa.tituloMozo')), 'label' => false, 'empty' => 'Seleccione')); ?></th>
+    <th><strong>
+           <?php echo __('Buscar')?>
+        </strong>
+       <?php echo $this->Form->input('mozo_id', array('placeholder' => __('N° %s', Configure::read('Mesa.tituloMozo')), 'label' => false, 'empty' => 'Seleccione')); ?></th>
 	<th><?php echo $this->Form->input('mesa_numero', array('placeholder' => __('N° %s', Configure::read('Mesa.tituloMesa')), 'label' => false)); ?></th>
 	<th><?php echo $this->Form->input('Pago.tipo_de_pago_id', array('placeholder' => 'Tipo de Pago', 'label' => false, 'empty' => 'Seleccione')); ?></th>
 	<th>
-            <?php echo $this->Form->input('Pago.valor', array('placeholder' => 'Valor', 'label' => false)); ?>            
+            <?php echo $this->Form->input('Pago.valor', array('placeholder' => 'Valor', 'label' => false)); ?>
         </th>
         <th>
             <?php
@@ -45,25 +45,22 @@ $this->Paginator->options(array('url' => $this->request->query));
             ));
             ?>
         </th>
-	<th class="actions"><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
-                                         echo $this->Form->end();?></th>
+	<th class="actions"><?php echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'title' => __('Buscar')));
+                        echo $this->Form->end();?></th>
 </tr>
 </thead>
-<?php echo $this->Form->end() ?>
-
-
 <thead>
 <tr>
-	<th><?php echo $this->Paginator->sort('id');?></th>
-        <th><?php echo Configure::read('Mesa.tituloMozo') ?></th>
-	<th><?php echo $this->Paginator->sort('Mesa','Mesa.numero');?></th>
-	<th><?php echo $this->Paginator->sort('Tipo de Pago','TipoDePago.nombre');?></th>
-	<th><?php echo $this->Paginator->sort('valor');?></th>
-        <th><?php echo $this->Paginator->sort('created');?></th>
+	<th><?php echo $this->Paginator->sort('id',__('Id'));?></th>
+        <th><?php echo Configure::read('Mesa.tituloMozo',__('Mozo')) ?></th>
+	<th><?php echo $this->Paginator->sort('Mesa.numero',__('Mesa'));?></th>
+	<th><?php echo $this->Paginator->sort('TipoDePago.nombre',__('Tipo de Pago'));?></th>
+	<th><?php echo $this->Paginator->sort('valor',__('Valor'));?></th>
+        <th><?php echo $this->Paginator->sort('created',__('Creado'));?></th>
 	<th class="actions">&nbsp;</th>
 </tr>
 </thead>
-
+<? if ($this->Paginator->params['paging']['Pago']['count']!=0) {?>
 <tbody>
 <?php
 $i = 0;
@@ -93,23 +90,30 @@ foreach ($pagos as $pago):
 			<?php echo strftime('%a %e de %B %H:%M',strtotime($pago['Pago']['created'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Edit'), array('action'=>'edit', $pago['Pago']['id'])); ?>
-			<?php echo $this->Html->link(__('Delete'), array('action'=>'delete', $pago['Pago']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $pago['Pago']['id'])); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $pago['Pago']['id'])); ?>
+			<?php echo $this->Html->link(__('Eliminar'), array('action'=>'delete', $pago['Pago']['id']), null, sprintf(__('Are you sure you want to delete # %s?'), $pago['Pago']['id'])); ?>
 		</td>
 	</tr>
-<?php endforeach; ?>
+<?php
+ endforeach;
+}else{
+    echo('<td colspan="5">No se encontraron elementos</td>');
+}
+
+?>
         </tbody>
 </table>
 </div>
-<p>
-<?php
-echo $this->Paginator->counter(array(
-    'format' => __('Página {:page} de {:pages}, mostrando {:current} elementos de {:count}')
-));
-?></p>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+	));
+	?>
+	</p>
+
 <div class="paging">
 	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'btn btn-default'));?>
+	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>
-

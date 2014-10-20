@@ -7,8 +7,9 @@
 	<table class="table">
     <tr>
     	<?php echo $this->Form->create('IvaResponsabilidad',array('action'=>'index'));?>
+	    <th><strong><?php echo __('Buscar')?></strong></th>
     	<th colspan= "2"><?php echo $this->Form->input('IvaResponsabilidad.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
-    	<th colspan= "2"><?php echo $this->Form->input('IvaResponsabilidad.codigo_fiscal', array('placeholder'=>'Codigo Fiscal', 'label'=>false, 'required' => 0));?></th>
+    	<th colspan= "1"><?php echo $this->Form->input('IvaResponsabilidad.codigo_fiscal', array('placeholder'=>'Codigo Fiscal', 'label'=>false, 'required' => 0));?></th>
     	<th><?php echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'title' => __('Buscar')));?></th>
     	<?php echo $this->Form->end();?>
     </tr>
@@ -28,9 +29,9 @@
 			<?php echo $this->Html->link($ivaResponsabilidad['TipoFactura']['name'], array('controller' => 'tipo_facturas', 'action' => 'view', $ivaResponsabilidad['TipoFactura']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default')); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default')); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $ivaResponsabilidad['IvaResponsabilidad']['id'])); ?>
+			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $ivaResponsabilidad['IvaResponsabilidad']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $ivaResponsabilidad['IvaResponsabilidad']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

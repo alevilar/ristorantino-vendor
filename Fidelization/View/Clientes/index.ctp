@@ -5,7 +5,7 @@
 
 	<div class"">
 	<hr />
-	<h4>Buscador</h4>
+	<h4>Buscar</h4>
 	<?php echo $this->Form->create('Cliente', array('formStyle'=>'inline')) ?>
             <?php echo $this->Form->input('codigo', array('placeholder'=>'Código')); ?>
             <?php echo $this->Form->input('nombre', array('required' => false, 'placeholder'=>'Nombre')); ?>
@@ -14,10 +14,10 @@
             <?php echo $this->Form->input('nrodocumento', array('placeholder'=>'Nº Documento')); ?>
             <?php echo $this->Form->input('telefono', array('placeholder'=>'Teléfono')); ?>
             <?php echo $this->Form->input('iva_responsabilidad_id', array('required' => false, 'options'=>$ivaResponsabilidades)); ?>
-            <?php echo $this->Form->input('descuento_id', array('options' =>$descuentos)); ?>
+            <?php echo $this->Form->input('descuento_id', array('options' =>$descuentos,'placeholder'=>'Descuentos')); ?>
             <?php echo $this->Form->input('domicilio', array('placeholder'=>'Domicilio')); ?>
             <?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary')); ?>
-    <?php echo $this->Form->end() ?>
+              <?php echo $this->Form->end() ?>
     <hr />
 	</div>
 
@@ -88,14 +88,13 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
 	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('anterior'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('siguiente') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
-	</div>
+	</p>
+
+<div class="paging">
+	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'btn btn-default'));?>
+ | 	<?php echo $this->Paginator->numbers();?>
+	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>

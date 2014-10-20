@@ -26,7 +26,6 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 <div class="productos index">
 
 <div class="users index">
-<h2><?php echo __('Productos');?></h2>
 <div class="btn-group pull-right">
 <?php
     echo $this->Html->link(__('Nuevo Producto'), array('action'=>'add'), array('class'=>'btn btn-lg btn-success pull-right'));
@@ -38,6 +37,7 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
     	, 'Está por modificar todos los precios, por su valor futuro. ¿Seguro?');
     ?>
 </div>
+<h2><?php echo __('Productos');?></h2>
 
 <br>
 <p>
@@ -144,7 +144,7 @@ foreach ($productos as $producto):
 			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $producto['Producto']['id']), array('class'=>'btn btn-default'), null, sprintf(__('¿Esta seguro que desea borrar el producto: %s?', true), $producto['Producto']['name'])); ?>
 		</td>
 	</tr>
-<?php 
+<?php
 endforeach; 
 
 }else{
@@ -157,8 +157,17 @@ endforeach;
 
 
 </div>
+</div>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+	));
+	?>
+	</p>
+
 <div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>

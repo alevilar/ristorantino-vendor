@@ -1,22 +1,14 @@
 <div class="mesas form">
 	<div class="btn-group pull-right">
-	<?php echo $this->Html->link(__('Listar %s', __('Mesa')),array('action'=>'index'), array('class'=>'btn btn-success btn-lg')); ?>
+	<?php echo $this->Html->link(__('Listar %s', __('Mesa')),array('action'=>'index'), array('class'=>'btn btn-default btn-lg')); ?>
 	</div>
 	<h1 class="center"><?php echo __('Agregar %s', Configure::read('Mesa.tituloMesa') );?></h1>
 <?php echo $this->Form->create('Mesa');?>
 	<fieldset>
 	<?php
-        //debug($mozos);
-
-
 		echo $this->Form->input('numero', array(
             'label'=> __( 'Número de %s', Configure::read('Mesa.tituloMesa'))
             	));
-
-
-
-
-		//$options = array('mozo_id'.'user.nombre');
 		if (count($mozos) == 1) {
 			$mk = array_keys( $mozos );
         	echo $this->Form->hidden('mozo_id', array('value'=> $mk[0]));

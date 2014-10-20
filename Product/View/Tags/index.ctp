@@ -8,9 +8,11 @@
 <table class="table">
     <tr>
 	<?php echo $this->Form->create('Tag',array('action'=>'index'));?>
-	<th colspan= "3"><?php echo $this->Form->input('Observacion.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
-	<th><?php echo $this->Form->end('Buscar', array('class'=>'btn btn-default'));?></th>
-    </tr>
+	<th><strong><?php echo __('Buscar')?></strong></th>
+	<th colspan= "2"><?php echo $this->Form->input('Observacion.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
+	<th><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
+              echo $this->Form->end();?></th>
+   </tr>
 
 <tr>
 
@@ -47,20 +49,23 @@ foreach ($tag as $tags):
 <?php endforeach;
 
 }else{
-    echo('<td>No se encontraron elementos</td>');
+    echo('<td colspan="4">No se encontraron elementos</td>');
 }
 ?>
 
 
 </table>
 </div>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+	));
+	?>
+	</p>
+
 <div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'disabled'));?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Crear Adicional', true), array('action'=>'add')); ?></li>
-	</ul>
+	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>

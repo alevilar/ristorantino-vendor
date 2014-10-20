@@ -5,10 +5,12 @@
 <?php echo $this->Html->link(__('Abrir %s', Configure::read('Mesa.tituloMesa')), array('action' => 'add'), array('class'=>'btn btn-lg btn-success pull-right')); ?>
 <h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa') ) ;?></h1>
 
-
-    <div class="row">
-        
         <?php echo $this->Form->create("Mesa", array("action" => "index")); ?>
+         <div class="row">
+            <strong>
+            <?php echo __('Buscar')?>
+            </strong>
+        </div>
         <div class=" col-md-1">
             <?php echo $this->Form->input('numero', array('label' => Configure::read('Mesa.tituloMesa'), 'required'=>false)); ?>
             <?php echo $this->Form->input('mozo_numero', array('label' => Configure::read('Mesa.tituloMozo') )); ?>

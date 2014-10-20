@@ -4,6 +4,7 @@
 <h2><?php echo __('Tipo de Pagos');?></h2>
 <div class="btn-group pull-right">
 <?php echo $this->Html->link(__('Crear Tipo de pago', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+	<?php echo $this->Html->link(__('Listar Pagos', true), array('controller'=> 'pagos', 'action'=>'index'), array('class'=>'btn btn-default btn-lg')); ?>
 </div>
 
 <table class="table">
@@ -42,14 +43,16 @@ foreach ($tipoDePagos as $tipoDePago):
 <?php endforeach; ?>
 </table>
 </div>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+	));
+	?>
+	</p>
+
 <div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'disabled'));?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Crear Tipo de pago', true), array('action'=>'edit')); ?></li>
-		<li><?php echo $this->Html->link(__('Listar Pagos', true), array('controller'=> 'pagos', 'action'=>'index')); ?> </li>
-	</ul>
+	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>

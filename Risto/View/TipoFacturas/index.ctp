@@ -1,16 +1,18 @@
 <div class="observaciones index">
 
 <div class="users index">
-<h2><?php echo __('Tipo de Facturas');?></h2>
 <div class="btn-group pull-right">
 <?php echo $this->Html->link(__('Crear Tipo Facturas', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
 </div>
+<h2><?php echo __('Tipo de Facturas');?></h2>
 
 <table class="table">
     <tr>
 	<?php echo $this->Form->create('TipoFactura',array('action'=>'index'));?>
+	<th><strong><?php echo __('Buscar')?></strong></th>
 	<th colspan= "3"><?php echo $this->Form->input('Observacion.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
-	<th><?php echo $this->Form->end('Buscar', array('class'=>'btn btn-default'));?></th>
+	<th><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
+              echo $this->Form->end();?></th>
     </tr>
 
 <tr>
@@ -19,7 +21,7 @@
 	<th><?php echo $this->Paginator->sort('name','Nombre');?></th>
 	<th><?php echo $this->Paginator->sort('name','Nombre de Codigo');?></th>
 	<th><?php echo $this->Paginator->sort('created','Creado');?></th>
-	<th class="actions"><?php __('Acciones');?></th>
+	<th class="actions"><?php echo __('Acciones');?></th>
 </tr>
 <?php
 if ($this->Paginator->params['paging']['TipoFactura']['count']!=0) {
@@ -59,13 +61,16 @@ foreach ($tipoFacturas as $tipoFactura):
 
 </table>
 </div>
+	<p>
+	<?php
+	echo $this->Paginator->counter(array(
+	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+	));
+	?>
+	</p>
+
 <div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'disabled'));?>
+	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'disabled'));?>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Crear Adicional', true), array('action'=>'add')); ?></li>
-	</ul>
+	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>
