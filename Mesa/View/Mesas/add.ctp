@@ -42,7 +42,7 @@
 	        echo $this->Form->input('Pago.0.valor',array('value'=>0, 'disabled'=>true, 'id'=>'PagoValor', 'label'=>__('Monto a Pagar')));
 	        ?>
         </div>
-<?php echo $this->Form->submit('Enviar', array('class' => 'btn btn-success btn-lg', 'title' => __('Enviar')));
+<?php echo $this->Form->submit('Agregar', array('class' => 'btn btn-success btn-lg', 'title' => __('Enviar')));
     echo $this->Form->end();?>
 
 	</fieldset>

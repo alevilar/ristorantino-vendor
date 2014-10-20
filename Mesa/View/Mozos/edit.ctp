@@ -15,13 +15,7 @@
         echo $this->Form->input('media_file', array('type'=>'file', 'label'=>'Foto'));
         echo $this->Form->input('activo',array('default'=>true));
 	?>
-     <?php echo $this->Form->end('Submit');?>           
+     <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg'));?>
 	</fieldset>
 
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Borrar'), array('action'=>'delete', $this->Form->value('Mozo.id')), null, __('Are you sure you want to delete %s #id: %s?', Configure::read('Mesa.tituloMozo'), $this->Form->value('Mozo.id'))); ?></li>
-		<li><?php echo $this->Html->link(__('Listar %s', Configure::read('Mesa.tituloMozo')), array('action'=>'index'));?></li>
-	</ul>
 </div>
