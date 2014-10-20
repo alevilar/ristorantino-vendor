@@ -1,7 +1,7 @@
 <div class="pagos index">
 <!--<div class="btn-group pull-right">
-<?php echo $this->Html->link(__('Create New %s', __('User')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
-<?php echo $this->Html->link(__('Add Existing %s', __('User')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add_existing'), array('class'=>'btn btn-default btn-lg')); ?>
+<?php echo $this->Html->link(__('Create New %s', __('Pago')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+<?php echo $this->Html->link(__('Add Existing %s', __('Pago')), array('admin'=>true,'plugin'>'users', 'controller'=> 'users', 'action'=>'add_existing'), array('class'=>'btn btn-default btn-lg')); ?>
 </div>-->
 <h2><?php echo __d('pagos', 'Pagos'); ?></h2>
 
@@ -45,7 +45,8 @@ $this->Paginator->options(array('url' => $this->request->query));
             ));
             ?>
         </th>
-	<th class="actions"><?php echo $this->Form->submit("Buscar") ?></th>
+	<th class="actions"><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
+                                         echo $this->Form->end();?></th>
 </tr>
 </thead>
 <?php echo $this->Form->end() ?>
@@ -100,8 +101,15 @@ foreach ($pagos as $pago):
         </tbody>
 </table>
 </div>
+<p>
+<?php
+echo $this->Paginator->counter(array(
+    'format' => __('Página {:page} de {:pages}, mostrando {:current} elementos de {:count}')
+));
+?></p>
 <div class="paging">
 	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
+	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>
+

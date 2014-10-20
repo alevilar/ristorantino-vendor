@@ -22,7 +22,6 @@
         <td align="left" width="200px;">
             <span style="text-align: left;">
             <?php  
-           
             if( !empty($imagenes[$catId])) {
                     echo $this->Html->imageMedia( $imagenes[$catId],array('height'=>'22px;')); 
             }
@@ -36,7 +35,7 @@
     </tr>
 <?php } ?>
 </table>
-</div>
+</div> 
 
 
 <div class="actions">

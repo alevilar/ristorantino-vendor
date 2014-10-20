@@ -8,13 +8,6 @@ $this->Paginator->options(array('url' => $this->passedArgs));
 
 <?php echo $this->Html->link(__('Crear %s', Configure::read('Mesa.tituloMozo') ), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')); ?>
 	<h1><?php echo Inflector::pluralize( Configure::read('Mesa.tituloMozo') ); ?></h1>
-
-<p>
-<?php
-echo $this->Paginator->counter(array(
-    'format' => __('Página {:page} de {:pages}, mostrando {:current} elementos de {:count}')
-));
-?></p>
 <table cellpadding="0" cellspacing="0" class="table">
 <tr>
         <th><?php echo $this->Paginator->sort('activo');?>&nbsp;<?php echo $this->Paginator->sort('nombre');?></th>
@@ -58,6 +51,12 @@ foreach ($mozos as $mesa):
 <?php endforeach; ?>
 </table>
 </div>
+<p>
+<?php
+echo $this->Paginator->counter(array(
+    'format' => __('Página {:page} de {:pages}, mostrando {:current} elementos de {:count}')
+));
+?></p>
 <div class="paging">
 	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
  | 	<?php echo $this->Paginator->numbers();?>

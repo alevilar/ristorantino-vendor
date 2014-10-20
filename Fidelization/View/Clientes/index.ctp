@@ -78,8 +78,8 @@
 
 		
 		<td class="actions">
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $cliente['Cliente']['id']), array('class'=>'btn btn-default')); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $cliente['Cliente']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $cliente['Cliente']['id'])); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $cliente['Cliente']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $cliente['Cliente']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $cliente['Cliente']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -93,9 +93,9 @@
 	?>	</p>
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->prev('< ' . __('anterior'), array(), null, array('class' => 'prev disabled'));
 		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->next(__('siguiente') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
 </div>
