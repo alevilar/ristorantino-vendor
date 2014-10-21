@@ -36,7 +36,7 @@
             </div>
             <?php           
             
-            echo $this->Form->submit('buscar', array('class'=>'btn btn-success btn-block'));
+            echo $this->Form->submit('Buscar', array('class'=>'btn btn-success btn-block'));
             echo $this->Form->end();
             ?>
 
