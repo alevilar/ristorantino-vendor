@@ -1,6 +1,4 @@
 <div class="observaciones index">
-
-<div class="users index">
 <h2><?php echo __('Observaciones');?></h2>
 <div class="btn-group pull-right">
 <?php echo $this->Html->link(__('Crear Observaciones', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>

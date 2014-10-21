@@ -1,7 +1,4 @@
-
 <div id="mesas-index">
-
-
 <?php echo $this->Html->link(__('Abrir %s', Configure::read('Mesa.tituloMesa')), array('action' => 'add'), array('class'=>'btn btn-lg btn-success pull-right')); ?>
 <h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa') ) ;?></h1>
 
@@ -80,18 +77,6 @@
 
         <?php echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'title' => __('Buscar')));
               echo $this->Form->end();?>
-
-
-        <p class="text-center">
-            <?php
-            echo $this->Paginator->counter(
-                'Page {:page} of {:pages}, showing {:current} records out of
-                 {:count} total, starting on record {:start}, ending on {:end}'
-            );
-            
-            // echo "..... y suman un total de <b>$$mesas_suma_total</b> pesos";
-            ?>
-        </p>
 
         <?php
         if ($this->Paginator->params['paging']['Mesa']['count'] != 0) {
