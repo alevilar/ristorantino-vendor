@@ -1,7 +1,12 @@
 <div class="clientes form">
 <?php echo $this->Form->create('Cliente'); ?>
 	<fieldset>
-		<legend><?php echo Configure::read('Mesa.tituloCliente'); ?></legend>
+	<?php
+         if (empty($this->request->data['Cliente']['id'])):?>
+    		<legend><?php echo 'Agregar '.Configure::read('Mesa.tituloCliente'); ?></legend>
+    <?php else: ?>
+    		<legend><?php echo 'Editar '.Configure::read('Mesa.tituloCliente'); ?></legend>
+    <?php endif; ?>
 	<?php
 		echo $this->Form->input('id');
 		echo $this->Form->input('nombre');
@@ -15,7 +20,11 @@
 		echo $this->Form->input('domicilio');
 	?>
 	</fieldset>
-   <?php
-        echo $this->Form->submit('Buscar', array('class'=>'btn btn-success btn-lg'));
+<?php
+  if (empty($this->request->data['Cliente']['id'])):?>
+     <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg')); ?>
+     <?php else: ?>
+     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg')); ?>
+<?php endif;
         echo $this->Form->end();?>
 </div>

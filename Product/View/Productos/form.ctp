@@ -2,7 +2,12 @@
 <div class="productos form">
 <?php echo $this->Form->create('Producto');?>
 	<fieldset>
- 		<legend><?php echo __('Editar Producto');?></legend>
+<?php
+     if (empty($this->request->data['Producto']['id'])):?>
+		<legend><?php echo __d('users', 'Agregar Producto'); ?></legend>
+<?php else: ?>
+		<legend><?php echo __d('users', 'Editar Producto'); ?></legend>
+<?php endif; ?>
 	<?php
 		echo $this->Form->input('id');
 
@@ -44,7 +49,13 @@
         	'placeholder' => 'Ej: "1"'
         	));
 	?>
-    <?php echo $this->Form->submit(__('Agregar'), array('class'=>'btn btn-success btn-lg')); ?>
+<?php
+  if (empty($this->request->data['Producto']['id'])):?>
+     <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg')); ?>
+     <?php else: ?>
+     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg')); ?>
+<?php endif; ?>
+
     <?php echo $this->Form->end() ?>
   </fieldset>
 </div>

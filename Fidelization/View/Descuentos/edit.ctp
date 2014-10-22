@@ -11,8 +11,9 @@
 		echo $this->Form->input('description',array('label'=>'Descripción'));
 		echo $this->Form->input('porcentaje',array('after'=>'Sólo introducir el número, sin el signo de porcentaje.'));
 			?>
-<?php echo $this->Form->end('Submit');?>
-        </fieldset>
+     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg')); ?>
+   <?php echo $this->Form->end() ?>
+     </fieldset>
 
 </div>
 <div class="actions">

@@ -8,7 +8,12 @@ if ( !empty($this->request->data['TipoDePago']['media_id']) ) {
     
 <?php echo $this->Form->create('TipoDePago', array('type' => 'file', 'action'=>'edit'));?>
 	<fieldset>
- 		<legend><?php echo __('Editar Tipo de Pago');?></legend>
+	<?php
+         if (empty($this->request->data['TipoDePago']['id'])):?>
+    		<legend><?php echo 'Agregar '.Configure::read('Mesa.tituloCliente'); ?></legend>
+    <?php else: ?>
+    		<legend><?php echo 'Editar '.Configure::read('Mesa.tituloCliente'); ?></legend>
+    <?php endif; ?>
 	<?php
         echo $this->Form->input('id');
 

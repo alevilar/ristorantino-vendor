@@ -8,8 +8,13 @@
 <div class="categorias form">
 <?php echo $this->Form->create('Categoria', array('type' => 'file'));?>
 	<fieldset>
- 		<legend><?php __('Editar Categoria');?></legend>
-                
+<?php
+     if (empty($this->request->data['Categoria']['id'])):?>
+		<legend><?php echo __d('users', 'Agregar Categoria'); ?></legend>
+<?php else: ?>
+		<legend><?php echo __d('users', 'Editar Categoria'); ?></legend>
+<?php endif; ?>
+
                 
 	<?php
             if (!empty($this->request->data['Categoria']['id'])){
@@ -21,14 +26,14 @@
         echo $this->Form->input('media_file',array('label'=>'Foto/Imagen', 'type'=>'file'));
 		echo $this->Form->input('description',array('label'=>'Descripción'));
 	?>
-<?php echo $this->Form->end('Submit');?>
+<?php
+  if (empty($this->request->data['Categoria']['id'])):?>
+     <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg')); ?>
+     <?php else: ?>
+     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg')); ?>
+<?php endif; ?>
+
+     <?php echo $this->Form->end() ?>
+
 </fieldset>
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $this->Form->value('Categoria.id')), null, sprintf(__('¿Esta seguro que desea borrar la categoria: %s?', true), $this->Form->value('Categoria.name'))); ?></li>
-		<li><?php echo $this->Html->link(__('Listar Categorias', true), array('action'=>'index'));?></li>
-		<li><?php // echo $this->Html->link(__('Listar Items', true), array('controller'=> 'items', 'action'=>'index')); ?> </li>
-		<li><?php // echo $this->Html->link(__('Crear Item', true), array('controller'=> 'items', 'action'=>'add')); ?> </li>
-	</ul>
 </div>

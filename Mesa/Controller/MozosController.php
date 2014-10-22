@@ -28,8 +28,8 @@ class MozosController extends MesaAppController {
 			$this->Session->setFlash(__('Invalid Mozo.'), 'Risto.flash_error');
 			$this->redirect(array('action'=>'index'));
 		}
-		$this->set('mozo', $this->Mozo->read(null, $id));
-		/*$this->layout='frames';*/
+        $this->Mozo->id = $id;
+        $this->request->data = $this->Mozo->read(null, $id);
 	}
 
 	public function add() {

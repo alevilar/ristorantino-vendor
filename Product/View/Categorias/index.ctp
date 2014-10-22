@@ -2,7 +2,7 @@
 <div class="categorias index">
 <div class="btn-group pull-right">
 <?php echo $this->Html->link(__('Agregar un Nuevo Producto'), array('controller'=> 'productos', 'action'=>'add'), array('class'=>'btn btn-default btn-lg'));?>
-<?php echo $this->Html->link(__('Crear %s', __('Categoria')), array('admin'=>true,'plugin'>'productos', 'controller'=> 'categorias', 'action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+<?php echo $this->Html->link(__('Crear %s', __('Categoria')), array('admin'=>true,'plugin'>'productos', 'controller'=> 'categorias', 'action'=>'edit'), array('class'=>'btn btn-success btn-lg')); ?>
 </div>
 
 
