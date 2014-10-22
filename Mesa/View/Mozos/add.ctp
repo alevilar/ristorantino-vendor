@@ -1,7 +1,7 @@
 <div class="mozos form">
 <?php echo $this->Form->create('Mozo', array('type'=>'file'));?>
 	<fieldset>
- 		<legend><?php echo __('Editar %s', Configure::read('Mesa.tituloMozo'));?></legend>
+ 		<legend><?php echo __('Agregar %s', Configure::read('Mesa.tituloMozo'));?></legend>
 	<?php
 		if (!empty( $this->request->data['Mozo']['media_id'] )) {
         	echo $this->Html->imageMedia( $this->request->data['Mozo']['media_id'], array('img-polaroid', 'style'=>'width: 68px')); 

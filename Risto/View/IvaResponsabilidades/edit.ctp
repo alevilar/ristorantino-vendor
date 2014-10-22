@@ -10,6 +10,7 @@
 	?>
 	</fieldset>
     <?php
-        echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg'));
+        echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left'));
+        echo $this->Html->link(__('Cancelar'), array('action'=>'index'), array('class'=>'btn btn-default btn-lg pull-right'));
         echo $this->Form->end();?>
 </div>

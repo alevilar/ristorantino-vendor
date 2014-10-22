@@ -1,6 +1,3 @@
-
-
-
 <div class="descuentos form">
 <?php echo $this->Form->create('Descuento');?>
 	<fieldset>
@@ -12,13 +9,8 @@
 		echo $this->Form->input('porcentaje',array('after'=>'Sólo introducir el número, sin el signo de porcentaje.'));
 			?>
      <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg')); ?>
-   <?php echo $this->Form->end() ?>
+ <?php echo $this->Html->link(__('Cancelar'), array('action'=>'index'), array('class'=>'btn btn-default btn-lg pull-right'));?>
+ <?php echo $this->Form->end();?>
      </fieldset>
 
-</div>
-<div class="actions">
-	<ul>
-		<li><?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $this->Form->value('Descuento.id')), null, sprintf(__('¿Está seguro que desea borrar el descuento: %s?', true), $this->Form->value('Descuento.name'))); ?></li>
-		<li><?php echo $this->Html->link(__('Listar Descuentos', true), array('action'=>'index'));?></li>
-	</ul>
 </div>

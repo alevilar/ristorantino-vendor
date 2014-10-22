@@ -13,10 +13,11 @@
 	?>
 <?php
   if (empty($this->request->data['ObservacionComanda']['id'])):?>
-     <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg')); ?>
+     <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
      <?php else: ?>
-     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg')); ?>
+     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
 <?php endif; ?>
+        <?php echo $this->Html->link(__('Cancelar'), array('action'=>'index'), array('class'=>'btn btn-default btn-lg pull-right'));?>
      <?php echo $this->Form->end() ?>
  </fieldset>
 </div>

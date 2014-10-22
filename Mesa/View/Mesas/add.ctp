@@ -42,8 +42,9 @@
 	        echo $this->Form->input('Pago.0.valor',array('value'=>0, 'disabled'=>true, 'id'=>'PagoValor', 'label'=>__('Monto a Pagar')));
 	        ?>
         </div>
-<?php echo $this->Form->submit('Agregar', array('class' => 'btn btn-success btn-lg', 'title' => __('Enviar')));
-    echo $this->Form->end();?>
+        <?php echo $this->Form->submit('Agregar', array('class' => 'btn btn-success btn-lg pull-left', 'title' => __('Enviar')));
+              echo $this->Html->link(__('Cancelar'), array('action'=>'index'), array('class'=>'btn btn-default btn-lg pull-right'));
+              echo $this->Form->end();?>
 
 	</fieldset>
 </div>
