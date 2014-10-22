@@ -3,7 +3,7 @@
 <div class="users index">
 <h2><?php echo __('Tipo de Pagos');?></h2>
 <div class="btn-group pull-right">
-<?php echo $this->Html->link(__('Crear Tipo de pago', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+<?php echo $this->Html->link(__('Crear Tipo de pago', true), array('action'=>'edit'), array('class'=>'btn btn-success btn-lg')); ?>
 	<?php echo $this->Html->link(__('Listar Pagos', true), array('controller'=> 'pagos', 'action'=>'index'), array('class'=>'btn btn-default btn-lg')); ?>
 </div>
 

@@ -102,13 +102,7 @@ foreach ($mesas as $mozo):
 			    
 			  </ul>
 			</div>
-
-
-			
-			
-                        
 			</br>
-                       
                         </br>
                       
 		</td>

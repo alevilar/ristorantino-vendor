@@ -68,12 +68,12 @@ class RistoAppController extends Controller {
 
     public function beforeFilter()
      {    
-
         parent::beforeFilter();
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
+         $this->set('elementMenu', 'menu');
         return true;
-        
+
       }
    
 }

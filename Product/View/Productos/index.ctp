@@ -6,11 +6,9 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 
 ?>
 
-
 <script type="text/javascript">
     new Afups("<?php echo $this->Html->url(array('action'=>'update'))?>");
 </script>
-
 <style type="text/css">
 	.abrev{
 		font-size: 8pt;
@@ -21,19 +19,13 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 		text-align: left;
 	}
 </style>
-
-
 <div class="productos index">
-
-<div class="users index">
 <div class="btn-group pull-right">
 <?php
-    echo $this->Html->link(__('Nuevo Producto'), array('action'=>'add'), array('class'=>'btn btn-lg btn-success pull-right'));
-
-
-    echo $this->Html->link('<span class="glyphicon glyphicon-usd"></span>   Aplicar Precios Futuros'
+    echo $this->Html->link(__('Nuevo Producto'), array('action'=>'add'), array('class'=>'btn btn-lg btn-success'));
+    echo $this->Html->link('<span class="glyphicon glyphicon-usd"></span>Aplicar Precios Futuros'
     	, array('action' => 'actualizarPreciosFuturos')
-    	, array('class' => 'btn btn-warning btn-lg', 'escape' => false )
+    	, array('class' => 'btn btn-default btn-lg', 'escape' => false )
     	, 'Está por modificar todos los precios, por su valor futuro. ¿Seguro?');
     ?>
 </div>

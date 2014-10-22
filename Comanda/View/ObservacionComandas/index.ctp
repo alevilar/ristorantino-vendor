@@ -2,7 +2,7 @@
 <div class="users index">
 <h2><?php echo __('Observaciones Commandas');?></h2>
 <div class="btn-group pull-right">
-<?php echo $this->Html->link(__('Crear Adicional', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+<?php echo $this->Html->link(__('Crear Observaciones', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
 </div>
 
 <table class="table">

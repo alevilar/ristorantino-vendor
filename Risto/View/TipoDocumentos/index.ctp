@@ -2,7 +2,7 @@
 
 <div class="tipoDocumento index">
     <div class="btn-group pull-right">
-    <?php echo $this->Html->link(__('Nuevo Tipo de Documento', __('TipoDocumento')), array('action' => 'add'), array('class'=>'btn btn-success btn-lg')); ?>
+    <?php echo $this->Html->link(__('Nuevo Tipo de Documento', __('TipoDocumento')), array('action' => 'edit'), array('class'=>'btn btn-success btn-lg')); ?>
     </div>
     <h2><?php echo __('Tipo de Documentos'); ?></h2>
 

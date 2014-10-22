@@ -2,7 +2,7 @@
 
 <div class="users index">
 <div class="btn-group pull-right">
-<?php echo $this->Html->link(__('Crear Tipo Facturas', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+<?php echo $this->Html->link(__('Crear Tipo Facturas', true), array('action'=>'edit'), array('class'=>'btn btn-success btn-lg')); ?>
 </div>
 <h2><?php echo __('Tipo de Facturas');?></h2>
 
@@ -19,7 +19,7 @@
 
 	<th><?php echo $this->Paginator->sort('id','Código');?></th>
 	<th><?php echo $this->Paginator->sort('name','Nombre');?></th>
-	<th><?php echo $this->Paginator->sort('name','Nombre de Codigo');?></th>
+	<th><?php echo $this->Paginator->sort('codename','Nombre de Codigo');?></th>
 	<th><?php echo $this->Paginator->sort('created','Creado');?></th>
 	<th class="actions"><?php echo __('Acciones');?></th>
 </tr>
