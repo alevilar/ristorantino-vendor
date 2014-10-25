@@ -30,10 +30,10 @@ class DescuentosController extends FidelizationAppController {
         if (!empty($this->request->data)) {
             $this->Descuento->create();
             if ($this->Descuento->save($this->request->data)) {
-                $this->Session->setFlash(__('La Observación Comandas ha sido guardada'), 'Risto.flash_success');
+                $this->Session->setFlash(__('El Descuento ha sido guardado'), 'Risto.flash_success');
                 $this->redirect(array('action'=>'index'));
             } else {
-                $this->Session->setFlash(__('La Observación Comandas no ha podido ser guardada, vuelva a intentar.'), 'Risto.flash_error');
+                $this->Session->setFlash(__('El Descuento no ha podido ser guardado, vuelva a intentar.'), 'Risto.flash_error');
             }
         }
     }
@@ -41,15 +41,15 @@ class DescuentosController extends FidelizationAppController {
     public function edit($id = null) {
 
         if (!$id && empty($this->request->data)) {
-            $this->Session->setFlash(__('La Observación Comandas Inválida.'), 'Risto.flash_error');
+            $this->Session->setFlash(__('El Descuento Inválido.'), 'Risto.flash_error');
             $this->redirect(array('action'=>'index'));
         }
         if (!empty($this->request->data)) {
             if ($this->Descuento->save($this->request->data)) {
-                $this->Session->setFlash(__('La Observación Comandas ha sido guardada'), 'Risto.flash_success');
+                $this->Session->setFlash(__('El Descuento ha sido guardado'), 'Risto.flash_success');
                 $this->redirect(array('action'=>'index'));
             } else {
-                $this->Session->setFlash(__('La Observación Comandas no ha podido ser guardada, vuelva a intentar.'), 'Risto.flash_error');
+                $this->Session->setFlash(__('El Descuento no ha podido ser guardado, vuelva a intentar.'), 'Risto.flash_error');
             }
         }
         if (empty($this->request->data)) {
@@ -60,11 +60,11 @@ class DescuentosController extends FidelizationAppController {
 
     public function delete($id = null) {
         if (!$id) {
-            $this->Session->setFlash(__('ID de la Observación Comandas Inválida'), 'Risto.flash_error');
+            $this->Session->setFlash(__('ID del El Descuento Inválido'), 'Risto.flash_error');
         }
         if ($this->Descuento->delete($id)) {
-            $this->Session->setFlash(__('La Observación Comandas Borrada'), 'Risto.flash_success');
+            $this->Session->setFlash(__('El El Descuento fue Borrado'), 'Risto.flash_success');
         }
-        $this->redirect(array('action'=>'index'));
+        $this->redirect(array('action'=>'index')); 
     }
 }
