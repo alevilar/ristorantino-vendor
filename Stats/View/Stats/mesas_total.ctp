@@ -36,6 +36,7 @@
     </div>
     <?php
     echo $this->Form->end();
+    debug($resumenCuadro);
     ?>
 
     <div class="col-md-7 col-md-push-1">

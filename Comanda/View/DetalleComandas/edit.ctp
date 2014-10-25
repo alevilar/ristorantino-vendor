@@ -12,5 +12,5 @@
 	?>
 		
 	</fieldset>
-<?php echo $this->Form->end('Submit');?>
+        <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
 </div>

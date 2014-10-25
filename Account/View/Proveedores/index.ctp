@@ -12,7 +12,7 @@
 <?php
 echo $this->Form->create('Proveedor', array('url'=>$this->action));
 echo $this->Form->input('buscar_proveedor', array('type'=>'text', 'div'=>array('class'=>'col-md-6'), 'placeholder'=>'Buscar Proveedor', 'label'=>false));
-echo $this->Form->submit('buscar', array('class'=>'btn btn-primary col-md-1'));
+echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary col-md-1'));
 echo $this->Form->end();
 ?>
 </div>
@@ -67,8 +67,8 @@ foreach ($proveedores as $proveedor):
 			<?php echo date("d/m/Y H:i", strtotime($proveedor['Proveedor']['created'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $proveedor['Proveedor']['id'])); ?>
-			<?php echo $this->Html->link(__('Borrar'), array('action' => 'delete', $proveedor['Proveedor']['id']), null, sprintf(__('¿Esta seguro que desea eliminar "%s"?'), $proveedor['Proveedor']['name'])); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Borrar'), array('action' => 'delete', $proveedor['Proveedor']['id']), array('class'=>'btn btn-default'), null, sprintf(__('¿Esta seguro que desea eliminar "%s"?'), $proveedor['Proveedor']['name'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
