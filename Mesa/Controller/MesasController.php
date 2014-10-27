@@ -30,8 +30,6 @@ class MesasController extends MesaAppController {
                 'IvaResponsabilidad.TipoFactura',
                 ),
         );
-
-        
         if (!empty($this->request->data['Mesa']['exportar_excel'])){
             $this->Paginator->settings['limit'] = null;
             $this->set('mesas', $this->Mesa->find('all', array(
@@ -42,8 +40,6 @@ class MesasController extends MesaAppController {
             $this->layout = 'xls';
             $this->render('xls/index');
         }
-
-        
         $this->set('mesas', $this->Paginator->paginate('Mesa'));
 
         $tot = $this->Mesa->find('first', array(

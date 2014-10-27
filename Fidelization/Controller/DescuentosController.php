@@ -65,6 +65,6 @@ class DescuentosController extends FidelizationAppController {
         if ($this->Descuento->delete($id)) {
             $this->Session->setFlash(__('El El Descuento fue Borrado'), 'Risto.flash_success');
         }
-        $this->redirect(array('action'=>'index')); 
+        $this->redirect(array('action'=>'index'));
     }
 }

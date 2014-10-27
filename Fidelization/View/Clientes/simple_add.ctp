@@ -33,8 +33,8 @@
        
         <?php 
         echo $this->Form->input('descuento_id', array('empty'=>'Sin Descuento'));
-        echo $this->Form->end('guardar');
-
+        echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg'));
+        echo $this->Form->end();
         ?>
     </div>
 </div>

@@ -36,9 +36,7 @@
     </div>
     <?php
     echo $this->Form->end();
-    debug($resumenCuadro);
-    ?>
-
+   ?>
     <div class="col-md-7 col-md-push-1">
         <div class="row">
             Datos entre <b><?php echo strftime('%A %d de %B %Y', strtotime($resumenCuadro['desde'])) ?></b> y <b><?php echo strftime('%A %d de %B %Y', strtotime($resumenCuadro['hasta'])) ?></b>
@@ -46,7 +44,7 @@
             <div class="col-md-6">
                 <h3>Ingresos/Ventas</h3>
                 Ventas Netas (sin descuentos): <b><?php echo $this->Number->currency($resumenCuadro['subtotal'],'$', array('places'=>0)) ?></b><br />
-                Total de ventas: <b><?php echo $this->Number->currency($resumenCuadro['total'],'$', array('places'=>0)) ?></b><br />
+                Total de ventas (con descuentos): <b><?php echo $this->Number->currency($resumenCuadro['total'],'$', array('places'=>0)) ?></b><br />
                 Cierre Zeta Total: <b><?php echo $this->Number->currency($zeta_iva_total + $zeta_neto_total,'$', array('places'=>0)) ?></b><br>
                 Zeta Neto: <b><?php echo $this->Number->currency($zeta_neto_total,'$', array('places'=>0)) ?></b><br>
                 Zeta Iva: <b><?php echo $this->Number->currency($zeta_iva_total,'$', array('places'=>0)) ?></b><br>

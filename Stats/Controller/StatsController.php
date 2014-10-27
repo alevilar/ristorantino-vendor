@@ -17,7 +17,6 @@ class StatsController extends StatsAppController
         $desdeHasta = '1 = 1';
         $limit = '';
         $lineas = array($desdeHasta);
-
         // por default buscar 1 semana atras
         if (empty($this->request->data['Linea'])) {
             $this->request->data['Linea'][0]['hasta'] = date('Y-m-d', strtotime('now'));
@@ -29,10 +28,8 @@ class StatsController extends StatsAppController
             $lineas = array();
             foreach ($this->request->data['Linea'] as $linea) {
                 if (!empty($linea['desde']) && !empty($linea['hasta'])) {
-
                     $desde = $linea['desde'];
                     $hasta = $linea['hasta'];
-
                     // buscar gastos
                     $gasOps = array(
                         'fields' => array(
@@ -54,10 +51,7 @@ class StatsController extends StatsAppController
                     }
                     $this->set('egresos_total', $egresos_total);
                     $egresos = array($egresos);
-
-
                     $gastosSumas = $this->Gasto->find('first', $gasOps);
-
                     if (empty($gastosSumas)) {
                         $gastosSumas[0]['neto'] = $gastosSumas[0]['total'] = 0;
                     }
@@ -68,8 +62,6 @@ class StatsController extends StatsAppController
                     $this->set('gastos', $gastos);
                     $this->set('gastos_neto', $gastosSumas[0]['neto']);
                     $this->set('gastos_total', $gastosSumas[0]['total']);
-
-
                     $zetas = $this->Zeta->delDia($desde, $hasta);
                     $zeta_iva_total = $zeta_neto_total = 0;
                     foreach ($zetas as $z) {
@@ -88,11 +80,10 @@ class StatsController extends StatsAppController
                         case 'day':
                             break;
                         case 'month':
-//                            $fields[] = 'GET_FORMAT( DATE(Mesa.created),"%Y-%m") as "fecha"';
+//                          $fields[] = 'GET_FORMAT( DATE(Mesa.created),"%Y-%m") as "fecha"';
                             $fields[] = 'YEAR(Mesa.created) as "anio"';
                             $fields[] = 'MONTH(Mesa.created) as "mes"';
                             $fields[] = 'CONCAT(YEAR(Mesa.created),"-",MONTH(Mesa.created)) as "fecha"';
-
                             $group = array(
                                 'YEAR(fecha)', 'MONTH(fecha)',
                             );
@@ -104,14 +95,10 @@ class StatsController extends StatsAppController
                             );
                             break;
                     }
-
-
                     $mesas = $this->Mesa->totalesDeMesasEntre($desde, $hasta, array(
                         'fields' => $fields,
                         'group' => $group,
                     ));
-
-
                     $resumenCuadro = array(
                         'total' => 0,
                         'subtotal' => 0,
@@ -119,10 +106,8 @@ class StatsController extends StatsAppController
                         'desde' => $desde,
                         'hasta' => $hasta,
                     );
-
                     foreach ($mesas as &$m) {
                         $m['Mesa'] = $m[0];
-
                         $resumenCuadro['cubiertos'] += $m['Mesa']['cant_cubiertos'];
                         $resumenCuadro['total'] += $m['Mesa']['total'];
                         $resumenCuadro['subtotal'] += $m['Mesa']['subtotal'];
@@ -132,7 +117,6 @@ class StatsController extends StatsAppController
                 }
             }
         }
-
         $this->set('egresos', $egresos);
         $this->set('mesas', $mesasLineas);
         $this->set('resumenCuadro', $resumenCuadro);
@@ -146,7 +130,6 @@ class StatsController extends StatsAppController
             $this->request->data['Mesa']['hasta'] = date('Y-m-d', strtotime('now'));
             $this->request->data['Mesa']['desde'] = date('Y-m-d', strtotime('-6 day'));
         }
-
         if (!empty($this->request->data['Mesa']['desde']) && !empty($this->request->data['Mesa']['hasta'])) {
             $desde = $this->request->data['Mesa']['desde'];
             $hasta = $this->request->data['Mesa']['hasta'];
