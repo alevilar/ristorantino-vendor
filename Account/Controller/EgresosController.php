@@ -4,7 +4,7 @@ App::uses('AccountAppController', 'Account.Controller');
 
 class EgresosController extends AccountAppController
 {
-   
+
 
     public function history ()
     {
@@ -14,16 +14,17 @@ class EgresosController extends AccountAppController
         $this->Prg->presetForm('Egreso');
         $conditions = $this->Egreso->parseCriteria( $this->Prg->parsedParams() );
 
-        
+
         if ( !array_key_exists('DATE(Egreso.fecha) >=', $conditions) && !array_key_exists('DATE(Egreso.fecha) <=', $conditions) ) {
             $conditions['DATE(Egreso.fecha) >='] = $this->request->data['Egreso']['fecha_desde'] = date('Y-m-d', strtotime('-2 day'));
             $conditions['DATE(Egreso.fecha) <='] = $this->request->data['Egreso']['fecha_hasta'] = date('Y-m-d', strtotime('now'));
         }
-        
-        
+
+
         $this->Paginator->settings = array(
             'contain' => array(
                 'TipoDePago',
+                'Media',
                 'Gasto' => array(
                     'Proveedor',
                     'TipoFactura',
@@ -52,7 +53,7 @@ class EgresosController extends AccountAppController
     }
 
     public function add($gasto_id = null)
-    {    
+    {
         $gastos = array();
         if (!empty($gasto_id)) {
             $gastos[] = $gasto_id;
@@ -62,7 +63,7 @@ class EgresosController extends AccountAppController
         $cant_gastos = 0;
         $gastosAll = array();
         if (!empty($this->request->data['Gasto'])) {
-            
+
             // re armo el array de gastos limpiando los que no fueron seleccionados para pagar
             foreach ($this->request->data['Gasto'] as $g) {
                 if ($g['gasto_seleccionado']) {
@@ -79,16 +80,16 @@ class EgresosController extends AccountAppController
                     'Gasto.id' => $gastos,
                 ),
                 'recursive' => 1,
-                    ));
+            ));
             foreach ($gastosAll as $g) {
                 $suma_gastos += $g['Gasto']['importe_total'] - $g['Gasto']['importe_pagado'];
             }
 
             $this->set('gastos', $this->Egreso->Gasto->find('list', array(
-                        'conditions' => array(
-                            'Gasto.id' => $gastos,
-                        )
-                    )));
+                'conditions' => array(
+                    'Gasto.id' => $gastos,
+                )
+            )));
         } else {
             $this->flash('Error, se debe seleccionar algun gasto', array('index'));
         }
@@ -98,7 +99,7 @@ class EgresosController extends AccountAppController
         } else {
             $this->pageTitle = 'Pagando ' . count($gastos) . ' Gasto';
         }
-        
+
         $this->request->data['Egreso']['fecha'] = $date = date('Y-m-d H:i', strtotime('now'));
         $this->request->data['Egreso']['total'] = $suma_gastos;
         $this->set('tipoDePagos', $this->Egreso->TipoDePago->find('list'));
@@ -119,7 +120,7 @@ class EgresosController extends AccountAppController
                 debug($this->Egreso->validationErrors);die;
                 $this->Session->setFlash('Error al guardar el pago', 'Risto.flash_error');
                 $this->redirect($this->referer());
-                
+
             }
         }
     }
@@ -136,8 +137,18 @@ class EgresosController extends AccountAppController
         ));
         $this->set('egreso', $this->Egreso->read());
     }
-    
-    
+    public function imagen($id = null)
+    {
+        $this->autoRender=false;
+        $this->loadModel("Risto.Media");
+        $media_data = $this->Media->findById($id);
+
+        header("Content-type:".$media_data['Media']['type']."");
+        echo ($media_data['Media']['file']);
+
+    }
+
+
     public function delete($id = null)
     {
         if (!$id) {

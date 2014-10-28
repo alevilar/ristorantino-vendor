@@ -2,7 +2,7 @@
 echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
 ?>
 <div class="gastos form">
-    <?php echo $this->Form->create('Gasto', array( 'type' => 'file', 'id'=>'GastoAddForm')); ?>
+    <?php echo $this->Form->create('Gasto', array( 'type' => 'file', 'id'=>'GastoAddForm','novalidate'=>'true')); ?>
     <?php echo $this->Form->hidden('id'); ?>
     <?php echo $this->Form->hidden('pagar', array('value' => true)); ?>
     <div class="row">
@@ -15,7 +15,7 @@ echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead');
 
             echo $this->Form->input('proveedor_list', array(
                 'autocomplete'=>'off',
-                'label' => 'Proveedor', 
+                'label' => 'Proveedor',
                 'type' => 'text', 
                 'id' => 'proveedores', 
                 'class' => 'form-control auto-complete',

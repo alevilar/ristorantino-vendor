@@ -57,5 +57,5 @@ foreach ($gastos as $gId => $g) {
 }
 echo "</div>";
 
-echo $this->Form->button('guardar', array('type'=>'submit', 'class'=>'btn btn-lg btn-success'));
+echo $this->Form->button('Guardar', array('type'=>'submit', 'class'=>'btn btn-lg btn-success'));
 echo $this->Form->end(null);
