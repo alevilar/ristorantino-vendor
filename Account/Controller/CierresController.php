@@ -12,7 +12,14 @@ class CierresController extends AccountAppController
     function index()
     {
         $this->Cierre->recursive = -1;
-        $this->set('cierres', $this->paginate());
+        $this->Cierre->contain(
+                            array(
+                                    'Gasto'=>array('Proveedor',
+                                                   'AccountEgresosGasto'
+                                    )
+                                 )
+                             );
+            $this->set('cierres', $this->paginate());
     }
 
     
@@ -27,6 +34,7 @@ class CierresController extends AccountAppController
                     $this->Cierre->Gasto->saveField('cierre_id', $this->Cierre->id);
                 }
                 $this->Session->setFlash('Se Guardó correctamente');
+                $this->redirect($this->referer() );
             } else {
                 $this->Session->setFlash('Fallo al guardar');
             }
@@ -34,7 +42,6 @@ class CierresController extends AccountAppController
     }
     
     function view( $id ) {
-        debug( $this->RequestHandler->ext );
         if ( empty($id) ) {
             throw new Exception("Se debe pasar un ID como parámetro");            
         }

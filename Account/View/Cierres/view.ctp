@@ -9,8 +9,8 @@
 
 <?php
 
-
-echo $this->Html->link('Descargar Excel', $this->action . "/".$cierre['Cierre']['id']. '.xls' . strstr($_SERVER['REQUEST_URI'], '?'), array(
+ 
+echo $this->Html->link('Descargar Excel', array('action'=> $this->action , $cierre['Cierre']['id'], 'extension' => '.xls' ), array(
     'data-ajax' => 'false',
     'class' => 'btn btn-success',
 ));
