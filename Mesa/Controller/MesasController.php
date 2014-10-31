@@ -362,8 +362,6 @@ class MesasController extends MesaAppController {
         } else {
             $this->set('cliente', array());
         }
-                
-                
         $this->Mesa->id = $mesa_id;
         if ($this->Mesa->saveField('cliente_id', $cliente_id) ) {
             if (!$this->request->is('ajax')){

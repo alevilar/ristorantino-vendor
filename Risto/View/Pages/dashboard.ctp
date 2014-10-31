@@ -6,7 +6,6 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 <div class="jumbotron">
     <div style="text-align: center">
     <h1><?php echo Configure::read('Site.name');?></h1>
-  
   </div>
   <p>
    <ul class="dashboard-buttons">
@@ -37,8 +36,6 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
    </ul>
   
   <ul class="dashboard-buttons">
-
-
 
     <li>  
         <?php echo $this->Html->link('Estadisticas', array('plugin' => 'stats', 'controller' => 'stats', 'action' => 'mesas_total'), array('id' => 'bton-estadisticas')); ?>

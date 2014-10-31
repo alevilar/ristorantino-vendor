@@ -8,7 +8,6 @@ class ConfiguratorComponent extends Component {
     public function startup (Controller $controller) {
         die("as a asas");
         $ccc = ClassRegistry::init('Risto.Config')->find('all');
-
         foreach( $ccc as $c){
             $confName = '';
             if (!empty($c['ConfigCategory']['name'])) {

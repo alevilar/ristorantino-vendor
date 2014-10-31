@@ -33,7 +33,9 @@
 			<div class="list-group">
 				<?php App::uses('MtSites', 'MtSites.MtSites'); ?>
 				<?php if ( $this->Session->check('Auth.User.Site') ): ?>
-					<?php foreach ( $this->Session->read('Auth.User.Site') as $s ): ?>
+					<?php foreach ( $this->Session->read('Auth.User.Site') as $s ):
+					debug($s);
+					?>
 						<div class="list-group-item" style="font-size: 15pt;">
 							
 							<?php echo  $this->Html->link( $s['name'] , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'' ));?>
