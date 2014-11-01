@@ -18,6 +18,8 @@
 		echo $this->Form->input('mail', array('type'=>'email','label'=>'Correo Electrónico'));
 		echo $this->Form->input('telefono');
 		echo $this->Form->input('domicilio');
+		echo $this->Form->input('fecha', array('type'=>'date'));
+		echo $this->Form->input('observacion');
 	?>
 	</fieldset>
 <?php
