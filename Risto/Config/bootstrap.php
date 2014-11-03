@@ -55,9 +55,6 @@ if ( Configure::check('Plugins') ) {
 }
 
 
-
-
-
 CakePlugin::load('MtSites', array( 'routes' => true, 'bootstrap' => true ));
 
 

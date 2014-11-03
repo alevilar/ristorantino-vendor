@@ -1,7 +1,5 @@
 <?php
 echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
-
-
 ?>
 <div class="jumbotron">
     <div style="text-align: center">
@@ -20,8 +18,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
         ?>
     </li>
    
-
-    <li>  
+    <li>
         <?php echo $this->Html->link('Contabilidad', array('controller' => 'account', 'action' => 'index', 'plugin' => 'account'), array('id' => 'bton-contabilidad')); ?>
     </li>       
 
