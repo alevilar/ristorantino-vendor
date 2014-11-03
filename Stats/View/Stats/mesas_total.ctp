@@ -72,6 +72,34 @@
 
 
 <div class="row">
+
+    <div class="col-md-2">
+        <div class="tabla-info">
+            <h3><?php echo __('Ocupación'); ?></h3>
+
+            <table class="table table-condensed center">
+                <thead>
+                    <tr>
+                        <th style="background: #9B4959; color: white; text-align: center;"><?php echo __('Fecha'); ?></th>
+                        <th style="background: #9B4959; color: white; text-align: center;"><?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto')); ?></th>
+                    </tr>
+                </thead>
+             <?php
+                foreach ( $cubiertos as $fecha => $cubs ) {
+                    ?>
+                    <tr>
+                        <td><?php echo strftime('%a %d %b', strtotime($fecha)) ?></td>
+                        <td><?php echo $cubs?></td>
+                    </tr>
+                    <?php
+                }
+
+            ?>
+            </table>
+        </div>
+    
+    </div>
+
     <div class="col-md-5 alpha">
         <?php
         foreach ($mesas as $i => $mozo) {
@@ -79,7 +107,7 @@
                 
                 ?>
             <div class="tabla-info">
-                <h3>Ventas</h3>
+                <h3>Facturación</h3>
                 <table class="table table-condensed center">
                     <thead>
                         <tr>
@@ -111,15 +139,8 @@
                             } else {
                                 echo('class="colordos"');
                             }
-                            ?>><?php echo Inflector::pluralize(Configure::read('Mesa.tituloMesa')) ?></th>
-                            <th <?php
-                            if ($i == 0) {
-                                echo('class="coloruno"');
-                            } else {
-                                echo('class="colortres"');
-                            }
-                            ?>><?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto')) ?></th>
-
+                            ?>><?php echo Inflector::pluralize(Configure::read('Mesa.tituloMesa')) ." ". __('facturadas') ?></th>
+                           
                         </tr>
                     </thead>
                     <tbody>
@@ -148,9 +169,6 @@
                                 echo('<td>');
                                 echo($m['Mesa']['cant_mesas']);
                                 echo('</td>');
-                                echo('<td>');
-                                echo($m['Mesa']['cant_cubiertos']);
-                                echo('</td>');
 
                                 echo('</tr>');
                             }
@@ -173,7 +191,7 @@
         ?>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="tabla-info">
             <h3>Zetas</h3>
             <table class="table table-condensed center">
@@ -197,7 +215,7 @@
         </div>
     </div>
 
-    <div class="col-md-3">
+    <div class="col-md-2">
         <div class="tabla-info">
             <h3>Pagos</h3>
             <table class="table table-condensed center">

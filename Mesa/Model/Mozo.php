@@ -60,28 +60,7 @@ class Mozo extends MesaAppModel {
                     'conditions'=>array('Mozo.activo'=>1),
                     'order'=>'Mozo.numero ASC'));
 	}
-        
-        /**
-         * 
-         * @return stringFind 'list' de los mozos con el numero + nombre completo
-         */
-        // function listActivos() {
-        //     $mozosAll = $this->find('list', array(
-        //         'fields'=>array(
-        //             'Mozo.id',
-        //             'Mozo.numero_y_nombre',
-        //         ),
-        //         'conditions' => array(
-        //             'Mozo.activo' => 1
-        //         )
-        //     ));
-
-        //     $mozos = array();
-        //     foreach ($mozosAll as $mz) {
-        //         $mozos[$mz['Mozo']['id']] = "(".$mz['Mozo']['numero'] . ") " .$mz['Mozo']['nombre']. " ". $mz['Mozo']['apellido'];
-        //     }
-        //     return $mozos;
-        // }
+     
 	
 	
 	
@@ -112,13 +91,15 @@ class Mozo extends MesaAppModel {
             
             // condiciones para traer mesas abiertas y pendientes de cobro
             if ( Configure::read('Site.type') == SITE_TYPE_HOTEL ) {
+                // si es hotel
                 $conditionsMesa = array(
                     'Mesa.deleted' => 0,        
                     'Mesa.checkin >' => date('Y-m-d', strtotime('-1 month')),
                 );
             } else {
+                // es restaurante u otros comercios
                 $conditionsMesa = array(
-                    "Mesa.estado_id <" => MESA_COBRADA,
+                    "Mesa.checkout IS NULL",
                     'Mesa.deleted' => 0,        
                 );
             }
