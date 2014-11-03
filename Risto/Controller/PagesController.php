@@ -63,11 +63,6 @@ class PagesController extends AppNoModelController {
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
-       if(Configure::read('Site.timezone')){
-           date_default_timezone_set(Configure::read('Site.timezone'));
-       }else{
-           date_default_timezone_set('UTC');
-       }
         $this->set(compact('page', 'subpage', 'title_for_layout'));
 		try {
 

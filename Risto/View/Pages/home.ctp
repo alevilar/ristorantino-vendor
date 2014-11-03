@@ -13,9 +13,6 @@
 </div>
 
 
-
-
-
 <div class="col-md-4 login">
 	<div class="row">
 

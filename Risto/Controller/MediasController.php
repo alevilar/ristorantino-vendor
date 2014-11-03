@@ -51,6 +51,7 @@ class MediasController extends AppController {
 
 
     public function thumb ($id) {
+        debug($id);
         $media = $this->Media->read(null, $id);
         $this->response->body($media['Media']['file']);
         $this->response->type($media['Media']['type']);
