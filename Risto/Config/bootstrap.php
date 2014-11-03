@@ -106,8 +106,6 @@ define('DATETIME_NULL', '0000-00-00 00:00:00');
 define('MENU_FOLDER', 'menu');
 define('IMG_MENU', WWW_ROOT . 'img/' . MENU_FOLDER . '/');
 
-date_default_timezone_set(Configure::read('Site.timezone'));
-
 
 function jsDate($date)
 {
