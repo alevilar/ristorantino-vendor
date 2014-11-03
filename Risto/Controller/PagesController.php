@@ -63,19 +63,8 @@ class PagesController extends AppNoModelController {
 		if (!empty($path[$count - 1])) {
 			$title_for_layout = Inflector::humanize($path[$count - 1]);
 		}
-        $idil= $this->request->params['tenant'];
-        $this->loadModel('MtSites.Site');
-        $this->Site->recursive = -1;
-        $mesa = $this->Site->find('first',array(
-            'conditions'=>array('Site.alias'=>$idil),
-                                                )
-                                );
-        $country = $mesa['Site']['country_code'];
-        debug($country);
-        Configure::write('Config.timezone', $country);
 
         $this->set(compact('page', 'subpage', 'title_for_layout'));
-
 		try {
 
 			$this->render(implode('/', $path));

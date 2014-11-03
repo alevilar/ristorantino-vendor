@@ -1,7 +1,5 @@
 <?php
 
-
-
 Inflector::rules('singular', array(
     'rules' => array('/([r|d|j|n|l|m|y|z])es$/i' => '\1', '/as$/i' => 'a', '/([ti])a$/i' => '\1a'),
     'irregular' => array(
@@ -38,15 +36,11 @@ Inflector::rules('plural', array(
     'uninflected' => array()
         )
 );
-
-
-
 /* Load Plugins listed in configuration file */
 if ( Configure::check('Plugins') ) {
     // load configuration extra plugins
     $plugs = Configure::read('Plugins');
     if ( is_array($plugs)) {
-
         foreach ($plugs as $pName=>$options ) {
             if ( is_integer($pName) ) {
                 $pName = $options;
@@ -54,7 +48,9 @@ if ( Configure::check('Plugins') ) {
             }
             CakePlugin::load($pName,$options );
         }
+
     }
+
     unset($plugs);
 }
 

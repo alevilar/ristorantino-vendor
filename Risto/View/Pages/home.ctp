@@ -34,7 +34,6 @@
 				<?php App::uses('MtSites', 'MtSites.MtSites'); ?>
 				<?php if ( $this->Session->check('Auth.User.Site') ): ?>
 					<?php foreach ( $this->Session->read('Auth.User.Site') as $s ):
-					debug($s);
 					?>
 						<div class="list-group-item" style="font-size: 15pt;">
 							
