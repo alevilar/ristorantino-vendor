@@ -148,15 +148,21 @@ class Mesa extends MesaAppModel {
 	public $order = array('Mesa.created' => 'desc');
 		
 		
-	public function beforeSave( $options = array() ) 
+	public function afterSave(  $created, $options = array() ) 
 	{
-		$this->data['Mesa']['modified'] = date('Y-m-d H:i:s');
-		if ( !empty($this->data['Pago']) && !empty($this->data['Mesa']['id']) ) {
-			$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
-			$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
-		}
+		if ( !$created ) {
+			// update totals
+			if ( !empty($this->data['Pago']) && !empty($this->data['Mesa']['id']) ) {
+				$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
+				$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
+			}	
+		} else {
+			if (empty($this->data['Mesa']['checkin'])) {
+				$this->data['Mesa']['checkin'] = date('Y-m-d h:i:s');
+			}
+		}		
 		
-		if ( !parent::beforeSave($options) ) {
+		if ( !parent::afterSave($created, $options) ) {
 			return false;
 		}
 
@@ -165,6 +171,31 @@ class Mesa extends MesaAppModel {
 
 		return true;
 	 }
+
+
+
+	public function comensales_por_dia($fechaDesde, $fechaHasta) {
+	 	$dias = crear_fechas($fechaDesde, $fechaHasta);
+	 	$diasData = array();
+	 	foreach ($dias as $dia) {
+	 		$mesas = $this->find('first', array(
+	 			'fields' => array(
+	 				'sum(Mesa.cant_comensales) as suma',	 				
+	 				),
+	 			'conditions' => array(
+	 				'DATE(Mesa.checkin) <=' => $dia,
+	 				'DATE(Mesa.checkout) >' => $dia,
+	 				),
+	 			));
+	 		
+	 		if ( !empty($mesas[0]['suma']) ) {
+	 			$diasData[$dia] = (int)$mesas[0]['suma'];
+	 		} else {
+	 			$diasData[$dia] = 0;
+	 		}
+	 	}
+	 	return $diasData;
+	}
 
 
 	 private function __cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada ( $options = array() ) {
@@ -653,7 +684,7 @@ function calcular_subtotal($id = null){
 			if ( $horarioCorte < 10 ) {
 				$horarioCorte = "0$horarioCorte";
 			}
-			$sqlHorarioDeCorte = "DATE(SUBTIME(Mesa.created, '$horarioCorte:00:00'))";
+			$sqlHorarioDeCorte = "DATE(SUBTIME(Mesa.checkin, '$horarioCorte:00:00'))";
 			$desde = empty($fechaDesde) ? date('Y-m-d', strtotime('now')) : $fechaDesde;
 			$hasta = empty($fechaHasta) ? date('Y-m-d', strtotime('now')) : $fechaHasta;
 			$defaultOrder = array();
@@ -668,11 +699,11 @@ function calcular_subtotal($id = null){
 				);
 			
 			$defaultGroup = array(
-				'fecha'  ,
+				"$sqlHorarioDeCorte"  ,
 				);
 			if ( empty($conds['order'])) {
 				$defaultOrder = array(
-					"Mesa.created DESC"
+					"Mesa.checkin DESC"
 					);
 			}
 			
@@ -688,7 +719,6 @@ function calcular_subtotal($id = null){
 				'group' => $defaultGroup,
 				'order' => $defaultOrder,
 				);
-			
 			$ops = array_merge_recursive($ops, $conds);
 			$mesas =  $this->find('all', $ops);
 			return $mesas;

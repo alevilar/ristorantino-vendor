@@ -62,6 +62,8 @@ class StatsController extends StatsAppController
                     $this->set('gastos', $gastos);
                     $this->set('gastos_neto', $gastosSumas[0]['neto']);
                     $this->set('gastos_total', $gastosSumas[0]['total']);
+
+                    // buscar las zetas
                     $zetas = $this->Zeta->delDia($desde, $hasta);
                     $zeta_iva_total = $zeta_neto_total = 0;
                     foreach ($zetas as $z) {
@@ -76,29 +78,11 @@ class StatsController extends StatsAppController
                     $fields = array();
                     $group = array();
 
-                    switch (strtolower($groupByRange)) {
-                        case 'day':
-                            break;
-                        case 'month':
-//                          $fields[] = 'GET_FORMAT( DATE(Mesa.created),"%Y-%m") as "fecha"';
-                            $fields[] = 'YEAR(Mesa.created) as "anio"';
-                            $fields[] = 'MONTH(Mesa.created) as "mes"';
-                            $fields[] = 'CONCAT(YEAR(Mesa.created),"-",MONTH(Mesa.created)) as "fecha"';
-                            $group = array(
-                                'YEAR(fecha)', 'MONTH(fecha)',
-                            );
-                            break;
-                        case 'year':
-                            $fields[] = 'YEAR(Mesa.created) as "fecha"';
-                            $group = array(
-                                'YEAR(fecha)',
-                            );
-                            break;
-                    }
-                    $mesas = $this->Mesa->totalesDeMesasEntre($desde, $hasta, array(
-                        'fields' => $fields,
-                        'group' => $group,
-                    ));
+
+                    $cubiertos = array_reverse( $this->Mesa->comensales_por_dia($desde, $hasta) );
+                    $this->set('cubiertos', $cubiertos);
+                    
+                    $mesas = $this->Mesa->totalesDeMesasEntre($desde, $hasta);
                     $resumenCuadro = array(
                         'total' => 0,
                         'subtotal' => 0,
