@@ -97,7 +97,7 @@
                     ?>
                 </div>
 
-                <?php if (!empty($elementMenu)) {
+                <?php if ( !empty($elementMenu) && $this->elementExists($elementMenu)) {
                     echo $this->element($elementMenu);
                 }
                 echo $this->fetch("navbar-main-menu");
