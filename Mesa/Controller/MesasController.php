@@ -150,7 +150,7 @@ class MesasController extends MesaAppController {
 
                     foreach($this->request->data['Mesa'] as $field=>$valor):
                         if($field == 'id') continue;// el id no lo tengo que actualizar
-                        $valor = (strtolower($valor) == 'now()') ? strftime('%Y-%m-%d %H:%M:%S', time()) : $valor;
+                        $valor = (strtolower($valor) == 'now()') ? date('Y-m-d H:i:s') : $valor;
                         if (!$this->Mesa->saveField($field, $valor, $validate = true)) {
                             debug($this->Mesa->validationErrors);
                             throw new InternalErrorException("Error de Validacion al guardar");
