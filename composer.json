@@ -17,7 +17,7 @@
 		"ristorantino/install": "master@dev",
 		"ristorantino/cash": "master@dev",
 		"ristorantino/account": "master@dev",
-		"ristorantino/mt_sites": "~2",
+		"ristorantino/mt_sites": "master@dev",
 		"ristorantino/users": "master@dev",
 		"cakedc/utils": "1.*",
 		"codaxis/cakephp-bootstrap3-helpers": "1.1",
