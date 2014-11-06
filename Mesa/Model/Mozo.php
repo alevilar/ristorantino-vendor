@@ -9,7 +9,7 @@ class Mozo extends MesaAppModel {
     public $useDbconfig = 'tenant';
 
     var $actsAs = array(
-        'SoftDelete', 
+        'Utils.SoftDelete', 
         'Containable',
         'Risto.MediaUploadable',
         );
@@ -130,6 +130,71 @@ class Mozo extends MesaAppModel {
                     }
                 } else {
                     // enviar a todos
+                    $mozosMesa['mozos'][] = $abmMesas['Mozo'];    
+                }
+            }
+            
+
+            return $mozosMesa;
+        }
+
+
+
+
+     /**
+     * Para todos los mozos activos, me trae sus mesas eliminadas entre cada actualizacion de datos
+     * @param int $mozo_id id del mozo, en caso de que no le pase ninguno, me busca todos
+     * @return array Mozos con sus mesas, Comandas, detalleComanda, productos y sabores
+     */
+    public function mesasBorradas($mozo_id = null, $lastAccess = null){
+            $conditions = array();
+            
+            // si vino el mozo por parametro, es porque solo quiero las mesas de ese mozo
+            if ( !empty($mozo_id) ){
+               $conditions['Mozo.id'] =  $mozo_id;
+            } else {
+                // todos los mozos activos
+                $conditions['Mozo.activo'] =  1;
+            }
+            
+            // condiciones para traer mesas abiertas y pendientes de cobro
+            if ( Configure::read('Site.type') == SITE_TYPE_HOTEL ) {
+                // si es hotel
+                $conditionsMesa = array(
+                    'Mesa.deleted' => 0,        
+                    'Mesa.checkin >' => date('Y-m-d', strtotime('-1 month')),
+                );
+            } else {
+                // es restaurante u otros comercios
+                $conditionsMesa = array(
+                    "Mesa.checkout IS NULL",
+                    'Mesa.deleted' => 0,        
+                );
+            }
+            
+            // si vino el parametro lastAccess, traer solo las mesas actualizadas luego del ultimo pedido
+            if ( !empty($lastAccess) ) {
+                $conditionsMesa['Mesa.deleted'] = '1';
+                $conditionsMesa[] = 'Mesa.deleted_date IS NOT NULL';
+                $conditionsMesa['Mesa.deleted_date >='] = $lastAccess;
+            }
+            
+            $contain = $this->Mesa->defaultContain;
+            $contain['conditions'] = $conditionsMesa;
+            unset($contain[0]);
+            $optionsCreated = array(
+                'contain' => array('Mesa' => $contain),
+                'conditions'=> $conditions,
+            );
+            $mesasABM = $this->find('all', $optionsCreated);
+
+            $mozosMesa = array();
+            foreach ( $mesasABM as $abmMesas ) {
+                // traer todos los mozos, con su array de mesas
+                $abmMesas['Mozo']['mesas'] = $abmMesas['Mesa'];
+
+                // enviar solo los que tienen mesas borradas
+                if (!empty($abmMesas['Mesa']) ) {
                     $mozosMesa['mozos'][] = $abmMesas['Mozo'];    
                 }
             }

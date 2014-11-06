@@ -88,17 +88,23 @@ class MozosController extends MesaAppController {
             	$type = 'modified';
                 $lastAccess = $this->Session->read('lastAccess');
 
+                // ver las borradas
+                $borradas = $this->Mozo->mesasBorradas( null, $lastAccess);
+	            if ( !empty($borradas) ) {
+		            $mesas['borradas'] = $borradas;
+	            }
+
                 // setear el nuevo lastAccess
                 $nowTime = date('Y-m-d H:i:s', strtotime('now'));
                 $this->Session->write('lastAccess', $nowTime );
             }
 
-            $mesas = $this->Mozo->mesasAbiertas( null, $lastAccess);
+            $mesas[$type] = $this->Mozo->mesasAbiertas( null, $lastAccess);
 
             
             $this->set('mesasLastUpdatedTime', 1 );
             $this->set('modified', $lastAccess );
-            $this->set('mesas', array( $type => $mesas));
+            $this->set('mesas', $mesas );
             
         }
 

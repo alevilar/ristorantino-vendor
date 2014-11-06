@@ -9,9 +9,9 @@ class Mesa extends MesaAppModel {
 	public $displayField = 'numero';
 
 	public $actsAs = array(
-		'SoftDelete', 
-		'Search.Searchable',
 		'Containable',
+		'Search.Searchable',
+		'Utils.SoftDelete', 
 		);
 
 	public $mozoNumero = 0;

@@ -54,7 +54,7 @@ if ( Configure::check('Plugins') ) {
     unset($plugs);
 }
 
-
+ CakePlugin::load('Utils');
 
 
 define("TIPO_DOCUMENTO_SIN_IDENTIFICAR", 8); // sin identificar

@@ -8,7 +8,7 @@ class Descuento extends FidelizationAppModel {
 	public $name = 'Descuento';
 
     public $actsAs = array(
-        'SoftDelete', 
+        'Utils.SoftDelete', 
         'Containable',
         'Search.Searchable',
         );

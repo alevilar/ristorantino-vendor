@@ -16,7 +16,7 @@ class Categoria extends ProductAppModel
     public $actsAs = array(
         'Tree',
         'Containable',
-        'SoftDelete',
+        'Utils.SoftDelete',
         'Risto.MediaUploadable' ,
         
     );

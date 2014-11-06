@@ -8,7 +8,7 @@ class Producto extends ProductAppModel {
     public $order = 'Producto.name';
     
     public $actsAs = array(
-        'SoftDelete', 
+        'Utils.SoftDelete', 
         'Search.Searchable',
         'Containable',
         );
