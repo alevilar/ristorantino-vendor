@@ -112,5 +112,17 @@ class Comanda extends ComandaAppModel {
 		}
 		return $v_retorno;
 	}
+
+
+	public function afterSave(  $created, $options = array() ) 
+	{
+		$comanda = $this->find('first', array(
+				'contain'=> false,
+				'conditions' => array('Comanda.id' => $this->id),
+		));
+		$this->Mesa->id = $comanda['Comanda']['mesa_id'];
+		return $this->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+	}
+
 	
 }

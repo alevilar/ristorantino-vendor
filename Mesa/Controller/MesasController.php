@@ -113,11 +113,7 @@ class MesasController extends MesaAppController {
         
         $this->Mesa->id = $mesa_id;     
 
-        //$retData = $this->Mesa->cerrar_mesa();
-        $mesa = $this->Mesa->read(null, $mesa_id);
-        $this->Mesa->set('estado_id', MESA_CERRADA);
-
-        if( !$this->Mesa->save() ) {
+        if( !$this->Mesa->saveField('estado_id', MESA_CERRADA) ) {
             if( !$this->request->is('ajax') ){
                 $this->setFlash('Error al cerrar la mesa', 'flash_error');
             }
@@ -247,6 +243,9 @@ class MesasController extends MesaAppController {
         }
 
         if ($this->request->is(array('post', 'put'))) {
+            if ( array_key_exists('modified', $this->request->data) ) {
+                unset($this->request->data['modified']);
+            }
             if ($this->Mesa->save($this->request->data)) {
                 $this->Session->setFlash(__('Se ha editado correctamente', 'Risto.flash_success'));
                 $this->redirect(array('action'=>'index'));

@@ -70,6 +70,20 @@ class DetalleComanda extends ComandaAppModel {
             ),
         );
 
+
+	public function afterSave(  $created, $options = array() ) 
+	{
+		$ds = $this->find('first', array(
+				'contain'=> array('Comanda'),
+				'conditions' => array(
+					'DetalleComanda.id' => $this->id,
+				)
+			)
+		);
+		$this->Comanda->Mesa->id = $ds['Comanda']['mesa_id'];
+		return $this->Comanda->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+	}
+
        
    public function __searchSubqueryProductTags($data = array()) {
         $tags = $this->Producto->Tag->find('all', array('conditions'=>array(

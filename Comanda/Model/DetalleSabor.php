@@ -26,12 +26,19 @@ class DetalleSabor extends ComandaAppModel {
 	);
         
         
-        function beforeSave($options = array()) {
-           if (!empty($this->data[$this->name]['modified'])){
-                unset($this->data[$this->name]['modified']);
-           }
-           return parent::beforeSave($options);
-       }
+    public function afterSave(  $created, $options = array() ) 
+	{
+		$ds = $this->find('first', array(
+				'contain'=> array(
+					'DetalleComanda.Comanda'
+					),
+				'conditions' => array(
+					'DetalleSabor.id' => $this->id,
+				)
+			)
+		);
+		$this->DetalleComanda->Comanda->Mesa->id = $ds['DetalleComanda']['Comanda']['mesa_id'];
+		return $this->DetalleComanda->Comanda->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+	}
 
 }
-?>

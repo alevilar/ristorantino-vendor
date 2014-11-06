@@ -147,6 +147,10 @@ class Mesa extends MesaAppModel {
 
 	public $order = array('Mesa.created' => 'desc');
 		
+	public function beforeSave($options = array() ) {
+		unset( $this->data['modified'] );
+		return parent::beforeSave($options);
+	}
 		
 	public function afterSave(  $created, $options = array() ) 
 	{
