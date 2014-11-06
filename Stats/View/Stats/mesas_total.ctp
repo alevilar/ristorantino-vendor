@@ -39,7 +39,7 @@
    ?>
     <div class="col-md-7 col-md-push-1">
         <div class="row">
-            Datos entre <b><?php echo strftime('%A %d de %B %Y', strtotime($resumenCuadro['desde'])) ?></b> y <b><?php echo strftime('%A %d de %B %Y', strtotime($resumenCuadro['hasta'])) ?></b>
+            Datos entre <b><?php echo $this->Time->format($resumenCuadro['desde'], '%A %d de %B %Y') ?></b> y <b><?php echo $this->Time->format($resumenCuadro['hasta'], '%A %d de %B %Y') ?></b>
             <br />
             <div class="col-md-6">
                 <h3>Ingresos/Ventas</h3>
@@ -88,7 +88,7 @@
                 foreach ( $cubiertos as $fecha => $cubs ) {
                     ?>
                     <tr>
-                        <td><?php echo strftime('%a %d %b', strtotime($fecha)) ?></td>
+                        <td><?php echo $this->Time->format($fecha, '%a %d %b') ?></td>
                         <td><?php echo $cubs?></td>
                     </tr>
                     <?php
@@ -151,7 +151,7 @@
                             foreach ($mozo as $m) {
                                 echo('<tr>');
                                 echo('<td>');
-                                echo(strftime('%a %d %b', strtotime($m['Mesa']['fecha'])));
+                                echo($this->Time->format($m['Mesa']['fecha'], '%a %d %b'));
                                 echo('</td>');
                                 echo('<td>');
                                 echo($this->Number->currency($m['Mesa']['total'],'$', array('places'=>0)) );
@@ -205,7 +205,7 @@
                 <tbody>
                     <?php foreach ($zetas as $z) { ?>
                         <tr>
-                            <td><?php echo strftime('%a %d %b', strtotime($z[0]['fecha'])); ?></td>
+                            <td><?php echo $this->Time->format($z[0]['fecha'], '%a %d %b'); ?></td>
                             <td><?php echo $this->Number->currency($z[0]['neto'],'$', array('places'=>0)) ?></td>
                             <td><?php echo $this->Number->currency($z[0]['iva'],'$', array('places'=>0)) ?></td>
                         </tr>
@@ -228,7 +228,7 @@
                 <tbody>
                     <?php foreach ($egresos[0] as $e) { ?>
                         <tr>
-                            <td><?php echo strftime('%a %d %b', strtotime($e['Egreso']['fecha'])); ?></td>
+                            <td><?php echo $this->Time->format($e['Egreso']['fecha'], '%a %d %b'); ?></td>
                             <td><?php echo $this->Number->currency($e['Egreso']['importe'],'$', array('places'=>0)) ?></td>
                         </tr>
                     <?php } ?>

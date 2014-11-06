@@ -7,9 +7,9 @@
                 <h4>
                 <?php echo __( '%s Nº %s, %s %s', Configure::read('Mesa.tituloMesa'),  $mesa['Mesa']['numero'], Configure::read('Mesa.tituloMozo'),$mesa['Mozo']['numero'] ); ?>
                 </h4>
-                    Hora de apertura: <?php echo strftime('%a %e de %B %H:%M', strtotime($mesa['Mesa']['created']))?><br>
-                    Hora de cierre: <?php echo strftime('%a %e de %B %H:%M', strtotime($mesa['Mesa']['time_cerro']))?><br>
-                    Hora de cobro: <?php echo strftime('%a %e de %B %H:%M', strtotime($mesa['Mesa']['time_cobro']))?>
+                    Hora de apertura: <?php echo $this->Time->format($mesa['Mesa']['created'], '%a %e de %B %H:%M' )?><br>
+                    Hora de cierre: <?php echo $this->Time->format($mesa['Mesa']['time_cerro'], '%a %e de %B %H:%M')?><br>
+                    Hora de cobro: <?php echo $this->Time->format($mesa['Mesa']['time_cobro'], '%a %e de %B %H:%M')?>
                 </p>
 	<?php
 		echo $this->Form->input('id');

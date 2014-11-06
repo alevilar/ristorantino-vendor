@@ -60,7 +60,7 @@ $this->Paginator->options(array('url' => $this->request->query));
 	<th class="actions">&nbsp;</th>
 </tr>
 </thead>
-<? if ($this->Paginator->params['paging']['Pago']['count']!=0) {?>
+<?php if ($this->Paginator->params['paging']['Pago']['count']!=0) { ?>
 <tbody>
 <?php
 $i = 0;
@@ -87,7 +87,7 @@ foreach ($pagos as $pago):
 			<?php echo $this->Number->currency($pago['Pago']['valor']); ?>
 		</td>
                 <td class="text-center">
-			<?php echo strftime('%a %e de %B %H:%M',strtotime($pago['Pago']['created'])); ?>
+			<?php echo $this->Time->format($pago['Pago']['created'], '%a %e de %B %H:%M'); ?>
 		</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $pago['Pago']['id'])); ?>
