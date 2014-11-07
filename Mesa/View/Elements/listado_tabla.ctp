@@ -2,6 +2,7 @@
 <tr>
 	<th><?php echo $this->Paginator->sort( 'numero', Configure::read('Mesa.tituloMesa'));?></th>
 	<th><?php echo $this->Paginator->sort('mozo_id', Configure::read('Mesa.tituloMozo'));?></th>
+	<th><?php echo $this->Paginator->sort('subtotal');?></th>
 	<th><?php echo $this->Paginator->sort('total');?></th>
         <th>Descuento</th>
         <th><?php echo $this->Paginator->sort('cant_comensales', Inflector::pluralize(Configure::read('Mesa.tituloCubierto')) );?></th>		
@@ -29,7 +30,10 @@ foreach ($mesas as $mozo):
 			<?php echo $this->Html->link('N° '.$mozo['Mozo']['numero'], array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'view', $mozo['Mesa']['mozo_id'])); ?>
 		</td>
 		<td>
-			<?php echo $mozo['Mesa']['total']; ?>
+			<?php echo $this->Number->currency( $mozo['Mesa']['subtotal']); ?>
+		</td>
+		<td>
+			<?php echo $this->Number->currency( $mozo['Mesa']['total']); ?>
 		</td>
                 <td>
 			<?php

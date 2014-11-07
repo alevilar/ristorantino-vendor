@@ -26,28 +26,26 @@ class MesasController extends MesaAppController {
             'Estado',
             'Pago'=>array('TipoDePago'),
             'Cliente' => array(
+                'TipoDocumento',
                 'Descuento',
                 'IvaResponsabilidad.TipoFactura',
                 ),
         );
-        if (!empty($this->request->data['Mesa']['exportar_excel'])){
-            $this->Paginator->settings['limit'] = null;
-            $this->set('mesas', $this->Mesa->find('all', array(
+
+        if ( !empty($this->request->params['ext']) && $this->request->params['ext'] == 'xls' ){
+            $this->Paginator->settings['limit'] = 9999999;           
+        } else {
+            // si no es descarga en excel doy mas datos a la web
+            $tot = $this->Mesa->find('first', array(
                 'conditions' => $conds,
-                'contain' => $this->Paginator->settings['contain']
-                 )
-            ));
-            $this->layout = 'xls';
-            $this->render('xls/index');
+                'fields' => array('sum(Mesa.total) as total'),
+                ));
+            $tot = empty($tot['0']['total']) ? 0 : $tot['0']['total'];
+            $this->set('mesas_suma_total',$tot );
         }
+
         $this->set('mesas', $this->Paginator->paginate('Mesa'));
 
-        $tot = $this->Mesa->find('first', array(
-            'conditions' => $conds,
-            'fields' => array('sum(Mesa.total) as total'),
-            ));
-        $tot = empty($tot['0']['total']) ? 0 : $tot['0']['total'];
-        $this->set('mesas_suma_total',$tot );
         $estados = $this->Mesa->Estado->find('list');
         $this->set('estados', $estados);
 
@@ -112,8 +110,8 @@ class MesasController extends MesaAppController {
     public function cerrarMesa ( $mesa_id, $imprimir_ticket = true) {
         
         $this->Mesa->id = $mesa_id;     
-
-        if( !$this->Mesa->saveField('estado_id', MESA_CERRADA) ) {
+        
+        if( !$this->Mesa->cerrar_mesa() ) {
             if( !$this->request->is('ajax') ){
                 $this->setFlash('Error al cerrar la mesa', 'flash_error');
             }

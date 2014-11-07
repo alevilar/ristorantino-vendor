@@ -105,6 +105,26 @@ class Mesa extends MesaAppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+
+		'checkin_from' => array(
+			'type' => 'value',
+			'field' => 'Mesa.checkin >='
+			),
+		'checkin_to' => array(
+			'type' => 'value',
+			'field' => 'Mesa.checkin <='
+			),
+
+		'checkout_from' => array(
+			'type' => 'value',
+			'field' => 'Mesa.checkout >='
+			),
+		'checkout_to' => array(
+			'type' => 'value',
+			'field' => 'Mesa.checkout <='
+			),
+
+
 		);
 
 
@@ -244,19 +264,23 @@ class Mesa extends MesaAppModel {
 		if ( !$this->exists( $this->id ) ) {
 			return 0;
 		}
-		$this->data['Mesa']['id'] = $mesa_id;
+
+		$this->data['Mesa']['id'] = $this->id;
 		$this->data['Mesa']['estado_id'] = MESA_CERRADA;
 		$this->data['Mesa']['subtotal'] = $this->calcular_subtotal();
 		$this->data['Mesa']['total'] = $this->calcular_total();
-		$this->data['Mesa']['time_cerro'] = date( "Y-m-d H:i:s",strtotime('now'));
+		$this->data['Mesa']['time_cerro'] = date( "Y-m-d H:i:s");
 		$this->data['Mesa']['time_cobro'] = DATETIME_NULL;
 
-		$event = new CakeEvent('Mesa.cerrada', $this, array(
-			  'id' => $mesa_id
-		  ));
-	  	$this->getEventManager()->dispatch($event);
+		
+		if ( $this->save($this->data) ) {
+			$event = new CakeEvent('Mesa.cerrada', $this, $this->data);
+		  	$this->getEventManager()->dispatch($event);
 
-		return $this->data;
+		  	return true;
+		}
+
+		return false; // no se pudo cerrar la mesa
 }
 
 
@@ -688,11 +712,10 @@ function calcular_subtotal($id = null){
 			if ( $horarioCorte < 10 ) {
 				$horarioCorte = "0$horarioCorte";
 			}
-			$sqlHorarioDeCorte = "DATE(SUBTIME(Mesa.checkin, '$horarioCorte:00:00'))";
+			$sqlHorarioDeCorte = "DATE(SUBTIME(Mesa.time_cerro, '$horarioCorte:00:00'))";
 			$desde = empty($fechaDesde) ? date('Y-m-d', strtotime('now')) : $fechaDesde;
 			$hasta = empty($fechaHasta) ? date('Y-m-d', strtotime('now')) : $fechaHasta;
 			$defaultOrder = array();
-			
 			$defaultFields = array(
 				'count(*) as "cant_mesas"',
 				'sum(Mesa.cant_comensales) as "cant_cubiertos"',
@@ -707,7 +730,7 @@ function calcular_subtotal($id = null){
 				);
 			if ( empty($conds['order'])) {
 				$defaultOrder = array(
-					"Mesa.checkin DESC"
+					"Mesa.time_cerro DESC"
 					);
 			}
 			

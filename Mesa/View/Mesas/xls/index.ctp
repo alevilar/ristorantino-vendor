@@ -1,3 +1,3 @@
 <?php
 
-echo $this->element('mesas/listado_tabla');
+echo $this->element('listado_tabla_full');
