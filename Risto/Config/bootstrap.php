@@ -1,5 +1,13 @@
 <?php
 
+
+// called as CakeNumber
+App::uses('CakeNumber', 'Utility');
+CakeNumber::addFormat('BRL', array('before' => 'R$', 'thousands' => '.', 'decimals' => ','));
+CakeNumber::addFormat('ARS', array('before' => '$', 'thousands' => '.', 'decimals' => ','));
+
+
+
 Inflector::rules('singular', array(
     'rules' => array('/([r|d|j|n|l|m|y|z])es$/i' => '\1', '/as$/i' => 'a', '/([ti])a$/i' => '\1a'),
     'irregular' => array(

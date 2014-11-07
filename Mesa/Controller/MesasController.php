@@ -44,6 +44,7 @@ class MesasController extends MesaAppController {
             $this->set('mesas_suma_total',$tot );
         }
 
+        $this->set('menu', 'Stats.menu');
         $this->set('mesas', $this->Paginator->paginate('Mesa'));
 
         $estados = $this->Mesa->Estado->find('list');

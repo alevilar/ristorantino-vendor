@@ -23,7 +23,7 @@
 		} else {		
 		 ?>
 			<h3>&nbsp;</h3>
-			<?php echo $this->Html->link(__('Add New Site'), array('plugin'=>'install', 'controller'=>'site_setup', 'action'=>'installsite'), array('class'=>'btn btn-success btn-lg center')); ?>
+			<?php echo $this->Html->link(__('Add New Site'), array('plugin'=>'mt_sites', 'controller'=>'sites', 'action'=>'install'), array('class'=>'btn btn-success btn-lg center')); ?>
 
 			<h1>Mis Sitios</h1>
 			

@@ -1,5 +1,5 @@
 <?php
-$c1 = $c2 = $c3 = '';
+$c1 = $c2 = $c3 = $c4 = $c5 = '';
 
 if( $this->name == 'Stats' && $this->action == 'mesas_total') {
     $c1 = 'active';
@@ -9,6 +9,14 @@ if( $this->name == 'Stats' && $this->action == 'mozos_total') {
 }
 if( $this->name == 'Stats' && $this->action == 'tipos_de_pago') {
     $c3 = 'active';
+}
+
+if( $this->name == 'DetalleComandas' && $this->action == 'index') {
+    $c4 = 'active';
+}
+
+if( $this->name == 'Mesas' && $this->action == 'index') {
+    $c5 = 'active';
 }
 
 
@@ -21,7 +29,10 @@ if( $this->name == 'Stats' && $this->action == 'tipos_de_pago') {
         
         <li class="<?php echo $c3?>"><?php echo $this->Html->link('Tipos de Pago', array('plugin'=>'stats', 'controller'=>'stats', 'action'=>'tipos_de_pago'),array('class'=>'ventas'));?></li>
 
-        <li class="<?php echo $c3?>"><?php echo $this->Html->link('Productos Pedidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'),array('class'=>'ventas'));?></li>
+        <li class="<?php echo $c4?>"><?php echo $this->Html->link('Productos Pedidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'),array('class'=>'ventas'));?></li>
+
+
+        <li class="<?php echo $c5?>"><?php echo $this->Html->link('Listado de '.Inflector::pluralize( Configure::read('Mesa.tituloMesa') ), array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'index'),array('class'=>'ventas'));?></li>
 
 
     </ul>
