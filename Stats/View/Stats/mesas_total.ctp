@@ -43,22 +43,22 @@
             <br />
             <div class="col-md-6">
                 <h3>Ingresos/Ventas</h3>
-                Ventas Netas (sin descuentos): <b><?php echo $this->Number->currency($resumenCuadro['subtotal'],'$', array('places'=>0)) ?></b><br />
-                Total de ventas (con descuentos): <b><?php echo $this->Number->currency($resumenCuadro['total'],'$', array('places'=>0)) ?></b><br />
-                Cierre Zeta Total: <b><?php echo $this->Number->currency($zeta_iva_total + $zeta_neto_total,'$', array('places'=>0)) ?></b><br>
-                Zeta Neto: <b><?php echo $this->Number->currency($zeta_neto_total,'$', array('places'=>0)) ?></b><br>
-                Zeta Iva: <b><?php echo $this->Number->currency($zeta_iva_total,'$', array('places'=>0)) ?></b><br>
+                Ventas Netas (sin descuentos): <b><?php echo $this->Number->currency($resumenCuadro['subtotal']) ?></b><br />
+                Total de ventas (con descuentos): <b><?php echo $this->Number->currency($resumenCuadro['total']) ?></b><br />
+                Cierre Zeta Total: <b><?php echo $this->Number->currency($zeta_iva_total + $zeta_neto_total) ?></b><br>
+                Zeta Neto: <b><?php echo $this->Number->currency($zeta_neto_total) ?></b><br>
+                Zeta Iva: <b><?php echo $this->Number->currency($zeta_iva_total) ?></b><br>
 
                 <p>Cantidad de <?php echo Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) ?>: <b><?php echo $resumenCuadro['cubiertos'] ?></b></p>
             </div>
 
             <div class="col-md-6">
                 <h3>Egresos/Pagos</h3>
-                Pagos: <b><?php echo $this->Number->currency($egresos_total,'$', array('places'=>0)) ?></b>
+                Pagos: <b><?php echo $this->Number->currency($egresos_total) ?></b>
                 <br><br>
-                Gastos Total: <b><?php echo $this->Number->currency($gastos_total,'$', array('places'=>0)) ?></b><br>
-                Gasto Neto: <b><?php echo $this->Number->currency($gastos_neto,'$', array('places'=>0)) ?></b><br>
-                Gastos Impuestos: <b><?php echo $this->Number->currency($gastos_total - $gastos_neto,'$', array('places'=>0)) ?></b><br>
+                Gastos Total: <b><?php echo $this->Number->currency($gastos_total) ?></b><br>
+                Gasto Neto: <b><?php echo $this->Number->currency($gastos_neto) ?></b><br>
+                Gastos Impuestos: <b><?php echo $this->Number->currency($gastos_total - $gastos_neto) ?></b><br>
             </div>
         </div>
     </div>
