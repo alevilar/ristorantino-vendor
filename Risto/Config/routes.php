@@ -38,7 +38,6 @@
 
 
 
-
 	Router::connect('/:tenant', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'dashboard'), $tenantRoutConfig);	
 	Router::connect('/:tenant/pages/administracion', array('plugin' => 'risto', 'controller' => 'pages', 'action' => 'display', 'administracion'), $tenantRoutConfig);
 
