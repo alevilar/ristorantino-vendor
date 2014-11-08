@@ -17,7 +17,7 @@
         echo $this->Form->input('apellido');
         echo $this->Form->input('media_file', array('type'=>'file', 'label'=>'Foto'));
         echo $this->Form->input('activo',array('default'=>true));?>
-     <?if (empty($this->request->data['Mozo']['id'])):?>
+     <?php if (empty($this->request->data['Mozo']['id'])):?>
         <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
      <?php else: ?>
         <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left')); ?>

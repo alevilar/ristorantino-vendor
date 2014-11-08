@@ -57,41 +57,6 @@
 }
 
 
-.btn-facebook{
-  display: block;
-  width: 48px;
-  height: 48px;
-  background: url(img/facebook.png);
-  background-position: left;
-  text-indent: 50px;
-  background-repeat: no-repeat;
-  padding-top: 13px;
-}
-
-
-.btn-google{  
-  display: block;
-  width: 48px;
-  height: 48px;
-  background: url(img/google.png);
-  background-position: left;
-  text-indent: 50px;
-  background-repeat: no-repeat;
-  padding-top: 13px;
-}
-
-
-.btn-twitter{
-  display: block;
-  width: 48px;
-  height: 48px;
-  background: url(img/twitter.png);
-  background-position: left;
-  text-indent: 50px;
-  background-repeat: no-repeat;
-  padding-top: 13px;
-}
-
 
 header.navbar .tenant-name{
   margin-top: 14px;

@@ -132,8 +132,8 @@ foreach ($productos as $producto):
 			<?php echo date('d D, M Y',strtotime($producto['Producto']['created'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar', true), array('action'=>'edit', $producto['Producto']['id']), array('class'=>'btn btn-default')); ?>
-			<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $producto['Producto']['id']), array('class'=>'btn btn-default'), null, sprintf(__('¿Esta seguro que desea borrar el producto: %s?', true), $producto['Producto']['name'])); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $producto['Producto']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Form->postLink( __('Borrar'), array('action'=>'delete', $producto['Producto']['id']), array('class'=>'btn btn-default'), __('¿Esta seguro que desea borrar el producto: %s?', $producto['Producto']['name']) ); ?>
 		</td>
 	</tr>
 <?php

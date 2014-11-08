@@ -70,10 +70,8 @@ class MozosController extends MesaAppController {
 			$this->Session->setFlash(__('Invalid id for %s',  Configure::read('Mesa.tituloMozo')));
 			$this->redirect(array('action'=>'index'),'Risto.flash_error');
 		}
-		if ($this->Mozo->delete($id)) {
-			$this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMozo')),'Risto.flash_success');
-			$this->redirect(array('action'=>'index'));
-		}
+		$this->Mozo->delete($id);
+		$this->redirect(array('action'=>'index'));
 	}
 
         /**

@@ -70,11 +70,10 @@ class SaboresController extends ProductAppController {
 	public function delete($id = null) {
 		if (!$id) {
 			$this->Session->setFlash(__('ID de Adicional Inválido'), 'Risto.flash_error');
+		} else {
+			$this->Sabor->delete($id);
 		}
-		if ($this->Sabor->delete($id)) {
-			$this->Session->setFlash(__('Adicional Borrado'), 'Risto.flash_success');
-		}
-                $this->redirect(array('action'=>'index'));
+        $this->redirect(array('action'=>'index'));
 	}
 
 }

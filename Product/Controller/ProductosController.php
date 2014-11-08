@@ -106,12 +106,10 @@ class ProductosController extends ProductAppController {
 
 	public function delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Producto'), 'Risto.flash_error');
-			
-		}
-		if ($this->Producto->delete($id)) {
-			$this->Session->setFlash(__('Producto deleted'), 'Risto.flash_success');
-		}
+			$this->Session->setFlash(__('Invalid id for Producto'), 'Risto.flash_error');			
+		} else {
+		  $this->Producto->delete($id);
+        }
         $this->redirect(array('action'=>'index'));
 	}
 	
