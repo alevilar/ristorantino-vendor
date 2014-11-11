@@ -13,6 +13,7 @@
 	<th><?php echo $this->Paginator->sort('time_cobro','Cobrada');?></th>
 	<th><?php echo $this->Paginator->sort('checkin');?></th>
 	<th><?php echo $this->Paginator->sort('checkout');?></th>
+	<th><?php echo $this->Paginator->sort('observacion', 'Observación');?></th>
     <th><?php echo $this->Paginator->sort('Cliente.nombre', Configure::read('Mesa.tituloCliente'));?></th>
     <th><?php echo $this->Paginator->sort('Cliente.codigo', Configure::read('Mesa.tituloCliente').' '.__('Código'));?></th>
     <th><?php echo $this->Paginator->sort('Cliente.tipo_documento_id', Configure::read('Mesa.tituloCliente').' '.__('Tipo Documento'));?></th>
@@ -86,6 +87,10 @@ foreach ($mesas as $mozo):
 
 		<td>
 			<?php echo $mozo['Mesa']['checkout']; ?>
+		</td>
+
+		<td>
+			<?php echo $mozo['Mesa']['observacion']; ?>
 		</td>
 
         <td>
