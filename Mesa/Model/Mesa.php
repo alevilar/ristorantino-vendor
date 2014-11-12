@@ -167,35 +167,29 @@ class Mesa extends MesaAppModel {
 
 	public $order = array('Mesa.created' => 'desc');
 		
+
 	public function beforeSave($options = array() ) {
 		unset( $this->data['modified'] );
-		return parent::beforeSave($options);
-	}
-		
-	public function afterSave(  $created, $options = array() ) 
-	{
-		if ( !$created ) {
+
+		if ( !empty($this->data['Mesa']['id']) ) {
+			// UPDATE
 			// update totals
-			if ( !empty($this->data['Pago']) && !empty($this->data['Mesa']['id']) ) {
-				$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
-				$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
-			}	
+			$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
+			$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
 		} else {
+			// NEW MESA
+			// al crear, si el checkin vino vacio hacer que sea AHORA (== a created)
 			if (empty($this->data['Mesa']['checkin'])) {
 				$this->data['Mesa']['checkin'] = date('Y-m-d h:i:s');
 			}
-		}		
-		
-		if ( !parent::afterSave($created, $options) ) {
-			return false;
 		}
 
 		// en caso de pasar de estado abierta a cerrada, aplicar cierre ejecutando cerrar_mesa()
 		$this->__cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada();
 
-		return true;
-	 }
-
+		return parent::beforeSave($options);
+	}
+	
 
 
 	public function comensales_por_dia($fechaDesde, $fechaHasta) {
@@ -223,15 +217,16 @@ class Mesa extends MesaAppModel {
 
 
 	 private function __cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada ( $options = array() ) {
-	 	if ( !empty($this->data['Mesa']['id'])
+	 	if (    !empty($this->data['Mesa']['id'])
 			 && !empty($this->data['Mesa']['estado_id'])
 			 && $this->data['Mesa']['estado_id'] == MESA_CERRADA
+			 && $this->estaAbierta()
 			 ) 
 	 	{               
-			 if ( $this->estaAbierta() ) {
-				 $this->cerrar_mesa();
-			 }
+			 return $this->cerrar_mesa( $this->data['Mesa']['id'], false);
 		}
+
+		return false;
 	 }
 
 
@@ -254,7 +249,7 @@ class Mesa extends MesaAppModel {
 	// }
 
 
-	function cerrar_mesa( $mesa_id = null )
+	function cerrar_mesa( $mesa_id = null, $save = true )
 	{
 		if ( !empty( $this->data['Mesa']['id'] ) ) {
 			$this->id = $this->data['Mesa']['id'];
@@ -272,12 +267,21 @@ class Mesa extends MesaAppModel {
 		$this->data['Mesa']['time_cerro'] = date( "Y-m-d H:i:s");
 		$this->data['Mesa']['time_cobro'] = DATETIME_NULL;
 
-		
-		if ( $this->save($this->data) ) {
-			$event = new CakeEvent('Mesa.cerrada', $this, $this->data);
-		  	$this->getEventManager()->dispatch($event);
 
+		$event = new CakeEvent('Mesa.cerrada', $this, $this->data);
+
+
+		// si no hay que guardar nada, regresar
+		if ($save == false) {
+			$this->getEventManager()->dispatch($event);
+			return true;	
+		} 
+
+		if ( $this->save($this->data) ) {
+		  	$this->getEventManager()->dispatch($event);
 		  	return true;
+		} else {
+			throw new CakeException("Error al guardar mesa cerrar mesa");
 		}
 
 		return false; // no se pudo cerrar la mesa
