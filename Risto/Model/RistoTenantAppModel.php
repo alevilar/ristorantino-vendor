@@ -55,11 +55,9 @@ class RistoTenantAppModel extends RistoAppModel {
 			// usar tenant para este model
 			$this->useDbConfig = $confName;	
 
-			// ahora construir el Model
-			parent::__construct($id, $table, $ds);
-		} else {
-			throw new CakeException(__("Se esta queriendo acceder a un Modelo Tenant (%s), pero no estoy en un Tenant", $this->name));
 		}
+		// ahora construir el Model
+		parent::__construct($id, $table, $ds);
 		
 	}
 
