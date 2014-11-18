@@ -46,7 +46,6 @@ public function addForMesa ( $mesa_id ) {
   }
 
   if ($this->request->is('post') || $this->request->is('put')) {
-    debug($this->request->data);
       $this->Pago->create();
       if ($this->Pago->save($this->request->data)) {
         $this->Session->setFlash(__('The Pago has been saved.'));
