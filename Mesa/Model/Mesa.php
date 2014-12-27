@@ -554,48 +554,51 @@ function calcular_subtotal($id = null){
 		//     return $prod;
 		// }
 
-	//     function dameProductosParaTicket($id = 0){
-	//       if($id != 0) $this->id = $id;
 
+	public function dameProductosParaTicket( $id = 0 ){
+	      if($id != 0) $this->id = $id;
 
-	//       $items = $this->query("
-	//         select sum(cant-cant_eliminada) as cant, name as 'name', precio as precio from (
-	//             select
-	//             dc.cant,
-	//             dc.cant_eliminada,
-	//             p.abrev as name,
-	//             p.precio +  IFNULL((
-	//                 select IFNULL(sum(s.precio),0) from detalle_sabores ds
-	//                 left join sabores s on s.id = ds.sabor_id
-	//                 where ds.detalle_comanda_id = dc.id
-	//                 group by ds.detalle_comanda_id
-	//                 ),0) precio,
-	//       dc.id,
-	//       p.order as orden
-	//       from
-	//       comandas c
-	//       left join detalle_comandas dc on dc.comanda_id = c.id
-	//       left join detalle_sabores ds on ds.detalle_comanda_id = dc.id
-	//       left join productos p on p.id = dc.producto_id
-	//       where c.mesa_id = $this->id
-	//       group by dc.id
-	//       ) as DetalleComanda
-	//       group by name, precio
-	//       having cant > 0
-	//       order by orden
-	//       ");
+	      if (empty($this->id)) {
+	      	throw new CakeException("Id de mesa no puede ser vacio");
+	      }
+	      
+     	  $items = $this->query("
+	        select sum(cant-cant_eliminada) as cant, name as 'name', precio as precio from (
+	            select
+	            dc.cant,
+	            dc.cant_eliminada,
+	            p.abrev as name,
+	            p.precio +  IFNULL((
+	                select IFNULL(sum(s.precio),0) from detalle_sabores ds
+	                left join sabores s on s.id = ds.sabor_id
+	                where ds.detalle_comanda_id = dc.id
+	                group by ds.detalle_comanda_id
+	                ),0) precio,
+	      dc.id,
+	      p.order as orden
+	      from
+	      comandas c
+	      left join detalle_comandas dc on dc.comanda_id = c.id
+	      left join detalle_sabores ds on ds.detalle_comanda_id = dc.id
+	      left join productos p on p.id = dc.producto_id
+	      where c.mesa_id = $this->id
+	      group by dc.id
+	      ) as DetalleComanda
+	      group by name, precio
+	      having cant > 0
+	      order by orden
+	      ");
 
-	//       $vItems = array();
-	//       $cont = 0;
-	//       foreach ($items as &$i) {
-	//         $vItems[$cont]['nombre'] = $i['DetalleComanda']['name'];
-	//         $vItems[$cont]['cantidad'] = $i[0]['cant'];
-	//         $vItems[$cont]['precio'] = cqs_round($i['DetalleComanda']['precio'],2);
-	//         $cont++;
-	//     }		
-
-	//     return $vItems;
-	// }
+          $vItems = array();
+	      $cont = 0;
+	      foreach ($items as &$i) {
+	        $vItems[$cont]['nombre'] = $i['DetalleComanda']['name'];
+	        $vItems[$cont]['cantidad'] = $i[0]['cant'];
+	        $vItems[$cont]['precio'] = cqs_round($i['DetalleComanda']['precio'],2);
+	        $cont++;
+	    }		
+    	return $vItems;
+	}
 
 
 
@@ -762,16 +765,15 @@ function calcular_subtotal($id = null){
 	   * @throws InternalErrorException si no se le pasa un ID de mesa
 	   */        
 		function printFiscalEvent ( $mesa_id = null ) {
-		  if (empty($mesa_id)) {
-			if ( empty($this->id) ) 
-			  throw new InternalErrorException("Se debe pasar el ID de la mesa para imprimir");
-			$mesa_id = $this->id;
+		  if (!empty($mesa_id)) {
+			$this->id = $mesa_id;
 		  }
 
-		  $event = new CakeEvent('Mesa.print', $this, array(
-				  'id' => $mesa_id
-			  ));
-		  $this->getEventManager()->dispatch($event);
+		  if ( empty($this->id) ) {
+			  throw new InternalErrorException("Se debe pasar el ID de la mesa para imprimir");
+		  }
+
+		  $this->getEventManager()->dispatch( new CakeEvent('Mesa.print', $this) );
 		}
 
 

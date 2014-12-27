@@ -1,4 +1,4 @@
 <?php
 
-$this->vcomandos[] = $this->generadorComando->delHeaderTrailer();
-		$this->vcomandos[] = $this->generadorComando->dailyClose("Z");
+echo $this->PE->delHeaderTrailer();
+echo $this->PE->dailyClose("Z");

@@ -1,6 +1,6 @@
 <?php
 
-$vala = App::uses('PrinterHelperSkel', 'Printers.Lib/DriverView/Helper');
+App::uses('PrinterHelperSkel', 'Printers.Lib/DriverView/Helper');
 
 class BematechReceiptHelper extends PrinterHelperSkel
 {

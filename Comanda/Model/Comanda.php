@@ -82,7 +82,6 @@ class Comanda extends ComandaAppModel {
 				break;
 		}
 		
-		debug($condiciones);
 		$items = $this->DetalleComanda->find('all',array('conditions'=>$condiciones,
 														'contain'=>array(
 															'Producto'=>array('Printer'),

@@ -17,6 +17,7 @@
  **/
 
 App::uses('RistoAppModel', 'Risto.Model');
+App::uses('CakeSession', 'Model/Datasource');
 
 /**
  * Class RistoAppModel
@@ -34,28 +35,35 @@ class RistoTenantAppModel extends RistoAppModel {
  * @return void
  */
 	public function __construct($id = false, $table = null, $ds = null) {
-
 		// usar el correspondiente al tenant
-		$currentTenant = CakeSession::read('MtSites.current');
-		if ( !empty($currentTenant) ) {
+	
 
-			// listar sources actuales
-			$sources = ConnectionManager::enumConnectionObjects();
+		if ( CakeSession::started() ) {
+			$currentTenant = CakeSession::read('MtSites.current');
+			if ( empty($currentTenant) ) {
+				throw new CakeException("No esta en un Tenant y esta queriendo acceder a un modelo tenant");
+				
+			} else {
 
-			//copiar del default
-			$tenantConf = $sources['default'];
+				// listar sources actuales
+				$sources = ConnectionManager::enumConnectionObjects();
 
-			// colocar el nombre de la base de datos
-			$tenantConf['database'] = $tenantConf['database'] ."_". $currentTenant;
+				//copiar del default
+				$tenantConf = $sources['default'];
 
-			// crear la conexion con la bd
-			$confName = 'tenant_'.$currentTenant;
-			ConnectionManager::create( $confName, $tenantConf );
+				// colocar el nombre de la base de datos
+				$tenantConf['database'] = $tenantConf['database'] ."_". $currentTenant;
 
-			// usar tenant para este model
-			$this->useDbConfig = $confName;	
+				// crear la conexion con la bd
+				$confName = 'tenant_'.$currentTenant;
+				ConnectionManager::create( $confName, $tenantConf );
 
+				// usar tenant para este model
+				$this->useDbConfig = $confName;	
+
+			}
 		}
+
 		// ahora construir el Model
 		parent::__construct($id, $table, $ds);
 		

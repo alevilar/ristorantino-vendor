@@ -72,6 +72,16 @@ class Printaitor
     
 /**
  * Perform printing to the output creating the view and using the $PrinterOutput object
+ *
+ *  Ej:
+ *  Printaitor::send(array(
+ *              'items' => array(
+ *                          'prod1' => array('price' => 2.3),
+ *                          'prod2' => array('price' => 5),
+ *                  ),
+ *              'client' => 'Robert Plant',
+ *      ), 'theprinterName', 'ticketViewName') 
+ * 
  * 
  * @param array $dataToView iis the data to be passed into the view
  * @param string $printer_id or Id printer Key name to use with self::$ReceiptPrinters

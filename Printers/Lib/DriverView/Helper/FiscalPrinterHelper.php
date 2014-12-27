@@ -1,5 +1,6 @@
 <?php 
 
+App::uses('PrinterHelperSkel', 'Printers.Lib/DriverView/Helper');
 
 abstract class FiscalPrinterHelper  extends PrinterHelperSkel
 {

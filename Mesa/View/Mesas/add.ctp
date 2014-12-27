@@ -19,15 +19,20 @@
 		//echo $this->Form->input('created');
 		//echo $this->Form->input('time_paso_pedido');
 		//echo $this->Form->input('time_cerro');
-
-		echo $this->Form->input('time_abrio', array(
-                'class' => 'datetimepicker form-control',
-                'data-format' =>  "yyyy-MM-dd hh:mm:ss",
-            ));
+		
 
 		echo $this->Form->input('time_cerro', array(
-                'class' => 'datetimepicker form-control',
-                'data-format' =>  "yyyy-MM-dd hh:mm:ss",
+                'type' => 'datetime',
+                'label' => 'Fecha de Facturación'
+            ));
+
+		echo $this->Form->input('checkin', array(
+                'type' => 'date',
+                'default' => date('Y-m-d', strtotime('now')),
+            ));
+
+		echo $this->Form->input('checkout', array(
+                'type' => 'date',
             ));
 
 		echo $this->Form->input('total', array(           

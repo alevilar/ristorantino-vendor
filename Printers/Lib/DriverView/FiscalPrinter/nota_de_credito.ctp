@@ -1,13 +1,68 @@
 <?php
 
-$tipoId = $tipo == 'B' ? 'S' : 'R';
-if (!empty($cliente) && $tipo == 'A') {
-    $this->vcomandos[] = $this->generadorComando->setCustomerData($cliente['razonsocial'], $cliente['numerodoc'], $cliente['respo_iva'], $cliente['tipodoc']);
+/**
+*
+*		@var Char $tipo_factura Tipo de Factura (A o C si es consumidor final)
+*
+*       @var Array $cliente (opcional) 
+*           nombre            
+*           nrodocumento
+*           responsabiliad_iva
+*           tipodocumento
+*           domicilio
+*       
+*           
+*       @var String|Int $numero_ticket El numero del ticket original
+*
+*       @var String $descripcion escripcion de la nota
+*
+*       @var Float $importe
+*
+*
+*
+**/
+if (empty($tipo_factura)) {
+    throw new CakeException("Ticket: Falta el tipo de factura");
+}
+
+if (empty($numero_ticket)) {
+    throw new CakeException("Ticket: Se debe ingresar el numero de Ticket");
+}
+
+if (empty($descripcion)) {
+    throw new CakeException("Ticket: Debe ingresar una descripción");
+}
+
+if (empty($importe)) {
+    throw new CakeException("Ticket: El importe no puede quedar vacío");
+}
+
+$tipoId = $tipo_factura == Configure::read('Printers.default_tipo_factura_codename') ? 'S' : 'R';
+
+//abro el tiquet consumidor final
+if ( !empty($cliente)) {   
+    $tipoDoc = null;
+    if ( !empty($cliente['TipoDocumento']) ) {
+        $tipoDoc = $cliente['TipoDocumento']['codigo_fiscal'];
+    }
+
+    $respoIva = null;
+    if ( !empty($cliente['IvaResponsabilidad']) ) {
+        $respoIva = $cliente['IvaResponsabilidad']['codigo_fiscal'];
+    }
+    echo $this->PE->setCustomerData($cliente['nombre'], 
+                                    $cliente['nrodocumento'], 
+                                    $respoIva, 
+                                    $tipoDoc, 
+                                    $cliente['domicilio']
+    ); echo "\n";
 } else {
     //condumidor Final
-    $this->vcomandos[] = $this->generadorComando->setCustomerData();
+    echo $this->PE->setCustomerData();
 }
-$this->vcomandos[] = $this->generadorComando->setEmbarkNumber($numeroTicket);
-$this->vcomandos[] = $this->generadorComando->openDNFH($tipoId);
-$this->vcomandos[] = $this->generadorComando->printLineItem($descrip, 1, $importe);
-$this->vcomandos[] = $this->generadorComando->closeDNFH();
+
+
+echo $this->PE->setEmbarkNumber($numero_ticket);
+echo $this->PE->openDNFH($tipoId);
+echo $this->PE->printLineItem($descripcion, 1, $importe);
+echo $this->PE->closeDNFH();

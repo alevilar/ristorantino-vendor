@@ -177,8 +177,6 @@ class MesasController extends MesaAppController {
     public function imprimirTicket($mesa_id) {
         $this->Mesa->printFiscalEvent($mesa_id);
 
-        //        $this->Printer->doPrint($mesa_id);
-        
         if( !$this->request->is('ajax') ){
             $this->Session->setFlash(__('Se imprimio comanda de mesa ID: '.$mesa_id), 'Risto.flash_success');
             $this->redirect($this->referer());

@@ -1,6 +1,6 @@
 <?php 
 
-App::uses('FiscalPrinterDriver', 'Printers.FiscalPrinter');
+App::uses('FiscalPrinterHelper', 'Printers.Lib/DriverView/Helper');
 
 
 class Hasar1120fFiscalHelper extends FiscalPrinterHelper

@@ -1,5 +1,6 @@
 <?php 
 
+App::uses('FiscalPrinterHelper', 'Printers.Lib/DriverView/Helper');
 
 class Hasar441FiscalHelper extends FiscalPrinterHelper
 {
@@ -21,11 +22,11 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 	 * 			"T": abre un ticket
 	 * 			"A": abre ticket factura 'A'
 	 * 			"B": abre ticket factura 'B' o 'C'
-         *                      "a": abre recibo 'A'
-         *                      "b": abre recibo 'B'
-         *                      "D": Nota de Débito 'A'
-         *                      "E": Nota de Débito B/C
-         * 
+     *			"a": abre recibo 'A'
+     *			"b": abre recibo 'B'
+     *			"D": Nota de Débito 'A'
+     *			"E": Nota de Débito B/C
+     * 
 	 */
 	public function openFiscalReceipt($tipo_ticket){
 		$tipo_ticket = strtoupper($tipo_ticket);
@@ -216,7 +217,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 	 * @return string $comando
 	 */
 	public function delHeaderTrailer(){
-		$comando = "]".$this->cm('FS')."0".$this->cm('FS').self::DEL;
+		$comando = "]".$this->cm('FS')."0".$this->cm('FS').$this->cm('DEL');
 		return $comando;
 	}
 	
@@ -226,7 +227,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 	 * @return string $comando
 	 */
 	public function delHeader(){
-		$comando = "]".$this->cm('FS')."-1".$this->cm('FS').self::DEL;
+		$comando = "]".$this->cm('FS')."-1".$this->cm('FS').$this->cm('DEL');
 		return $comando;
 	}
 	
@@ -236,7 +237,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 	 * @return string $comando
 	 */
 	public function delTrailer(){
-		$comando = "]".$this->cm('FS')."-2/".$this->cm('FS').self::DEL;
+		$comando = "]".$this->cm('FS')."-2/".$this->cm('FS').$this->cm('DEL');
 		return $comando;
 	}
 	
@@ -304,17 +305,19 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 	 * 					'2' DNI
 	 * 					'3' Pasaporte
 	 * 					'4' Cedula de Identidad
-         *                                      ' ' Sin clasificar (espacio en blanco)
+     *					' ' Sin clasificar (espacio en blanco)
 	 * @param string $domicilio
-         * 
-         * @todo Hacer que los tipos de responsabilidad IVA y los tipos de documentos sean arrays pasados como parametros
-         *       Con eso podremos utilizar una funcion mas simple y mas extensible como is_in_array(tipos_docs, "C")
+     * 
+     * @todo Hacer que los tipos de responsabilidad IVA y los tipos de documentos sean arrays pasados como parametros
+     *       Con eso podremos utilizar una funcion mas simple y mas extensible como is_in_array(tipos_docs, "C")
 	 */
 	public function setCustomerData($nombre_cliente = " ",$documento = " ",$respo_iva = 'C', $tipo_documento = " ", $domicilio = '-'){
 		$nombre_cliente = substr($nombre_cliente,0,45);
 		$respo_iva = strtoupper($respo_iva);
 		$tipo_documento = strtoupper($tipo_documento);
-		
+		if ( $tipo_documento == "") {
+			$tipo_documento = " ";
+		}
 		
 		if($respo_iva == 'I' || $respo_iva == 'E' || $respo_iva == 'A' || $respo_iva == 'C' || $respo_iva == 'T'){
 			if( $tipo_documento == 'C' || $tipo_documento == 'L' || $tipo_documento == '0' || $tipo_documento == '1' || $tipo_documento == '2' || $tipo_documento == '3' || $tipo_documento == '4' || $tipo_documento == ' ')
@@ -325,6 +328,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 				}
 			}
 			else{ 	
+				debug(is_null($tipo_documento));
                             throw new InternalErrorException('Error, no existe el tipo de documento pasado: '.$tipo_documento);
                             return -1;
 			}	
@@ -339,16 +343,16 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 
         /**
          * Longitud
-            ô (93H - ASCII 147)
-            FS
-            No de línea de comprobante original (1-2)
-            0: borra ambas líneas (sólo modelos SMH/P-PR5F -versión 2.01-, SMH/P-715F
-            -versiones 3.02 y posteriores-, y SMH/P-441F)
-            FS
-            Texto de hasta 20 caracteres
-
-            Ejemplo: ô∟1∟00000118
-
+         *   ô (93H - ASCII 147)
+         *   FS
+         *   No de línea de comprobante original (1-2)
+         *   0: borra ambas líneas (sólo modelos SMH/P-PR5F -versión 2.01-, SMH/P-715F
+         *   -versiones 3.02 y posteriores-, y SMH/P-441F)
+         *   FS
+         *   Texto de hasta 20 caracteres
+		 *
+         *   Ejemplo: ô∟1∟00000118
+		 *
          */
         public function setEmbarkNumber($numeroTicket, $nlinea = 1){
             return chr(147).$this->cm('FS') . $nlinea . $this->cm('FS') . $numeroTicket;
@@ -358,26 +362,26 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 
         /**
          * Tipo de documento
-            R: Nota de crédito ‘A’
-            S: Nota de crédito ‘B/C’
-            x: Tique recibo ‘X’
-            <: Tique pagaré
-            ,: Tique presupuesto
-            -: Comp. de entrega
-            .: Talón Estacionamiento
-            /: Cobro de Servicios
-            0: Ingreso de Dinero
-            1: Retiro de Dinero
-            2: Talón de Cambio
-            3: Talón de reparto
-            4: Talón de regalo
-            5: Cuenta Corriente
-            6: Avisode Operación de Crédito
-            7: Cupón de Promoción
-            8: Uso Interno Farmacia
-
-            Ejemplo: Ç∟R∟T∟1211241
-
+         *   R: Nota de crédito ‘A’
+         *   S: Nota de crédito ‘B/C’
+         *   x: Tique recibo ‘X’
+         *   <: Tique pagaré
+         *   ,: Tique presupuesto
+         *   -: Comp. de entrega
+         *   .: Talón Estacionamiento
+         *   /: Cobro de Servicios
+         *   0: Ingreso de Dinero
+         *   1: Retiro de Dinero
+         *   2: Talón de Cambio
+         *   3: Talón de reparto
+         *   4: Talón de regalo
+         *   5: Cuenta Corriente
+         *   6: Avisode Operación de Crédito
+         *   7: Cupón de Promoción
+         *   8: Uso Interno Farmacia
+		 *
+         *   Ejemplo: Ç∟R∟T∟1211241
+		 *
          */
         public function openDNFH($tipoDocumento, $identificacion = 0){
             $comando = chr(128). $this->cm('FS') .$tipoDocumento  . $this->cm('FS') ."T";
@@ -391,9 +395,9 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
         /**
          *
          *  ASCII 129   ü
-
+		 *
          * Ejemplo: ü∟3
-
+		 *
          */
         public function closeDNFH($numCopias = 0){
             return chr(129) . $this->cm('FS') . $numCopias;

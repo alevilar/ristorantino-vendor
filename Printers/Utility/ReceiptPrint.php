@@ -46,7 +46,5 @@ class ReceiptPrint
 
    public static function mesa_detail ( $mesa_id ) {
    		$Comanda = ClassRegistry::init('Mesas.Mesa');
-
-		
    }
 }

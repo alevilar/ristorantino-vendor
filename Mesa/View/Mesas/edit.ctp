@@ -5,17 +5,26 @@
         <div class="mesas form col-md-4 ">
 
                 <p>
-                    <?php
-                    echo "Abrió a las <b>" . date('H:i', strtotime($this->request->data['Mesa']['created'])) . "</b>";
+                    <span class="mesa-created">
+                        Creada: 
+                        <?php echo $this->Time->nice($this->request->data['Mesa']['created']) ?>
+                    </span>
 
-                    if (!empty($this->request->data['Mesa']['time_cerro'])) {
-                        echo ", Cerró a las <b>" . date('H:i', strtotime($this->request->data['Mesa']['time_cerro'])) . "</b>";
-                    }
+                    <?php if (!empty($this->request->data['Mesa']['time_cerro'])) { ?>
+                        <br />
+                        <span class="mesa-cerro">
+                        Fecha Facturación: 
+                        <?php $this->Time->nice($this->request->data['Mesa']['time_cerro']); ?>
+                        </span>
+                    <?php } ?>
 
-                    if (!empty($this->request->data['Mesa']['time_cobro'])) {
-                        echo ", Cobrada a las <b>" . date('H:i', strtotime($this->request->data['Mesa']['time_cobro'])) . "</b>";
-                    }
-                    ?>
+                    <?php if (!empty($this->request->data['Mesa']['time_cobro'])) { ?>
+                        <br />
+                        <span class="mesa-cobro">
+                        Fecha Cobro: 
+                        <?php $this->Time->nice($this->request->data['Mesa']['time_cobro']); ?>
+                        </span>
+                    <?php } ?>
                 </p>
 
 
@@ -33,6 +42,9 @@
                     <legend><?php __('Totales de %s', Configure::read('Mesa.tituloMesa')); ?></legend>
                     <?php
                     
+                    echo $this->Form->input('time_cobro', array( 'type'=>'date'));
+                    echo $this->Form->input('time_cerro', array( 'type'=>'date'));
+
                     echo $this->Form->input('checkin', array( 'type'=>'date'));
                     echo $this->Form->input('checkout', array( 'type'=>'date' ));
 

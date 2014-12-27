@@ -1,5 +1,8 @@
 <?php
 App::uses('PrintersAppController', 'Printers.Controller');
+App::uses('ReceiptPrint', 'Printers.Utility');
+App::uses('FiscalPrint', 'Printers.Utility');
+
 /**
  * Printers Controller
  *
@@ -134,7 +137,7 @@ class PrintersController extends PrintersAppController {
 
 
 	public function print_comanda ( $comanda_id) {
-		App::uses('ReceiptPrint', 'Printers.Utility');
+		
 
 		ReceiptPrint::comanda($comanda_id);
 
@@ -149,7 +152,10 @@ class PrintersController extends PrintersAppController {
 	 * 		El cierre Z es un cierre fiscal, y pone los contadopres del impresor fiscal en cero
 	 */
 	public function cierre( $type = "X"){
-		throw new NotImplementedException(__('Cierre Z o X'));
+		$this->autoRender = false;
+		FiscalPrint::cierre($type);
+
+		$this->set('type', strtoupper($type));
     }
 
 
@@ -157,26 +163,17 @@ class PrintersController extends PrintersAppController {
 
     public function nota_credito(){
 		if ( $this->request->is(array('post', 'put')) ) {
-            $cliente = array();
-            if( !empty($this->request->data['Cliente']) && $this->request->data['Cajero']['tipo'] == 'A'){
-                $cliente['razonsocial'] = $this->request->data['Cliente']['razonsocial'];
-                $cliente['numerodoc'] = $this->request->data['Cliente']['numerodoc'];
-                $cliente['respo_iva'] = $this->request->data['Cliente']['respo_iva'];
-                $cliente['tipodoc'] = $this->request->data['Cliente']['tipodoc'];
+                   
+        	$numeroTicket = $this->request->data['Cajero']['numero_ticket'];
+        	$importe = $this->request->data['Cajero']['importe'];
+        	$tipo_factura = $this->request->data['Cajero']['tipo'];
+        	$descrip = $this->request->data['Cajero']['descripcion'];
+
+            if ( FiscalPrint::imprimirNotaDeCredito($numeroTicket, $importe, $tipo_factura, $descrip) )  {
+            	$this->Session->setFlash("Se envió a imprimir una nota de crédito", 'Risto.flash_success');
             }
-         
-
-         	throw new NotImplementedException(__('Nota de credito'));
-
-            $numerodoc = $this->request->data['Cajero']['numero_ticket'];
-            $importe = $this->request->data['Cajero']['importe'];
-            $tipo = $this->request->data['Cajero']['tipo'];
-            $descripcion = $this->request->data['Cajero']['descripcion'];
-
-            $this->Session->setFlash("Se envió a imprimir una nota de crédito", 'Risto.flash_success');
         }
 	}
-
 
 
 	public function mesa_ticket ( $mesa_id ) {
