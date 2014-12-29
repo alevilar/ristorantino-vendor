@@ -64,5 +64,5 @@ if ( !empty($cliente)) {
 
 echo $this->PE->setEmbarkNumber($numero_ticket);
 echo $this->PE->openDNFH($tipoId);
-echo $this->PE->printLineItem($descripcion, 1, $importe);
+echo $this->PE->printLineItem( $descripcion, 1, $importe);
 echo $this->PE->closeDNFH();

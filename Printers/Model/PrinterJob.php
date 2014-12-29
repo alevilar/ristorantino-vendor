@@ -11,7 +11,7 @@ class PrinterJob extends PrintersAppModel {
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	public $belongsTo = array(
 			'Printer' => array(
-				'className' => 'Printer',
+				'className' => 'Printers.Printer',
 				'foreignKey' => 'printer_id',
 				'conditions' => '',
 				'fields' => '',

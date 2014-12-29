@@ -5,10 +5,16 @@ class PrinterJobsController extends PrintersAppController {
 
 	//public $components = array('RequestHandler');
 
+
 	public function beforeFilter()
-	{      
-        $this->Auth->allow('*');
+    {    
+        parent::beforeFilter();
+        // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
+        $this->Auth->loginAction = array('plugin'=>'printers','controller' => 'printer_jobs', 'action' => 'login');
+        return true;
     }
+
+
 
 	public function index () {
 		
@@ -45,8 +51,13 @@ class PrinterJobsController extends PrintersAppController {
 
 
 
-	public function monitor(){
+	public function monitor () {
 		//die("asasas MONITOR");
 		$this->layout = false;
+	}
+
+
+	public function login () {
+		$this->layout = 'ajax';
 	}
 }

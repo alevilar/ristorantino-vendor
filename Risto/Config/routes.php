@@ -1,7 +1,7 @@
 <?php
 	Router::parseExtensions('json', 'xls');
 
-	Router::mapResources('Printers.PrinterJobs');
+	Router::mapResources('Printers.PrinterJobs', array('prefix'=>"/:tenant/"));
 
 
 /**
@@ -53,7 +53,7 @@
 
 	// URL´s para la adicion
 	// estos se suponen que son rutas temporales de migracion de Chocha012 a la Chocha014
-	$myPlugins = array(		
+	$myPlugins = array(
 		array('plugin' => 'fidelization', 'controller'=>'clientes'),
 		array('plugin' => 'mesa', 'controller'=>'mesas'),
 		array('plugin' => 'mesa', 'controller'=>'mozos'),

@@ -18,6 +18,7 @@
 
 App::uses('RistoAppModel', 'Risto.Model');
 App::uses('CakeSession', 'Model/Datasource');
+App::uses('CakeRequest', 'Network');
 
 /**
  * Class RistoAppModel
@@ -35,9 +36,9 @@ class RistoTenantAppModel extends RistoAppModel {
  * @return void
  */
 	public function __construct($id = false, $table = null, $ds = null) {
-		// usar el correspondiente al tenant
-	
 
+		// usar el correspondiente al tenant
+		//debug( Router::$_requests );
 		if ( CakeSession::started() ) {
 			$currentTenant = CakeSession::read('MtSites.current');
 			if ( empty($currentTenant) ) {
@@ -64,6 +65,7 @@ class RistoTenantAppModel extends RistoAppModel {
 			}
 		}
 
+	
 		// ahora construir el Model
 		parent::__construct($id, $table, $ds);
 		
