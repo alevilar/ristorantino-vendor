@@ -4,7 +4,7 @@
 		if ( !$this->Session->check('Auth.User')){
 			echo $this->element('Users.boxlogin');		
 		} else {
-			echo "<p class='alert alert-info'>Ya estas logueado</p>";
+			echo "<p class='alert alert-success'>Ya estas logueado</p>";			
 		}
 	?>
 	</div>

@@ -1,7 +1,7 @@
 <?php
 
 App::uses('PrinterOutput', 'Printers.PrinterOutput');
-
+App::uses('ClassRegistry', 'Cake.Utility');
 
 class CupsPrinterOutput extends PrinterOutput
 {
@@ -29,15 +29,18 @@ class CupsPrinterOutput extends PrinterOutput
  *  Comando cups de impresion
  * 
  * @param string $texto es el texto a imprimir
- * @param string $nombreImpresoraFiscal nombre CUPS de la impresora 
+ * @param string $idFiscalPrinter nombre CUPS de la impresora 
  * @param string $hostname nombre o IP del host
  * 
  * @return type boolean true si salio todo bien false caso contrario
  */
-        public  function send( $texto, $nombreImpresoraFiscal, $hostname = '' ) {
-            if (empty($hostname)) {
+        public  function send( $texto, $idFiscalPrinter, $hostname = '' ) {
+            if ( empty($hostname) ) {
                 $hostname = Configure::read('ImpresoraFiscal.server');
             }
+
+            $Printer = ClassRegistry::init('Printers.Printer');
+            $printer = $Printer->read($idFiscalPrinter);
             
             // cambiar el encoding del texto si esta configurado
             $encoding = Configure::read('ImpresoraFiscal.encoding');
@@ -51,7 +54,7 @@ class CupsPrinterOutput extends PrinterOutput
                1 => array("pipe", "w"),  // el stdout a un archivo tmp
                2 => array("file", "/tmp/lprerrout.txt", "a") // el stderr a un archivo tmp
             );
-            $process = proc_open('lp -h '.$hostname.' -d '.$nombreImpresoraFiscal, $descriptorspec, $pipes, '/tmp', null);
+            $process = proc_open('lp -h '.$hostname.' -d '.$printer['Printer']['name'], $descriptorspec, $pipes, '/tmp', null);
 
             // escribir en el pipe de escritura
             if (is_resource($process)) 
@@ -66,4 +69,3 @@ class CupsPrinterOutput extends PrinterOutput
         }
         
 }
-?>
