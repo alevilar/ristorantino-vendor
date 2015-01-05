@@ -21,6 +21,24 @@ class PrintersController extends PrintersAppController {
 
 
 
+	public $driver_models = array(
+			'Fiscal' => array(
+				'Hasar441'=>'Hasar441', 
+				'Hasar1120f'=>'Hasar1120f',
+				'HasarSMHP321f'=>'Hasar SMHP 32X'
+				), 
+			'Comandera' => array(
+				'Bematech' => 'Bematech',
+				'EscP' => 'EscP',
+				)
+			);
+
+	public $outputs = array(
+			'Cups' => 'Cups',
+			'Database' => 'Database',			
+		);
+
+
 /**
  * index method
  *
@@ -64,15 +82,8 @@ class PrintersController extends PrintersAppController {
 		$this->request->data['Printer']['output'] = Configure::read('Printers.output');
 
 		$this->set('drivers', array('Fiscal'=>__('Fiscal'), 'Receipt'=>__('Comandera')));
-		$this->set('driver_models', array(
-			__('Fiscal')=>array(
-				'Hasar441'=>'Hasar441', 
-				'Hasar1120f'=>'Hasar1120f'), 
-			__('Comandera')=> array(
-				'Bematech' => 'Bematech',
-				'EscP' => 'EscP',
-				)
-			));
+		$this->set('driver_models', $this->driver_models);
+		$this->set('outputs', $this->outputs);
 	}
 
 /**
@@ -101,15 +112,8 @@ class PrintersController extends PrintersAppController {
 		$this->request->data['Printer']['output'] = Configure::read('Printers.output');
 
 		$this->set('drivers', array('Fiscal'=>__('Fiscal'), 'Receipt'=>__('Comandera')));
-		$this->set('driver_models', array(
-			__('Fiscal')=>array(
-				'Hasar441'=>'Hasar441', 
-				'Hasar1120f'=>'Hasar1120f'), 
-			__('Comandera')=> array(
-				'Bematech' => 'Bematech',
-				'EscP' => 'EscP',
-				)
-			));
+		$this->set('driver_models', $this->driver_models);
+		$this->set('outputs', $this->outputs);
 	}
 
 /**
