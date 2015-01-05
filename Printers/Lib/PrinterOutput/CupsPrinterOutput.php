@@ -42,10 +42,9 @@ class CupsPrinterOutput extends PrinterOutput
             }            
             
             if ( $hostname == 'auto' ) {
-                $hostname = $_SERVER['REMOTE_ADDR'];
-
+                $hostname = $_SERVER['X_HTTP_FORWARDED_FOR'];                    
                 if ( empty($hostname) ){
-                    $hostname = $_SERVER['X_HTTP_FORWARDED_FOR'];                    
+                    $hostname = $_SERVER['REMOTE_ADDR'];
                 }
             }
 
@@ -67,7 +66,7 @@ class CupsPrinterOutput extends PrinterOutput
             );
             $comando = 'lp -h '.$hostname.' -d '.$printer['Printer']['alias'];
 
-            CakeLog::write('cups', "Se envió a imprimir por CUPS ::: $comando");
+            CakeLog::write('debug', "Se envió a imprimir por CUPS ::: $comando");
 
             $process = proc_open($comando, $descriptorspec, $pipes, '/tmp', null);
 
