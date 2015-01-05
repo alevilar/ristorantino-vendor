@@ -8,7 +8,7 @@
 		echo $this->Form->input('alias',array('label'=>__('Alias')));
 		echo $this->Form->input('driver',array('label'=>__('Driver')));
 		echo $this->Form->input('driver_model', array('options'=>$driver_models,'label'=>__('Modélo de Driver')));
-		echo $this->Form->hidden('output');
+		echo $this->Form->input('output',array('label'=>__('Output')));
 	?>
 	</fieldset>
 <?php   echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left'));

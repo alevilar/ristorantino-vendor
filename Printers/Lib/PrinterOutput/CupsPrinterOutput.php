@@ -36,14 +36,23 @@ class CupsPrinterOutput extends PrinterOutput
  */
         public  function send( $texto, $idFiscalPrinter, $hostname = '' ) {
             if ( empty($hostname) ) {
-                $hostname = Configure::read('ImpresoraFiscal.server');
+                $hostname = Configure::read('Printers.server');
+            }            
+            
+            if ( $hostname == 'auto' ) {
+                $hostname = $_SERVER['REMOTE_ADDR'];
+
+                if ( empty($hostname) ){
+                    $hostname = $_SERVER['X_HTTP_FORWARDED_FOR'];                    
+                }
             }
 
+
             $Printer = ClassRegistry::init('Printers.Printer');
-            $printer = $Printer->read($idFiscalPrinter);
+            $printer = $Printer->read(null, $idFiscalPrinter);            
             
             // cambiar el encoding del texto si esta configurado
-            $encoding = Configure::read('ImpresoraFiscal.encoding');
+            $encoding = Configure::read('Printers.encoding');
             if (!empty( $encoding )) {
                 $texto = mb_convert_encoding($texto, $encoding, mb_detect_encoding($texto));
             }
@@ -54,7 +63,8 @@ class CupsPrinterOutput extends PrinterOutput
                1 => array("pipe", "w"),  // el stdout a un archivo tmp
                2 => array("file", "/tmp/lprerrout.txt", "a") // el stderr a un archivo tmp
             );
-            $process = proc_open('lp -h '.$hostname.' -d '.$printer['Printer']['name'], $descriptorspec, $pipes, '/tmp', null);
+            $comando = 'lp -h '.$hostname.' -d '.$printer['Printer']['alias'];
+            $process = proc_open($comando, $descriptorspec, $pipes, '/tmp', null);
 
             // escribir en el pipe de escritura
             if (is_resource($process)) 
@@ -65,6 +75,8 @@ class CupsPrinterOutput extends PrinterOutput
                     $ret =  proc_close($process);
                     return true;
             }
+
+
             return false;
         }
         
