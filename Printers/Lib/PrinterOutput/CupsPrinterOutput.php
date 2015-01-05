@@ -54,7 +54,12 @@ class CupsPrinterOutput extends PrinterOutput
             
             // cambiar el encoding del texto si esta configurado
             $encoding = Configure::read('Printers.encoding');
+            CakeLog::write('debug', "Encoding actual es ::: " . mb_detect_encoding($texto));
+
             if (!empty( $encoding )) {
+
+                CakeLog::write('debug', "Cambiando encodging x ::: $encoding ");
+
                 $texto = mb_convert_encoding($texto, $encoding, mb_detect_encoding($texto));
             }
                   
