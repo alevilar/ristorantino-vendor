@@ -3,7 +3,7 @@
 App::uses('FiscalPrinterHelper', 'Printers.Lib/DriverView/Helper');
 
 
-class Hasar1120fFiscalHelper extends FiscalPrinterHelper
+class HasarSMHP321fFiscalHelper extends FiscalPrinterHelper
 {
 	
 	public $_cmd = array(
