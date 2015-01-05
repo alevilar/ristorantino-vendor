@@ -1,0 +1,31 @@
+# Make sure only root can run our script
+if [ "$(id -u)" != "0" ]; then
+   echo "Debes ser root para correr este script" 1>&2
+   exit 1
+fi
+# ...
+
+MY_PATH="`dirname \"$0\"`"              # relative
+MY_PATH="`( cd \"$MY_PATH\" && pwd )`"  # absolutized and normalized
+if [ -z "$MY_PATH" ] ; then
+  # error; for some reason, the path is not accessible
+  # to the script (e.g. permissions re-evaled after suid)
+  exit 1  # fail
+fi
+
+ln -s $MY_PATH/spooler /usr/bin
+ln -s $MY_PATH/pruf /usr/bin
+ln -s $MY_PATH/printServer.py /usr/bin
+ln -s $MY_PATH/ristorantino.conf /etc/init
+ln -s $MY_PATH/99-usb-hasar441-serial.rules /etc/udev/rules.d
+ln -s $MY_PATH/99-usb-hasar715-serial.rules /etc/udev/rules.d
+
+apt-get install python-daemon
+service ristorantino start
+
+
+echo "Se va a instalar la impresora nombre:'fiscal'. Puede editarla desde CUPS"
+sudo lpadmin -p fiscal -E -v socket://localhost:12000 -m raw
+
+
+echo "LISTO! ahora puede configurar /user/bin/printServer.py si va a modificar el nombre o puerto de la impresora fiscal en CUPS"

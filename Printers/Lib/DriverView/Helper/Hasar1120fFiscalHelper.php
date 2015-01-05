@@ -30,7 +30,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
                     $tipo_ticket = 'B';
                 }
 		if($tipo_ticket == 'A' || $tipo_ticket == 'B' || $tipo_ticket == 'D' || $tipo_ticket == 'E'){
-			return "@".self::FS.$tipo_ticket.self::FS."T";
+			return "@".$this->cm('FS').$tipo_ticket.$this->cm('FS')."T";
 		}
 		else{
 			return '';
@@ -44,9 +44,9 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	public function printFiscalText($texto, $doble_ancho = false ,$display = 0){
 		$texto = substr($texto,0,30);
 		if($doble_ancho){
-			$texto = self::DOBLE_ANCHO.$texto;
+			$texto = $this->cm('DOBLE_ANCHO').$texto;
 		}
-		return "A".self::FS.$texto.self::FS.$display;
+		return "A".$this->cm('FS').$texto.$this->cm('FS').$display;
 	}
 	
 	
@@ -63,7 +63,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 *	@param boolean $precio_totalsi es precio tital quiere decir que el precio que le pasé como parametro tiene el IVA incluido, caso contrario, el precio es sin IVA y la impresora se lo va a sumar automaticamente de acuerdo al IVA qe se le pasó cmo parametro
 	 */
 	public function printLineItem($descripcion_articulo, $cantidad, $monto, $porcentaje_iva = 21, $suma = true, $impuesto_interno = 0, $display = 0, $precio_total = true){
-		$fs = self::FS;
+		$fs = $this->cm('FS');
 		$descripcion_articulo = substr($descripcion_articulo,0,23);
 		
 		if(!is_numeric($cantidad)) return false;
@@ -89,11 +89,11 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
          * @return string comando
          */
         public function generalDiscount($porcentaje_descuento = 0){
-            $comando =  "T".self::FS.
-                        'Descuento'.self::FS.
-                        $porcentaje_descuento.self::FS.
-                        'm'.self::FS.
-                        '0'.self::FS.
+            $comando =  "T".$this->cm('FS').
+                        'Descuento'.$this->cm('FS').
+                        $porcentaje_descuento.$this->cm('FS').
+                        'm'.$this->cm('FS').
+                        '0'.$this->cm('FS').
                         'T';
             return $comando;
         }
@@ -117,7 +117,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 		if( is_numeric($monto_pagado) && 
 			($operacion == 'C' || $operacion == 'T' || $operacion == 'R'))
 		{
-			$comando = "D".self::FS.$texto.self::FS.$monto_pagado.self::FS.$operacion.self::FS.$display;
+			$comando = "D".$this->cm('FS').$texto.$this->cm('FS').$monto_pagado.$this->cm('FS').$operacion.$this->cm('FS').$display;
 		}
 		else{
 			$comando = false;
@@ -133,7 +133,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 * 								pr default va cero porque solo funciona en 1 modelo y pr lo general esta funcion no es util
 	 */
 	public function closeFiscalReceipt($cant_copias = 0){
-		$comando =  "E".self::FS.$cant_copias;
+		$comando =  "E".$this->cm('FS').$cant_copias;
 		return $comando;
 	}
 	
@@ -148,7 +148,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	public function dailyClose($tipo_cierre = 'X'){
 		$tipo_cierre = strtoupper($tipo_cierre);
 		if($tipo_cierre == 'X' || $tipo_cierre == 'Z'){
-			$comando = "9".self::FS.$tipo_cierre;	
+			$comando = "9".$this->cm('FS').$tipo_cierre;	
 		}
 		else{
 			$comando = false;
@@ -180,7 +180,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	public function setDateTime($fecha = 'now', $hora = 'now'){
 		$ymd = date("ymd",strtotime($fecha)) ;
 		$his = date("His",strtotime($hora)) ;
-		return "X".self::FS.$ymd.self::FS.$his;
+		return "X".$this->cm('FS').$ymd.$this->cm('FS').$his;
 	}
 	
 	
@@ -198,13 +198,13 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	public function setHeaderTrailer($numero_de_linea,$texto = "-",$doble_ancho = false){
 		$texto = substr($texto,0,45);
 		if ($numero_de_linea > -3 && $numero_de_linea <= 0){
-			$comando = "]".self::FS.$numero_de_linea;
+			$comando = "]".$this->cm('FS').$numero_de_linea;
 		}
 		if ($numero_de_linea > 0 && $numero_de_linea < 21){
 			if($doble_ancho){
-				$texto = self::DOBLE_ANCHO.$texto;
+				$texto = $this->cm('DOBLE_ANCHO').$texto;
 			}
-			$comando = "]".self::FS.$numero_de_linea.self::FS.$texto;
+			$comando = "]".$this->cm('FS').$numero_de_linea.$this->cm('FS').$texto;
 		}
 		else{
 			$comando = false;
@@ -218,7 +218,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 * @return string $comando
 	 */
 	public function delHeaderTrailer(){
-		$comando = "]".self::FS."0".self::FS.self::DEL;
+		$comando = "]".$this->cm('FS')."0".$this->cm('FS').$this->cm('DEL');
 		return $comando;
 	}
 	
@@ -228,7 +228,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 * @return string $comando
 	 */
 	public function delHeader(){
-		$comando = "]".self::FS."-1".self::FS.self::DEL;
+		$comando = "]".$this->cm('FS')."-1".$this->cm('FS').$this->cm('DEL');
 		return $comando;
 	}
 	
@@ -238,7 +238,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 * @return string $comando
 	 */
 	public function delTrailer(){
-		$comando = "]".self::FS."-2/".self::FS.self::DEL;
+		$comando = "]".$this->cm('FS')."-2/".$this->cm('FS').$this->cm('DEL');
 		return $comando;
 	}
 	
@@ -255,9 +255,9 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 		if ($linea > -1 && $linea < 10){
 			$numero_de_linea = 1+$linea;
 			if($doble_ancho){
-				$texto = self::DOBLE_ANCHO.$texto;
+				$texto = $this->cm('DOBLE_ANCHO').$texto;
 			}
-			$comando = "]".self::FS.$numero_de_linea.self::FS.$texto;
+			$comando = "]".$this->cm('FS').$numero_de_linea.$this->cm('FS').$texto;
 		}
 		else{
 			$comando = false;
@@ -277,10 +277,10 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 		$texto = substr($texto,0,45);
 		if ($linea > -1 && $linea < 10){
 			if($doble_ancho){
-				$texto = self::DOBLE_ANCHO.$texto;
+				$texto = $this->cm('DOBLE_ANCHO').$texto;
 			}
 			$numero_de_linea = 11+$linea;
-			$comando = "]".self::FS.$numero_de_linea.self::FS.$texto;
+			$comando = "]".$this->cm('FS').$numero_de_linea.$this->cm('FS').$texto;
 		}
 		else{
 			$comando = false;
@@ -310,7 +310,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 * 					'4' Cedula de Identidad
 	 * @param string $domicilio
 	 */
-	public function setCustomerData($nombre_cliente,$documento,$respo_iva, $tipo_documento, $domicilio = ''){
+	public function setCustomerData($nombre_cliente = " ",$documento = " ",$respo_iva = 'C', $tipo_documento = " ", $domicilio = '-') {
 		$nombre_cliente = substr($nombre_cliente,0,45);
 		$respo_iva = strtoupper($respo_iva);
 		$tipo_documento = strtoupper($tipo_documento);
@@ -319,9 +319,9 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 		if($respo_iva == 'I' || $respo_iva == 'E' || $respo_iva == 'A' || $respo_iva == 'C' || $respo_iva == 'T'){
 			if( $tipo_documento == 'C' || $tipo_documento == 'L' || $tipo_documento == '0' || $tipo_documento == '1' || $tipo_documento == '2' || $tipo_documento == '3' || $tipo_documento == '4')
 			{	
-				$comando = "b".self::FS.$nombre_cliente.self::FS.$documento.self::FS.$respo_iva.self::FS.$tipo_documento;
+				$comando = "b".$this->cm('FS').$nombre_cliente.$this->cm('FS').$documento.$this->cm('FS').$respo_iva.$this->cm('FS').$tipo_documento;
 				if($domicilio){
-					$comando .= self::FS.$domicilio;
+					$comando .= $this->cm('FS').$domicilio;
 				}
 			}
 			else{ 	
@@ -350,7 +350,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 
          */
         public function setEmbarkNumber( $numeroTicket, $nlinea = 1){
-            return chr(147).self::FS.$nlinea.self::FS.$numeroTicket;
+            return chr(147).$this->cm('FS').$nlinea.$this->cm('FS').$numeroTicket;
         }
 
 
@@ -380,9 +380,9 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 
          */
         public function openDNFH($tipoDocumento, $identificacion = ''){
-            return  "Ç"             . self::FS .
-                    $tipoDocumento  . self::FS .
-                    "T"             . self::FS .
+            return  "Ç"             . $this->cm('FS') .
+                    $tipoDocumento  . $this->cm('FS') .
+                    "T"             . $this->cm('FS') .
                     $identificacion
                     ;
         }
@@ -397,7 +397,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 
          */
         public function closeDNFH($numCopias = 0){
-            return chr(129) . self::FS . $numCopias;
+            return chr(129) . $this->cm('FS') . $numCopias;
         }
         
 }

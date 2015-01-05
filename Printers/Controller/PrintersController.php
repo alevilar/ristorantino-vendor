@@ -152,7 +152,6 @@ class PrintersController extends PrintersAppController {
 	 * 		El cierre Z es un cierre fiscal, y pone los contadopres del impresor fiscal en cero
 	 */
 	public function cierre( $type = "X"){
-		$this->autoRender = false;
 		FiscalPrint::cierre($type);
 
 		$this->set('type', strtoupper($type));
