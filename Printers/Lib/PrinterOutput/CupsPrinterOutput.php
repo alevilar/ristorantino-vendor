@@ -64,6 +64,10 @@ class CupsPrinterOutput extends PrinterOutput
                2 => array("file", "/tmp/lprerrout.txt", "a") // el stderr a un archivo tmp
             );
             $comando = 'lp -h '.$hostname.' -d '.$printer['Printer']['alias'];
+
+            $this->log("Se envió a imprimir por CUPS ::: $comando", 'cups');
+
+
             $process = proc_open($comando, $descriptorspec, $pipes, '/tmp', null);
 
             // escribir en el pipe de escritura
