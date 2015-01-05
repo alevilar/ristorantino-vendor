@@ -25,7 +25,9 @@ service ristorantino start
 
 
 echo "Se va a instalar la impresora nombre:'fiscal'. Puede editarla desde CUPS"
-sudo lpadmin -p fiscal -E -v socket://localhost:12000 -m raw
+lpadmin -p fiscal -E -v socket://localhost:12001 -m raw
 
+
+echo "\n"
 
 echo "LISTO! ahora puede configurar /user/bin/printServer.py si va a modificar el nombre o puerto de la impresora fiscal en CUPS"
