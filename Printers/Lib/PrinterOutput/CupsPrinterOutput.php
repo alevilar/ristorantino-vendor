@@ -42,7 +42,7 @@ class CupsPrinterOutput extends PrinterOutput
             }            
             
             if ( $hostname == 'auto' ) {
-                $hostname = $_SERVER['X_HTTP_FORWARDED_FOR'];                    
+                $hostname = getenv('HTTP_X_FORWARDED_FOR');
                 if ( empty($hostname) ){
                     $hostname = $_SERVER['REMOTE_ADDR'];
                 }
