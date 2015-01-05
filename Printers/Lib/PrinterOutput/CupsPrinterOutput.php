@@ -2,6 +2,8 @@
 
 App::uses('PrinterOutput', 'Printers.PrinterOutput');
 App::uses('ClassRegistry', 'Cake.Utility');
+App::uses('CakeLog', 'Log');
+
 
 class CupsPrinterOutput extends PrinterOutput
 {
@@ -65,8 +67,7 @@ class CupsPrinterOutput extends PrinterOutput
             );
             $comando = 'lp -h '.$hostname.' -d '.$printer['Printer']['alias'];
 
-            $this->log("Se envió a imprimir por CUPS ::: $comando", 'cups');
-
+            CakeLog::write('cups', "Se envió a imprimir por CUPS ::: $comando");
 
             $process = proc_open($comando, $descriptorspec, $pipes, '/tmp', null);
 
