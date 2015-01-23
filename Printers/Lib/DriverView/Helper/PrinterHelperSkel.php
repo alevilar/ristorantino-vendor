@@ -30,25 +30,11 @@ abstract class PrinterHelperSkel extends Helper
         'DOBLE_ALTO' => '',
         'SACA_DOBLE_ALTO' => '',
         'RETORNO_DE_CARRO' => '',
+        'CR' => '',
+        'LF' => '',
     );
 
-/**
- * Constructor
- * 
- * Builds the _cmd var calling function when is an array
- */        
-    public function __construct(View $View, $settings = array()) {
-        $parent_vars = get_class_vars(__CLASS__);
-        $this->_cmd = $this->_cmd + $parent_vars['_cmd'];
 
-        foreach ($this->_cmd as $c => $val) {
-            if (is_array($val)){
-                $functionName = array_shift($val);
-                $this->_cmd[$c] = call_user_func($functionName, $c);
-            }
-        }
-        return parent::__construct($View, $settings);
-    }
 
 /**
  *  Returns the string corresponding to the $_cmd var
@@ -60,11 +46,11 @@ abstract class PrinterHelperSkel extends Helper
             if (empty($name)) {
                 return $this->_cmd;
             }
+
             $name = strtoupper($name);
-            if ( !empty($this->_cmd[$name]) ) {
+            if ( !array_key_exists($name, $this->_cmd) ) {
+                CakeLog::write('debug', "CMMMDD :::  ". $this->_cmd[$name]);
                 return $this->_cmd[$name];
-            } else {
-                throw new InternalErrorException('Error, no existe el nombre del comando pasado: '.$name);
             }
             return '';
         }

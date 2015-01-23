@@ -58,7 +58,7 @@ class CupsPrinterOutput extends PrinterOutput
 
             if (!empty( $encoding )) {
 
-                CakeLog::write('debug', "Cambiando encodging x ::: $encoding ");
+                CakeLog::write('debug', "Cambiando encoding x ::: $encoding ");
 
                 $texto = mb_convert_encoding($texto, $encoding, mb_detect_encoding($texto));
             }
@@ -73,7 +73,9 @@ class CupsPrinterOutput extends PrinterOutput
 
             CakeLog::write('debug', "Se envió a imprimir por CUPS ::: $comando");
 
-            $process = proc_open($comando, $descriptorspec, $pipes, '/tmp', null);
+            CakeLog::write('debug', "TEXT ::: $texto ");
+            
+            $process = proc_open($comando, $descriptorspec, $pipes, '/tmp');
 
             // escribir en el pipe de escritura
             if (is_resource($process)) 

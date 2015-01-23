@@ -6,7 +6,7 @@ App::uses('FiscalPrinterHelper', 'Printers.Lib/DriverView/Helper');
 class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 {
 	
-	public $_cmd = array(
+	protected $_cmd = array(
             'FS' => array('chr', 28),
             'ESC' => array('chr', 27),
             'DOBLE_ANCHO' => array('chr', 244),
@@ -77,14 +77,14 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 
 
         /**
-            Responde:
-            a. Imprimiendo una línea donde se muestra: descripción del descuento (o recargo), impuestos y monto del
-                descuento (o recargo) -con posterioridad a la impresión de la línea con la leyenda “Descuento (o Recargo)
-                   general”-;
-            b. Restando
-
-            EJEMPLO: T∟Pago Efectivo...∟5.0∟m∟0∟T
-
+        *    Responde:
+        *    a. Imprimiendo una línea donde se muestra: descripción del descuento (o recargo), impuestos y monto del
+        *        descuento (o recargo) -con posterioridad a la impresión de la línea con la leyenda “Descuento (o Recargo)
+        *           general”-;
+        *    b. Restando
+		*
+        *    EJEMPLO: T∟Pago Efectivo...∟5.0∟m∟0∟T
+		*
          * @param float $porcentaje_descuento
          * @return string comando
          */
