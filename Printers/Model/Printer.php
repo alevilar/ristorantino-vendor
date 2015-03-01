@@ -100,8 +100,7 @@ class Printer extends PrintersAppModel {
 
 
 	public function imprimirTicket ( $id = null ) {
-		Printaitor::send($dataToView, $printerName, $viewName);
-		throw new NotImplementedException("imprimirTicket no implementado");
+		return Printaitor::send($dataToView, $printerName, $viewName);
 	}
 
 

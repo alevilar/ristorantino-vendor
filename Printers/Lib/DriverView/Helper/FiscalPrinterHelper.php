@@ -5,10 +5,8 @@ App::uses('PrinterHelperSkel', 'Printers.Lib/DriverView/Helper');
 abstract class FiscalPrinterHelper  extends PrinterHelperSkel
 {
 	/* Llenar para cada tipo y modelo de impresora estos 3 variables estaticas  */
-	protected $_cmd = array(
-            'CR' => array('chr', 13),
-            'LF' => array('chr', 10),
-        );
+	protected $DOBLE_ANCHO = "\xF4";
+
 
         /**
          *  Name of the printer. generally must be the CUPS name or something with
@@ -86,14 +84,14 @@ abstract class FiscalPrinterHelper  extends PrinterHelperSkel
 
 
          /**
-            Responde:
-            a. Imprimiendo una línea donde se muestra: descripción del descuento (o recargo), impuestos y monto del
-                descuento (o recargo) -con posterioridad a la impresión de la línea con la leyenda “Descuento (o Recargo)
-                   general”-;
-            b. Restando
-
-            EJEMPLO: T∟Pago Efectivo...∟5.0∟m∟0∟T
-
+         *   Responde:
+         *   a. Imprimiendo una línea donde se muestra: descripción del descuento (o recargo), impuestos y monto del
+         *       descuento (o recargo) -con posterioridad a la impresión de la línea con la leyenda “Descuento (o Recargo)
+         *          general”-;
+         *   b. Restando
+		 *
+         *   EJEMPLO: T∟Pago Efectivo...∟5.0∟m∟0∟T
+		 *
          * @param float $porcentaje_descuento
          * @return string comando
          */
@@ -167,23 +165,23 @@ abstract class FiscalPrinterHelper  extends PrinterHelperSkel
 
         /**
          * Tipo de documento
-            R: Nota de crédito ‘A’
-            S: Nota de crédito ‘B/C’
-            x: Tique recibo ‘X’
-            <: Tique pagaré
-            ,: Tique presupuesto
-            -: Comp. de entrega
-            .: Talón Estacionamiento
-            /: Cobro de Servicios
-            0: Ingreso de Dinero
-            1: Retiro de Dinero
-            2: Talón de Cambio
-            3: Talón de reparto
-            4: Talón de regalo
-            5: Cuenta Corriente
-            6: Avisode Operación de Crédito
-            7: Cupón de Promoción
-            8: Uso Interno Farmacia
+         *    R: Nota de crédito ‘A’
+         *    S: Nota de crédito ‘B/C’
+         *    x: Tique recibo ‘X’
+         *    <: Tique pagaré
+         *    ,: Tique presupuesto
+         *    -: Comp. de entrega
+         *    .: Talón Estacionamiento
+         *    /: Cobro de Servicios
+         *    0: Ingreso de Dinero
+         *    1: Retiro de Dinero
+         *    2: Talón de Cambio
+         *    3: Talón de reparto
+         *    4: Talón de regalo
+         *    5: Cuenta Corriente
+         *    6: Avisode Operación de Crédito
+         *    7: Cupón de Promoción
+         *    8: Uso Interno Farmacia
          *
          * Ejemplo: Ç∟R∟T∟1211241
          * 
@@ -193,16 +191,14 @@ abstract class FiscalPrinterHelper  extends PrinterHelperSkel
 
         /**
          * Longitud
-            ô (93H - ASCII 147)
-            FS
-            No de línea de comprobante original (1-2)
-            0: borra ambas líneas (sólo modelos SMH/P-PR5F -versión 2.01-, SMH/P-715F
-            -versiones 3.02 y posteriores-, y SMH/P-441F)
-            FS
-            Texto de hasta 20 caracteres ( para ingresar  numero de tiquet ) 
-
-            Ejemplo: ô∟1∟00000118
-
+		 *   ô (93H - ASCII 147)
+		 *  FS
+		 *   No de línea de comprobante original (1-2)
+		 *   0: borra ambas líneas (sólo modelos SMH/P-PR5F -versión 2.01-, SMH/P-715F
+		 *   -versiones 3.02 y posteriores-, y SMH/P-441F)
+		 *   FS
+		 *   Texto de hasta 20 caracteres ( para ingresar  numero de tiquet ) 
+		 *   Ejemplo: ô∟1∟00000118
          */
         public abstract function setEmbarkNumber($numeroTicket, $nlinea = 1);
 
@@ -210,13 +206,8 @@ abstract class FiscalPrinterHelper  extends PrinterHelperSkel
         /**
          *
          *  ASCII 129   ü
-
          * Ejemplo: ü∟3
-
          */
         public abstract function closeDNFH();
 }
 
-
-
-?>

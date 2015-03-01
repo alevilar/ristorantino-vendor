@@ -69,8 +69,7 @@ echo $this->PE->setTrailer(7, "     DE BUENOS AIRES 0-800-333-6422"); echo "\n";
 
 //abro el tiquet consumidor final
 if (!empty($cliente)) {
-    debug($cliente );
-    
+   
     $tipoDoc = null;
     if ( !empty($cliente['TipoDocumento']) ) {
         $tipoDoc = $cliente['TipoDocumento']['codigo_fiscal'];
@@ -98,7 +97,6 @@ if (!empty($productos)) {
     foreach ($productos as $p) {
         echo $this->PE->printLineItem(
                 $p['nombre'], $p['cantidad'], $p['precio']); echo "\n";
-//echo "B".FS.$p['nombre'].FS.$p['cantidad'].FS.$p['precio'].FS."21.00".FS."M".FS."0.11".FS."1".FS."T";
     }
 }
 
@@ -107,6 +105,4 @@ if (!empty($importe_descuento)) {
 }
 
 echo $this->PE->closeFiscalReceipt(); echo "\n";
-
-
 

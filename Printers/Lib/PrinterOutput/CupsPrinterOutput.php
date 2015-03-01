@@ -41,7 +41,7 @@ class CupsPrinterOutput extends PrinterOutput
                 $hostname = Configure::read('Printers.server');
             }            
             
-            if ( $hostname == 'auto' ) {
+            if ( !$hostname  || $hostname == 'auto' ) {
                 $hostname = getenv('HTTP_X_FORWARDED_FOR');
                 if ( empty($hostname) ){
                     $hostname = $_SERVER['REMOTE_ADDR'];
@@ -51,7 +51,6 @@ class CupsPrinterOutput extends PrinterOutput
 
             $Printer = ClassRegistry::init('Printers.Printer');
             $printer = $Printer->read(null, $idFiscalPrinter);            
-            
             // cambiar el encoding del texto si esta configurado
             $encoding = Configure::read('Printers.encoding');
             CakeLog::write('debug', "Encoding actual es ::: " . mb_detect_encoding($texto));

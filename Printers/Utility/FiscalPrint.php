@@ -46,13 +46,14 @@ class FiscalPrint
 	*
 	*
 	**/
-	public static function imprimirNotaDeCredito ( $numero_ticket, $importe, $tipo, $descripcion) {
+	public static function imprimirNotaDeCredito ( $numero_ticket, $importe, $tipo, $descripcion, $cliente = array() ) {
         
 		$send = Printaitor::send(array(
 				'numero_ticket' => $numero_ticket,
 				'importe' => $importe,
 				'tipo_factura' => $tipo,
 				'descripcion' => $descripcion,
+				'cliente' => $cliente,
 				),
 				self::__getFiscalPrinterId(),
 				'nota_de_credito' // user vista comandas.ctp
@@ -137,7 +138,6 @@ class FiscalPrint
         if ( Configure::read('Mesa.imprimePrimeroRemito') && $Mesa->estaAbierta()){
             $printer_id = Configure::read('Printers.receipt_id');
         }
-
         $send = Printaitor::send(array(
 				'productos' => $prod,
 				'importe_descuento' => $importe_descuento,

@@ -6,35 +6,25 @@ App::uses('FiscalPrinterHelper', 'Printers.Lib/DriverView/Helper');
 class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 {
 	
-	protected $_cmd = array(
-            'FS' => array('chr', 28),
-            'ESC' => array('chr', 27),
-            'DOBLE_ANCHO' => array('chr', 244),
-            'DEL' => array('chr', 127),
-        );
-	
-	
-	
 	/**
 	 * Me abre un documento fiscal
 	 * 
 	 * @param $tipo_ticket el topo de ticket que quiero abrir
 	 * las psobilidades son:
-	 * 							"T": abre un ticket
-	 * 							"A": abre ticket factura 'A'
-	 * 							"B": abre ticket factura 'B' o 'C'
+	 *		A. Factura A
+	 *		B: Factura B o C
+	 *		a: Recibo A
+	 *		b: Recibo B o C
+	 *		D: Nota de Débito A
+	 *		E: Nota de Débito B o C
 	 */
-	public function openFiscalReceipt($tipo_ticket){
+	public function openFiscalReceipt($tipo_ticket = "B"){
 		$tipo_ticket = strtoupper($tipo_ticket);
-                if ($tipo_ticket == 'T') {
-                    $tipo_ticket = 'B';
-                }
-		if($tipo_ticket == 'A' || $tipo_ticket == 'B' || $tipo_ticket == 'D' || $tipo_ticket == 'E'){
-			return "@".$this->cm('FS').$tipo_ticket.$this->cm('FS')."T";
-		}
-		else{
-			return '';
-		}
+        if ($tipo_ticket == 'T') {
+            $tipo_ticket = 'B';
+        }
+
+		return "@".$this->cm('FS').$tipo_ticket.$this->cm('FS')."T";
 	}
 	
 	/**
@@ -169,7 +159,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 * es especial para cuando quiero recuperar ael estado de error actual de la impresora PEJ: Falta papel
 	 */
 	public function statPRN(){
-		return chr(161); // ¡ (puse el ASCII porque creo que es un signo de interrogacion, pero no estoy seguro porque se confunde con la i latina
+		return "¡";
 	}
 	
 	
@@ -325,11 +315,11 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 				}
 			}
 			else{ 	
-				return -1; //fallo tipo_documento
+				throw new CakeException("Tipo de documento no válido: \"$tipo_documento\"");
 			}	
 		}
 		else{
-			return -2; // fallo respo_iva
+			throw new CakeException("Responsabilidad ante el IVA inválido: \"$respo_iva\"");
 		} 
 		return $comando;
 	}
@@ -338,19 +328,18 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 
         /**
          * Longitud
-            ô (93H - ASCII 147)
-            FS
-            No de línea de comprobante original (1-2)
-            0: borra ambas líneas (sólo modelos SMH/P-PR5F -versión 2.01-, SMH/P-715F
-            -versiones 3.02 y posteriores-, y SMH/P-441F)
-            FS
-            Texto de hasta 20 caracteres
-
-            Ejemplo: ô∟1∟00000118
-
+         *   ô (93H - ASCII 147)
+         *   FS
+         *   No de línea de comprobante original (1-2)
+         *   0: borra ambas líneas (sólo modelos SMH/P-PR5F -versión 2.01-, SMH/P-715F
+         *   -versiones 3.02 y posteriores-, y SMH/P-441F)
+         *   FS
+         *   Texto de hasta 20 caracteres
+         *   Ejemplo: ô∟1∟00000118
+		 *
          */
         public function setEmbarkNumber( $numeroTicket, $nlinea = 1){
-            return chr(147).$this->cm('FS').$nlinea.$this->cm('FS').$numeroTicket;
+            return "\x93".$this->cm('FS').$nlinea.$this->cm('FS').$numeroTicket;
         }
 
 
@@ -358,26 +347,26 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 
         /**
          * Tipo de documento
-            R: Nota de crédito ‘A’
-            S: Nota de crédito ‘B/C’
-            x: Tique recibo ‘X’
-            <: Tique pagaré
-            ,: Tique presupuesto
-            -: Comp. de entrega
-            .: Talón Estacionamiento
-            /: Cobro de Servicios
-            0: Ingreso de Dinero
-            1: Retiro de Dinero
-            2: Talón de Cambio
-            3: Talón de reparto
-            4: Talón de regalo
-            5: Cuenta Corriente
-            6: Avisode Operación de Crédito
-            7: Cupón de Promoción
-            8: Uso Interno Farmacia
-
-            Ejemplo: Ç∟R∟T∟1211241
-
+         *   R: Nota de crédito ‘A’
+         *   S: Nota de crédito ‘B/C’
+         *   x: Tique recibo ‘X’
+         *   <: Tique pagaré
+         *   ,: Tique presupuesto
+         *   -: Comp. de entrega
+         *   .: Talón Estacionamiento
+         *   /: Cobro de Servicios
+         *   0: Ingreso de Dinero
+         *   1: Retiro de Dinero
+         *   2: Talón de Cambio
+         *   3: Talón de reparto
+         *   4: Talón de regalo
+         *   5: Cuenta Corriente
+         *   6: Avisode Operación de Crédito
+         *   7: Cupón de Promoción
+         *   8: Uso Interno Farmacia
+         *
+         *   Ejemplo: Ç∟R∟T∟1211241
+         *
          */
         public function openDNFH($tipoDocumento, $identificacion = ''){
             return  "Ç"             . $this->cm('FS') .
@@ -391,17 +380,14 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 
         /**
          *
-         *  ASCII 129   ü
-
+         *  ASCII 81Hexa, 129 decimal   ü
+		 *
          * Ejemplo: ü∟3
-
+		 *
          */
         public function closeDNFH($numCopias = 0){
-            return chr(129) . $this->cm('FS') . $numCopias;
+            return "\x81" . $this->cm('FS') . $numCopias;
         }
         
 }
 
-
-
-?>
