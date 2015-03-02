@@ -208,7 +208,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 * @return string $comando
 	 */
 	public function delHeaderTrailer(){
-		$comando = "]".$this->cm('FS')."0".$this->cm('FS').$this->cm('DEL');
+		$comando = "]".$this->cm('FS')."0".$this->cm('FS').$this->cm('DEL')."\n";
 		return $comando;
 	}
 	
@@ -320,7 +320,6 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 		}
 		else{
 			throw new CakeException("Responsabilidad ante el IVA inválido: \"$respo_iva\"");
-		} 
 		return $comando;
 	}
 

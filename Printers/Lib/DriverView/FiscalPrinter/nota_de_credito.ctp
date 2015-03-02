@@ -59,10 +59,14 @@ if ( !empty($cliente)) {
 } else {
     //condumidor Final
     echo $this->PE->setCustomerData();
+    echo "\n";
 }
 
 
 echo $this->PE->setEmbarkNumber($numero_ticket);
+echo "\n";
 echo $this->PE->openDNFH($tipoId);
+echo "\n";
 echo $this->PE->printLineItem( $descripcion, 1, $importe);
+echo "\n";
 echo $this->PE->closeDNFH();
