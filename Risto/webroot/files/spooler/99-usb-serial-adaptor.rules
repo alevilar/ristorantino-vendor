@@ -1,0 +1,1 @@
+SUBSYSTEMS=="usb-serial", DRIVERS=="pl2303", ATTRS{port_number}=="0", SYMLINK+="fiscalprinter"

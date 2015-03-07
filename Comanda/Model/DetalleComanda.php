@@ -147,4 +147,3 @@ class DetalleComanda extends ComandaAppModel {
 	}
 
 }
-?>

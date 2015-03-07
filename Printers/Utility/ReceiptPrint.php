@@ -6,10 +6,10 @@ App::uses('Printaitor', 'Printers.Utility');
 class ReceiptPrint
 {
     /**
-     * Converts a string to UTF-8 encoding.
+     * Imprime una comanda en particular
      *
-     * @param  string $string
-     * @return string
+     * @param  id $comanda_id
+     * @return null
      */
     public static function comanda ( $comanda_id )
     {
@@ -33,13 +33,15 @@ class ReceiptPrint
 		// por ejmeplo me queraria algo asi:
 		// "1) Milanesa de pollo\n"
 		foreach($comanderas_involucradas as $printer_id):
-			Printaitor::send(array(
-				'productos' => $productos,
-				'entradas' => $entradas,
-				),
-				$printer_id,
-				'comandas' // user vista comandas.ctp
-		);
+			if ( !empty($printer_id) ) {
+				Printaitor::send(array(
+						'productos' => $productos,
+						'entradas' => $entradas,
+						),
+						$printer_id,
+						'comandas' // user vista comandas.ctp
+				);
+			}
 		endforeach;
    }
 
