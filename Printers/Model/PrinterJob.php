@@ -1,12 +1,13 @@
 <?php
 
 App::uses('PrintersAppModel', 'Printers.Model');
+App::uses('MtSites', 'MtSites.Utility');
 
 
-class PrinterJob extends PrintersAppModel {
+class PrinterJob extends AppModel {
 
 	public $name = 'PrinterJob';
-
+	
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 	public $belongsTo = array(
@@ -18,6 +19,7 @@ class PrinterJob extends PrintersAppModel {
 				'order' => ''
 			)
 	);
+
 
 
 
@@ -33,6 +35,10 @@ class PrinterJob extends PrintersAppModel {
 	}
 
 
+	public function beforeSave($options = array()) {
+		$this->data['PrinterJob']['site_alias'] = MtSites::getSiteName();
+		return true;
+	}
 	
 
 }

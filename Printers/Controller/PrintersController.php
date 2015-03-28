@@ -20,8 +20,16 @@ class PrintersController extends PrintersAppController {
 	public $components = array('Paginator', 'Session');
 
 
+	public $drivers = array(
+		'Afip'=> 'Afip Web Services',
+		'Fiscal'=> 'Fiscal', 
+		'Receipt'=> 'Comandera'
+		);
 
 	public $driver_models = array(
+			'Afip' => array(
+				'AfipWsFeV1'=>'Web Service Factura Electronica v1',
+			),
 			'Fiscal' => array(
 				'Hasar441'=>'Hasar441', 
 				'Hasar1120f'=>'Hasar1120f',
@@ -35,7 +43,8 @@ class PrintersController extends PrintersAppController {
 
 	public $outputs = array(
 			'Cups' => 'Cups',
-			'Database' => 'Database',			
+			'Database' => 'Database',
+			'AfipWs' => 'AfipWs',
 		);
 
 
@@ -81,7 +90,7 @@ class PrintersController extends PrintersAppController {
 		}
 		$this->request->data['Printer']['output'] = Configure::read('Printers.output');
 
-		$this->set('drivers', array('Fiscal'=>__('Fiscal'), 'Receipt'=>__('Comandera')));
+		$this->set('drivers', $this->drivers );
 		$this->set('driver_models', $this->driver_models);
 		$this->set('outputs', $this->outputs);
 	}
@@ -111,7 +120,7 @@ class PrintersController extends PrintersAppController {
 
 		$this->request->data['Printer']['output'] = Configure::read('Printers.output');
 
-		$this->set('drivers', array('Fiscal'=>__('Fiscal'), 'Receipt'=>__('Comandera')));
+		$this->set('drivers', $this->drivers );
 		$this->set('driver_models', $this->driver_models);
 		$this->set('outputs', $this->outputs);
 	}
