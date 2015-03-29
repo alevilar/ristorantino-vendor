@@ -18,6 +18,8 @@
 *           cantidad
 *           precio
 *
+*       @var array fullMesa Todo el Objeto Mesa Completo
+*
 *       @var Float $importe_descuento  (opcional)
 *
 *       @var String|Int $mozo

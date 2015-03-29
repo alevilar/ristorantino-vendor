@@ -139,6 +139,7 @@ class FiscalPrint
             $printer_id = Configure::read('Printers.receipt_id');
         }
         $send = Printaitor::send(array(
+        		'fullMesa' => $mesa,
 				'productos' => $prod,
 				'importe_descuento' => $importe_descuento,
 				'mozo' => $mozo_numero,
