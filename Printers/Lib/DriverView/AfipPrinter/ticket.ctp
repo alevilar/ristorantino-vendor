@@ -30,32 +30,37 @@
 $pto_venta = 1;
 
 
-$this->AfipWsFeV1Afip->FEParamGetTiposTributos();
-$res = $this->AfipWsFeV1Afip->FECAESolicitar ( $pto_venta );
+
+	//$res = $this->AfipWsFeV1Afip->FECompConsultar( $pto_venta, TIPO_FACTURA_B, 4);
 
 
-$detalleFactura = $res->FECAESolicitarResult->FeDetResp->FECAEDetResponse;
+	$this->AfipWsFeV1Afip->FEParamGetTiposTributos();
+	$res = $this->AfipWsFeV1Afip->FECAESolicitar ( $pto_venta, TIPO_FACTURA_B );
 
-$tipoFactura = $this->AfipWsFeV1Afip->tipoComprobantes[ $res->FECAESolicitarResult->FeCabResp->CbteTipo ];
+	$detalleFactura = $res->FECAESolicitarResult->FeDetResp->FECAEDetResponse;
 
-$concepto = $this->AfipWsFeV1Afip->tipoConceptos[ $detalleFactura->Concepto ];
-$tipoDoc = $this->AfipWsFeV1Afip->tipoDOcumentos[ $detalleFactura->DocTipo ];
-$numComprobante = $detalleFactura->CbteDesde ;
+	$tipoFactura = $this->AfipWsFeV1Afip->tipoComprobantes[ $res->FECAESolicitarResult->FeCabResp->CbteTipo ];
 
-
-$anio = substr($detalleFactura->CbteFch, 0, 4);
-$mes = substr($detalleFactura->CbteFch, 4, 2);
-$dia = substr($detalleFactura->CbteFch, 6, 2);
-$fecha = $dia . "/" . $mes . "/" . $anio;
+	$concepto = $this->AfipWsFeV1Afip->tipoConceptos[ $detalleFactura->Concepto ];
+	$tipoDoc = $this->AfipWsFeV1Afip->tipoDOcumentos[ $detalleFactura->DocTipo ];
+	$numComprobante = $detalleFactura->CbteDesde ;
 
 
+	$anio = substr($detalleFactura->CbteFch, 0, 4);
+	$mes = substr($detalleFactura->CbteFch, 4, 2);
+	$dia = substr($detalleFactura->CbteFch, 6, 2);
+	$fecha = $dia . "/" . $mes . "/" . $anio;
 
-$anio = substr($detalleFactura->CAEFchVto, 0, 4);
-$mes = substr($detalleFactura->CAEFchVto, 4, 2);
-$dia = substr($detalleFactura->CAEFchVto, 6, 2);
-$fechaVtoCae = $dia. "/" . $mes . "/" . $anio;
 
 
+	$anio = substr($detalleFactura->CAEFchVto, 0, 4);
+	$mes = substr($detalleFactura->CAEFchVto, 4, 2);
+	$dia = substr($detalleFactura->CAEFchVto, 6, 2);
+	$fechaVtoCae = $dia. "/" . $mes . "/" . $anio;
+
+
+
+die;
 ?>
 
 
