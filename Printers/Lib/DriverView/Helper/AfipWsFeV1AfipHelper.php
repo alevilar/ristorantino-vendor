@@ -9,6 +9,7 @@ define ("AFIP_URL_DESARROLLO", "https://wsaahomo.afip.gov.ar/");
 
 
 /* with trailing slash */
+define('PRINTERS_PUBLIC_FILES_DIR', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'ristorantino' . DS . 'plugins' . DS . 'Printers' .  DS . 'webroot' . DS . 'public_files' . DS );
 define('PRINTERS_FILES_DIR', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'ristorantino' . DS . 'plugins' . DS . 'Printers' .  DS . 'webroot' . DS . 'files' . DS );
 
 define ("WSDLFE",  PRINTERS_FILES_DIR . 'wsfe.wsdl' );     # The WSDL corresponding to WSAA
