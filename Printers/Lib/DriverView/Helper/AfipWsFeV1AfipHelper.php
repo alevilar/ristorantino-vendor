@@ -3,8 +3,16 @@
 App::uses('AfipWsException', 'Printers.Error');
 
 
-define ("AFIP_URL_PRODUCCION", "https://wsaa.afip.gov.ar/");
-define ("AFIP_URL_DESARROLLO", "https://wsaahomo.afip.gov.ar/");
+define ("AFIP_URL_PRODUCCION", "https://ws.afip.gov.ar/wsfev1/service.asmx");
+define ("AFIP_URL_PRODUCCION_AUTH", "https://wsaa.afip.gov.ar/ws/services/LoginCms");
+
+define ("AFIP_URL_DESARROLLO", "https://wswhomo.afip.gov.ar/wsfev1/service.asmx");
+define ("AFIP_URL_DESARROLLO_AUTH", "https://wsaahomo.afip.gov.ar/ws/services/LoginCms");
+
+
+define("AFIP_URL", AFIP_URL_DESARROLLO);
+define("AFIP_URL_AUTH", AFIP_URL_DESARROLLO_AUTH);
+
 
 
 
@@ -12,30 +20,25 @@ define ("AFIP_URL_DESARROLLO", "https://wsaahomo.afip.gov.ar/");
 define('PRINTERS_PUBLIC_FILES_DIR', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'ristorantino' . DS . 'plugins' . DS . 'Printers' .  DS . 'webroot' . DS . 'public_files' . DS );
 define('PRINTERS_FILES_DIR', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'ristorantino' . DS . 'plugins' . DS . 'Printers' .  DS . 'webroot' . DS . 'files' . DS );
 
-define ("WSDLFE",  PRINTERS_FILES_DIR . 'wsfe.wsdl' );     # The WSDL corresponding to WSAA
-define ("WSDL",  PRINTERS_FILES_DIR . 'wsaa.wsdl' );     # The WSDL corresponding to WSAA
+define ("WSDLFE",  PRINTERS_PUBLIC_FILES_DIR . 'wsfe.wsdl' );     # The WSDL corresponding to WSAA
+define ("WSDL",  PRINTERS_PUBLIC_FILES_DIR . 'wsaa.wsdl' );     # The WSDL corresponding to WSAA
 define ("CERT", PRINTERS_FILES_DIR ."afip.crt");       # The X.509 certificate in PEM format
 define ("PRIVATEKEY", PRINTERS_FILES_DIR . "id_rsa"); # The private key correspoding to CERT (PEM)
-define ("PASSPHRASE", Configure::read("Afip.id_rsa.passphrase"); # The passphrase (if any) to sign
+define ("PASSPHRASE", Configure::read("Afip.id_rsa.passphrase")); # The passphrase (if any) to sign
 
 
-define ("URLFE", AFIP_URL_DESARROLLO . "wsfev1/service.asmx");
-define ("URL", AFIP_URL_DESARROLLO . "ws/services/LoginCms");
-
-define ("TA", TMP . DS . "TA.xml");
+define ("TA", TMP . "TA.xml");
 
 
+
+define("AFIP_XML_EMPTY_FILE", 4);
 define ("TIPO_FACTURA_A", '001');
 define ("TIPO_FACTURA_B", '006');
-define ("TIPO_IVA_21", '5');
+define ("TIPO_FACTURA_C", 11);
+define ("TIPO_IVA_21", 5);
 
 
 /** archivos por usuario **/
-
-define ("PTO_VTA", 1);
-define ("CUIT", Configure::read('Restaurante.cuit'));     # CUIT del emisor de las facturas
-
-
 
 
 
@@ -281,16 +284,13 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 	);
 
 
-	var $authVars = array(
-		'Token' => "",
-		'Sign' 	=> "",
-		'Cuit'	=> ""
-		);
+	var $authVars = null;
 
 
 
 	/** @param numeric **/
-	var $CUIT = '',  
+	var $CUIT = '';
+	var $PTO_VTA = '';
 
 
 
@@ -299,68 +299,92 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 		parent::__construct($View, $settings );
 
 
-		$this->CUIT = Configure::read('Restaurante.cuit';
-		$this->PTO_VTA = Configure::read('Restaurante.punto_de_venta';
+		$this->CUIT = Configure::read('Restaurante.cuit');
+		$this->PTO_VTA = Configure::read('Restaurante.punto_de_venta');
 
 		$this->conectarClienteSoap();
-
+		$this->checkAfipWServicesStatus();
 		$this->verifyAuth ();
-	
+	}
+
+
+	public function loadTAfile () {
+		if (!file_exists(TA)) {
+			$this->autenticar ();			
+		}
+
+		libxml_use_internal_errors(true); // suprimir mensajes de warning
+		$TA = simplexml_load_file(TA);
+		foreach (libxml_get_errors() as $error) {
+			if ( $error->code == AFIP_XML_EMPTY_FILE ) {
+				$this->autenticar ();
+			} else {
+	        	throw new AfipWsException($error->message, $error->code);
+			}
+	    }
+	    if ( $TA === false ) {
+	    	throw new AfipWsException("Error al leer archivo ".TA);
+	    }
+	    $this->authVars['Token'] = (string) $TA->credentials->token;
+		$this->authVars['Sign']  = (string) $TA->credentials->sign;
+		$this->authVars['Cuit']  = (float)$this->CUIT; // si lo casteaba se convertia en otro umero
 	}
 
 
 	public function conectarClienteSoap () {
 
-
 		#==============================================================================
-		if (!file_exists(WSDLFE)) {exit("Failed to open ".WSDLFE."\n");}
-		if (!file_exists(TA)) {exit("Failed to open ".TA."\n");}
+		if (!file_exists(WSDLFE)) {
+			throw new AfipWsException("Failed to open ".WSDLFE);
+		}
+		
+		$this->loadTAfile();
+
 		$this->client = new SoapClient(WSDLFE, 
 		  array('soap_version' => SOAP_1_2,
-		        'location'     => URLFE,
+		        'location'     => AFIP_URL,
 		#       'proxy_host'   => "proxy",
 		#       'proxy_port'   => 80,
 		        'exceptions'   => 0,
 		        'trace'        => 1)); # needed by getLastRequestHeaders and others
 
-		if (is_soap_fault($this->client )) 
+		if (is_soap_fault( $this->client)) 
 	    {	
-	    	throw new AfipWsException( $this->client->faultstring , $this->client->faultcode);
+	    	throw $this->soapErrorHandler($this->client);
 	    }
 		
-		$TA = simplexml_load_file(TA);
 		
-		$this->authVars['Token'] = $TA->credentials->token;
-		$this->authVars['Sign']  = $TA->credentials->sign;
-		$this->authVars['Cuit']  = $this->CUIT;
 
 		return $this->client;
 	}
 
 
+	public function soapErrorHandler( $e) {
+		throw new AfipWsException( $e->faultstring, $e->faultcode);
+		
+	}
+
+
+	/**
+	*
+	*	Verifica que este autenticado, caso contrario me autentifica
+	*
+	*
+	**/
 	public function verifyAuth (){
+		if ( $this->client === null ) {
+			$this->autenticar();
+		}
 		try{
-			$this->FEParamGetTiposTributos();
+			$res = $this->client->FEParamGetTiposTributos();
 		} catch (Exception $e) {
-			if ( $e->getCode() == 600 ) {
-				// expiro la sesion
-				$this->autenticar();
-			}
+			// expiro la sesion
+			$this->autenticar();
 		}
 		return true;
 	}
 
 
-	public function exceptionHandler ( $exp ) {
-		switch ( $exp->getCode() ) {
-			case 600:
-				$this->autenticar();
-				break;
-			default:
-				throw $exp;
-				break;
-		}
-	}
 
 
 
@@ -382,20 +406,20 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 		$TA = $this->__callWSAA($CMS);
 
 
-		if (!file_put_contents(TMP . DS . "TA.xml", $TA)) {
-			throw new AfipWsException("Error en " . TMP . DS . "TA.xml");
+		if ( file_put_contents( TA, $TA) === false ) {
+			throw new AfipWsException("Error al editar el archivo TA.xml (verificar permisos?) en " . TMP . DS . "TA.xml");
 		}
 		return $TA;
     }
 
-
+/*
     public function __callWSFE($CMS)
 	{
 	  $client = new SoapClient(WSDLFE, array(
 	         // 'proxy_host'     => PROXY_HOST,
 	         // 'proxy_port'     => PROXY_PORT,
 	          'soap_version'   => SOAP_1_2,
-	          'location'       => URL,
+	          'location'       => AFIP_URL_AUTH,
 	          'trace'          => 1,
 	          'exceptions'     => 0
 	          )); 
@@ -403,12 +427,12 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 	  file_put_contents("request-loginCms.xml",$client->__getLastRequest());
 	  file_put_contents("response-loginCms.xml",$client->__getLastResponse());
 	  if (is_soap_fault($results)) {
-	  	throw new AfipWsException( $results->faultstring , $results->faultcode);
+	  	$this->soapErrorHandler($results);
 	  }
 	  return $results->loginCmsReturn;
 	}
 
-
+*/
 
 	#------------------------------------------------------------------------------
 	# You shouldn't have to change anything below this line!!!
@@ -424,7 +448,7 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 	  $TRA->header->addChild('generationTime',date('c',date('U')-60));
 	  $TRA->header->addChild('expirationTime',date('c',date('U')+60));
 	  $TRA->addChild('service',$SERVICE);
-	  $TRA->asXML(TMP . DS . 'TRA.xml');
+	  $TRA->asXML(TMP . 'TRA.xml');
 	}
 	#==============================================================================
 	# This functions makes the PKCS#7 signature using TRA as input file, CERT and
@@ -432,13 +456,16 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 	# MIME heading leaving the final CMS required by WSAA.
 	public function __signTRA()
 	{
-	  $STATUS=openssl_pkcs7_sign(TMP . DS . "TRA.xml", TMP . DS . "TRA.tmp", "file://".CERT,
+	  $STATUS=openssl_pkcs7_sign(TMP  . "TRA.xml", TMP . "TRA.tmp", "file://".CERT,
 	    array("file://".PRIVATEKEY, PASSPHRASE),
 	    array(),
 	    !PKCS7_DETACHED
 	    );
-	  if (!$STATUS) {exit("ERROR generating PKCS#7 signature\n");}
-	  $inf=fopen(TMP . DS . "TRA.tmp", "r");
+	  if (!$STATUS) {
+	  	throw new AfipWsException("ERROR generating PKCS#7 signature");
+	  	
+	  }
+	  $inf=fopen(TMP . "TRA.tmp", "r");
 	  $i=0;
 	  $CMS="";
 	  while (!feof($inf)) 
@@ -448,30 +475,41 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 	    }
 	  fclose($inf);
 	#  unlink("TRA.xml");
-	  unlink(TMP . DS . "TRA.tmp");
+	  unlink(TMP . "TRA.tmp");
 	  return $CMS;
 	}
 
 
 
-	#==============================================================================
+	/**
+	*
+	*	Login Soap Afip WS Auth
+	*
+	*
+	**/
 	public function __callWSAA($CMS)
 	{
 	  $client = new SoapClient(WSDL, array(
 	         // 'proxy_host'     => PROXY_HOST,
 	         // 'proxy_port'     => PROXY_PORT,
 	          'soap_version'   => SOAP_1_2,
-	          'location'       => URL,
+	          'location'       => AFIP_URL_AUTH,
 	          'trace'          => 1,
 	          'exceptions'     => 0
 	          )); 
-	  $results = $client->loginCms(array('in0'=>$CMS));
-	  file_put_contents(TMP . DS . "request-loginCms.xml",$client->__getLastRequest());
-	  file_put_contents(TMP . DS . "response-loginCms.xml",$client->__getLastResponse());
-	  if (is_soap_fault($results)) 
+	  if (is_soap_fault($client)) 
 	    {	
-	    	throw new AfipWsException( $results->faultstring , $results->faultcode);
+	    	$this->soapErrorHandler( $client );
 	    }
+
+	  $results = $client->loginCms(array('in0'=>$CMS));
+	  if (is_soap_fault($results)) 
+	  {	
+	    	$this->soapErrorHandler( $results );
+	  }
+
+	  file_put_contents(TMP . "request-loginCms.xml",$client->__getLastRequest());
+	  file_put_contents(TMP . "response-loginCms.xml",$client->__getLastResponse());
 	  return $results->loginCmsReturn;
 	}
 
@@ -483,30 +521,35 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 	*
 	**/
 	public function FECompConsultar ( $punto_de_venta, $tipo_comprobante, $nro_comprobante ) {
+
 		$res = $this->client->FECompUltimoAutorizado(  array(  
 			'Auth'	   => $this->authVars, 
 			'PtoVta'   => $punto_de_venta,
 			'CbteTipo' => $tipo_comprobante,
 			'CbteNro'  => $nro_comprobante,
 			) );
-		
+		if ( !empty( $res->FECompConsultarResult->Errors->Err ) ) {
+			throw new AfipWsException( $res->FECompConsultarResult->Erros->Err ->Msg, $res->FECompConsultarResult->Erros->Err ->Code);
+		}
 		return $res;
 	}
 
 
 
 
-	public function FECompUltimoAutorizado ( $punto_de_venta, $tipo_comprobante = TIPO_FACTURA_B) {
+	public function FECompUltimoAutorizado ( $punto_de_venta, $tipo_comprobante) {
 		$res = $this->client->FECompUltimoAutorizado(  array(  
 			'Auth'=> $this->authVars, 
 			'PtoVta' => $punto_de_venta,
 			'CbteTipo' => $tipo_comprobante
 			) );
-		if (  !isset($res->FECompUltimoAutorizadoResult->CbteNro) || !is_numeric( $res->FECompUltimoAutorizadoResult->CbteNro) )
-	    {	    	
-			throw new AfipWsException( sprintf( "Vino algo en el ultimo numero de comprobante que no es numerico o vino vacio: %s", $res->FECompUltimoAutorizadoResult->CbteNro) );
-	    }
+
+		if ( !empty( $res->FECompUltimoAutorizadoResult->Errors->Err ) ) {
+			throw new AfipWsException( $res->FECompUltimoAutorizadoResult->Errors->Err ->Msg, $res->FECompUltimoAutorizadoResult->Errors->Err ->Code);
+		}
+
 		return $res->FECompUltimoAutorizadoResult->CbteNro;
+
 	}
 
 	public function FECAEAConsultar ($periodo = null, $orden = 1) {
@@ -542,12 +585,29 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 	**/
 	public function FEParamGetTiposTributos () {
 		$res = $this->client->FEParamGetTiposTributos( array('Auth'=> $this->authVars));
+		if ( is_soap_fault($res) ) { 
+			$this->soapErrorHandler($results);
+	   	}
+
 		if ( !empty( $res->FEParamGetTiposTributosResult->Errors ) ){
 			throw new AfipWsException( $res->FEParamGetTiposTributosResult->Errors->Err->Msg, $res->FEParamGetTiposTributosResult->Errors->Err->Code );
 		} 
-		return $res->FEParamGetTiposTributosResult->ResultGet->TributoTipo;
+		return $res;
 	}
 
+
+
+
+	public function FEParamGetTiposCbte () {
+		$res = $this->client->FEParamGetTiposCbte( array('Auth'=> $this->authVars));
+		if ( is_soap_fault($res) ) { 
+			$this->soapErrorHandler($results);
+	   	}
+		if ( !empty( $res->FEParamGetTiposCbteResult->Errors ) ){
+			throw new AfipWsException( $res->FEParamGetTiposCbteResult->Errors->Err->Msg, $res->FEParamGetTiposCbteResult->Errors->Err->Code );
+		} 
+		return $res->FEParamGetTiposCbteResult->ResultGet->CbteTipo;
+	}
 
 
 
@@ -557,7 +617,7 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 			$periodo = date('Ym');
 		}
 
-		$ultComprobanteNumero = $this->FECompUltimoAutorizado( $this->PTO_VTA );
+		$ultComprobanteNumero = $this->FECompUltimoAutorizado( $punto_de_venta, $tipo_comprobante );
 
 		$results= $this->client->FECAESolicitar(
 		    array(  'Auth'=> $this->authVars,
@@ -569,20 +629,21 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 			            ),
 			            'FeDetReq' => array(
 			                'FECAEDetRequest' => array(
-			                     'Concepto' => 1, // producto
-								 'DocTipo' => 96, // 99 sin identificar; 96 DNI
-								 'DocNro' => 31025654,
+			                     'Concepto' => 2, // producto
+								 'DocTipo' => 99, // 99 sin identificar; 96 DNI
+								 'DocNro' => 0,
 								 'CbteDesde' => $ultComprobanteNumero + 1,
 								 'CbteHasta' => $ultComprobanteNumero + 1,
 								 'CbteFch' => date('Ymd'),
-								 'ImpTotal' => 1210,
+								 'ImpTotal' => 121,
 								 'ImpTotConc' => 0,
-								 'ImpNeto' => 1000,
+								 'ImpNeto' => 121,
 								 'ImpOpEx' => 0,
 								 'ImpTrib' => 0,
-								 'ImpIVA' => 210,
+								 'ImpIVA' => 0,
 								 'MonId' => 'PES',
 								 'MonCotiz' => 1,
+								 /*
 				                 'Iva' => array(
 				                 	'AlicIva' => array(
 				                		'Id' => TIPO_IVA_21,
@@ -590,17 +651,47 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 				                		'Importe' => 210
 			                		)
 			                	)
+			                	*/
 			                ),
 		                )
 		    		)
 	    		)
 		    );
-		if ( $results->FECAESolicitarResult->FeCabResp->Resultado == 'R' && $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code != 0 )
+
+
+		if (!empty($results->FECAESolicitarResult->Errors->Err)){
+			throw new AfipWsException( $results->FECAESolicitarResult->Errors->Err->Msg, $results->FECAESolicitarResult->Errors->Err->Code);
+		}
+
+		if ( !empty( $results->FECAESolicitarResult->FeCabResp->Resultado) 
+			 && !empty($results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code)
+			 && $results->FECAESolicitarResult->FeCabResp->Resultado == 'R' 
+			 && $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code != 0 )
 		    {
 				throw new AfipWsException( $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Msg, $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code );
 		}
 
 		return $results;
+	}
+
+
+
+	public function checkAfipWServicesStatus () {
+		$res = $this->dummy();
+
+		if ( !empty( $res->AppServer) && $res->AppServer != 'OK' ) {
+			throw new AfipWsException("El AppServer de la Afip esta caido");
+		}
+
+		if ( !empty( $res->DbServer) && $res->DbServer != 'OK' ) {
+			throw new AfipWsException("El DbServer de la Afip esta caido");
+		}
+
+		if ( !empty( $res->DbServer) && $res->DbServer != 'OK' ) {
+			throw new AfipWsException("El DbServer de la Afip esta caido");
+		}
+
+		return true;
 	}
 
 
@@ -617,11 +708,9 @@ class AfipWsFeV1AfipHelper extends PrinterHelperSkel
 	**/
 	public function dummy ()
 	{
-		
-	  $results = $this->client->FEDummy();
-	 
+	  $results = $this->client->FEDummy(  array(  'Auth'=> $this->authVars) );
 	  if (is_soap_fault($results)) { 
-		   	throw new AfipWsException($results->faultstring, $results->faultcode );
+		   	$this->soapErrorHandler($results);
 	   }
 	  return $results->FEDummyResult;
 	}

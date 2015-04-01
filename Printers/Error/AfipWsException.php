@@ -1,4 +1,5 @@
 <?php
+App::uses('MtSites', 'MtSites.Utility');
 
 /**
  * Afip Web Services exception - usado para recibir errores de la afip
@@ -11,7 +12,7 @@ class AfipWsException extends CakeException {
 
 //@codingStandardsIgnoreStart
 	public function __construct($message, $code = 404) {
-		parent::__construct($message, $code);
+		parent::__construct( "[tenant: " . MtSites::getSiteName() . "] ". $message, $code);
 	}
 //@codingStandardsIgnoreEnd
 

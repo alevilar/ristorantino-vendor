@@ -34,7 +34,7 @@ $pto_venta = 1;
 	//$res = $this->AfipWsFeV1Afip->FECompConsultar( $pto_venta, TIPO_FACTURA_B, 4);
 
 
-	$this->AfipWsFeV1Afip->FEParamGetTiposTributos();
+	//$this->AfipWsFeV1Afip->FEParamGetTiposTributos();
 	$res = $this->AfipWsFeV1Afip->FECAESolicitar ( $pto_venta, TIPO_FACTURA_B );
 
 	$detalleFactura = $res->FECAESolicitarResult->FeDetResp->FECAEDetResponse;
@@ -59,8 +59,6 @@ $pto_venta = 1;
 	$fechaVtoCae = $dia. "/" . $mes . "/" . $anio;
 
 
-
-die;
 ?>
 
 
