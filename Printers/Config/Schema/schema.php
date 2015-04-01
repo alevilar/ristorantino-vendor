@@ -2,6 +2,8 @@
 
 class PrintersSchema extends CakeSchema {
 
+	public $connection = 'risto_tenant';
+
 	public function before($event = array()) {
 		return true;
 	}

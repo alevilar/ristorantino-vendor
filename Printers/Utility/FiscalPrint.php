@@ -73,6 +73,7 @@ class FiscalPrint
 	**/
 	public static function imprimirTicketMesa ( $mesaId ) {
 		$Mesa = ClassRegistry::init('Mesa.Mesa');
+		$tipo_factura = null;
 
 		$Mesa->id = $mesaId;
 
@@ -94,7 +95,7 @@ class FiscalPrint
         	throw new CakeException("No se encontro mesa con el ID $mesaId");
         }
 
-    	$tipo_factura = Configure::read('Printers.default_tipo_factura_codename');
+    	
         if( empty($mesa['Cliente']) || empty($mesa['Cliente']['id']) ){
             $mesa['Cliente'] = array();
         } elseif ( !empty($mesa['Cliente']['IvaResponsabilidad']['TipoFactura']['codename']) ) {
@@ -138,14 +139,21 @@ class FiscalPrint
         if ( Configure::read('Mesa.imprimePrimeroRemito') && $Mesa->estaAbierta()){
             $printer_id = Configure::read('Printers.receipt_id');
         }
+
+        $Mesa = ClassRegistry::init('Mesa.Mesa');
+
+        $iva_responsabilidad =  ClassRegistry::init('Risto.IvaResponsabilidad', array('id' => Configure::read('Restaurante.iva_responsabilidad')));
+        
+
         $send = Printaitor::send(array(
-        		'fullMesa' => $mesa,
-				'productos' => $prod,
-				'importe_descuento' => $importe_descuento,
-				'mozo' => $mozo_numero,
-				'mesa' => $mesa_numero,
-				'cliente' => $mesa['Cliente'],
-				'tipo_factura' => $tipo_factura,
+        		'fullMesa' 			  => $mesa,
+				'productos' 		  => $prod,
+				'importe_descuento'   => $importe_descuento,
+				'mozo' 				  => $mozo_numero,
+				'mesa' 				  => $mesa_numero,
+				'cliente' 			  => $mesa['Cliente'],
+				'tipo_factura' 		  => $tipo_factura,
+				'iva_responsabilidad' => $iva_responsabilidad
 				),
 				self::__getFiscalPrinterId(),
 				'ticket' // user vista comandas.ctp

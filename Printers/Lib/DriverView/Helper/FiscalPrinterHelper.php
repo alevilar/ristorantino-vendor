@@ -149,7 +149,7 @@ abstract class FiscalPrinterHelper  extends PrinterHelperSkel
 	 * 					'E' Excento
 	 * 					'A' No responsable
 	 * 					'C' Consumidor final
-	 * 					'T' No categorizado
+	 * 					'T' No categorizado	 
 	 * @param CHAR $tipo_documento
 	 * 					'C' CUIT
 	 * 					'L' CUIL
