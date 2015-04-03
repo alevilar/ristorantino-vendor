@@ -88,10 +88,12 @@ class Printaitor
  * @param string $viewName view file name like "ticket" from ticket.ctp
  * @return boolean returns the $PrinterOutput->send value
  */  
-    public static function send($dataToView, $printer_id, $viewName) {
-       $textToPrint = self::_getView($dataToView, $printer_id, $viewName);
+    public static function send( $dataToView, $printer_id, $viewName) {
+        App::uses('PrintaitorViewObj', 'Printers.Utility');
+
+        $printViewObj = new  PrintaitorViewObj( $dataToView, $printer_id, $viewName );        
        
-       return self::__sendOutput( $textToPrint, $printer_id ); 
+        return self::__sendOutput( $printViewObj ); 
     }
     
 
@@ -107,16 +109,24 @@ class Printaitor
     }    
     
 
-    public static function __sendOutput ( $textToPrint, $printer_id) {
+    /**
+    *
+    *   @param PrintaitorViewObj $PrintViewObj
+    *
+    **/
+    public static function __sendOutput ( $printViewObj ) {
+
+        // cargar datos de la impresora
         $Printer = ClassRegistry::init("Printers.Printer");
         $Printer->recursive = -1;
-        $printer = $Printer->read(null, $printer_id);
+        $printer = $Printer->read(null, $printViewObj->printerId);
         $outputName = $printer['Printer']['output'] . 'PrinterOutput';
 
+
+        // cargar la Salida correspondiente segun la configuracion de la impresora
         App::uses($outputName, 'Printers.Lib/PrinterOutput');
-        
         $out = new $outputName;
-        return $out->send($textToPrint, $printer_id); 
+        return $out->send( $printViewObj ); 
     }
  
     
@@ -146,15 +156,16 @@ class Printaitor
  * @param string $printer_id name of the printer
  * @param string $templateName name of the view
  */    
-    protected static function _getView($data, $printer_id, $templateName) { 
+    public static function getView( $printViewObj ) { 
+        $data = $printViewObj->dataToView;
+        $printer_id = $printViewObj->printerId;
+        $templateName = $printViewObj->viewName;
+
         $pluginPath = App::path('Lib', 'Printers');
 
-        $Printer = ClassRegistry::init("Printers.Printer");
-        $Printer->recursive = -1;
-        $printer = $Printer->read(null, $printer_id);
-        $driverName = $printer['Printer']['driver'];
-        $driverModelName = $printer['Printer']['driver_model'];
 
+        $driverName = $printViewObj->printer['Printer']['driver'];
+        $driverModelName = $printViewObj->printer['Printer']['driver_model'];
         App::build(array('View' => array( $pluginPath[0] . '/DriverView')));
 
         $viewName = $driverName."Printer/$templateName";
@@ -170,13 +181,13 @@ class Printaitor
                 'plugin' => substr('Printers', 0, -1)
             ));
         }
-        $View->PE = new $helperName($View);
 
+        $View->PE = new $helperName($View);
+        
+        $View->printaitorObj = $printViewObj;
         return $View->render( $viewName, false );
     }
         
  
     
 }
-
-?>

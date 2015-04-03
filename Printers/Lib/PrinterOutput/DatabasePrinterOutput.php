@@ -28,10 +28,11 @@ class DatabasePrinterOutput extends PrinterOutput
  * 
  * @return type boolean true si salio todo bien false caso contrario
  */
-        public  function send( $texto, $printer_id, $hostname = ''  ) {            
+        public  function send( $printaitorViewObj ) {
+
             $printJob['PrinterJob'] = array(
-            		'text' => $texto,
-            		'printer_id' => $printer_id,
+            		'text' => $printaitorViewObj->viewTextRender,
+            		'printer_id' => $printaitorViewObj->printerId,
             	);
 
             return ClassRegistry::init("Printers.PrinterJob")->save($printJob);

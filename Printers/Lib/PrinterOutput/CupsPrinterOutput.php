@@ -30,13 +30,15 @@ class CupsPrinterOutput extends PrinterOutput
 /**
  *  Comando cups de impresion
  * 
- * @param string $texto es el texto a imprimir
- * @param string $idFiscalPrinter nombre CUPS de la impresora 
- * @param string $hostname nombre o IP del host
+ * @param PrintaitorViewObj
  * 
  * @return type boolean true si salio todo bien false caso contrario
  */
-        public  function send( $texto, $idFiscalPrinter, $hostname = '' ) {
+        public  function send( $printaitorViewObj ) {
+            $texto = $printaitorViewObj->viewTextRender;
+            $idFiscalPrinter = $printaitorViewObj->printerId;
+            $hostname = $printaitorViewObj->hostName;
+            
             if ( empty($hostname) ) {
                 $hostname = Configure::read('Printers.server');
             }            

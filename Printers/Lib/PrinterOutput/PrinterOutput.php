@@ -36,13 +36,12 @@ class PrinterOutput
 /**
  *  Do the print
  * 
- * @param string $texto es el texto a imprimir
- * @param string $nombreImpresoraFiscal nombre de la impresora 
- * @param string $hostname nombre o IP del host
+ * @param PrintaitorViewObj $printaitorViewObj
  * 
  * @return type boolean true si salio todo bien false caso contrario
  */
-        public  function send( $texto, $nombreImpresoraFiscal, $hostname = '' ) {}
+        public  function send( $printaitorViewObj ) {}
+            
 
 
 }

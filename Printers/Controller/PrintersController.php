@@ -44,7 +44,7 @@ class PrintersController extends PrintersAppController {
 	public $outputs = array(
 			'Cups' => 'Cups',
 			'Database' => 'Database',
-			'AfipWs' => 'AfipWs',
+			'AfipFacturas' => 'Afip Facturas Online',
 		);
 
 

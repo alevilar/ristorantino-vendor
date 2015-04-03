@@ -38,7 +38,10 @@ class FilePrinterOutput extends PrinterOutput
  * 
  * @return type boolean true si salio todo bien false caso contrario
  */
-        public  function send( $texto, $nombreImpresoraFiscal, $hostname = '' ) {
+        public  function send( $printaitorViewObj ) {
+            $texto = $printaitorViewObj->viewTextRender;
+            $nombreImpresoraFiscal = $printaitorViewObj->printerId;
+            $hostname = $printaitorViewObj->hostName;
             
             $nombreImpresoraFiscal = Inflector::slug($nombreImpresoraFiscal);
             

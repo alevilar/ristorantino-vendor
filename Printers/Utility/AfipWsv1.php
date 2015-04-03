@@ -292,7 +292,6 @@ class AfipWsv1 {
 	static function start () {
 
 		self::$CUIT = Configure::read('Restaurante.cuit');
-
 		self::conectarClienteSoap();
 		self::checkAfipWServicesStatus();
 		self::verifyAuth ();
@@ -351,7 +350,12 @@ class AfipWsv1 {
 
 
 	static function soapErrorHandler( $e) {
-		throw new AfipWsException( $e->faultstring, $e->faultcode);
+		$msg = $e->faultstring;
+		$code = $e->faultcode;
+		if ( !is_numeric( $e->faultcode ) || (is_numeric( $e->faultcode ) &&  $e->faultcode == 0) ) {
+			$code = 1;
+		}
+		throw new AfipWsException( $msg, $code);
 		
 	}
 
@@ -367,7 +371,7 @@ class AfipWsv1 {
 			self::autenticar();
 		}
 		try{
-			$res = self::$client->FEParamGetTiposTributos();
+			$res = self::FEParamGetTiposTributos();
 		} catch (Exception $e) {
 			// expiro la sesion
 			self::autenticar();
@@ -513,7 +517,7 @@ class AfipWsv1 {
 	**/
 	static function FECompConsultar ( $punto_de_venta, $tipo_comprobante, $nro_comprobante ) {
 
-		$res = self::$client->FECompUltimoAutorizado(  array(  
+		$res = self::$client->FECompConsultar(  array(  
 			'Auth'	   => self::$authVars, 
 			'PtoVta'   => $punto_de_venta,
 			'CbteTipo' => $tipo_comprobante,
@@ -575,7 +579,7 @@ class AfipWsv1 {
 	*
 	*
 	**/
-	static function FEParamGetTiposTributos () {
+	static function FEParamGetTiposTributos () {		
 		$res = self::$client->FEParamGetTiposTributos( array('Auth'=> self::$authVars));
 		if ( is_soap_fault($res) ) { 
 			self::soapErrorHandler($results);
@@ -677,7 +681,6 @@ class AfipWsv1 {
 
 	static function checkAfipWServicesStatus () {
 		$res = self::dummy();
-
 		if ( !empty( $res->AppServer) && $res->AppServer != 'OK' ) {
 			throw new AfipWsException("El AppServer de la Afip esta caido");
 		}
@@ -708,9 +711,10 @@ class AfipWsv1 {
 	static function dummy ()
 	{
 	  $results = self::$client->FEDummy(  array(  'Auth'=> self::$authVars) );
-	  if (is_soap_fault($results)) { 
+
+	  if (is_soap_fault($results)) { 	  	
 		   	self::soapErrorHandler($results);
-	   }
+	  }
 	  return $results->FEDummyResult;
 	}
 
