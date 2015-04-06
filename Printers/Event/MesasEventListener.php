@@ -3,6 +3,7 @@
 App::uses('CakeEventListener', 'Event');
 App::uses('Printaitor', 'Printers.Utility');
 App::uses('FiscalPrint', 'Printers.Utility');
+App::uses('ReceiptPrint', 'Printers.Utility');
 
 
 /**
@@ -25,16 +26,25 @@ class MesasEventListener implements CakeEventListener {
 				//'passParams' => true,
 			),			
 			'Mesa.cerrada' => array(
-				'callable' => 'onMesaPrint',
+				'callable' => 'onMesaCerrada',
 				//'passParams' => true,
 			),			
 		);
 	}
 
 
+	public function onMesaCerrada( $event ) {
+		$mesa_id = $event->subject()->id;
+		if ( Configure::read( 'Mesa.imprimePrimeroRemito') == 0 ) {
+			return FiscalPrint::imprimirTicketMesa($mesa_id);
+		} else {
+			return ReceiptPrint::imprimirTicketMesa($mesa_id);
+		}
+	}
+
+
 	public function onMesaPrint( $event ) {
 		$mesa_id = $event->subject()->id;
-		
 		return FiscalPrint::imprimirTicketMesa($mesa_id);
 	}
 

@@ -5,6 +5,13 @@ App::uses('Printaitor', 'Printers.Utility');
 
 class ReceiptPrint
 {
+
+
+	private static function __getFiscalPrinterId () {
+		return Configure::read('Printers.receipt_id');       
+	}
+
+
     /**
      * Imprime una comanda en particular
      *
@@ -48,5 +55,19 @@ class ReceiptPrint
 
    public static function mesa_detail ( $mesa_id ) {
    		$Comanda = ClassRegistry::init('Mesas.Mesa');
+   }
+
+
+   public static function imprimirTicketMesa ( $mesa_id ) {
+	   	$Mesa = ClassRegistry::init('Mesa.Mesa');
+
+   		$send = Printaitor::send( 
+   				$Mesa->getFullDataForTicket( $mesa_id ),
+				self::__getFiscalPrinterId(),
+				'ticket' // user vista comandas.ctp
+			);
+   		
+   		return $send;
+
    }
 }

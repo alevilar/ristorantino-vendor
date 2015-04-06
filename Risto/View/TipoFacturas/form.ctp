@@ -16,7 +16,7 @@
         echo $this->Form->input('codename',array('label'=>__('Nombre de Código')));
 ?>
 
-     <?if (empty($this->request->data['TipoFactura']['id'])):?>
+     <?php if (empty($this->request->data['TipoFactura']['id'])):?>
         <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
      <?php else: ?>
         <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left')); ?>

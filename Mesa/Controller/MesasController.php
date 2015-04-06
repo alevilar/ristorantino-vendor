@@ -117,15 +117,9 @@ class MesasController extends MesaAppController {
                 $this->setFlash('Error al cerrar la mesa', 'flash_error');
             }
         }
-
         if( !$this->request->is('ajax') ){
             $this->redirect( $this->referer() );
-        } else {
-            $this->autorender = false;
-            exit;            
-        }
-
-        
+        }         
     }
     
 
@@ -180,8 +174,6 @@ class MesasController extends MesaAppController {
         if( !$this->request->is('ajax') ){
             $this->Session->setFlash(__('Se imprimio comanda de mesa ID: '.$mesa_id), 'Risto.flash_success');
             $this->redirect($this->referer());
-        } else {
-            exit;
         }
     }
 

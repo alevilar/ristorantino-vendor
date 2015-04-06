@@ -18,6 +18,9 @@ class AfipFacturasController extends PrintersAppController {
 	public function index() {
 
 		$this->AfipFactura->recursive = 0;
+		$this->AfipFactura->contain(array(
+				'Mesa' => array('Cliente' => array('TipoDocumento', 'IvaResponsabilidad'), 'Mozo')
+				));
 		$this->set('afipFacturas', $this->Paginator->paginate());
 	}
 
