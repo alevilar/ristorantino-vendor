@@ -71,12 +71,11 @@ class FiscalPrint
 	*
 	*
 	**/
-	public static function imprimirTicketMesa ( $mesaId ) {
-		$Mesa = ClassRegistry::init('Mesa.Mesa');
+	public static function imprimirTicketMesa ( $Mesa ) {
 
-        $send = Printaitor::send( $Mesa->getFullDataForTicket( $mesaId ),
-				self::__getFiscalPrinterId(),
-				'ticket' // user vista comandas.ctp
+        $send = Printaitor::send( 	$Mesa
+        							, self::__getFiscalPrinterId()
+        							, 'ticket' // user vista comandas.ctp
 			);
 
         return $send;

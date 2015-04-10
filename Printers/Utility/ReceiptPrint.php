@@ -18,10 +18,10 @@ class ReceiptPrint
      * @param  id $comanda_id
      * @return null
      */
-    public static function comanda ( $comanda_id )
+    public static function comanda ( $Comanda )
     {
-        $Comanda = ClassRegistry::init('Comanda.Comanda');
-
+    	$comanda_id = $Comanda->id;
+    	
 		$productos_x_comanda = array();
 		// se supone que en una comanda yo no voy a tener productos que se impriman en comanderas distitas
 		// (esto es separado desde el mismo controlador y se manda aimprimir a comandas diferentes)
@@ -58,11 +58,11 @@ class ReceiptPrint
    }
 
 
-   public static function imprimirTicketMesa ( $mesa_id ) {
-	   	$Mesa = ClassRegistry::init('Mesa.Mesa');
+   public static function imprimirTicketMesa ( $Mesa ) {
+	   //	$Mesa = ClassRegistry::init('Mesa.Mesa');
 
    		$send = Printaitor::send( 
-   				$Mesa->getFullDataForTicket( $mesa_id ),
+   				$Mesa->getFullDataForTicket(),
 				self::__getFiscalPrinterId(),
 				'ticket' // user vista comandas.ctp
 			);

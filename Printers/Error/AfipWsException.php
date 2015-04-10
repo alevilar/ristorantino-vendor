@@ -12,7 +12,7 @@ class AfipWsException extends CakeException {
 
 //@codingStandardsIgnoreStart
 	public function __construct($message, $code = 404) {
-		parent::__construct( "[tenant: " . MtSites::getSiteName() . "] ". $message, $code);
+		parent::__construct( "ERROR AFIP (sitio: " . MtSites::getSiteName() . ") ". $message, $code);
 	}
 //@codingStandardsIgnoreEnd
 

@@ -869,11 +869,10 @@ function calcular_subtotal($id = null){
                     ),
                 'Descuento',
                 ),
-            'condition' => array(
+            'conditions' => array(
                 'Mesa.id' => $mesaId
             ),
         ));
-        
 
     	
         if( empty($mesa['Cliente']) || empty($mesa['Cliente']['id']) ){
@@ -915,8 +914,8 @@ function calcular_subtotal($id = null){
 
 
 
-
-        $iva_responsabilidad =  ClassRegistry::init('Risto.IvaResponsabilidad', array('id' => Configure::read('Restaurante.iva_responsabilidad')));
+		$IvaResp = ClassRegistry::init('Risto.IvaResponsabilidad')->read(null, Configure::read('Restaurante.iva_responsabilidad'));
+        $iva_responsabilidad =  $IvaResp;
         
         $dataFull = array(
         		'fullMesa' 			  => $mesa,
@@ -928,7 +927,6 @@ function calcular_subtotal($id = null){
 				'tipo_factura' 		  => $tipo_factura,
 				'iva_responsabilidad' => $iva_responsabilidad
 				);
-
         return $dataFull;
 	}
 

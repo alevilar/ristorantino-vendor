@@ -76,6 +76,8 @@
 
         echo $this->Html->link(__('Impresoras'), array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array('class' => 'list-group-item'));
 
+         echo $this->Html->link(__('Afip Facturas'), array('plugin'=>'printers', 'controller'=>'afip_facturas', 'action'=>'index'), array('class' => 'list-group-item'));
+
         ?>
     </div>
 

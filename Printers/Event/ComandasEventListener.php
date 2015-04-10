@@ -30,9 +30,7 @@ class ComandasEventListener implements CakeEventListener {
 
 	public function onComandaPrint( $event ) {
 
-		$comanda_id = $event->subject()->id;
-
-		return ReceiptPrint::comanda($comanda_id);
+		return ReceiptPrint::comanda( $event->subject() );
 
 		
 	}

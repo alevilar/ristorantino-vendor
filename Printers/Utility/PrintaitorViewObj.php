@@ -23,6 +23,14 @@ class PrintaitorViewObj {
 
 
 	/**
+	*
+	*	@param Model $Model Modelo que voy a imprimir
+	*	
+	**/
+	public $Model;
+
+
+	/**
 	*	Nombre de la vista renderizada
 	**/
 	public $viewName = '';
@@ -33,12 +41,17 @@ class PrintaitorViewObj {
 
 	/**
 	*
-	*	
+	*	@param Model $Model Mesa o Comanda Model con el ID inicializado
 	*
 	**/
-	public function __construct ( $dataToView, $printer_id, $viewName ) {
+	public function __construct ( $Model, $printer_id, $viewName ) {
+		$this->Model = $Model;
 		$this->printerId = $printer_id;
-		$this->dataToView = $dataToView;
+		if ( method_exists($Model, 'getFullDataForTicket' ) ) {
+			$dataToView = $Model->getFullDataForTicket();
+			$this->dataToView = $dataToView;
+		}
+
 		$this->viewName = $viewName;
 		
         $Printer = ClassRegistry::init("Printers.Printer");

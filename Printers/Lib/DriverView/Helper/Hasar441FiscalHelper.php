@@ -59,7 +59,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 	 *	@param number $display si la impresora tiene display aca va un digito especial para que sepa que mostrar en el display
 	 *	@param boolean $precio_totalsi es precio tital quiere decir que el precio que le pasé como parametro tiene el IVA incluido, caso contrario, el precio es sin IVA y la impresora se lo va a sumar automaticamente de acuerdo al IVA qe se le pasó cmo parametro
 	 */
-	public function printLineItem($descripcion_articulo, $cantidad, $monto, $porcentaje_iva = 21, $suma = true, $impuesto_interno = 0, $display = 0, $precio_total = true){
+	public function printLineItem($descripcion_articulo, $cantidad, $monto, $porcentaje_iva = RISTO_DEFAULT_IVA_PORCENTAJE, $suma = true, $impuesto_interno = 0, $display = 0, $precio_total = true){
 		$fs = $this->cm('FS');
 		$descripcion_articulo = substr($descripcion_articulo,0,23);
 		

@@ -1,0 +1,15 @@
+@media screen {
+
+	body{
+		margin: 10px 10%	;
+	}
+
+	.factura-items{
+		min-height: auto;
+	}
+}
+
+
+.afipfactura-tipo-comprobante{
+	font-size: 23pt;
+}

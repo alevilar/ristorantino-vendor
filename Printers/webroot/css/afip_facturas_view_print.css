@@ -1,0 +1,14 @@
+@media print {
+	.no-print{
+		display: none;
+	}
+
+
+	body{
+		margin: 0;
+	}
+
+	.factura-items{
+		min-height: 150mm;
+	}
+}

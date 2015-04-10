@@ -29,16 +29,27 @@ class AfipFacturasPrinterOutput extends PrinterOutput
  * 
  * @return type boolean true si salio todo bien false caso contrario
  */
-        public  function send( $printaitorViewObj  ) {        	
+        public  function send( $printaitorViewObj  ) {    
             $factura['AfipFactura'] = array(
             		'json_data' => $printaitorViewObj->viewTextRender,
-            		'mesa_id' => $printaitorViewObj->dataToView['mesa'],
+            		'mesa_id' => $printaitorViewObj->dataToView['fullMesa']['Mesa']['id'],
+                    'importe_total' => $printaitorViewObj->dataToView['fullMesa']['Mesa']['total'],
+                    'importe_neto' => $printaitorViewObj->dataToView['AfipFactura']['subtotal'],
+                    'importe_iva' => $printaitorViewObj->dataToView['fullMesa']['Mesa']['total'] - $printaitorViewObj->dataToView['AfipFactura']['subtotal'],
             		'punto_de_venta' => $printaitorViewObj->puntoDeVenta,
             		'comprobante_nro' => $printaitorViewObj->comprobanteNro,
             		'cae' => $printaitorViewObj->cae,
             	);
 
-            return ClassRegistry::init("Printers.AfipFactura")->save($factura);
+            $AfipFactura = ClassRegistry::init("Printers.AfipFactura");
+            $factura = $AfipFactura->save($factura);
+            if ( !$factura ) {
+                foreach ( $AfipFactura->validationErrors as $field => $msg) {
+                    $msgErr = implode(',', $msg);
+                    throw new CakeException( __("No se pudo guardar la factura. Campo: %s, Error: %s", $field, $msgErr), 1);
+                }
+            }
+            return $factura;
         }
         
 }

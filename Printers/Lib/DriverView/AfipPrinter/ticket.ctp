@@ -34,38 +34,37 @@
 App::uses('AfipWsv1', 'Printers.Utility');
 
 
-
 $pto_venta = Configure::read('Restaurante.punto_de_venta');
-
 
 $tipo_comprobante = Configure::read('Afip.tipofactura_id');
 $cliente_tipo = AfipWsv1::CLIENTE_TIPO_DOCUMENTO_SIN_IDENTIFICAR;
 $cliente_doc = 0;
 if ( !empty($fullMesa['Cliente'])) {
-	$cliente_tipo = AfipWsv1::mapTipoDocumentoComprador( $fullMesa['Cliente']['documento_id']);
+	$cliente_tipo = AfipWsv1::mapTipoDocumentoComprador( $fullMesa['Cliente']['tipo_documento_id']);
 	$cliente_doc = $fullMesa['Cliente']['nrodocumento'];
 	if ( !empty($fullMesa['Cliente']['IvaResponsabilidad']) ) {
-		
 		$tipo_comprobante = AfipWsv1::mapTipoFacturas( $fullMesa['Cliente']['IvaResponsabilidad']['tipo_factura_id'] );
 	}
 }
+debug($cliente_doc);
+// inicio el estado del WS Afip autenticando y verificando conexion
  AfipWsv1::start( $pto_venta );
 
 //AfipWsv1::FEParamGetTiposTributos();
 
-
+$totalNeto = $fullMesa['Mesa']['subtotal'] / (float) "1.".RISTO_DEFAULT_IVA_PORCENTAJE;
+$iva = $fullMesa['Mesa']['total'] - $totalNeto;
 $res = AfipWsv1::FECAESolicitar (   $pto_venta
 									, $tipo_comprobante
 									, $cliente_tipo
 									, $cliente_doc
-									, $fullMesa['Mesa']['subtotal']
-									, $fullMesa['Mesa']['total']
-									, $fullMesa['Mesa']['total'] - $fullMesa['Mesa']['subtotal'] 
+									, $totalNeto
+									, $fullMesa['Mesa']['total'] 
+									, $iva
 								);
 
 
 $detalleFactura = $res->FECAESolicitarResult->FeDetResp->FECAEDetResponse;
-
 $tipoFactura = AfipWsv1::$tipoComprobantes[ $res->FECAESolicitarResult->FeCabResp->CbteTipo ];
 
 
@@ -104,15 +103,12 @@ $dia = substr($detalleFactura->CAEFchVto, 6, 2);
 $fechaVtoCae = $dia. "/" . $mes . "/" . $anio;
 
 
-$miTipoDeIvaResp = AfipWsv1::mapResponsabilidadesIva( Configure::read('Restaurante.iva_responsabilidad') );
+$miTipoDeIvaResp = AfipWsv1::$tipoResponsabilidadesIva[ AfipWsv1::mapResponsabilidadesIva( Configure::read('Restaurante.iva_responsabilidad') ) ];
 
 $this->printaitorObj->cae = $detalleFactura->CAE;
 $this->printaitorObj->comprobanteNro = $detalleFactura->CbteDesde;
 $this->printaitorObj->puntoDeVenta = $pto_venta;
 
-
-$subtotal = cqs_round( $fullMesa['Mesa']['total'] / (1+RISTORANTINO_DEFAULT_IVA) );
-$total = $fullMesa['Mesa']['total'];
 
 $this->printaitorObj->dataToView['AfipFactura'] = array(
 		'cae' => $detalleFactura->CAE,
@@ -121,8 +117,8 @@ $this->printaitorObj->dataToView['AfipFactura'] = array(
 		'puntoDeVenta' => $pto_venta,
 		'tipo_comprobante' => AfipWsv1::$tipoComprobantes[$tipo_comprobante],
 		'full_nro_comprobante' => $numeroComprobanteFullSTring,
-		'fecha_facturacion' => $fechaFacturacion,
-		'subtotal' => cqs_round( $fullMesa['Mesa']['total'] / (1+RISTORANTINO_DEFAULT_IVA) ),
+		'fecha_facturacion' => $fecha,
+		'subtotal' => $totalNeto,
 		'total' => $fullMesa['Mesa']['total'],
 		'descuento' => 0,
 		'Empresa' => array(
@@ -131,7 +127,7 @@ $this->printaitorObj->dataToView['AfipFactura'] = array(
 			'cuit' => Configure::read('Restaurante.cuit'),
 			'domicilio_fiscal' => Configure::read('Restaurante.domicilio'),
 			'domicilio_comercial' => Configure::read('Restaurante.domicilio'),
-			'tipo_responsabilidad' =>  AfipWsv1::$condicionesIva[$miTipoDeIvaResp],
+			'tipo_responsabilidad' =>  $miTipoDeIvaResp,
 			'ingresos_brutos' => Configure::read('Restaurante.ib'),
 			'fecha_inicio_actividades' => Configure::read('Afip.inicio_actividades'),
 		),
@@ -147,7 +143,7 @@ if ( !empty( $fullMesa['Cliente'] ) ) {
 if (!empty($productos)) {
 	$i = 0;
     foreach ($productos as $p) {
-    	$this->printaitorObj->dataToView['AfipFactura']['Cliente']['Producto'] = array(
+    	$this->printaitorObj->dataToView['AfipFactura']['Producto'][] = array(
     			'nombre' => $p['nombre'],
     			'precio' => $p['precio'],
     			'cantidad' => $p['cantidad'],

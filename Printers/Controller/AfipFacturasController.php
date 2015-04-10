@@ -19,7 +19,13 @@ class AfipFacturasController extends PrintersAppController {
 
 		$this->AfipFactura->recursive = 0;
 		$this->AfipFactura->contain(array(
-				'Mesa' => array('Cliente' => array('TipoDocumento', 'IvaResponsabilidad'), 'Mozo')
+				'Mesa' => array(
+					'Cliente' => array(
+						'TipoDocumento', 
+						'IvaResponsabilidad'
+						), 
+					'Mozo'
+					)
 				));
 		$this->set('afipFacturas', $this->Paginator->paginate());
 	}
@@ -32,10 +38,18 @@ class AfipFacturasController extends PrintersAppController {
  * @return void
  */
 	public function view($id = null) {
+		$this->layout = 'Printers.factura';
 		if (!$this->AfipFactura->exists($id)) {
 			throw new NotFoundException(__('Factura inexistente'));
 		}		
-		$options = array('conditions' => array('AfipFactura.' . $this->AfipFactura->primaryKey => $id));
+		$options = array(
+			'conditions' => array(
+				'AfipFactura.' . $this->AfipFactura->primaryKey => $id
+				),
+			'contain' => array(
+				'Mesa' => array('Cliente' => array('TipoDocumento', 'IvaResponsabilidad'), 'Mozo')
+				)
+			);
 		$factura = $this->AfipFactura->find('first', $options);		
 		$this->set('factura', $factura);		
 	}

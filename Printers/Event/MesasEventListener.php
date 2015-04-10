@@ -35,17 +35,18 @@ class MesasEventListener implements CakeEventListener {
 
 	public function onMesaCerrada( $event ) {
 		$mesa_id = $event->subject()->id;
+		debug( $event->subject() );die;
 		if ( Configure::read( 'Mesa.imprimePrimeroRemito') == 0 ) {
-			return FiscalPrint::imprimirTicketMesa($mesa_id);
+			return FiscalPrint::imprimirTicketMesa( $event->subject() );
 		} else {
-			return ReceiptPrint::imprimirTicketMesa($mesa_id);
+			return ReceiptPrint::imprimirTicketMesa( $event->subject() );
 		}
 	}
 
 
 	public function onMesaPrint( $event ) {
-		$mesa_id = $event->subject()->id;
-		return FiscalPrint::imprimirTicketMesa($mesa_id);
+		$mesa_id = $event->subject()->id;		
+		return FiscalPrint::imprimirTicketMesa( $event->subject() );
 	}
 
 }

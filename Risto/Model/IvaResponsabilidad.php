@@ -37,6 +37,7 @@ class IvaResponsabilidad extends RistoTenantAppModel {
 	 * @var array
 	 */
 	public $hasMany = array(
+		/*
 		'Cliente' => array(
 			'className' => 'Fidelization.Cliente',
 			'foreignKey' => 'iva_responsabilidad_id',
@@ -50,6 +51,7 @@ class IvaResponsabilidad extends RistoTenantAppModel {
 			'finderQuery' => '',
 			'counterQuery' => ''
 		)
+		*/
 	);
 
 	

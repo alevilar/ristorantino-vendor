@@ -35,7 +35,7 @@ define("AFIP_XML_EMPTY_FILE", 4);
 define ("TIPO_FACTURA_A", '001');
 define ("TIPO_FACTURA_B", '006');
 define ("TIPO_FACTURA_C", 11);
-define ("TIPO_IVA_21", 5);
+define ("AFIP_TIPO_IVA_21", 5);
 
 
 
@@ -210,7 +210,7 @@ class AfipWsv1 {
 			'2'	=>	'Exento',
 			'3'	=>	'0%',
 			'4'	=>	'10,50%',
-			TIPO_IVA_21	=>	'21%',
+			AFIP_TIPO_IVA_21	=>	'21%',
 			'6'	=>	'27%',
 			'7'	=>	'Gravado', // Solo valido en Controladores Fiscales
 			'8'	=>	'5%',
@@ -608,14 +608,12 @@ class AfipWsv1 {
 
 
 
-	static function FECAESolicitar  ( $punto_de_venta,  $tipo_comprobante, $cliente_tipo, $cliente_doc, $importeNeto, $importeTotal, $importeIva ) {
-		
+	static function FECAESolicitar  ( $punto_de_venta,  $tipo_comprobante, $cliente_tipo, $cliente_doc, $importeNeto, $importeTotal, $importeIva, $ivas = array(), $tributos = array()) {
 
 		$ultComprobanteNumero = self::FECompUltimoAutorizado( $punto_de_venta, $tipo_comprobante );
 
 		$concepto = (int) Configure::read('Afip.concepto');
 		$fecha = date('Ymd');
-
 		$data = array(
              'Concepto' => $concepto, // producto o servicio configurado en settings del tenant
 			 'DocTipo' => $cliente_tipo, // 99 sin identificar; 96 DNI
@@ -631,16 +629,14 @@ class AfipWsv1 {
 			 'ImpIVA' => $importeIva,
 			 'MonId' => 'PES',
 			 'MonCotiz' => 1,
-			 /*
-             'Iva' => array(
-             	'AlicIva' => array(
-            		'Id' => TIPO_IVA_21,
-            		'BaseImp' => 1000,
-            		'Importe' => 210
-        		)
-        	)
-        	*/
         );
+
+        if (!empty($ivas)) {
+        	$data['Iva'] = $ivas;
+        }
+        if (!empty($tributos)) {
+        	$data['Tributos'] = $tributos;
+        }
 
         if ( $concepto == self::CONCEPTO_SERVICIO || $concepto == self::CONCEPTO_PRODUCTOS_Y_SERVICIOS) {
         	$data['FchServDesde'] = $data['FchServHasta'] = $data['FchVtoPago'] = $fecha;
@@ -671,7 +667,7 @@ class AfipWsv1 {
 			 && $results->FECAESolicitarResult->FeCabResp->Resultado == 'R' 
 			 && $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code != 0 )
 		    {
-				throw new AfipWsException( $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Msg, $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code );
+				throw new AfipWsException( "SUPP".$results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Msg, $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code );
 		}
 
 		return $results;
@@ -761,6 +757,19 @@ class AfipWsv1 {
 
 		return $map[$ristorantinoRespIva];
 
+	}
+
+	static function mapTipoIva ( $ristorantinoTipoIva ) {
+		$map = array(
+			RISTO_IVA_0 => '1', //	=>	'No Gravado',
+			RISTO_IVA_21 => AFIP_TIPO_IVA_21	, // => 	'21%',
+		);
+
+		if ( !array_key_exists( $ristorantinoTipoIva , $map )) {
+			throw new CakeException("No existe el mapeo para el tipo de IVA del ristorantino ID: " .$ristorantinoTipoDOcumento );
+		}
+
+		return $map[$ristorantinoTipoIva];
 	}
 
 	static function mapTipoDocumentoComprador ( $ristorantinoTipoDOcumento ) {
