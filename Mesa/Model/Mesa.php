@@ -1,6 +1,6 @@
 <?php
 
-App::uses('AppModel', 'Mesa.Model');
+App::uses('MesaAppModel', 'Mesa.Model');
 
 class Mesa extends MesaAppModel {
 
@@ -250,7 +250,7 @@ class Mesa extends MesaAppModel {
 
 
 	function cerrar_mesa( $mesa_id = null, $save = true )
-	{
+	{		
 		if ( !empty( $this->data['Mesa']['id'] ) ) {
 			$this->id = $this->data['Mesa']['id'];
 		}
@@ -292,36 +292,37 @@ class Mesa extends MesaAppModel {
 function calcular_total_productos ($id = null) {
 	if (!empty($id)) $this->id = $id;
 
-	$comandas = $this->Comanda->find('all', array(
-		'conditions' => array(
-				'Comanda.mesa_id' => $this->id
-			),
-		'contain' => array(
-				'DetalleComanda' => array(
-					'Producto',
-					'DetalleSabor' => array('Sabor')
-				),
+	$this->contain(array(
+		'Comanda' => array(
+			'DetalleComanda' => array(
+				'Producto',
+				'DetalleSabor.Sabor'
+				)
 			)
 		));
 
+	$mesa = $this->read();
+	$comandas = $mesa['Comanda'];
+
 	$total = 0;
-	foreach ( $comandas as $c ) {
-		$totParcial = 0;
-		foreach ( $c['DetalleComanda'] as $dc ) {
-			$totDetalleComanda = 0;			
-			$cant = $dc['cant'] - $dc['cant_eliminada'];
-			if ( $cant > 0 && !empty($dc['Producto']) ) {				
-				$totDetalleComanda += $dc['Producto']['precio'];
+	if ( $comandas ) {
+		foreach ( $comandas as $c ) {
+			$totParcial = 0;
+			foreach ( $c['DetalleComanda'] as $dc ) {
+				$totDetalleComanda = 0;			
+				$cant = $dc['cant'] - $dc['cant_eliminada'];
+				if ( $cant != 0 && !empty($dc['Producto']) ) {				
+					$totDetalleComanda += $dc['Producto']['precio'];
 
-				foreach ( $dc['DetalleSabor'] as $ds ) {
-					$totDetalleComanda += $ds['Sabor']['precio'];
+					foreach ( $dc['DetalleSabor'] as $ds ) {
+						$totDetalleComanda += $ds['Sabor']['precio'];
+					}
+					$totParcial += $totDetalleComanda * $cant;
 				}
-				$totParcial += $totDetalleComanda * $cant;
 			}
+			$total += $totParcial;
 		}
-		$total += $totParcial;
 	}
-
 	return $total;
 }
 
@@ -347,7 +348,11 @@ function calcular_descuentos($id = null) {
 
 
 function calcular_subtotal($id = null){
-	if (!empty($id)) $this->id = $id;    
+	if ( !empty($id)) $this->id = $id;    
+	
+	if ( !$this->exists( $this->id ) ) {
+		throw new NotFoundException(__('La Mesa ID# no existe', $this->id));
+	}
 
 	if ( !empty($this->total) ) {
 		return $this->total['Mesa']['subtotal'];
@@ -357,14 +362,16 @@ function calcular_subtotal($id = null){
 	$this->total['Mesa']['total'] = 0;
 	$this->total['Mesa']['descuento'] = 0;
 
-
 	$totalProductos = $this->calcular_total_productos();
 	$totalPorcentajeDescuento = $this->calcular_descuentos();
 	$conversionDescuento = 1-($totalPorcentajeDescuento/100);
 
 	$this->recursive = -1;
 	$mesa = $this->find('first', array('conditions'=> array( 'Mesa.id' => $this->id ) ) );
-	$this->total['Mesa']['cant_comensales'] = $mesa['Mesa']['cant_comensales'];
+	
+	$cant_comensales = $mesa['Mesa']['cant_comensales'];
+
+	$this->total['Mesa']['cant_comensales'] = $cant_comensales;
 
 	$precioCubierto = Configure::read('Restaurante.valorCubierto');
 	$valor_cubierto = 0;

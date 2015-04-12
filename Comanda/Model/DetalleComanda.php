@@ -111,13 +111,14 @@ class DetalleComanda extends ComandaAppModel {
 
 
 	public function saveComanda ( $fullData ) {
-		$imprimir = $fullData['Comanda']['imprimir'] ? true : false;
+		$imprimir = !empty($fullData['Comanda']['imprimir']) ? true : false;
+		$fullData['Comanda']['impresa'] = $imprimir;
 		
 		// este array contine la prioridad y la mesa_id ---> todos datos de Modelo Comanda
 		$comanda = $fullData['Comanda'];		
 
 		//cuento la cantidad de comanderas involucradas en este pedido para genrar la cantidad de comandas correspondientes
-		$v_comanderas = array();		
+		$v_comanderas = array();
 		foreach( $fullData['DetalleComanda'] as $dc ) {
 
 			if ( array_key_exists('cant_eliminada', $dc)) {

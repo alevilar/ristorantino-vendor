@@ -46,7 +46,7 @@ if ( !empty($fullMesa['Cliente'])) {
 		$tipo_comprobante = AfipWsv1::mapTipoFacturas( $fullMesa['Cliente']['IvaResponsabilidad']['tipo_factura_id'] );
 	}
 }
-debug($cliente_doc);
+
 // inicio el estado del WS Afip autenticando y verificando conexion
  AfipWsv1::start( $pto_venta );
 
@@ -109,7 +109,6 @@ $this->printaitorObj->cae = $detalleFactura->CAE;
 $this->printaitorObj->comprobanteNro = $detalleFactura->CbteDesde;
 $this->printaitorObj->puntoDeVenta = $pto_venta;
 
-
 $this->printaitorObj->dataToView['AfipFactura'] = array(
 		'cae' => $detalleFactura->CAE,
 		'cae_vencimiento' => $fechaVtoCae,
@@ -132,7 +131,8 @@ $this->printaitorObj->dataToView['AfipFactura'] = array(
 			'fecha_inicio_actividades' => Configure::read('Afip.inicio_actividades'),
 		),
 	);
-
+debug($fullMesa);
+debug($this->printaitorObj->dataToView['AfipFactura'] ); die;
 
 if ( !empty( $fullMesa['Cliente'] ) ) {
 	$this->printaitorObj->dataToView['AfipFactura']['Cliente'] = $fullMesa['Cliente'];

@@ -8,12 +8,16 @@
 **/
 echo $this->PE->cm('ESC');
 
-$cant_entradas = count($entradas);
+if (!empty($entradas)) {
+    $cant_entradas = count($entradas);
 
-if ($cant_entradas > 0) {
-    echo " -----        ENTRADAS       -----";
-    echo "\n";
+    if ($cant_entradas > 0) {
+        echo " -----        ENTRADAS       -----";
+        echo "\n";
+    }
 }
+
+
 $i = 0;
 
 foreach ($productos as $detalle):
