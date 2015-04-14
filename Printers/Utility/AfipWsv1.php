@@ -317,7 +317,7 @@ class AfipWsv1 {
 	    }
 	    self::$authVars['Token'] = (string) $TA->credentials->token;
 		self::$authVars['Sign']  = (string) $TA->credentials->sign;
-		self::$authVars['Cuit']  = (float)self::$CUIT; // si lo casteaba se convertia en otro umero
+		self::$authVars['Cuit']  = self::$CUIT * 1; // si lo casteaba se convertia en otro umero
 	}
 
 
@@ -750,7 +750,6 @@ class AfipWsv1 {
 					=> 14,	//	'Pequeño Contribuyente Eventual Social',
 				*/
 		);
-
 		if ( !array_key_exists( $ristorantinoRespIva , $map)) {
 			throw new CakeException("No existe el mapeo para el tipo de responsabilidad Iva del ristorantino ID: " .$ristorantinoRespIva );
 		}
