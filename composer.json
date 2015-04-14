@@ -22,7 +22,6 @@
 		"codaxis/cakephp-bootstrap3-helpers": "1.1",
 		"ristorantino/ext-auth": "master@dev",
 		"ristorantino/aditions": "master@dev",
-		"nanapi/cakephp-redi": "master",
 		"composer/installers": "~1.0"
 	}
 }
