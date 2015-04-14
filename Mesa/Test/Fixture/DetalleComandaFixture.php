@@ -31,6 +31,17 @@ class DetalleComandaFixture extends CakeTestFixture {
             'observacion' => '',
             'created' => 1212121,
             'modified' => 12121212,
+            ),   
+            array(
+            'id' => 2,
+            'producto_id' => 1,
+            'comanda_id' => 2,
+            'cant' => 4,
+            'cant_eliminada' => 1,
+            'es_entrada' => 0,
+            'observacion' => '',
+            'created' => 1212121,
+            'modified' => 12121212,
             ),         
           );
 

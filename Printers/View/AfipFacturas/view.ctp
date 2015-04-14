@@ -3,60 +3,72 @@
 $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 
 ?>
-
+<div style="border: 1px solid silver">
 <header>
-<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH="100%">
+<TABLE class="table">
 	<THEAD>
 		<TR>
-			<TD WIDTH="39%" VALIGN="MIDDLE" HEIGHT=36>
+			<TD WIDTH="45%" VALIGN="TOP" HEIGHT=36 style="border: none">
 				<DIR>
-						<FONT FACE="Arial" SIZE=2>
-						<P>
-							<?php echo $afipFactura->Empresa->nombre?>
-						</P>
-						</FONT>
+					<h2><?php echo $afipFactura->Empresa->nombre?></h2>
 				</DIR>
+
 			</TD>
-			<TD WIDTH="15%" VALIGN="MIDDLE" COLSPAN=2 HEIGHT=36>
-				<B>
-					<FONT FACE="Arial" SIZE=2>
-						<P class="afipfactura-tipo-comprobante" ALIGN="CENTER"><?php echo $afipFactura->tipo_comprobante?></P>
-					</FONT>
+			<TD WIDTH="10%" VALIGN="TOP" HEIGHT=36 style="border:1px solid silver; border-top: none; text-align:center">
+					<h1 class="afipfactura-tipo-comprobante">
+						<?php echo $afipFactura->tipo_comprobante?>
+					</h1>
 				</B>
 			</TD>
-			<TD WIDTH="46%" VALIGN="TOP" HEIGHT=36>
-				<FONT FACE="Arial" SIZE=2>
-					<P ALIGN="CENTER"><?php echo $afipFactura->full_nro_comprobante;?></P>
-					<P ALIGN="CENTER">Fecha: <?php echo $afipFactura->fecha_facturacion ?></P>
+			<TD WIDTH="45%" VALIGN="MIDDLE" HEIGHT=36 style="border: none">
+				<br>
+				<FONT FACE="Arial" SIZE=3>
+					<P ALIGN="CENTER">
+					Nº <?php echo $afipFactura->full_nro_comprobante;?><BR/>
+					<?php echo $afipFactura->fecha_facturacion ?>
+					</P>
 				</FONT>
+
 			</TD>
 		</TR>
-		<TR>
-			<TD WIDTH="46%" VALIGN="TOP" COLSPAN=2>
-				<DIR>
-					<FONT FACE="Arial" SIZE=2>
-						<?php if ( $afipFactura->Empresa->domicilio_comercial && $afipFactura->Empresa->domicilio_fiscal && $afipFactura->Empresa->domicilio_comercial != $afipFactura->Empresa->domicilio_fiscal ) { ?>
-							<P><?php echo "Domicilio Comercial: " . $afipFactura->Empresa->domicilio_comercial ?></P>
-							<P><?php echo "Domicilio fiscal: ". $afipFactura->Empresa->domicilio_fiscal ?></P>
-						<?php } elseif ( $afipFactura->Empresa->domicilio_comercial ) { ?>
-							<P><?php echo "Domicilio: " . $afipFactura->Empresa->domicilio_comercial ?></P>
-						<?php } elseif ($afipFactura->Empresa->domicilio_fiscal) { ?>
-							<P><?php echo "Domicilio: " . $afipFactura->Empresa->domicilio_fiscal ?></P>
-						<?php } ?>
 
-						<P><?php echo $afipFactura->Empresa->tipo_responsabilidad?></P>
-					</FONT>
-				</DIR>
+		<TR BORDER="0">
+			<TD COLSPAN="2" width="50%"  style="border: none">
+				
+				<p>
+					<DIR>
+						<FONT FACE="Arial" SIZE=2>
+								
+							<?php if ( $afipFactura->Empresa->domicilio_comercial && $afipFactura->Empresa->domicilio_fiscal && $afipFactura->Empresa->domicilio_comercial != $afipFactura->Empresa->domicilio_fiscal ) { ?>
+								<?php echo "Domicilio Comercial: " . $afipFactura->Empresa->domicilio_comercial ?><br />
+								<?php echo "Domicilio fiscal: ". $afipFactura->Empresa->domicilio_fiscal ?><br />
+							<?php } elseif ( $afipFactura->Empresa->domicilio_comercial ) { ?>
+								<?php echo "Domicilio: " . $afipFactura->Empresa->domicilio_comercial ?><br />
+							<?php } elseif ($afipFactura->Empresa->domicilio_fiscal) { ?>
+								<?php echo "Domicilio: " . $afipFactura->Empresa->domicilio_fiscal ?><br />
+							<?php } ?>
+
+							<i><?php echo $afipFactura->Empresa->tipo_responsabilidad?></i><br />
+
+							<FONT FACE="Arial" SIZE=2>
+								
+							</FONT>
+						</FONT>
+					</DIR>
+				</p>
+
 			</TD>
-			<TD WIDTH="53%" VALIGN="TOP" COLSPAN=2>
-				<FONT FACE="Arial" SIZE=2>
-					<P ALIGN="RIGHT"><b><?php echo $afipFactura->Empresa->razon_social?></b></P>
-					<P ALIGN="RIGHT">CUIT: <?php echo $afipFactura->Empresa->cuit?></P>
+			<TD COLSPAN="2" width="50%" style="border: none">
+				
+				<p ALIGN="CENTER" style="font-size: 8pt">
+					<?php echo $afipFactura->Empresa->razon_social?><br/>
+					CUIT: <?php echo $afipFactura->Empresa->cuit?><br/>
 					<?php if ( $afipFactura->Empresa->ingresos_brutos ) { ?>
-					<P ALIGN="RIGHT">ING. BRUTOS: <?php echo $afipFactura->Empresa->ingresos_brutos?></P>
+					Ing. Brutos: <?php echo $afipFactura->Empresa->ingresos_brutos?><br/>
 					<?php } ?>
-					<P ALIGN="RIGHT">INICIO ACTIVIDADES: <?php echo $afipFactura->Empresa->fecha_inicio_actividades?></P>
-				</FONT>
+					Inicio de Actividades: <?php echo $afipFactura->Empresa->fecha_inicio_actividades?><br/>
+				</p>
+
 			</TD>
 		</TR>
 
@@ -79,9 +91,9 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 </header>
 
 <div class="factura-items">
-	<TABLE  CELLSPACING=1 CELLPADDING=4 WIDTH="100%">
-		<thead BORDER>
-							<tr BORDER HEIGHT=40 style="background-color: #E6E6E6 !important">
+	<TABLE  class="table table-striped">
+		<thead>
+							<tr HEIGHT=40 style="background-color: #E6E6E6 !important">
 								<th WIDTH="40%"><span>Item</span></th>
 								<th WIDTH="25%"  ALIGN="RIGHT"  style="text-align: right"><span>Unitario</span></th>
 								<th WIDTH="10%" ALIGN="CENTER" style="text-align: center"><span>Cantidad</span></th>
@@ -91,14 +103,13 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 
 
 		<TBODY>
-			<TR>
-				<TD VALIGN="TOP" COLSPAN=4>
+			
 							<?php
 		//inserto los productos en vcomandas y cierro la mesa
 							if (!empty($afipFactura->Producto)) {
 								foreach ($afipFactura->Producto as $p) {
 									?>
-									<tr HEIGHT=30>
+									<tr>
 										<td><span><?php echo $p->nombre ?></span></td>
 										<td ALIGN="RIGHT"><span>$</span><span><?php echo $p->precio?></span></td>
 										<td ALIGN="CENTER"><span><?php echo $p->cantidad?></span></td>
@@ -107,19 +118,17 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 									<?php
 								}
 							}
-							?>	
-				</TD>
-			</TR>
+							?>				
 		</TBODY>
 	</TABLE>
 </div>
 
 <footer>
-	<TABLE BORDER CELLSPACING=1 CELLPADDING=4 WIDTH="100%">
+	<TABLE class="table">
 
 			<TFOOT>
 				<TR >
-					<TD VALIGN="MIDDLE" COLSPAN=4 HEIGHT=45 ALIGN="RIGHT">
+					<TD VALIGN="MIDDLE" COLSPAN=4 HEIGHT=45 ALIGN="RIGHT" style="border: none">
 						Total Neto $<?php echo $afipFactura->subtotal; ?>
 					</TD>
 				</TR>
@@ -152,3 +161,4 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 			</TFOOT>
 		</TABLE>
 </footer>
+</div>

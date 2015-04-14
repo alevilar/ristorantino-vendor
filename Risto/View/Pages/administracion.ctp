@@ -11,16 +11,32 @@
         ?>
     </div>
 
+
+    <h2><?php echo Inflector::pluralize( Configure::read('Mesa.tituloCliente')) ?></h2>
+    <div class="list-group">
+        <?php
+        echo $this->Html->link(Inflector::pluralize( Configure::read('Mesa.tituloCliente')), array('plugin'=>'fidelization', 'controller'=>'clientes', 'action', 'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link('Descuentos', array('plugin'=>'fidelization', 'controller'=>'descuentos', 'action'=>'index'), array('class' => 'list-group-item'));        
+        ?>   
+    </div>
+</div>
+
+<div class="col-md-3">
+    
     <h2><?php echo __( Inflector::pluralize( Configure::read('Mesa.tituloMesa') )) ?></h2>
     <div class="list-group">
         <?php
         echo $this->Html->link( __('Listado de %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa') )) , array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'index'), array('class' => 'list-group-item'));
         echo $this->Html->link(__('Pagos de %s', Inflector::pluralize( Configure::read('Mesa.tituloMesa') ) ), array('plugin'=>'mesa', 'controller'=>'pagos', 'action'=>'index'), array('class' => 'list-group-item'));
         echo $this->Html->link(__('Nueva %s', Configure::read('Mesa.tituloMesa')), array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'add'), array('class' => 'list-group-item'));
+
+        
         ?>
     </div>    
+    <?php
+    echo $this->Html->link(__('Afip Facturas'), array('plugin'=>'printers', 'controller'=>'afip_facturas', 'action'=>'index'), array('class' => 'list-group-item'));
+    ?>
 </div>
-
 <div class="col-md-3">
     <h2>Productos</h2>
     <div class="list-group">
@@ -47,21 +63,17 @@
         echo $this->Html->link('Listar para imprimir', '/inventory/counts/listar_faltantes_para_imprimir', array('class' => 'list-group-item'));
         ?>
     </div>-->
-</div>
-<div class="col-md-3">
-    <h2><?php echo Inflector::pluralize( Configure::read('Mesa.tituloCliente')) ?></h2>
-    <div class="list-group">
-        <?php
-        echo $this->Html->link(Inflector::pluralize( Configure::read('Mesa.tituloCliente')), array('plugin'=>'fidelization', 'controller'=>'clientes', 'action', 'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link('Descuentos', array('plugin'=>'fidelization', 'controller'=>'descuentos', 'action'=>'index'), array('class' => 'list-group-item'));        
-        ?>   
-    </div>
+
+
 </div>
 <div class="col-md-3">
 
     <h2>Configuración</h2>
     <div class="list-group">
+
         <?php
+        echo $this->Html->link(__('Configuración del Sitio'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'edit'), array('class' => 'list-group-item'));
+
 
         echo $this->Html->link(__('Tipo de Pagos'), array('plugin'=>'risto', 'controller'=>'TipoDePagos', 'action'=>'index'), array('class' => 'list-group-item'));
 
@@ -74,9 +86,7 @@
 
 
 
-        echo $this->Html->link(__('Impresoras'), array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array('class' => 'list-group-item'));
-
-         echo $this->Html->link(__('Afip Facturas'), array('plugin'=>'printers', 'controller'=>'afip_facturas', 'action'=>'index'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Impresoras'), array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array('class' => 'list-group-item'));     
 
         ?>
     </div>

@@ -9,6 +9,15 @@ App::uses('PrintersAppController', 'Printers.Controller');
  */
 class AfipFacturasController extends PrintersAppController {
 
+	//public $sfaffold;
+
+	public function beforeFilter () {
+
+		parent::beforeFilter();
+		$this->Auth->allow(array('view'));		
+	}
+
+
 
 /**
  * index method

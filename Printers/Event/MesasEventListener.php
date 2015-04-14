@@ -25,7 +25,7 @@ class MesasEventListener implements CakeEventListener {
 				'callable' => 'onMesaPrint',
 				//'passParams' => true,
 			),			
-			'Mesa.cerrada' => array(
+			'Mesa.AfterCerrada' => array(
 				'callable' => 'onMesaCerrada',
 				//'passParams' => true,
 			),			
@@ -33,9 +33,10 @@ class MesasEventListener implements CakeEventListener {
 	}
 
 
-	public function onMesaCerrada( $event ) {
+	public function onMesaCerrada( CakeEvent $event ) {
 		$mesa_id = $event->subject()->id;
-		debug( $event->subject() );die;
+		$data = $event->data;
+
 		if ( Configure::read( 'Mesa.imprimePrimeroRemito') == 0 ) {
 			return FiscalPrint::imprimirTicketMesa( $event->subject() );
 		} else {
@@ -44,7 +45,7 @@ class MesasEventListener implements CakeEventListener {
 	}
 
 
-	public function onMesaPrint( $event ) {
+	public function onMesaPrint( CakeEvent $event ) {
 		$mesa_id = $event->subject()->id;		
 		return FiscalPrint::imprimirTicketMesa( $event->subject() );
 	}

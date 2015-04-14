@@ -608,7 +608,7 @@ class AfipWsv1 {
 
 
 
-	static function FECAESolicitar  ( $punto_de_venta,  $tipo_comprobante, $cliente_tipo, $cliente_doc, $importeNeto, $importeTotal, $importeIva, $ivas = array(), $tributos = array()) {
+	static function FECAESolicitar  ( $punto_de_venta,  $tipo_comprobante, $cliente_tipo = self::CLIENTE_TIPO_DOCUMENTO_SIN_IDENTIFICAR, $cliente_doc = 0, $importeNeto, $importeTotal, $importeIva, $ivas = array(), $tributos = array()) {
 
 		$ultComprobanteNumero = self::FECompUltimoAutorizado( $punto_de_venta, $tipo_comprobante );
 
@@ -616,8 +616,8 @@ class AfipWsv1 {
 		$fecha = date('Ymd');
 		$data = array(
              'Concepto' => $concepto, // producto o servicio configurado en settings del tenant
-			 'DocTipo' => $cliente_tipo, // 99 sin identificar; 96 DNI
-			 'DocNro' => $cliente_doc,
+			 'DocTipo' => (int)$cliente_tipo, // 99 sin identificar; 96 DNI
+			 'DocNro' => (float)$cliente_doc, // Lo debo castear a valor numerico Long Int segun WSDL
 			 'CbteDesde' => $ultComprobanteNumero + 1,
 			 'CbteHasta' => $ultComprobanteNumero + 1,
 			 'CbteFch' => $fecha = date('Ymd'),

@@ -24,7 +24,13 @@ class ComandaFixture extends CakeTestFixture {
           	'mesa_id' => 1,
           	'created' => 11212122,
           	'observacion' => '',
-          	),         
+          	),  
+          array(
+            'id' => 2,
+            'mesa_id' => 3,
+            'created' => 11212122,
+            'observacion' => '',
+            ),         
           );
 
  }

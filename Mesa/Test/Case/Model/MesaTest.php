@@ -97,7 +97,6 @@ class MesaTest extends CakeTestCase {
 	}
 
 
-
 	public function testCalcularTotalProductos () {
 		$mesaId = 1;
 
@@ -110,9 +109,18 @@ class MesaTest extends CakeTestCase {
 
 		$totalProductos = $this->Mesa->calcular_total_productos();
 		$this->assertEqual($totalProductos, 100);
-		
 
 
+		$totalProductos = $this->Mesa->calcular_total_productos( 3 );
+		$this->assertEqual($totalProductos, 300);
+	}
+
+	public function testCalcularTotalProductosAgregados () {
+		$mesaId = 1;
+
+		//$this->Mesa->useDbConfig = 'test';
+
+		$this->Mesa->id = $mesaId;
 
 		// ahora pruebo agregando productos  - - -  - -- -- -
 
@@ -189,14 +197,81 @@ class MesaTest extends CakeTestCase {
 
 		$total = $this->Mesa->calcular_subtotal( $mesaId = 1 );
 		$this->assertEqual($total, 100);
+
+		$total = $this->Mesa->calcular_subtotal( 3 );
+		$this->assertEqual($total, 300);
 	}
 
 
 	public function testCalcularTotal() {
-
-		$total = $this->Mesa->calcular_total( $mesaId = 1 );
+		$mesaId = 1;
+		$total = $this->Mesa->calcular_total( $mesaId);
 		$this->assertEqual($total, 100);
+
+		$mesaId = 3;
+		$total = $this->Mesa->calcular_total( $mesaId );
+		$this->assertEqual($total, 300);
 	}
+
+
+	public function testCerrarMesa() {
+		$save = true;
+		$silent = true;
+
+		$mesaId = 1;
+		$this->Mesa->id = $mesaId;
+		$mesaEstadoId = $this->Mesa->field('estado_id');
+		$this->assertEqual( $mesaEstadoId, MESA_COBRADA );
+		$cerrada = $this->Mesa->cerrar_mesa( $mesaId, $save, $silent);
+		$this->assertTrue( $cerrada );
+		$mesaEstadoId = $this->Mesa->field('estado_id');
+		$this->assertEqual( $mesaEstadoId, MESA_CERRADA );
+		$this->assertNotEmpty(  $this->Mesa->field('total') );
+		$this->assertNotEmpty( $this->Mesa->field('subtotal') );
+
+
+
+		$mesaId = 3;
+		$this->Mesa->id = $mesaId;
+		$mesaEstadoId = $this->Mesa->field('estado_id');
+		$this->assertEqual( $mesaEstadoId, MESA_ABIERTA );
+		$cerrada = $this->Mesa->cerrar_mesa( $mesaId, $save, $silent);
+		$this->assertTrue( $cerrada );
+		$mesaEstadoId = $this->Mesa->field('estado_id');
+		$this->assertEqual( $mesaEstadoId, MESA_CERRADA );
+		$total = $this->Mesa->field('total');
+		$this->assertNotEqual( 0, $total );
+		$this->assertNotEmpty(  (boolean) $total );
+		$sub = $this->Mesa->field('subtotal');
+		$this->assertNotEmpty( $sub );
+		$this->assertNotEqual( 0, $sub );
+
+
+	}
+
+
+
+	public function testCerrarMesaSilentTrigger() {
+		$save = true;
+		$silent = false;
+
+		$mesaId = 1;
+		$this->Mesa->id = $mesaId;
+		$mesaEstadoId = $this->Mesa->field('estado_id');
+		$this->assertEqual( $mesaEstadoId, MESA_COBRADA );
+		$cerrada = $this->Mesa->cerrar_mesa( $mesaId, $save, $silent);
+		$this->assertTrue( $cerrada );
+		$mesaEstadoId = $this->Mesa->field('estado_id');
+		$this->assertEqual( $mesaEstadoId, MESA_CERRADA );
+		$this->assertNotEmpty(  $this->Mesa->field('total') );
+		$this->assertNotEmpty( $this->Mesa->field('subtotal') );
+
+
+
+	}
+
+
+	
 
 }
 

@@ -99,7 +99,7 @@ class Mozo extends MesaAppModel {
             } else {
                 // es restaurante u otros comercios
                 $conditionsMesa = array(
-                    "Mesa.checkout IS NULL",
+                    "Mesa.estado_id" => array(MESA_ABIERTA, MESA_CERRADA),
                     'Mesa.deleted' => 0,        
                 );
             }
@@ -219,4 +219,3 @@ class Mozo extends MesaAppModel {
         
 
 }
-?>

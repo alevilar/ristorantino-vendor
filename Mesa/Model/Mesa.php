@@ -23,7 +23,6 @@ class Mesa extends MesaAppModel {
 		 ),
 		'numero' => array(
 		 'notempty',
-		 'numeric',	
 		 ));
 
 
@@ -129,14 +128,6 @@ class Mesa extends MesaAppModel {
 
 
 
-		/*
-		 * Valor total de una mesa Objeto en particular.
-		 * Es el array que devuelve la funcion calcular_total()
-		 * @public $total float
-		 */
-		public $total = array();
-
-
 		/**
 		 * belongsTo associations
 		 *
@@ -165,15 +156,26 @@ class Mesa extends MesaAppModel {
 		);
 
 
+	public $changedState = null;
+
+
 	public $order = array('Mesa.created' => 'desc');
 		
 
 	public function beforeSave($options = array() ) {
+		parent::beforeSave($options);
+
 		unset( $this->data['modified'] );
 
 		if ( !empty($this->data['Mesa']['id']) ) {
 			// UPDATE
 			// update totals
+
+			$this->__processStateChanges();
+
+			// en caso de pasar de estado abierta a cerrada, aplicar cierre ejecutando cerrar_mesa()
+			$this->__cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada();
+
 			$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
 			$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
 		} else {
@@ -184,12 +186,87 @@ class Mesa extends MesaAppModel {
 			}
 		}
 
-		// en caso de pasar de estado abierta a cerrada, aplicar cierre ejecutando cerrar_mesa()
-		$this->__cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada();
-
-		return parent::beforeSave($options);
+		return true;
 	}
-	
+
+
+	public function afterSave($created, $options = array()) {
+		if ( !$created && $this->changedState ) {
+			$this->__sendEventStateChange( $this->changedState, 'After');			
+		}
+
+		return parent::afterSave($created, $options);
+	}
+
+
+	/**
+	*
+	*
+	*	Genera un CakeEvent con el parametro $nuevoEstado
+	*
+	*	Mesa.{Before|After}Abierta
+	*	Mesa.{Before|After}Cerrada
+	*	Mesa.{Before|After}Cobrada
+	*	Mesa.{Before|After}Estado{ID_ESTADO} EJ: Mesa.BeforeEstado2
+	*
+	*
+	*
+	*	@param Int $nuevoEstado ID del estado
+	*	@param String $evName es un prefijo para poder usar el dispache de eventos en un BeforeSave y en un afterSave
+	*
+	**/
+	private function __sendEventStateChange ( $nuevoEstado, $evName  = 'Before') {
+		$event = null;
+
+		if  ( $nuevoEstado ) {
+			$event = new CakeEvent("Mesa.".$evName."Estado".$nuevoEstado, $this);				
+		}
+
+		
+		if  ( $nuevoEstado == MESA_ABIERTA ) {
+			$event = new CakeEvent("Mesa.".$evName."Abierta", $this);				
+		}
+
+		if  ( $nuevoEstado == MESA_CERRADA ) {
+			$event = new CakeEvent("Mesa.".$evName."Cerrada", $this);				
+		}
+
+		if  ( $nuevoEstado == MESA_COBRADA ) {
+			$event = new CakeEvent("Mesa.".$evName."Cobrada", $this);				
+		}
+
+		if ( empty( $this->data['Mesa']['silent']) && $event ) {
+			return $this->getEventManager()->dispatch($event);
+		}
+	}
+
+	/**
+	*	Procesa el Cambio de estado llenando el atributo $this->changedState
+	*	con el nuevo ID del estado que fue moficiado
+	*	Si el estado no fue modificado la funcion devuelve FALSE, al igual que 
+	* 	$this->changedState permanecera en FALSE
+	*
+	*	@param String $evName Nombre prefixo del evento, generalemnte voy a usar "Before" y "After"
+	*	@return false si nada cambio, sino el ID del nuevo estado
+	*
+	**/
+	private function __processStateChanges ( $evName = 'Before') {
+		$this->changedState = false;
+
+		$estadoAnterior = $this->field('estado_id');
+		
+		if ( empty($this->data['Mesa']['estado_id']) ) {
+			return false;
+		}
+		$nuevoEstado = $this->data['Mesa']['estado_id'];
+		if ( $estadoAnterior != $nuevoEstado ) {
+			// set new estado_id		
+			$this->changedState = $estadoAnterior;
+		}
+
+		return $this->changedState;
+	}
+
 
 
 	public function comensales_por_dia($fechaDesde, $fechaHasta) {
@@ -223,9 +300,9 @@ class Mesa extends MesaAppModel {
 			 && $this->estaAbierta()
 			 ) 
 	 	{               
-			 return $this->cerrar_mesa( $this->data['Mesa']['id'], false);
+	 		$silent = empty( $this->data['Mesa']['silent'] ) ? false : true;
+	 		return $this->cerrar_mesa( $this->data['Mesa']['id'], false, $silent);
 		}
-
 		return false;
 	 }
 
@@ -249,7 +326,7 @@ class Mesa extends MesaAppModel {
 	// }
 
 
-	function cerrar_mesa( $mesa_id = null, $save = true )
+	function cerrar_mesa( $mesa_id = null, $save = true, $silent = false )
 	{		
 		if ( !empty( $this->data['Mesa']['id'] ) ) {
 			$this->id = $this->data['Mesa']['id'];
@@ -257,34 +334,23 @@ class Mesa extends MesaAppModel {
 		$this->id = ( $mesa_id == null ) ? $this->id : $mesa_id;
 
 		if ( !$this->exists( $this->id ) ) {
-			return 0;
+			throw new NotFoundException(__('La Mesa ID# no existe', $this->id));
 		}
 
-		$this->data['Mesa']['id'] = $this->id;
-		$this->data['Mesa']['estado_id'] = MESA_CERRADA;
-		$this->data['Mesa']['subtotal'] = $this->calcular_subtotal();
-		$this->data['Mesa']['total'] = $this->calcular_total();
-		$this->data['Mesa']['time_cerro'] = date( "Y-m-d H:i:s");
-		$this->data['Mesa']['time_cobro'] = DATETIME_NULL;
-
-
-		$event = new CakeEvent('Mesa.cerrada', $this, $this->data);
-
+		$data['Mesa']['id'] = $this->id;
+		$data['Mesa']['estado_id'] = MESA_CERRADA;
+		$data['Mesa']['time_cerro'] = date( "Y-m-d H:i:s");
+		$data['Mesa']['time_cobro'] = DATETIME_NULL;
+		$data['Mesa']['silent'] = $silent; // no trigger del event
 
 		// si no hay que guardar nada, regresar
-		if ($save == false) {
-			$this->getEventManager()->dispatch($event);
-			return true;	
-		} 
-
-		if ( $this->save($this->data) ) {
-		  	$this->getEventManager()->dispatch($event);
-		  	return true;
-		} else {
-			throw new CakeException("Error al guardar mesa cerrar mesa");
+		if ( $save ) {
+			if ( !$this->save( $data ) ) {
+				throw new CakeException("Error al guardar mesa cerrar mesa");
+			}
 		}
-
-		return false; // no se pudo cerrar la mesa
+		
+		return true;	
 }
 
 
@@ -292,18 +358,20 @@ class Mesa extends MesaAppModel {
 function calcular_total_productos ($id = null) {
 	if (!empty($id)) $this->id = $id;
 
-	$this->contain(array(
-		'Comanda' => array(
-			'DetalleComanda' => array(
-				'Producto',
-				'DetalleSabor.Sabor'
-				)
+	$mesa = $this->find('first', array(
+		'contain' => array(
+			'Comanda' => array(
+				'DetalleComanda' => array(
+					'Producto',
+					'DetalleSabor.Sabor'
+					)
+				),
+			),
+		'conditions'=> array('Mesa.id' => $this->id 
 			)
-		));
-
-	$mesa = $this->read();
+		)
+	);
 	$comandas = $mesa['Comanda'];
-
 	$total = 0;
 	if ( $comandas ) {
 		foreach ( $comandas as $c ) {
@@ -354,38 +422,36 @@ function calcular_subtotal($id = null){
 		throw new NotFoundException(__('La Mesa ID# no existe', $this->id));
 	}
 
-	if ( !empty($this->total) ) {
-		return $this->total['Mesa']['subtotal'];
-	}
-
-	$this->total['Mesa']['subtotal'] = 0;
-	$this->total['Mesa']['total'] = 0;
-	$this->total['Mesa']['descuento'] = 0;
-
 	$totalProductos = $this->calcular_total_productos();
-	$totalPorcentajeDescuento = $this->calcular_descuentos();
-	$conversionDescuento = 1-($totalPorcentajeDescuento/100);
-
-	$this->recursive = -1;
-	$mesa = $this->find('first', array('conditions'=> array( 'Mesa.id' => $this->id ) ) );
+	$valor_cubierto = $this->calcular_valor_cubierto();
 	
-	$cant_comensales = $mesa['Mesa']['cant_comensales'];
-
-	$this->total['Mesa']['cant_comensales'] = $cant_comensales;
-
-	$precioCubierto = Configure::read('Restaurante.valorCubierto');
-	$valor_cubierto = 0;
-	if ($precioCubierto > 0) {
-		$valor_cubierto =  $precioCubierto * $this->total['Mesa']['cant_comensales'];
-	}
-	$this->total['Mesa']['subtotal'] = $totalProductos + $valor_cubierto;
-	$this->total['Mesa']['total'] = cqs_round(  $this->total['Mesa']['subtotal'] * $conversionDescuento );
-	$this->total['Mesa']['descuento'] = $totalPorcentajeDescuento;
-
-	return $this->total['Mesa']['subtotal'];
+	return $totalProductos + $valor_cubierto;
 }
 
 
+/**
+*	Funcion que calcula el precio del cubierto
+*
+*	@param Integer $mesaId default NULL
+*	@return Float precio del cubierto
+*
+**/
+function calcular_valor_cubierto ( $mesaId = null )  {
+	if (!empty($mesaId)) {
+		$this->id = $mesaId;
+	}
+
+	$cant_comensales = $this->field('cant_comensales');
+	
+	$precioCubierto = Configure::read('Restaurante.valorCubierto');
+	$valor_cubierto = 0;
+	if ($precioCubierto > 0) {
+		$valor_cubierto =  $precioCubierto * $cant_comensales;
+	}
+	return $valor_cubierto;
+}
+
+	
 
 	/**
 	 * Calcula el total de la mesa cuyo id fue seteado en $this->Mesa->id 
@@ -394,10 +460,14 @@ function calcular_subtotal($id = null){
 	function calcular_total($id = null){
 		if (!empty($id)) $this->id = $id;
 
-		if ( empty($this->total['Mesa']['total']) ) {
-			$this->calcular_subtotal();
-		}        
-		return $this->total['Mesa']['total'];
+		$subtotal = $this->calcular_subtotal();
+		$totalPorcentajeDescuento = $this->calcular_descuentos();
+
+		$conversionDescuento = 1-($totalPorcentajeDescuento/100);
+
+		$total = cqs_round(  $subtotal * $conversionDescuento );
+
+		return $total;
 	}
 
 
@@ -902,10 +972,8 @@ function calcular_subtotal($id = null){
         
         // agregar el valor del cubierto
         $valorCubierto = Configure::read('Restaurante.valorCubierto');
-        if ( empty ( $valorCubierto ) ) {
-            $valorCubierto = 0;
-        }
-        if ( $valorCubierto >= 0 && is_numeric($mesa['Mesa']['cant_comensales']) ) {
+        
+        if ( is_numeric($valorCubierto) && $valorCubierto >= 0 && is_numeric($mesa['Mesa']['cant_comensales']) ) {
             $prod[] = array(
                 'nombre'   => 'Cubiertos',
                 'cantidad' => $mesa['Mesa']['cant_comensales'],

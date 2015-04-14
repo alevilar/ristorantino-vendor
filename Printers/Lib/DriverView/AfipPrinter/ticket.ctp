@@ -34,7 +34,7 @@
 App::uses('AfipWsv1', 'Printers.Utility');
 
 
-$pto_venta = Configure::read('Restaurante.punto_de_venta');
+$pto_venta = Configure::read('Afip.punto_de_venta');
 
 $tipo_comprobante = Configure::read('Afip.tipofactura_id');
 $cliente_tipo = AfipWsv1::CLIENTE_TIPO_DOCUMENTO_SIN_IDENTIFICAR;
@@ -131,8 +131,7 @@ $this->printaitorObj->dataToView['AfipFactura'] = array(
 			'fecha_inicio_actividades' => Configure::read('Afip.inicio_actividades'),
 		),
 	);
-debug($fullMesa);
-debug($this->printaitorObj->dataToView['AfipFactura'] ); die;
+
 
 if ( !empty( $fullMesa['Cliente'] ) ) {
 	$this->printaitorObj->dataToView['AfipFactura']['Cliente'] = $fullMesa['Cliente'];
