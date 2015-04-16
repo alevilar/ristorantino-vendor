@@ -5,13 +5,19 @@ App::uses('AfipWsException', 'Printers.Error');
 
 define ("AFIP_URL_PRODUCCION", "https://servicios1.afip.gov.ar/wsfev1/service.asmx");
 define ("AFIP_URL_PRODUCCION_AUTH", "https://wsaa.afip.gov.ar/ws/services/LoginCms");
-           
+      	     
 define ("AFIP_URL_DESARROLLO", "https://wswhomo.afip.gov.ar/wsfev1/service.asmx");
 define ("AFIP_URL_DESARROLLO_AUTH", "https://wsaahomo.afip.gov.ar/ws/services/LoginCms");
 
 
-define("AFIP_URL", AFIP_URL_DESARROLLO);
-define("AFIP_URL_AUTH", AFIP_URL_DESARROLLO_AUTH);
+if ( Configure::read("Afip.desarrollo")  ) {
+	define("AFIP_URL", AFIP_URL_DESARROLLO);
+	define("AFIP_URL_AUTH", AFIP_URL_DESARROLLO_AUTH);
+} else {
+	define("AFIP_URL", AFIP_URL_PRODUCCION);
+	define("AFIP_URL_AUTH", AFIP_URL_PRODUCCION_AUTH);
+}
+
 
 
 
@@ -22,8 +28,8 @@ define('PRINTERS_FILES_DIR', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'ristora
 
 define ("WSDLFE",  PRINTERS_PUBLIC_FILES_DIR . 'wsfe.wsdl' );     # The WSDL corresponding to WSAA
 define ("WSDL",  PRINTERS_PUBLIC_FILES_DIR . 'wsaa.wsdl' );     # The WSDL corresponding to WSAA
-define ("CERT", PRINTERS_FILES_DIR ."afip.crt");       # The X.509 certificate in PEM format
-define ("PRIVATEKEY", PRINTERS_FILES_DIR . "id_rsa"); # The private key correspoding to CERT (PEM)
+define ("CERT", PRINTERS_FILES_DIR .Configure::read("Afip.crt") );       # The X.509 certificate in PEM format
+define ("PRIVATEKEY", PRINTERS_FILES_DIR . Configure::read("Afip.private_key") ); # The private key correspoding to CERT (PEM)
 define ("PASSPHRASE", Configure::read("Afip.id_rsa.passphrase")); # The passphrase (if any) to sign
 
 
