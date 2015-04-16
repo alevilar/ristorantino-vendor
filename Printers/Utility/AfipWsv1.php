@@ -3,9 +3,9 @@
 App::uses('AfipWsException', 'Printers.Error');
 
 
-define ("AFIP_URL_PRODUCCION", "https://ws.afip.gov.ar/wsfev1/service.asmx");
+define ("AFIP_URL_PRODUCCION", "https://servicios1.afip.gov.ar/wsfev1/service.asmx");
 define ("AFIP_URL_PRODUCCION_AUTH", "https://wsaa.afip.gov.ar/ws/services/LoginCms");
-
+           
 define ("AFIP_URL_DESARROLLO", "https://wswhomo.afip.gov.ar/wsfev1/service.asmx");
 define ("AFIP_URL_DESARROLLO_AUTH", "https://wsaahomo.afip.gov.ar/ws/services/LoginCms");
 
