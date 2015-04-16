@@ -101,19 +101,17 @@ $mes = substr($detalleFactura->CAEFchVto, 4, 2);
 $dia = substr($detalleFactura->CAEFchVto, 6, 2);
 $fechaVtoCae = $dia. "/" . $mes . "/" . $anio;
 
-debug(Configure::read('Restaurante.iva_responsabilidad'));
 $ivaResponsabilidad = (int) Configure::read('Restaurante.iva_responsabilidad');
-debug($ivaResponsabilidad);
 $codigoRespIva = AfipWsv1::mapResponsabilidadesIva( $ivaResponsabilidad );
-debug($codigoRespIva);
 $miTipoDeIvaResp = AfipWsv1::$tipoResponsabilidadesIva[ $codigoRespIva ];
-debug($miTipoDeIvaResp);
 
 $this->printaitorObj->cae = $detalleFactura->CAE;
 $this->printaitorObj->comprobanteNro = $detalleFactura->CbteDesde;
 $this->printaitorObj->puntoDeVenta = $pto_venta;
 
-
+$IvaRespo = ClassRegistry::init('Risto.IvaResponsabilidad');
+$IvaRespo->id = Configure::read( 'Restaurante.iva_responsabilidad' );
+$respIvaName = $IvaRespo->field('name');
 $this->printaitorObj->dataToView['AfipFactura'] = array(
 		'cae' => $detalleFactura->CAE,
 		'cae_vencimiento' => $fechaVtoCae,
@@ -132,6 +130,7 @@ $this->printaitorObj->dataToView['AfipFactura'] = array(
 			'domicilio_fiscal' => Configure::read('Restaurante.domicilio'),
 			'domicilio_comercial' => Configure::read('Restaurante.domicilio'),
 			'tipo_responsabilidad' =>  $codigoRespIva,
+			'tipo_responsabilidad_name' => $respIvaName,
 			'ingresos_brutos' => Configure::read('Restaurante.ib'),
 			'fecha_inicio_actividades' => Configure::read('Afip.inicio_actividades'),
 		),

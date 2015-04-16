@@ -48,7 +48,7 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 								<?php echo "Domicilio: " . $afipFactura->Empresa->domicilio_fiscal ?><br />
 							<?php } ?>
 
-							<i><?php echo $afipFactura->Empresa->tipo_responsabilidad?></i><br />
+							<i><?php echo $afipFactura->Empresa->tipo_responsabilidad_name?></i><br />
 
 							<FONT FACE="Arial" SIZE=2>
 								
