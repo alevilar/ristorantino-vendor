@@ -36,7 +36,7 @@ App::uses('AfipWsv1', 'Printers.Utility');
 
 $pto_venta = Configure::read('Afip.punto_de_venta');
 
-$tipo_comprobante = Configure::read('Afip.tipofactura_id');
+$tipo_comprobante = AfipWsv1::mapTipoFacturas( Configure::read('Afip.tipofactura_id') );
 $cliente_tipo = AfipWsv1::CLIENTE_TIPO_DOCUMENTO_SIN_IDENTIFICAR;
 $cliente_doc = 0;
 if ( !empty($fullMesa['Cliente'])) {
@@ -62,7 +62,6 @@ $res = AfipWsv1::FECAESolicitar (   $pto_venta
 									, $fullMesa['Mesa']['total'] 
 									, $iva
 								);
-
 
 $detalleFactura = $res->FECAESolicitarResult->FeDetResp->FECAEDetResponse;
 $tipoFactura = AfipWsv1::$tipoComprobantes[ $res->FECAESolicitarResult->FeCabResp->CbteTipo ];
@@ -114,6 +113,7 @@ $this->printaitorObj->cae = $detalleFactura->CAE;
 $this->printaitorObj->comprobanteNro = $detalleFactura->CbteDesde;
 $this->printaitorObj->puntoDeVenta = $pto_venta;
 
+
 $this->printaitorObj->dataToView['AfipFactura'] = array(
 		'cae' => $detalleFactura->CAE,
 		'cae_vencimiento' => $fechaVtoCae,
@@ -159,6 +159,5 @@ if (!empty($productos)) {
 if (!empty($importe_descuento)) {
 	$this->printaitorObj->dataToView['AfipFactura']['descuento'] = $importe_descuento;
 }
-
 
 echo json_encode($this->printaitorObj->dataToView['AfipFactura']);

@@ -523,7 +523,7 @@ class AfipWsv1 {
 			'CbteTipo' => $tipo_comprobante,
 			'CbteNro'  => $nro_comprobante,
 			) );
-		self::__throwErrorIfExists('FECompConsultarResult');
+		self::__throwErrorIfExists($res, 'FECompConsultarResult');
 		
 		return $res;
 	}
@@ -539,7 +539,7 @@ class AfipWsv1 {
 			'CbteTipo' => $tipo_comprobante
 			) );
 
-		self::__throwErrorIfExists('FECompUltimoAutorizadoResult');
+		self::__throwErrorIfExists($res, 'FECompUltimoAutorizadoResult');
 
 		return $res->FECompUltimoAutorizadoResult->CbteNro;
 
@@ -555,7 +555,7 @@ class AfipWsv1 {
 		    		'Orden' => $orden
 		    ));
 
-		self::__throwErrorIfExists('FECAEAConsultarResult');
+		self::__throwErrorIfExists($results, 'FECAEAConsultarResult');
 		  
 	}
 
@@ -576,11 +576,8 @@ class AfipWsv1 {
 	**/
 	static function FEParamGetTiposTributos () {		
 		$res = self::$client->FEParamGetTiposTributos( array('Auth'=> self::$authVars));
-		if ( is_soap_fault($res) ) { 
-			self::soapErrorHandler($results);
-	   	}
-
-	   	self::__throwErrorIfExists('FEParamGetTiposTributosResult');
+		
+	   	self::__throwErrorIfExists($res, 'FEParamGetTiposTributosResult');
 		
 		return $res;
 	}
@@ -590,11 +587,8 @@ class AfipWsv1 {
 
 	static function FEParamGetTiposCbte () {
 		$res = self::$client->FEParamGetTiposCbte( array('Auth'=> self::$authVars));
-		if ( is_soap_fault($res) ) { 
-			self::soapErrorHandler($results);
-	   	}
-
-	   	self::__throwErrorIfExists('FEParamGetTiposCbteResult');
+		
+	   	self::__throwErrorIfExists($res, 'FEParamGetTiposCbteResult');
 
 		return $res->FEParamGetTiposCbteResult->ResultGet->CbteTipo;
 	}
@@ -652,20 +646,25 @@ class AfipWsv1 {
 		    );
 
 
-		self::__throwErrorIfExists('FECAESolicitarResult');
+		self::__throwErrorIfExists($results, 'FECAESolicitarResult');
 
-		if ( !empty( $results->FECAESolicitarResult->FeCabResp->Resultado) 
-			 && !empty($results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code)
+		if ( !empty($results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs)
 			 && $results->FECAESolicitarResult->FeCabResp->Resultado == 'R' 
-			 && $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code != 0 )
-		    {
-				throw new AfipWsException( "SUPP".$results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Msg, $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code );
+			 )
+		    {		    	
+				throw new AfipWsException( $results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs );
 		}
 
 		return $results;
 	}
 
-	private static function __throwErrorIfExists ( $fnName ) {
+	private static function __throwErrorIfExists ( $results, $fnName ) {
+		
+		if ( is_soap_fault($results) ) { 
+			self::soapErrorHandler($results);
+	   	}
+
+
 		if (!empty($results->{$fnName }->Errors->Err)){
 			throw new AfipWsException( $results->{$fnName }->Errors->Err );
 		}
@@ -704,10 +703,7 @@ class AfipWsv1 {
 	static function dummy ()
 	{
 	  $results = self::$client->FEDummy(  array(  'Auth'=> self::$authVars) );
-
-	  if (is_soap_fault($results)) { 	  	
-		   	self::soapErrorHandler($results);
-	  }
+	  self::__throwErrorIfExists ( $results, 'FEDummyResult' );
 	  return $results->FEDummyResult;
 	}
 
