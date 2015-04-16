@@ -523,9 +523,8 @@ class AfipWsv1 {
 			'CbteTipo' => $tipo_comprobante,
 			'CbteNro'  => $nro_comprobante,
 			) );
-		if ( !empty( $res->FECompConsultarResult->Errors->Err ) ) {
-			throw new AfipWsException( $res->FECompConsultarResult->Erros->Err ->Msg, $res->FECompConsultarResult->Erros->Err ->Code);
-		}
+		self::__throwErrorIfExists('FECompConsultarResult');
+		
 		return $res;
 	}
 
@@ -540,9 +539,7 @@ class AfipWsv1 {
 			'CbteTipo' => $tipo_comprobante
 			) );
 
-		if ( !empty( $res->FECompUltimoAutorizadoResult->Errors->Err ) ) {
-			throw new AfipWsException( $res->FECompUltimoAutorizadoResult->Errors->Err ->Msg, $res->FECompUltimoAutorizadoResult->Errors->Err ->Code);
-		}
+		self::__throwErrorIfExists('FECompUltimoAutorizadoResult');
 
 		return $res->FECompUltimoAutorizadoResult->CbteNro;
 
@@ -557,10 +554,8 @@ class AfipWsv1 {
 		    		'Periodo' => $periodo,
 		    		'Orden' => $orden
 		    ));
-		  if ( $results->FECAEAConsultarResult->Errors->Err->Code != 0 )
-		    {
-				throw new AfipWsException( $results->FECAEAConsultarResult->Errors->Err->Msg, $results->FECAEAConsultarResult->Errors->Err->Code );
-		    }
+
+		self::__throwErrorIfExists('FECAEAConsultarResult');
 		  
 	}
 
@@ -585,9 +580,8 @@ class AfipWsv1 {
 			self::soapErrorHandler($results);
 	   	}
 
-		if ( !empty( $res->FEParamGetTiposTributosResult->Errors ) ){
-			throw new AfipWsException( $res->FEParamGetTiposTributosResult->Errors->Err->Msg, $res->FEParamGetTiposTributosResult->Errors->Err->Code );
-		} 
+	   	self::__throwErrorIfExists('FEParamGetTiposTributosResult');
+		
 		return $res;
 	}
 
@@ -599,9 +593,9 @@ class AfipWsv1 {
 		if ( is_soap_fault($res) ) { 
 			self::soapErrorHandler($results);
 	   	}
-		if ( !empty( $res->FEParamGetTiposCbteResult->Errors ) ){
-			throw new AfipWsException( $res->FEParamGetTiposCbteResult->Errors->Err->Msg, $res->FEParamGetTiposCbteResult->Errors->Err->Code );
-		} 
+
+	   	self::__throwErrorIfExists('FEParamGetTiposCbteResult');
+
 		return $res->FEParamGetTiposCbteResult->ResultGet->CbteTipo;
 	}
 
@@ -658,9 +652,7 @@ class AfipWsv1 {
 		    );
 
 
-		if (!empty($results->FECAESolicitarResult->Errors->Err)){
-			throw new AfipWsException( $results->FECAESolicitarResult->Errors->Err->Msg, $results->FECAESolicitarResult->Errors->Err->Code);
-		}
+		self::__throwErrorIfExists('FECAESolicitarResult');
 
 		if ( !empty( $results->FECAESolicitarResult->FeCabResp->Resultado) 
 			 && !empty($results->FECAESolicitarResult->FeDetResp->FECAEDetResponse->Observaciones->Obs->Code)
@@ -673,6 +665,11 @@ class AfipWsv1 {
 		return $results;
 	}
 
+	private static function __throwErrorIfExists ( $fnName ) {
+		if (!empty($results->{$fnName }->Errors->Err)){
+			throw new AfipWsException( $results->{$fnName }->Errors->Err );
+		}
+	}
 
 
 	static function checkAfipWServicesStatus () {
