@@ -5,7 +5,10 @@
 	<th><?php echo $this->Paginator->sort('subtotal');?></th>
 	<th><?php echo $this->Paginator->sort('total');?></th>
         <th>Descuento</th>
+        
+        <?php if ( Configure::read('Adicion.cantidadCubiertosObligatorio') ) { ?>
         <th><?php echo $this->Paginator->sort('cant_comensales', Inflector::pluralize(Configure::read('Mesa.tituloCubierto')) );?></th>		
+        <?php } ?>
         <th>
         <?php echo $this->Paginator->sort('estado_id', 'Estado');?><br />
         </th>        
@@ -27,7 +30,7 @@ foreach ($mesas as $mozo):
 		<strong><?php echo $mozo['Mesa']['numero']; ?><strong>
 		</td>
 		<td>
-			<?php echo $this->Html->link('N° '.$mozo['Mozo']['numero'], array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'view', $mozo['Mesa']['mozo_id'])); ?>
+			<?php echo $this->Html->link( $mozo['Mozo']['numero'], array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'view', $mozo['Mesa']['mozo_id'])); ?>
 		</td>
 		<td>
 			<?php echo $this->Number->currency( $mozo['Mesa']['subtotal']); ?>
@@ -44,9 +47,14 @@ foreach ($mesas as $mozo):
 			 }
                              ?>
 		</td>
+
+		<?php if ( Configure::read('Adicion.cantidadCubiertosObligatorio') ) { ?>
     	<td>
 			<?php echo $mozo['Mesa']['cant_comensales'] ?>
 		</td>
+		<?php } ?>
+
+
 		<td>
 			<?php echo $mozo['Estado']['name'] ?>
 		</td>

@@ -75,13 +75,20 @@
 
     <div class="col-md-2">
         <div class="tabla-info">
+            <?php if (Configure::read('Adicion.cantidadCubiertosObligatorio')) { ?>
             <h3><?php echo __('Ocupación'); ?></h3>
+            <?php } else { ?>
+            <h3><?php echo __('Cronograma'); ?></h3>
+            <?php }?>
 
             <table class="table table-condensed center">
                 <thead>
                     <tr>
                         <th style="background: #9B4959; color: white; text-align: center;"><?php echo __('Fecha'); ?></th>
+
+                        <?php if (Configure::read('Adicion.cantidadCubiertosObligatorio')) { ?>
                         <th style="background: #9B4959; color: white; text-align: center;"><?php echo Inflector::pluralize(Configure::read('Mesa.tituloCubierto')); ?></th>
+                        <?php } ?>
                     </tr>
                 </thead>
              <?php
@@ -89,7 +96,9 @@
                     ?>
                     <tr>
                         <td><?php echo $this->Time->format($fecha, '%a %d %b') ?></td>
+                        <?php if (Configure::read('Adicion.cantidadCubiertosObligatorio')) { ?>
                         <td><?php echo $cubs?></td>
+                        <?php } ?>
                     </tr>
                     <?php
                 }

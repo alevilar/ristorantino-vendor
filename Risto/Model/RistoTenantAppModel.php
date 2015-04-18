@@ -19,6 +19,7 @@
 App::uses('RistoAppModel', 'Risto.Model');
 App::uses('CakeSession', 'Model/Datasource');
 App::uses('CakeRequest', 'Network');
+App::uses('MtSites', 'MtSites.Utility');
 
 /**
  * Class RistoAppModel
@@ -40,7 +41,7 @@ class RistoTenantAppModel extends RistoAppModel {
 		// usar el correspondiente al tenant
 		//debug( Router::$_requests );
 		if ( CakeSession::started() ) {
-			$currentTenant = CakeSession::read('MtSites.current');
+			$currentTenant = MtSites::getSiteName();
 			if ( empty($currentTenant) ) {
 				throw new CakeException("No esta en un Tenant y esta queriendo acceder a un modelo tenant");
 				

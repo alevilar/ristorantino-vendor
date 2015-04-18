@@ -1,9 +1,10 @@
-﻿<!DOCTYPE html>
+﻿<?php App::uses('MtSites', 'MtSites.Utility'); ?>
+<!DOCTYPE html>
 <html>
     <head>
         <script>
         var URL_DOMAIN = "<?php echo $this->Html->url('/', true); ?>";
-        var TENANT = "<php echo $this->Session->read('MtSites.current')?>";
+        var TENANT = "<php echo MtSites::getSiteName()?>";
         </script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="utf-8">

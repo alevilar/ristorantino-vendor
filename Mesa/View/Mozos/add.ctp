@@ -7,7 +7,7 @@
         	echo $this->Html->imageMedia( $this->request->data['Mozo']['media_id'], array('img-polaroid', 'style'=>'width: 68px')); 
 		}
 		echo $this->Form->input('id');
-		echo $this->Form->input('numero');
+		echo $this->Form->input('numero', array('label'=>'Alias'));
         echo $this->Form->input('nombre');
         echo $this->Form->input('apellido');
         echo $this->Form->input('media_file', array('type'=>'file', 'label'=>'Foto'));

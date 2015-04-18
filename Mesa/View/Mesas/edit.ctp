@@ -45,10 +45,14 @@
                     echo $this->Form->input('time_cobro', array( 'type'=>'date'));
                     echo $this->Form->input('time_cerro', array( 'type'=>'date'));
 
-                    echo $this->Form->input('checkin', array( 'type'=>'date'));
-                    echo $this->Form->input('checkout', array( 'type'=>'date' ));
+                    if ( Configure::read("Site.type") == SITE_TYPE_HOTEL) {
+                        echo $this->Form->input('checkin', array( 'type'=>'date'));
+                        echo $this->Form->input('checkout', array( 'type'=>'date' ));
+                    }
 
-                    echo $this->Form->input('cant_comensales', array('label'=> __("Cantidad de %s", Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) )));
+                    if ( Configure::read("Adicion.cantidadCubiertosObligatorio")) {
+                        echo $this->Form->input('cant_comensales', array('label'=> __("Cantidad de %s", Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) )));
+                    }
 
                     echo $this->Form->input('observation', array());
 

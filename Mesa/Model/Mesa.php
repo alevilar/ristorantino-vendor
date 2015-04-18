@@ -23,7 +23,8 @@ class Mesa extends MesaAppModel {
 		 ),
 		'numero' => array(
 		 'notempty',
-		 ));
+		 )
+		);
 
 
 	public $defaultContain = array(
