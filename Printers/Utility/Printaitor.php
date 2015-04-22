@@ -172,6 +172,7 @@ class Printaitor
 
         $driverName = $printViewObj->printer['Printer']['driver'];
         $driverModelName = $printViewObj->printer['Printer']['driver_model'];
+
         App::build(array('View' => array( $pluginPath[0] . '/DriverView')));
 
         $viewName = $driverName."Printer/$templateName";
@@ -191,7 +192,17 @@ class Printaitor
         $View->PE = new $helperName($View);
         
         $View->printaitorObj = $printViewObj;
-        return $View->render( $viewName, false );
+
+        try {
+            $View->render( $viewName, false );
+        } catch (Exception $e) {
+            if ($e->getCode() == 500 ) {
+                CakeLog::write('error', 'No se pudo encontrar la View: '.$viewName);
+                return false;
+            }
+        }
+        
+        return true;
     }
         
  
