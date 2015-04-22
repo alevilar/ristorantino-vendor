@@ -29,18 +29,20 @@ class ComandasEventListener implements CakeEventListener {
 
 
 	public function onComandaPrint( $event ) {
-		$event->subject()->id;
+		if ($event->subject()->name == 'Comanda') {
+			$event->subject()->id;
 
-		$comanda = ClassRegistry::init('Comanda.Comanda')->find('first', array(
-				'recursive' => -1,
-				'conditions' => array(
-					'Comanda.id' => $event->subject()->id
-				),
-			)
-		);
-		if ( $comanda && $comanda['Comanda']['impresa']) {
-			return ReceiptPrint::comanda( $event->subject() );
-		}		
+			$comanda = ClassRegistry::init('Comanda.Comanda')->find('first', array(
+					'recursive' => -1,
+					'conditions' => array(
+						'Comanda.id' => $event->subject()->id
+					),
+				)
+			);
+			if ( $comanda && $comanda['Comanda']['impresa']) {
+				return ReceiptPrint::comanda( $event->subject() );
+			}	
+		}	
 	}
 
 }
