@@ -18,7 +18,11 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 					<h1 class="afipfactura-tipo-comprobante">
 						<?php echo $afipFactura->tipo_comprobante_name ?>
 					</h1>
-					<b>ORIGINAL</b>
+					<?php if (Configure::read('Afip.desarrollo')) { ?>
+						<b style="color: brown">COMPROBANTE NO VÁLIDO COMO FACTURA</b>
+					<?php } else { ?>
+						<b>ORIGINAL</b>
+					<?php }?>
 			</TD>
 			<TD WIDTH="45%" VALIGN="MIDDLE" HEIGHT=36 style="border: none">
 				<br>
