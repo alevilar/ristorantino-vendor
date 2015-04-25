@@ -47,7 +47,8 @@ class AfipFacturasPrinterOutput extends PrinterOutput
    
 
     public function beforeRender ( PrintaitorViewObj $printaitorViewObj ) {
-        $ptoVta = Configure::read('Restaurante.punto_de_venta');
+        $ptoVta = Configure::read('Afip.punto_de_venta');
+        
         $this->set( 'punto_de_venta', $ptoVta);
 
         $this->__start( $ptoVta );
