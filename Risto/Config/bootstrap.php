@@ -62,6 +62,7 @@ if ( Configure::check('Plugins') ) {
     unset($plugs);
 }
 
+ CakePlugin::load('Barcodes');
  CakePlugin::load('Utils');
 
 

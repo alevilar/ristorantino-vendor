@@ -32,6 +32,14 @@ class Printaitor
 {
   
     static $isLoad = false;
+
+
+    /**
+    *
+    *   Objeto PrinterOutput
+    *
+    **/
+    static $Output;
     
     public static function setup( Model $printer , $id = null)
     {                
@@ -92,8 +100,19 @@ class Printaitor
     public static function send( $Mesa, $printer_id, $viewName) {
         App::uses('PrintaitorViewObj', 'Printers.Utility');
 
+        // instanctia %this->Output
+        self::__createOutput( $printer_id ); 
+
+        // inicializa PrintaitorViewObj
         $printViewObj = new  PrintaitorViewObj( $Mesa, $printer_id, $viewName );        
+        
+        // callback antes de generar la vista
+        self::$Output->beforeRender( $printViewObj ); 
        
+        // genera la vista
+        $printViewObj->getView();
+
+        // ejecuta la salida del resultado de la vista
         return self::__sendOutput( $printViewObj ); 
     }
     
@@ -108,6 +127,20 @@ class Printaitor
     public static function getEngineName() {
         return self::$PrinterOutput->name;
     }    
+
+
+    public static function __createOutput ( $printerId  ) {
+        // cargar datos de la impresora
+        $Printer = ClassRegistry::init("Printers.Printer");
+        $Printer->recursive = -1;
+        $printer = $Printer->read(null, $printerId);
+        $outputName = $printer['Printer']['output'] . 'PrinterOutput';
+
+
+        // cargar la Salida correspondiente segun la configuracion de la impresora
+        App::uses($outputName, 'Printers.Lib/PrinterOutput');
+        self::$Output = new $outputName;
+    }
     
 
     /**
@@ -116,18 +149,8 @@ class Printaitor
     *
     **/
     public static function __sendOutput ( $printViewObj ) {
-
-        // cargar datos de la impresora
-        $Printer = ClassRegistry::init("Printers.Printer");
-        $Printer->recursive = -1;
-        $printer = $Printer->read(null, $printViewObj->printerId);
-        $outputName = $printer['Printer']['output'] . 'PrinterOutput';
-
-
-        // cargar la Salida correspondiente segun la configuracion de la impresora
-        App::uses($outputName, 'Printers.Lib/PrinterOutput');
-        $out = new $outputName;
-        return $out->send( $printViewObj ); 
+        
+        return self::$Output->send( $printViewObj ); 
     }
  
     
@@ -194,7 +217,8 @@ class Printaitor
         $View->printaitorObj = $printViewObj;
 
         try {
-            $View->render( $viewName, false );
+            $view = $View->render( $viewName, false );
+            return $view;
         } catch (Exception $e) {
             if ($e->getCode() == 500 ) {
                 CakeLog::write('error', 'No se pudo encontrar la View: '.$viewName);

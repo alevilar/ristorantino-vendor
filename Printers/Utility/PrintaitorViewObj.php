@@ -59,7 +59,12 @@ class PrintaitorViewObj {
         $printer = $Printer->read(null, $this->printerId );
         $this->printer = $printer;
 
-        $this->viewTextRender = Printaitor::getView( $this );
+       
+	}
+
+
+	public function getView () {
+		 $this->viewTextRender = Printaitor::getView( $this );
 	}
 
 }

@@ -16,15 +16,19 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 			</TD>
 			<TD WIDTH="10%" VALIGN="TOP" HEIGHT=36 style="border:1px solid silver; border-top: none; text-align:center">
 					<h1 class="afipfactura-tipo-comprobante">
-						<?php echo $afipFactura->tipo_comprobante?>
+						<?php echo $afipFactura->tipo_comprobante_name ?>
 					</h1>
-				</B>
+					<b>ORIGINAL</b>
 			</TD>
 			<TD WIDTH="45%" VALIGN="MIDDLE" HEIGHT=36 style="border: none">
 				<br>
 				<FONT FACE="Arial" SIZE=3>
+					<p class="center">
+						COMPROBANTE ELECTRÓNICO<BR/>
+						
+					</p>
 					<P ALIGN="CENTER">
-					Nº <?php echo $afipFactura->full_nro_comprobante;?><BR/>
+					<b>FACTURA  <?php echo $afipFactura->full_nro_comprobante;?></b><BR/>
 					<?php echo $afipFactura->fecha_facturacion ?>
 					</P>
 				</FONT>
@@ -78,9 +82,29 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 			<TR>
 				<TD VALIGN="TOP" COLSPAN=4 HEIGHT=60>
 					<FONT FACE="Arial" SIZE=2>
-						<P><?php echo $afipFactura->Cliente->nombre; ?></P>
-						<P><?php echo $afipFactura->Cliente->nrodocumento; ?></P>
-						<P><?php echo $afipFactura->Cliente->domicilio; ?></P>
+						<P>
+							<span class="pull-right">
+								<b><?php echo $afipFactura->Cliente->TipoDocumento->name; ?>: </b>
+								<?php echo $afipFactura->Cliente->nrodocumento; ?>
+							</span>
+
+
+							<b>Señor/es: </b><?php echo $afipFactura->Cliente->nombre; ?><br/>
+							
+							<?php if (!empty($afipFactura->Cliente->responsabiliad_iva) ) { ?>
+								<span style="float: right">
+									<b>Condición: </b><?php echo $afipFactura->Cliente->responsabiliad_iva; ?>
+								</span>
+							<?php } ?>
+							
+							
+
+							<?php if (!empty($afipFactura->Cliente->domicilio) ) { ?>
+								<b>Domicilio: </b><?php echo $afipFactura->Cliente->domicilio; ?>
+							<?php } ?>
+							
+							
+						</P>
 					</FONT>
 				</TD>
 				<?php } ?>
@@ -94,9 +118,9 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 	<TABLE  class="table table-striped">
 		<thead>
 							<tr HEIGHT=40 style="background-color: #E6E6E6 !important">
+								<th WIDTH="10%" ALIGN="CENTER" style="text-align: center"><span>Cantidad</span></th>
 								<th WIDTH="40%"><span>Item</span></th>
 								<th WIDTH="25%"  ALIGN="RIGHT"  style="text-align: right"><span>Unitario</span></th>
-								<th WIDTH="10%" ALIGN="CENTER" style="text-align: center"><span>Cantidad</span></th>
 								<th ALIGN="RIGHT" WIDTH="25%" style="text-align: right">Importe</th>
 							</tr>
 		</thead>
@@ -110,9 +134,9 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 								foreach ($afipFactura->Producto as $p) {
 									?>
 									<tr>
+										<td ALIGN="CENTER"><span><?php echo $p->cantidad?></span></td>
 										<td><span><?php echo $p->nombre ?></span></td>
 										<td ALIGN="RIGHT"><span>$</span><span><?php echo $p->precio?></span></td>
-										<td ALIGN="CENTER"><span><?php echo $p->cantidad?></span></td>
 										<td ALIGN="RIGHT"><span>$</span><span><?php echo $p->total;?></span></td>
 									</tr>
 									<?php
@@ -129,9 +153,17 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 			<TFOOT>
 				<TR >
 					<TD VALIGN="MIDDLE" COLSPAN=4 HEIGHT=45 ALIGN="RIGHT" style="border: none">
-						Total Neto $<?php echo $afipFactura->subtotal; ?>
+						Total Neto $<?php echo $afipFactura->importe_neto; ?>
 					</TD>
 				</TR>
+				
+				<?php if (!empty($afipFactura->importe_iva)) { ?>
+				<TR >
+					<TD VALIGN="MIDDLE" COLSPAN=4 HEIGHT=45 ALIGN="RIGHT" style="border: none">
+						IVA $<?php echo $afipFactura->importe_iva; ?>
+					</TD>
+				</TR>
+				<?php } ?>
 
 				<?php
 				if (!empty($afipFactura->descuento)) {
@@ -146,17 +178,52 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 				<TR style="background: #E6E6E6 !important;">
 					<TD VALIGN="MIDDLE" COLSPAN=4 HEIGHT=45 ALIGN="RIGHT">
 						<FONT FACE="Arial" SIZE=4>
-						Total: $<?php echo $afipFactura->total?>
+						Total: $<?php echo $afipFactura->Mesa->total?>
 						</FONT>
 					</TD>
 				</TR>
+
 				<TR>
-					<TD VALIGN="TOP" COLSPAN=4 HEIGHT=5>
+					<TD VALIGN="TOP" COLSPAN=2 HEIGHT=5 width="50%">
+						
+						<?php
+						
+						App::uses('AfipWsv1', 'Printers.Utility');
+
+						$fechavenc = preg_split( '/\/|-/', $afipFactura->cae_vencimiento );
+						
+						// $codigo_tipo_comprobante = AfipWsv1::mapTipoFacturas($afipFactura->tipo_factura_id);
+
+						$codeData = array(
+							'cuit' => $afipFactura->Empresa->cuit,
+							'codigo_tipo_comprobante' =>  substr( $afipFactura->tipo_comprobante + 100, 1) ,
+							'punto_de_venta' => substr( $afipFactura->punto_de_venta + 10000, 1),
+							'cae' => $afipFactura->cae,
+							'cae_vencimiento' => implode( array_reverse( $fechavenc )),
+							);						
+						echo $this->Barcode->dataImage('int25', $codeData, array('width'=>'100%'));
+						?>
+					</TD>
+
+
+					<TD VALIGN="TOP" COLSPAN=1 HEIGHT=5 width="25%" style="text-align:center; vertical-align: middle">
 						<FONT FACE="Arial" SIZE=2>
-							<P>CAE <?php echo $afipFactura->cae?></P>
-							<P>VTO. CAE: <?php echo $afipFactura->cae_vencimiento ?></P>
+							<b style="font-size: 8pt">Comprobante Autorizado</b><br>
+							<?php
+							echo $this->Html->image('/printers/img/logo_afip.png', array( 'style' => 'width: 80%; max-width: 166px'));
+							?>
 						</FONT>
 					</TD>
+
+					<TD VALIGN="TOP" COLSPAN=1 HEIGHT=5 width="25%" style="text-align:center; vertical-align: middle">
+						<FONT FACE="Arial" SIZE=2>
+							<P>
+							CAE <?php echo $afipFactura->cae?><BR />
+							VTO. CAE: <?php echo $afipFactura->cae_vencimiento ?>
+							</P>
+						</FONT>
+					</TD>
+
 				</TR>
 			</TFOOT>
 		</TABLE>

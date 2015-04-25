@@ -936,7 +936,7 @@ function calcular_valor_cubierto ( $mesaId = null )  {
         }
 
 		$tipo_factura = Configure::read('Printers.default_tipo_factura_codename');
-
+		$tipo_factura_id = Configure::read('Afip.tipofactura_id');
         $mesa = $this->find('first',array(
             'contain'=>array(
                 'Mozo',
@@ -957,6 +957,7 @@ function calcular_valor_cubierto ( $mesaId = null )  {
             $mesa['Cliente'] = array();
         } elseif ( !empty($mesa['Cliente']['IvaResponsabilidad']['TipoFactura']['codename']) ) {
     		$tipo_factura = $mesa['Cliente']['IvaResponsabilidad']['TipoFactura']['codename'];
+    		$tipo_factura_id = $mesa['Cliente']['IvaResponsabilidad']['TipoFactura']['id'];
         }
         
         $mesa_numero = $mesa['Mesa']['numero'];
@@ -1000,6 +1001,7 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 				'mozo' 				  => $mozo_numero,
 				'mesa' 				  => $mesa_numero,
 				'cliente' 			  => $mesa['Cliente'],
+				'tipo_factura_id' 	  => $tipo_factura_id,
 				'tipo_factura' 		  => $tipo_factura,
 				'iva_responsabilidad' => $iva_responsabilidad
 				);

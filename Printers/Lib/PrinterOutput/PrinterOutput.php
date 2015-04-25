@@ -32,6 +32,15 @@ class PrinterOutput
  */        
     public  function description(){}
     
+
+
+/**
+ * Antes de construir una vista, se invoca este metodo
+ * 
+ * @return string
+ */
+    public function beforeRender ( PrintaitorViewObj $printaitorViewObj ) {}
+    
     
 /**
  *  Do the print

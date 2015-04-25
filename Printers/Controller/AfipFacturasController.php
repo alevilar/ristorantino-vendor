@@ -9,6 +9,23 @@ App::uses('PrintersAppController', 'Printers.Controller');
  */
 class AfipFacturasController extends PrintersAppController {
 
+	public $helpers = array(
+        'Html' => array(
+            'className' => 'Risto.PxHtml'
+            ),
+        'Form' => array(
+            'className' => 'Risto.PxForm'
+            ),
+        'Session',
+        'Paginator',
+        'Number',
+        'Time',
+        'Text',
+        'Barcodes.Barcode',
+    );
+
+
+
 	//public $sfaffold;
 
 	public function beforeFilter () {
