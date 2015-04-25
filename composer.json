@@ -18,7 +18,7 @@
 		"ristorantino/account": "master@dev",
 		"ristorantino/mt_sites": "master@dev",
 		"ristorantino/users": "master@dev",
-		"ristorantino/ristorantino-barcode-plugin": "master@dev",
+		"ristorantino/barcode": "master@dev",
 		"cakedc/utils": "1.*",
 		"codaxis/cakephp-bootstrap3-helpers": "1.1",
 		"ristorantino/ext-auth": "master@dev",
