@@ -64,7 +64,7 @@ foreach ($mesas as $mozo):
 			 	echo $mozo['Cliente']['IvaResponsabilidad']['TipoFactura']['name']; 
 			 }
 			else {
-			 echo ' "B"';
+			 echo ' '.Configure::read('Restaurante.tipofactura_name');
 			}
 			?>
 		</td>

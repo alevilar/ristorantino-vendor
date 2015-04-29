@@ -186,10 +186,12 @@ class MesasController extends MesaAppController {
            
         if ($this->request->is('post')) {
             $this->Mesa->create();
+            $this->request->data['Mesa']['subtotal'] = $this->request->data['Mesa']['total'];
             if ( $this->Mesa->saveAll($this->request->data) ) {
                 $insertedId = $this->Mesa->id;
+               
                 if ( !$this->request->is('ajax') ) {
-                    $this->Session->setFlash(__('La mesa fue guardada'));
+                    $this->Session->setFlash(__('La mesa %s fue guardada', $this->request->data['Mesa']['numero'] ));
                 }  
             } else {
                 if (!$this->request->is('ajax')) {
@@ -207,6 +209,7 @@ class MesasController extends MesaAppController {
             $this->set(compact('mozos', 'descuentos', 'tipo_pagos', 'clientes'));
         }
         
+        $this->set('clientes', $this->Mesa->Cliente->find('list'));
         $this->set('estados', $this->Mesa->Estado->find('list'));
         $this->set('insertedId', $insertedId);
         $this->set('validationErrors', $this->Mesa->validationErrors);

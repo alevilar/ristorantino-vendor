@@ -12,9 +12,19 @@
 		if (count($mozos) == 1) {
 			$mk = array_keys( $mozos );
         	echo $this->Form->hidden('mozo_id', array('value'=> $mk[0]));
-		} else {
-			echo $this->Form->input('mozo_id', array('label'=>Configure::read('Mesa.tituloMozo')));
+		} else {			
+			echo $this->Form->input('mozo_id', array(
+				'label'=>Configure::read('Mesa.tituloMozo'), 
+				'default'=> Configure::read('Mesa.generica_mozo_id'),
+				));
 		}
+
+
+		echo $this->Form->input('cliente_id', array(           
+            'empty'=>'Seleccione si desea agregar uno'
+            ));
+
+
 		//echo $this->Form->input('descuento_id');
 		//echo $this->Form->input('created');
 		//echo $this->Form->input('time_paso_pedido');
@@ -23,23 +33,30 @@
 
 		echo $this->Form->input('time_cerro', array(
                 'type' => 'datetime',
-                'label' => 'Fecha de Facturación'
+                'label' => __('Fecha de Facturación'),
             ));
 
-		echo $this->Form->input('checkin', array(
-                'type' => 'date',
-                'default' => date('Y-m-d', strtotime('now')),
-            ));
 
-		echo $this->Form->input('checkout', array(
-                'type' => 'date',
-            ));
+		// solo si es un hotel 
+		if ( Configure::read( 'Site.type') == SITE_TYPE_HOTEL ) {
+			echo $this->Form->input('checkin', array(
+	                'type' => 'date',
+	                'default' => date('Y-m-d', strtotime('now')),
+	            ));
+
+			echo $this->Form->input('checkout', array(
+	                'type' => 'date',
+	            ));
+		}
+
 
 		echo $this->Form->input('total', array(           
             'label'=>'Importe Total'
             ));
 
 		echo $this->Form->input('estado_id');
+
+
 		?>
 		<div id="pago" style="display:none;">
 			<?php

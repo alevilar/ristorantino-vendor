@@ -177,8 +177,7 @@ class Mesa extends MesaAppModel {
 			// en caso de pasar de estado abierta a cerrada, aplicar cierre ejecutando cerrar_mesa()
 			$this->__cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada();
 
-			$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
-			$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
+			$this->__completeWithTotals();
 		} else {
 			// NEW MESA
 			// al crear, si el checkin vino vacio hacer que sea AHORA (== a created)
@@ -197,6 +196,23 @@ class Mesa extends MesaAppModel {
 		}
 
 		return parent::afterSave($created, $options);
+	}
+
+
+
+	/**
+	*
+	*	Completa colocando los totales con cada modificacion que sufre la mesa
+	*
+	**/
+	private function __completeWithTotals () {
+		if ( empty($this->data['Mesa']['subtotal']) ) {
+			$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
+		}
+
+		if ( empty($this->data['Mesa']['total']) ) {
+			$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
+		}
 	}
 
 
