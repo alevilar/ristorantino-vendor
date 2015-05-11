@@ -168,6 +168,10 @@ class Mesa extends MesaAppModel {
 
 		unset( $this->data['modified'] );
 
+		if ( empty($this->data['Mesa']['id']) && empty($this->data['Mesa']['estado_id'])) {
+			$this->data['Mesa']['estado_id'] = MESA_ABIERTA;
+		}
+
 		if ( !empty($this->data['Mesa']['id']) ) {
 			// UPDATE
 			// update totals

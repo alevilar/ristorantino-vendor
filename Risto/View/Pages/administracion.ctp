@@ -4,7 +4,7 @@
     <div class="list-group">
         <?php
         echo $this->Html->link('Usuarios'
-                , array('plugin' => 'users', 'controller'=>'users', 'action' => 'index')
+                , array('plugin' => 'site_users', 'controller'=>'site_users', 'action' => 'index')
                 , array('class' => 'list-group-item'));
         //echo $this->Html->link('Roles',  array('plugin' => 'users', 'controller'=>'roles', 'action' => 'index'), array('class' => 'list-group-item'));
         echo $this->Html->link( Inflector::pluralize( Configure::read('Mesa.tituloMozo') ) , array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'index'), array('class' => 'list-group-item'));

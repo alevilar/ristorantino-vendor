@@ -62,8 +62,9 @@ if ( Configure::check('Plugins') ) {
     unset($plugs);
 }
 
- CakePlugin::load('Barcodes');
- CakePlugin::load('Utils');
+CakePlugin::load('SiteUsers');
+CakePlugin::load('Barcodes');
+CakePlugin::load('Utils');
 
 
 define("TIPO_DOCUMENTO_SIN_IDENTIFICAR", 8); // sin identificar
