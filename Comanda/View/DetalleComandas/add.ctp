@@ -32,9 +32,14 @@
 
 	<button id="agregar-mas-dc" class="btn btn-primary pull-right btn-lg" type="button">Agregar Otro Producto</button>
 
+
+
 <?php echo $this->Form->submit('Submit', array('class'=>'btn btn-success btn-lg'));?>
 <?php echo $this->Form->end();?>
+
 </div>
+<br>
+<?php echo $this->Html->link('Volver a la mesa', array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'edit', $mesa_id )); ?>
 
 <?php
 $domProd = $this->Form->input("producto_id", array('id'=>false, 'label'=>false));

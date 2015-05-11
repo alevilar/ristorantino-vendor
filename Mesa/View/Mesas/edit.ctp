@@ -36,6 +36,8 @@
                     echo $this->Form->input('estado_id');
                     echo $this->Form->input('numero', array('label' => __('Número de %s', Configure::read('Mesa.tituloMesa') ) ));
                     echo $this->Form->input('mozo_id', array('label'=>Configure::read('Mesa.tituloMozo')));
+
+                    echo $this->Form->input('cliente_id', array('empty'=>'Sin Cliente'));
                     ?>
 
 
@@ -83,12 +85,12 @@
 
         <div class="detallesmesa col-md-4">
 
+            <?php  if ( !empty($mesa['Mesa']['cliente_id']) ) { ?>
+
             <h2><?php echo Configure::read('Mesa.tituloCliente') ?></h2>
 
             <dl>
-            <?php                
-
-                if ( !empty($mesa['Mesa']['cliente_id']) ) {
+            <?php
                     echo "<dt>Nombre</dt>";
                     echo "<dd>" . $mesa['Cliente']['nombre'] . "&nbsp;</dd>";
 
@@ -100,15 +102,10 @@
                     echo "<dt>Iva Resp.</dt>";
                     $dto = (!empty($mesa['Cliente']['IvaResponsabilidad']['name'])) ? $mesa['Cliente']['IvaResponsabilidad']['name'] : "";
                     echo "<dd>" . $dto . "&nbsp;</dd>";
-                } else {
-                    echo $this->Html->link( __('Agregar %s a la %s', Configure::read('Mesa.tituloCliente'), Configure::read('Mesa.tituloMesa') )
-                                , array('plugin'=>'fidelization', 'controller'=>'clientes', 'action'=>'index')
-                                , array('class'=>'btn btn-success')
-                                );
-                }
                 
-                ?>
+            ?>
             </dl>
+            <?php } ?>
 
             
             

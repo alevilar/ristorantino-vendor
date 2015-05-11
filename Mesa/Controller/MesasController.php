@@ -276,8 +276,9 @@ class MesasController extends MesaAppController {
         $this->request->data['Mesa']['checkin'] = date('Y-m-d', strtotime($this->request->data['Mesa']['checkin']));
         $this->request->data['Mesa']['checkout'] = date('Y-m-d', strtotime($this->request->data['Mesa']['checkout']));
         $estados = $this->Mesa->Estado->find('list');
+        $clientes = $this->Mesa->Cliente->find('list');
         $this->set('estados', $estados);        
-        $this->set(compact('mesa', 'items', 'mozos'));
+        $this->set(compact('mesa', 'items', 'mozos', 'clientes'));
     }
 
     public function delete($id = null) {
