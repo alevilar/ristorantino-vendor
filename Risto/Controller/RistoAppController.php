@@ -41,7 +41,6 @@ class RistoAppController extends Controller {
         'Session',
         'Cookie',
         'RequestHandler',
-        'MtSites.MtSites',
         'Auth' => array(
             'loginAction' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
             'logoutRedirect' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
@@ -55,23 +54,22 @@ class RistoAppController extends Controller {
                 )
             ),        
         ),
+        'ExtAuth.ExtAuth',
+        'MtSites.MtSites',
         'Paginator',      
         'Search.Prg' => array(
             'presetForm' => array(
                 'paramType' => 'querystring'
                 )
             ),
-        
-        'ExtAuth.ExtAuth',
         'DebugKit.Toolbar',        
     );
 
     public function beforeFilter()
      {    
-        parent::beforeFilter();
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
-         $this->set('elementMenu', 'menu');
+        $this->set('elementMenu', 'menu');
 
 
         $this->Auth->loginAction = array(
@@ -81,9 +79,8 @@ class RistoAppController extends Controller {
                 'admin' => false, 
                 );
 
+        return parent::beforeFilter();
         
-        return true;
-
       }
 
 
