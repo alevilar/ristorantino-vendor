@@ -88,7 +88,6 @@ class RistoAppController extends Controller {
 
 
       public function isAuthorized () {
-        die("isAuthorized asas AUTOSOSOSOS");
         return true;
       }
 

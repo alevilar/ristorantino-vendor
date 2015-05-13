@@ -14,7 +14,6 @@ class AfipFactura extends PrintersAppModel {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session');
 
 
 	public $order = 'AfipFactura.created DESC';

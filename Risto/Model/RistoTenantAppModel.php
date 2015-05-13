@@ -40,31 +40,27 @@ class RistoTenantAppModel extends RistoAppModel {
 
 		// usar el correspondiente al tenant
 		//debug( Router::$_requests );
-		if ( CakeSession::started() ) {
-			$currentTenant = MtSites::getSiteName();
-			if ( empty($currentTenant) ) {
-				throw new CakeException("No esta en un Tenant y esta queriendo acceder a un modelo tenant");
-				
-			} else {
+		$currentTenant = MtSites::getSiteName();
 
-				// listar sources actuales
-				$sources = ConnectionManager::enumConnectionObjects();
-
-				//copiar del default
-				$tenantConf = $sources['default'];
-
-				// colocar el nombre de la base de datos
-				$tenantConf['database'] = $tenantConf['database'] ."_". $currentTenant;
-
-				// crear la conexion con la bd
-				$confName = 'tenant_'.$currentTenant;
-				ConnectionManager::create( $confName, $tenantConf );
-
-				// usar tenant para este model
-				$this->useDbConfig = $confName;	
-
-			}
+		if ( empty($currentTenant) ) {
+			throw new CakeException("No esta en un Tenant y esta queriendo acceder a un modelo tenant");
 		}
+
+		// listar sources actuales
+		$sources = ConnectionManager::enumConnectionObjects();
+
+		//copiar del default
+		$tenantConf = $sources['default'];
+
+		// colocar el nombre de la base de datos
+		$tenantConf['database'] = $tenantConf['database'] ."_". $currentTenant;
+
+		// crear la conexion con la bd
+		$confName = 'tenant_'.$currentTenant;
+		ConnectionManager::create( $confName, $tenantConf );
+
+		// usar tenant para este model
+		$this->useDbConfig = $confName;	
 
 	
 		// ahora construir el Model
