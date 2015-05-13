@@ -72,8 +72,21 @@ class RistoAppController extends Controller {
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
          $this->set('elementMenu', 'menu');
+
+
+        $this->Auth->loginAction = array(
+                'plugin' => 'users',
+                'controller' => 'users',
+                'action' => 'login', 
+                'admin' => false, 
+                );
+
+        
         return true;
 
       }
+
+
+
    
 }
