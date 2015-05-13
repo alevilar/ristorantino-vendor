@@ -23,6 +23,9 @@ class RistoAppController extends Controller {
 
     public $layout = 'Risto.default';
 
+
+    public $presetVars = array();
+
     public $helpers = array(
         'Html' => array(
             'className' => 'Risto.PxHtml'
@@ -42,11 +45,11 @@ class RistoAppController extends Controller {
         'Cookie',
         'RequestHandler',
         'Auth' => array(
-            'loginAction' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
+            'loginAction' => array('plugin'=>'users', 'controller' => 'users', 'action' => 'login', 'admin' => false ),
             'logoutRedirect' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
             'loginError' => 'Usuario o Contraseña Incorrectos',
             'authError' => 'Usted no tiene permisos para acceder a esta página.', 
-            'authorize' => array('MtSites.MtSites'),
+            'authorize' => array('Controller','MtSites.MtSites'),
             'authenticate' => array(
                 'Form' => array(
                     'recursive' => 1,
@@ -66,7 +69,7 @@ class RistoAppController extends Controller {
     );
 
     public function beforeFilter()
-     {    
+     {            
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
         $this->set('elementMenu', 'menu');
@@ -81,6 +84,12 @@ class RistoAppController extends Controller {
 
         return parent::beforeFilter();
         
+      }
+
+
+      public function isAuthorized () {
+        die("isAuthorized asas AUTOSOSOSOS");
+        return true;
       }
 
 
