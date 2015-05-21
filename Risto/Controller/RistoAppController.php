@@ -22,9 +22,7 @@ App::uses('Controller', 'Controller');
 class RistoAppController extends Controller {
 
     public $layout = 'Risto.default';
-
-
-    public $presetVars = array();
+    
 
     public $helpers = array(
         'Html' => array(
@@ -37,7 +35,7 @@ class RistoAppController extends Controller {
         'Paginator',
         'Number',
         'Time',
-        'Text'
+        'Text',
     );
 
     public $components = array(
@@ -61,10 +59,21 @@ class RistoAppController extends Controller {
         'MtSites.MtSites',
         'Paginator',      
         'Search.Prg' => array(
-            'presetForm' => array(
-                'paramType' => 'querystring'
-                )
+            'callback' => 'startup',
+            'commonProcess' => array(
+                'formName' => null,
+                'keepPassed' => true,
+                'action' => null,
+                'modelMethod' => 'validateSearch',
+                'allowedParams' => array(),
+                'paramType' => 'querystring',
+                'filterEmpty' => false
             ),
+            'presetForm' => array(
+                'model' => null,
+                'paramType' => 'querystring'
+            ),
+        ),
         'DebugKit.Toolbar',        
     );
 

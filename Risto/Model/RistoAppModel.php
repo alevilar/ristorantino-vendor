@@ -27,6 +27,8 @@ class RistoAppModel extends Model {
 
 	public $actsAs = array( 'Containable', 'Search.Searchable');
 
+//	public $filterArgs = array();
+
 	public function saveAll ( $data = array(), $options = array() ) {
 	    $return = parent::saveAll($data, $options);
 

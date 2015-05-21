@@ -10,6 +10,7 @@ class MesasController extends MesaAppController {
     var $name = 'Mesas';
 
 
+
     public $paginate = array(
         'order' => array('Mesa.created' => 'asc'),
         // 'paramType' => 'querystring',
@@ -49,6 +50,8 @@ class MesasController extends MesaAppController {
 
         $estados = $this->Mesa->Estado->find('list');
         $this->set('estados', $estados);
+
+        $this->set('mozos', $this->Mesa->Mozo->find('list'));
 
     }
 

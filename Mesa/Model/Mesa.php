@@ -45,88 +45,73 @@ class Mesa extends MesaAppModel {
 	);
 
 	public $filterArgs = array(
-		'numero' => array(
-			'type' => 'value',
-			),
-		'estado_id' => array(
-			'type' => 'value',
-			),
-		'mozo_numero' => array(
-			'type' => 'value',
-			'field' => 'Mozo.numero'
-			),
-		'deleted' => array(
-			'type' => 'value',
-			),
-		'total' => array(
-			'type' => 'value'
-			),        
-		'created_from' => array(
-			'type' => 'value',
-			'field' => 'Mesa.created >='
-			),
-		'created_to' => array(
-			'type' => 'value',
-			'field' => 'Mesa.created <='
-			),
-		'time_cerro_from' => array(
-			'type' => 'value',
-			'field' => 'Mesa.time_cerro >='
-			),
-		'time_cerro_to' => array(
-			'type' => 'value',
-			'field' => 'Mesa.time_cerro <='
-			),
-		'time_cobro_from' => array(
-			'type' => 'value',
-			'field' => 'Mesa.time_cobro >='
-			),
-		'time_cobro_to' => array(
-			'type' => 'value',
-			'field' => 'Mesa.time_cobro <='
-			),
-		'checkin' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'checkout' => array(
-			'datetime' => array(
-				'rule' => array('datetime'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
+        'numero' => array(
+            'type' => 'value',
+            ),
+        'estado_id' => array(
+            'type' => 'value',
+            ),
+        'mozo_id' => array(
+            'type' => 'value',
+            ),
+        'mozo_numero' => array(
+            'type' => 'value',
+            'field' => 'Mozo.numero'
+            ),
+        'deleted' => array(
+            'type' => 'value',
+            ),
+        'total' => array(
+            'type' => 'value'
+            ),        
+        'created_from' => array(
+            'type' => 'value',
+            'field' => 'Mesa.created >='
+            ),
+        'created_to' => array(
+            'type' => 'value',
+            'field' => 'Mesa.created <='
+            ),
+        'time_cerro_from' => array(
+            'type' => 'value',
+            'field' => 'Mesa.time_cerro >='
+            ),
+        'time_cerro_to' => array(
+            'type' => 'value',
+            'field' => 'Mesa.time_cerro <='
+            ),
+        'time_cobro_from' => array(
+            'type' => 'value',
+            'field' => 'Mesa.time_cobro >='
+            ),
+        'time_cobro_to' => array(
+            'type' => 'value',
+            'field' => 'Mesa.time_cobro <='
+            ),
+        'checkin' => array(
+            'type' => 'value',
+        ),
+        'checkout' => array(
+            'type' => 'value',
+        ),
+        'checkin_from' => array(
+            'type' => 'value',
+            'field' => 'Mesa.checkin >='
+            ),
+        'checkin_to' => array(
+            'type' => 'value',
+            'field' => 'Mesa.checkin <='
+            ),
 
-		'checkin_from' => array(
-			'type' => 'value',
-			'field' => 'Mesa.checkin >='
-			),
-		'checkin_to' => array(
-			'type' => 'value',
-			'field' => 'Mesa.checkin <='
-			),
-
-		'checkout_from' => array(
-			'type' => 'value',
-			'field' => 'Mesa.checkout >='
-			),
-		'checkout_to' => array(
-			'type' => 'value',
-			'field' => 'Mesa.checkout <='
-			),
-
-
-		);
-
+        'checkout_from' => array(
+            'type' => 'value',
+            'field' => 'Mesa.checkout >='
+            ),
+        'checkout_to' => array(
+            'type' => 'value',
+            'field' => 'Mesa.checkout <='
+            ),
+        );
 
 
 		/**

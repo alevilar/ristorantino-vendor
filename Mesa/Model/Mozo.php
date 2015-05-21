@@ -14,6 +14,8 @@ class Mozo extends MesaAppModel {
         'Risto.MediaUploadable',
         );
     
+
+    public $displayField = 'numero_y_nombre';
     
     var $order = array(
         'Mozo.activo DESC', 
