@@ -373,6 +373,17 @@ class AfipWsv1 {
 	*
 	**/
 	static function verifyAuth (){
+		self::autenticar();
+		return true;
+
+		/*
+
+		En realidad habria que verificar antes si estoy autenticado
+		y recien despues autenticar, pero el metodo de aca abajo no funciono 
+		asique tuve que poner que autentifique siempre.
+		despues se vera ...
+
+
 		if ( self::$client === null ) {
 			self::autenticar();
 		}
@@ -383,6 +394,7 @@ class AfipWsv1 {
 			self::autenticar();
 		}
 		return true;
+		*/
 	}
 
 
@@ -602,7 +614,7 @@ class AfipWsv1 {
 
 
 
-	static function FECAESolicitar  ( $punto_de_venta,  $tipo_comprobante, $cliente_tipo = self::CLIENTE_TIPO_DOCUMENTO_SIN_IDENTIFICAR, $cliente_doc = 0, $importeNeto, $importeTotal, $importeIva, $ivas = array(), $tributos = array()) {
+	static function FECAESolicitar  ( $punto_de_venta,  $tipo_comprobante, $cliente_tipo = self::CLIENTE_TIPO_DOCUMENTO_SIN_IDENTIFICAR, $cliente_doc = 0, $importeNeto, $importeTotal, $importeIva, $ivas = array(), $tributos = array(), $alicIvas = array()) {
 
 		$ultComprobanteNumero = self::FECompUltimoAutorizado( $punto_de_venta, $tipo_comprobante );
 
@@ -615,16 +627,16 @@ class AfipWsv1 {
 			 'CbteDesde' => $ultComprobanteNumero + 1,
 			 'CbteHasta' => $ultComprobanteNumero + 1,
 			 'CbteFch' => $fecha = date('Ymd'),
-			 'ImpTotal' => $importeTotal,
+			 'ImpTotal' => (float)$importeTotal,
 			 'ImpTotConc' => 0,
-			 'ImpNeto' => $importeNeto,
+			 'ImpNeto' => (float)$importeNeto,
 			 'ImpOpEx' => 0,
 			 'ImpTrib' => 0,
-			 'ImpIVA' => $importeIva,
+			 'ImpIVA' => (float)$importeIva,
 			 'MonId' => 'PES',
 			 'MonCotiz' => 1,
         );
-
+        
         if (!empty($ivas)) {
         	$data['Iva'] = $ivas;
         }

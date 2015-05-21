@@ -59,6 +59,7 @@
                     echo $this->Form->input('observation', array());
 
                     echo $this->Form->input('total');
+                    echo $this->Form->input('subtotal', array('label'=>'Total "verdadero", o sea, de los productos sumados en caso de haber aplicado un descuento, por ejemplo'));
                     
 
                     echo "<br>";

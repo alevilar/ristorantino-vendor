@@ -16,6 +16,12 @@ class AfipFacturasPrinterOutput extends PrinterOutput
     public  $name = 'AfipFacturas';
 
 
+    /**
+    *
+    *   Se utiliza con el getter y setter: $this->get y $this->set
+    *   
+    *
+    **/
     private $__data = array();
 
 
@@ -157,12 +163,11 @@ class AfipFacturasPrinterOutput extends PrinterOutput
         $tipo_comprobante = AfipWsv1::mapTipoFacturas( Configure::read('Afip.tipofactura_id') );
         $cliente_tipo = AfipWsv1::CLIENTE_TIPO_DOCUMENTO_SIN_IDENTIFICAR;
         $cliente_doc = 0;
-
-        if ( !empty($this->dataToView['Cliente'])) {
-            $cliente_tipo = AfipWsv1::mapTipoDocumentoComprador( $this->dataToView['Cliente']['tipo_documento_id']);
-            $cliente_doc = $this->dataToView['Cliente']['nrodocumento'];
-            if ( !empty($this->dataToView['Cliente']['IvaResponsabilidad']) ) {
-                $tipo_comprobante = AfipWsv1::mapTipoFacturas( $this->dataToView['Cliente']['IvaResponsabilidad']['tipo_factura_id'] );
+        if ( !empty($this->dataToView['fullMesa']['Cliente'])) {
+            $cliente_tipo = AfipWsv1::mapTipoDocumentoComprador( $this->dataToView['fullMesa']['Cliente']['tipo_documento_id']);
+            $cliente_doc = $this->dataToView['fullMesa']['Cliente']['nrodocumento'];
+            if ( !empty($this->dataToView['fullMesa']['Cliente']['IvaResponsabilidad']) ) {
+                $tipo_comprobante = AfipWsv1::mapTipoFacturas( $this->dataToView['fullMesa']['Cliente']['IvaResponsabilidad']['tipo_factura_id'] );
             }
         }
 
@@ -179,7 +184,6 @@ class AfipFacturasPrinterOutput extends PrinterOutput
         $this->set( 'importe_neto', $totalNeto );
         
         $this->set( 'importe_iva', $this->dataToView['fullMesa']['Mesa']['total'] - $totalNeto );
-
 
         $this->__setMiEmpresaData();
 
