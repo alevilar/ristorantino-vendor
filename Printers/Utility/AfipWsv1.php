@@ -373,17 +373,7 @@ class AfipWsv1 {
 	*
 	**/
 	static function verifyAuth (){
-		self::autenticar();
-		return true;
-
-		/*
-
-		En realidad habria que verificar antes si estoy autenticado
-		y recien despues autenticar, pero el metodo de aca abajo no funciono 
-		asique tuve que poner que autentifique siempre.
-		despues se vera ...
-
-
+		
 		if ( self::$client === null ) {
 			self::autenticar();
 		}
@@ -394,7 +384,6 @@ class AfipWsv1 {
 			self::autenticar();
 		}
 		return true;
-		*/
 	}
 
 
