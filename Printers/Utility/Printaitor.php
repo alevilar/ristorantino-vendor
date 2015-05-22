@@ -186,7 +186,7 @@ class Printaitor
         $templateName = $printViewObj->viewName;
 
         if (empty($printer_id)) {
-            throw new CakeException( __( "No se puede enviar a imprimir si no se especifica el ID de la impresora") );
+            return -1;
         }
 
         
