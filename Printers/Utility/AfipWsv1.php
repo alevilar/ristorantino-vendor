@@ -1,6 +1,7 @@
 <?php
 
 App::uses('AfipWsException', 'Printers.Error');
+App::uses('Xml', 'Utility');
 
 
 define ("AFIP_URL_PRODUCCION", "https://servicios1.afip.gov.ar/wsfev1/service.asmx");
@@ -391,29 +392,43 @@ class AfipWsv1 {
 
 
     static function autenticar () {
+    	$TA = self::getNotExpiredTA ();
+    	if (  === false ) {
+			ini_set("soap.wsdl_cache_enabled", "0");
+			if (!file_exists(CERT)) {
+				throw new AfipWsException("Failed to open ".CERT);
+			}
+			if (!file_exists(PRIVATEKEY)) {
+				throw new AfipWsException("Failed to open ".PRIVATEKEY."\n");
+			}
+			if (!file_exists(WSDL)) {
+				throw new AfipWsException("Failed to open ".WSDL."\n");
+			}
 
-    	ini_set("soap.wsdl_cache_enabled", "0");
-		if (!file_exists(CERT)) {
-			throw new AfipWsException("Failed to open ".CERT);
-		}
-		if (!file_exists(PRIVATEKEY)) {
-			throw new AfipWsException("Failed to open ".PRIVATEKEY."\n");
-		}
-		if (!file_exists(WSDL)) {
-			throw new AfipWsException("Failed to open ".WSDL."\n");
-		}
-
-		self::__createTRA();
-		$CMS = self::__signTRA();
-		$TA = self::__callWSAA($CMS);
+			self::__createTRA();
+			$CMS = self::__signTRA();
+			$TA = self::__callWSAA($CMS);
 
 
-		if ( file_put_contents( TA, $TA) === false ) {
-			throw new AfipWsException("Error al editar el archivo TA.xml (verificar permisos?) en " . TMP . DS . "TA.xml");
-		}
-		return $TA;
+			if ( file_put_contents( TA, $TA) === false ) {
+				throw new AfipWsException("Error al editar el archivo TA.xml (verificar permisos?) en " . TMP . DS . "TA.xml");
+			}
+
+			return $TA;
+    	}
+    	
     }
 
+
+    function getNotExpiredTA () {
+    	$TAfile = TA;
+    	$xmlTa = Xml::build( $TAfile );
+    	$aTa = Xml::toArray( $xmlTa );
+
+    	debug($aTa);die;
+    	
+    	return $aTa;
+    }
 /*
     public function __callWSFE($CMS)
 	{

@@ -6,7 +6,7 @@
         <?php echo $this->Form->create("Mesa", array("action" => "index")); ?>        
         <div class=" col-md-1">
             <?php echo $this->Form->input('numero', array('label' => Configure::read('Mesa.tituloMesa'), 'required'=>false)); ?>
-            <?php echo $this->Form->input('mozo_id', array('label' => Configure::read('Mesa.tituloMozo'), 'empty' => 'Todos' )); ?>
+            <?php echo $this->Form->input('mozo_id', array('label' => Configure::read('Mesa.tituloMozo'), 'empty' => 'Todos', 'required'=>false )); ?>
         </div>
         <div class="col-md-1">
             <?php echo $this->Form->input('total', array('label' => 'Importe'));
