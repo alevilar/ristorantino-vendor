@@ -10,6 +10,7 @@ class MediasController extends AppController {
     public $uses = array('Risto.Media');
 
     public function view ($id) {
+        $this->Media->recursive = -1;
         $media = $this->Media->read(null, $id);
 
         if ( strpos($media['Media']['type'], 'image/' ) !== false ) {
@@ -32,6 +33,7 @@ class MediasController extends AppController {
 
 
     public function download ($id) {
+        $this->Media->recursive = -1;
         $media = $this->Media->read(null, $id);
 
         $body = $media['Media']['file'];
@@ -51,6 +53,7 @@ class MediasController extends AppController {
 
 
     public function thumb ($id) {
+        $this->Media->recursive = -1;
         debug($id);
         $media = $this->Media->read(null, $id);
         $this->response->body($media['Media']['file']);

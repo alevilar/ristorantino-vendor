@@ -13,7 +13,7 @@ $this->Paginator->options(array('url' => $this->passedArgs));
         <th><?php echo $this->Paginator->sort('activo');?></th>
         <th><?php echo $this->Paginator->sort('nombre');?></th>
         <th>Foto</th>
-	<th><?php echo $this->Paginator->sort('numero');?></th>
+	<th><?php echo $this->Paginator->sort('numero', 'Alias');?></th>
 	<th class="actions"><?php echo __('Acciones');?></th>
 </tr>
 <?php

@@ -24,7 +24,7 @@ ALTER TABLE  `mesas` MODIFY  `total` decimal(10,2) DEFAULT '0.00';
 ALTER TABLE  `mesas` MODIFY  `subtotal` decimal(10,2) NOT NULL DEFAULT '0.00';
 ALTER TABLE  `mesas` ADD `descuento_id` int(11) DEFAULT NULL;
 
-ALTER TABLE  `mesas` ADD `observation` text NOT NULL;
+ALTER TABLE  `mesas` ADD `observation` text NULL;
 ALTER TABLE  `mesas` ADD `checkin` timestamp NULL DEFAULT NULL;
 ALTER TABLE  `mesas` ADD `checkout` timestamp NULL DEFAULT NULL;
 
@@ -40,10 +40,22 @@ ALTER TABLE  `mozos`
 
 
 
-ALTER TABLE  `pagos` MODIFY    `tipo_de_pago_id` int(10) unsigned DEFAULT NULL;
+ALTER TABLE  `pagos` MODIFY  `tipo_de_pago_id` int(10) unsigned DEFAULT NULL;
 
 
-ALTER TABLE  `productos` ADD   `printer_id` int(11) DEFAULT NULL;
+ALTER TABLE  `clientes` CHANGE  `codigo`  `codigo` VARCHAR( 64 ) NULL DEFAULT NULL ;
+ALTER TABLE  `clientes` MODIFY  `domicilio`   varchar(500) DEFAULT NULL;
+
+ALTER TABLE `clientes` DROP `user_id`;
+ALTER TABLE `clientes` DROP `tipofactura`;
+ALTER TABLE `clientes` DROP `imprime_ticket`;
+ALTER TABLE `clientes` DROP `tipodocumento`;
+ALTER TABLE `clientes` DROP `responsabilidad_iva`;
+
+ALTER TABLE  `clientes` ENGINE = INNODB;
+
+ALTER TABLE  `productos` CHANGE `comandera_id`   `printer_id` int(11) DEFAULT NULL;
+
 
 
 ALTER TABLE  `sabores` ADD  `grupo_sabor_id` int(11) DEFAULT NULL;
@@ -52,6 +64,16 @@ ALTER TABLE  `sabores` ADD  `grupo_sabor_id` int(11) DEFAULT NULL;
 ALTER TABLE  `tipo_de_pagos` ADD `media_id` int(10) unsigned DEFAULT NULL;
 
 ALTER TABLE  `tipo_facturas` ADD   `codename` varchar(1) DEFAULT NULL;
+
+
+
+ALTER TABLE  `mozos` MODIFY `numero` varchar(64) NOT NULL;
+ALTER TABLE  `mozos` DROP `user_id`;
+
+
+ALTER TABLE  `tipo_de_pagos` MODIFY `name` varchar(110) NOT NULL;
+ALTER TABLE  `tipo_de_pagos` DROP `description`, DROP `image_url`;
+
 
 
 CREATE TABLE IF NOT EXISTS `productos_tags` (
@@ -113,6 +135,17 @@ INSERT INTO `roles` (`id`, `name`, `machin_name`, `created`, `modified`) VALUES
 
 
 
+CREATE TABLE IF NOT EXISTS `grupo_sabores` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `seleccion_de_sabor_obligatorio` tinyint(1) NOT NULL,
+  `tipo_de_seleccion` int(11) NOT NULL,
+  `name` varchar(64) NOT NULL,
+  `created` timestamp NULL DEFAULT NULL,
+  `modified` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
 CREATE TABLE IF NOT EXISTS `grupo_sabores_productos` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `producto_id` int(11) NOT NULL,
@@ -147,3 +180,56 @@ CREATE TABLE IF NOT EXISTS `printers` (
   `modified` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8;
+
+
+
+--
+
+CREATE TABLE IF NOT EXISTS `estados` (
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `name` varchar(60) NOT NULL,
+  `color` VARCHAR( 14 ) NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+
+
+CREATE TABLE IF NOT EXISTS `afip_facturas` (
+  `id` char(36) NOT NULL,
+  `mesa_id` int(11) NOT NULL,
+  `punto_de_venta` int(11) NOT NULL,
+  `comprobante_nro` int(11) NOT NULL,
+  `cae` varchar(64) NOT NULL,
+  `importe_total` decimal(10,2) NOT NULL,
+  `importe_neto` decimal(10,2) NOT NULL,
+  `importe_iva` decimal(10,2) NOT NULL,
+  `json_data` text NOT NULL,
+  `created` timestamp NULL DEFAULT NULL,
+  `modified` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `mesa_id` (`mesa_id`,`cae`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
+
+
+DROP TABLE `acos`, `aros`, `aros_acos`, `cake_sessions`;
+
+
+
+/**
+*
+* MODIFICACIONES PUNTUALES
+*
+*/
+
+
+INSERT INTO `printers` (`id`, `name`, `alias`, `driver`, `driver_model`, `output`, `created`, `modified`) VALUES
+(1, 'cocina', 'cocina', 'Receipt', 'Bematech', 'Cups', '2015-05-26 23:34:54', '2015-05-26 23:34:54'),
+(2, 'fiscal', 'fiscal', 'Fiscal', 'Hasar441', 'Cups', '2015-05-26 23:35:09', '2015-05-26 23:59:52'),
+(3, 'barra', 'Barra', 'Receipt', 'Bematech', 'Cups', '2015-05-26 23:35:25', '2015-05-27 00:00:18');
+
+
+UPDATE productos SET
+printer_id = NULL 
+WHERE printer_id = 4

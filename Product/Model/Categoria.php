@@ -25,6 +25,12 @@ class Categoria extends ProductAppModel
     public $validate = array(
         'name' => array('notempty')
     );
+
+
+    public $belongsTo = array('Risto.Media');
+
+
+
     //The Associations below have been created with all possible keys, those that are not needed can be removed
     public $hasMany = array(
         'Producto' => array(

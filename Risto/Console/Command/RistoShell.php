@@ -50,7 +50,10 @@ class RistoShell extends Shell {
 		$modellist = $this->{$model}->find('all', array(
 			'conditions' => array(
 				"$model.file IS NOT NULL",
-				"$model.media_id IS NULL"
+				"OR" => array(
+					"$model.media_id IS NULL",
+					"$model.media_id < 0",
+					),
 				),
 			'recursive' => -1,
 			//'limit' => 3000,
@@ -67,7 +70,7 @@ class RistoShell extends Shell {
 			if ( file_exists( $im ) ) {
 				$media = array('Media' => array(
 								'model' => $model,
-								'type' 	=> pathinfo($im, PATHINFO_EXTENSION),
+								'type' 	=> "image/" . pathinfo($im, PATHINFO_EXTENSION),
 								'size'	=> filesize($im),
 								'name'	=> $e[$model]['file'],
 								'file'	=> file_get_contents($im)
@@ -89,6 +92,9 @@ class RistoShell extends Shell {
 				}
 				$this->out("$cont) SAVED: $im");
 			} else {
+				$e[$model]['media_id'] = -1;
+				$this->{$model}->save($e);
+
 				$this->out("<warning>La imagen $im NO EXISTE</warning>");
 			}
 

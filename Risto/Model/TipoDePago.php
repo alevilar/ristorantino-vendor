@@ -16,4 +16,6 @@ class TipoDePago extends RistoTenantAppModel {
     );
 
 
+    public $belongsTo = array('Risto.Media');
+
 }
