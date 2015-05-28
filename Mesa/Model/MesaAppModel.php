@@ -1,7 +1,7 @@
 <?php
 
-App::uses('AppTenantModel', 'Model');
+App::uses('RistoSoftDeleteTenantAppModel', 'Risto.Model');
 
-class MesaAppModel extends AppTenantModel {
+class MesaAppModel extends RistoSoftDeleteTenantAppModel {
 
 }

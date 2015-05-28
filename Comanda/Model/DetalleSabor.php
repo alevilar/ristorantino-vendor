@@ -3,14 +3,19 @@ App::uses('ComandaAppModel', 'Comanda.Model');
 
 class DetalleSabor extends ComandaAppModel {
 
-	var $name = 'DetalleSabor';
-	var $validate = array(
+	public $name = 'DetalleSabor';
+	public $validate = array(
 		'detalle_comanda_id' => array('numeric'),
 		'sabor_id' => array('numeric')
 	);
 
+
+	public $actsAs = array(
+		'Utils.SoftDelete', 
+		);
+
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-	var $belongsTo = array(
+	public $belongsTo = array(
 			'DetalleComanda' => array('className' => 'Comanda.DetalleComanda',
 								'foreignKey' => 'detalle_comanda_id',
 								'conditions' => '',

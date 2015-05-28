@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table table-condensed">
 <tr>
 	<th><?php echo $this->Paginator->sort( 'numero', Configure::read('Mesa.tituloMesa'));?></th>
 	<th><?php echo $this->Paginator->sort('mozo_id', Configure::read('Mesa.tituloMozo'));?></th>
@@ -15,6 +15,8 @@
 		<th>Factura</th>
         <th><?php echo $this->Paginator->sort('Cliente.nombre', Configure::read('Mesa.tituloCliente'));?></th>
 		<th>Pago</th>
+		<th><?php echo $this->Paginator->sort('checkin');?></th>
+		<th><?php echo $this->Paginator->sort('checkout');?></th>
 		<th class="actions"><?php __('Acciones');?></th>
 </tr>
 <?php
@@ -82,6 +84,17 @@ foreach ($mesas as $mozo):
 				echo $this->Number->currency( ($p['valor']) );
 			}
             ?>
+		</td>
+
+
+		<td>
+			<?php echo $this->Time->niceShort($mozo['Mesa']['checkin']);?>
+		</td>
+
+
+
+		<td>
+			<?php echo $this->Time->niceShort($mozo['Mesa']['checkout']); ?>
 		</td>
 
 

@@ -21,11 +21,11 @@ if ( !empty($this->request->data['TipoDePago']['media_id']) ) {
         echo $this->Form->input('media_file',array('label'=>'Foto/Imagen ', 'type'=>'file'));
 		echo $this->Form->input('description',array('label'=>__('Descripción')));?>
 
-     <?php if (empty($this->request->data['TipoDePago']['id']) ):?>
+     <?php if (empty($this->request->data['TipoDePago']['id']) ){ ?>
         <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
-     <?php else: ?>
+     <?php } else { ?>
         <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
-    <?php endif; ?>
+    <?php } ?>
         <?php echo $this->Html->link(__('Cancelar'), array('action'=>'index'), array('class'=>'btn btn-default btn-lg pull-right'));?>
         </fieldset>
 

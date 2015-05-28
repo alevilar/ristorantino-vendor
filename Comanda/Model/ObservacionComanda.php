@@ -1,7 +1,7 @@
 <?php
-App::uses('ComandaAppModel', 'Comanda.Model');
+App::uses('ObservacionAppModel', 'Comanda.Model');
 
-class ObservacionComanda extends ComandaAppModel 
+class ObservacionComanda extends ObservacionAppModel 
 {
 	public $name = 'ObservacionComanda';
     public $actsAs = array(

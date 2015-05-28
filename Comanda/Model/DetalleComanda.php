@@ -11,6 +11,11 @@ class DetalleComanda extends ComandaAppModel {
 		'mesa_id' => array('numeric')
 	);
 
+
+	public $actsAs = array(
+		'Utils.SoftDelete', 
+		);
+
 	
 	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

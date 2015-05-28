@@ -4,6 +4,7 @@
 
 <?php echo $this->Form->input('tipo_de_pago_id', array('options' => $tipo_de_pagos)); ?>
 <?php echo $this->Form->input('valor'); ?>
+<?php echo $this->Form->input('created'); ?>
 
 
 <?php echo $this->Form->hidden('mesa_id'); ?>

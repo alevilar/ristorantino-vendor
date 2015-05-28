@@ -45,6 +45,10 @@ class Mesa extends MesaAppModel {
 	);
 
 	public $filterArgs = array(
+		'deleted' => array(
+            'type' => 'value',
+            'defaultValue' => array('0','1'),
+            ),
         'numero' => array(
             'type' => 'value',
             ),
@@ -57,9 +61,6 @@ class Mesa extends MesaAppModel {
         'mozo_numero' => array(
             'type' => 'value',
             'field' => 'Mozo.numero'
-            ),
-        'deleted' => array(
-            'type' => 'value',
             ),
         'total' => array(
             'type' => 'value'
@@ -146,6 +147,8 @@ class Mesa extends MesaAppModel {
 
 
 	public $order = array('Mesa.created' => 'desc');
+
+
 		
 
 	public function beforeSave($options = array() ) {

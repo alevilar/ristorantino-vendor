@@ -16,6 +16,7 @@
 		echo $this->Form->hidden('mesa_id');
 		echo $this->Form->input('tipo_de_pago_id');
 		echo $this->Form->input('valor', array('disabled'=>true));
+		echo $this->Form->input('created');
 	?>
 	</fieldset>
 <?php echo $this->Form->end('Submit');?>

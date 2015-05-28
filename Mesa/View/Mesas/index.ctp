@@ -22,13 +22,13 @@
         <div class="col-md-2">
             <?php
             echo $this->Form->input('created_from', array(
-                'label' => 'Abierta desde',
+                'label' => 'Creada desde',
                 'type' => 'datetime',
             ));
             ?>
             <?php
             echo $this->Form->input('created_to', array(
-                'label' => 'Abierta hasta',
+                'label' => 'Creada hasta',
                 'type' => 'datetime',
             ));
             ?>

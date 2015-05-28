@@ -290,7 +290,7 @@ class MesasController extends MesaAppController {
                 $this->Session->setFlash(__('Invalid id for %s', Configure::read('Mesa.tituloMesa')));
             }
         }
-        if ($this->Mesa->delete($id)) {
+        if ( $this->Mesa->delete($id) ) {
             if (!$this->request->is('ajax')){
                 $this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMesa')));     
             } 

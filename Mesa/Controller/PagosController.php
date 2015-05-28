@@ -55,8 +55,11 @@ public function addForMesa ( $mesa_id ) {
         $this->Session->setFlash(__('The Pago could not be saved. Please, try again.'),'Risto.flash_error');
       }
   } else {
+    // completar valores para formulario
     $this->request->data['Pago']['redirect'] = $this->referer();
     $this->request->data['Pago']['mesa_id'] = $mesa_id;
+    $this->request->data['Pago']['valor'] = $this->Pago->Mesa->field('total', array( 'Mesa.id' => $mesa_id));
+    $this->request->data['Pago']['created'] = date('Y-m-d H:i');
   }
   $this->set('mesaId', $mesa_id);
   $this->set('tipo_de_pagos', $this->Pago->TipoDePago->find('list'));
