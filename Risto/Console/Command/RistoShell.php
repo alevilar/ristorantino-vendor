@@ -35,6 +35,43 @@ class RistoShell extends Shell {
 
 
 	public function main () {
+		$this->out(' *-----------------------             ----------------------*/');
+		$this->out(' *-----------------------  R I S T O  ----------------------*/');
+		$this->out(' *-----------------------             ----------------------*/');
+
+		$this->out('Puede ejecutar las siguientes funciones:');
+		$this->out('    image_to_foto');
+		$this->out('    image_');
+	}
+
+
+	public function update_tenant_schemas () {
+		$sites = ClassRegistry::init('Risto.Site')->find('list', array('fields'=>array('alias','name')));
+		foreach ( $sites as $sAlias=>$sName ) {
+			try {
+				// listar sources actuales
+				$sources = ConnectionManager::enumConnectionObjects();
+
+				//copiar del default
+				$tenantConf = $sources['default'];
+
+				// colocar el nombre de la base de datos
+				$tenantConf['database'] = $tenantConf['database'] ."_". $sAlias;
+
+				// crear la conexion con la bd
+				$sAlias = 'tenant_'.$sAlias;
+				ConnectionManager::create( $sAlias, $tenantConf );
+
+
+
+				$this->dispatchShell('Risto.risto_schema update -y --plugin Risto --connection '.$sAlias);
+			} catch (Exception $e ) {
+				$this->out("<error>".$e->getMessage()."</error>");
+			}
+		}
+	}
+
+	public function image_to_foto () {
 		$this->out("iniciando");
 
 		$this->__loadOldModels();
@@ -42,9 +79,6 @@ class RistoShell extends Shell {
 		$this->imageToMedia('Egreso');
 		$this->imageToMedia('Gasto');
 	}
-
-
-
 
 	private function imageToMedia ( $model ) {
 		$modellist = $this->{$model}->find('all', array(
@@ -150,3 +184,4 @@ class RistoShell extends Shell {
 
 
 }
+
