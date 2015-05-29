@@ -40,8 +40,10 @@ class RistoShell extends Shell {
 		$this->out(' *-----------------------             ----------------------*/');
 
 		$this->out('Puede ejecutar las siguientes funciones:');
-		$this->out('    image_to_foto');
-		$this->out('    image_');
+		$this->out('    1) Risto.risto image_to_foto');
+		$this->out('	      Es para migrar del viejo esquema de fotos file como un string en la BD a el nuevo sistema Medias donde se guarda todo en BBDD',2);
+		$this->out('    2) Risto.risto update_tenant_schemas');
+		$this->out('	      Es para actualizar los Tenant con el Schema de Risto. Actualiza la estructura de la BBDD. Usar con muchisimo ciudado', 2);
 	}
 
 
@@ -61,7 +63,6 @@ class RistoShell extends Shell {
 				// crear la conexion con la bd
 				$sAlias = 'tenant_'.$sAlias;
 				ConnectionManager::create( $sAlias, $tenantConf );
-
 
 
 				$this->dispatchShell('Risto.risto_schema update -y --plugin Risto --connection '.$sAlias);
