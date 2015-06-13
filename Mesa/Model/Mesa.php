@@ -190,7 +190,7 @@ class Mesa extends MesaAppModel {
 
 	public function afterSave($created, $options = array()) {
 		if ( !$created && $this->changedState ) {
-			$this->__sendEventStateChange( $this->changedState, 'After');			
+			$this->__sendEventStateChange( 'After');			
 		}
 
 		return parent::afterSave($created, $options);
@@ -230,8 +230,10 @@ class Mesa extends MesaAppModel {
 	*	@param String $evName es un prefijo para poder usar el dispache de eventos en un BeforeSave y en un afterSave
 	*
 	**/
-	private function __sendEventStateChange ( $nuevoEstado, $evName  = 'Before') {
+	private function __sendEventStateChange ( $evName  = 'Before') {
 		$event = null;
+		$oldState = $this->changedState;
+		$nuevoEstado = $this->changedNewState;
 
 		if  ( $nuevoEstado ) {
 			$event = new CakeEvent("Mesa.".$evName."Estado".$nuevoEstado, $this);				
@@ -267,6 +269,7 @@ class Mesa extends MesaAppModel {
 	**/
 	private function __processStateChanges ( $evName = 'Before') {
 		$this->changedState = false;
+		$this->changedNewState = false;
 
 		$estadoAnterior = $this->field('estado_id');
 		
@@ -277,6 +280,7 @@ class Mesa extends MesaAppModel {
 		if ( $estadoAnterior != $nuevoEstado ) {
 			// set new estado_id		
 			$this->changedState = $estadoAnterior;
+			$this->changedNewState = $nuevoEstado;
 		}
 
 		return $this->changedState;
@@ -356,7 +360,7 @@ class Mesa extends MesaAppModel {
 		$data['Mesa']['estado_id'] = MESA_CERRADA;
 		$data['Mesa']['time_cerro'] = date( "Y-m-d H:i:s");
 		$data['Mesa']['time_cobro'] = DATETIME_NULL;
-		$data['Mesa']['silent'] = $silent; // no trigger del event
+		//$data['Mesa']['silent'] = $silent; // no trigger del event
 
 		// si no hay que guardar nada, regresar
 		if ( $save ) {
