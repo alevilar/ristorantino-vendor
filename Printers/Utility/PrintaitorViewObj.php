@@ -41,14 +41,19 @@ class PrintaitorViewObj {
 
 	/**
 	*
-	*	@param Model $Model Mesa o Comanda Model con el ID inicializado
+	*	@param Model $Model con el ID inicializado
 	*
 	**/
 	public function __construct ( $Model, $printer_id, $viewName ) {
 		$this->Model = $Model;
+		if ( empty($this->Model->id ) ) {
+			throw new CakeException(sprintf("Se debe incializar el ID del Model '%s' para poder enviar a imprimir". $Model->name )) ;
+		}
 		$this->printerId = $printer_id;
-		if ( method_exists($Model, 'getFullDataForTicket' ) ) {
-			$dataToView = $Model->getFullDataForTicket();
+		$camelViewName = Inflector::camelize($viewName);
+		$methodName = 'getViewDataFor'.$camelViewName;
+		if ( method_exists($Model, $methodName ) ) {
+			$dataToView = $Model->{$methodName}();
 			$this->dataToView = $dataToView;
 		}
 

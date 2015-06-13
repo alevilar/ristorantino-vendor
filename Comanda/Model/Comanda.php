@@ -93,10 +93,9 @@ class Comanda extends ComandaAppModel {
 														'contain'=>array(
 															'Producto'=>array('Printer'),
 															'Comanda'=> array('Mesa'=>array('Mozo')),
-															'DetalleSabor'=>array('Sabor(name)')
+															'DetalleSabor'=>array('Sabor')
 			)
 											));
-
 		return $items;
 	}
 	
@@ -120,14 +119,41 @@ class Comanda extends ComandaAppModel {
 	}
 
 
-	public function afterSave(  $created, $options = array() ) 
-	{
+	public function afterSave(  $created, $options = array() ) {
 		$comanda = $this->find('first', array(
 				'contain'=> false,
 				'conditions' => array('Comanda.id' => $this->id),
 		));
-		$this->Mesa->id = $comanda['Comanda']['mesa_id'];
-		return $this->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+		if ( $comanda ) {
+			$this->Mesa->id = $comanda['Comanda']['mesa_id'];
+			return $this->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+		}
+	}
+
+
+
+	/**
+	*
+	*	Metodo usado en el PrintaitorViewObj para
+	*	generar los datos que seran enviados, en este caso al
+	*	comanda.ctp
+	* 	@param integer $id ID de la Comanda
+	*	@return array de datos que seran expuestos en la vista como variables "$this->set()"
+	**/
+	public function getViewDataForComandas ( $id = null ) {
+		
+		$observacion = $this->field('observacion');
+		$entradas = $this->listado_de_productos_con_sabores($this->id, DETALLE_COMANDA_TRAER_ENTRADAS);
+		$platos_principales = $this->listado_de_productos_con_sabores($this->id, DETALLE_COMANDA_TRAER_PLATOS_PRINCIPALES);
+
+		$productos = array_merge($entradas, $platos_principales);
+
+
+		return array(
+			'productos'=> $productos,
+			'entradas' => $entradas,
+			'observacion' => $observacion,
+			);
 	}
 
 	

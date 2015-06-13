@@ -127,7 +127,10 @@
                 ?>
                 <div class="list-group-item">                
                 <?php
-                    echo "Comanda #" . $comanda['id']. "  (".date('H:i, d M',strtotime($comanda['created'])).")";
+                     echo $this->Html->link("Re-Imprimir"
+                            , array('plugin'=>'comanda', 'controller' => 'comandas', 'action' => 'imprimir', $comanda['id'])
+                            , array('class'=>'small')
+                            );
                     echo " &nbsp;-&nbsp; ";
                     echo $this->Html->link("Editar"
                             , array('plugin'=>'comanda', 'controller' => 'comandas', 'action' => 'edit', $comanda['id'])
@@ -139,6 +142,8 @@
                                         , array('class'=>'small')
                                         , sprintf(__('Are you sure you want to delete # %s?'), $comanda['id']));
                     
+                    echo "<br>";
+                    echo "<b>Comanda #" . $comanda['id']. "  (".date('H:i, d M',strtotime($comanda['created'])).")</b><br>";
                     if ($comanda['observacion']) {
                         echo "<cite>Observacion: ";
                         echo $comanda['observacion'] . "</cite>";
@@ -151,12 +156,18 @@
                         <div  class="list-group-item small">
                         <?php echo "Cant Pedida: " . $detalle['cant'] . ($detalle['cant_eliminada'] != '0' ? " Sacada: " . $detalle['cant_eliminada'] : '') ?>
                             <br>
+                            <?php 
+                            if (!empty($detalle['observacion'] )) {
+                                echo "Obs: " . $detalle['observacion']."<br>";
+                            }
+
+                            ?>
                            
                         
 
 
                             <span style="color: #AD0101; font-weight: normal; font-size: 120%; <?php if (($detalle['cant'] - $detalle['cant_eliminada']) == 0) echo "text-decoration: line-through;" ?> ">
-                            <?php echo $detalle['cant'] - $detalle['cant_eliminada'] . ")  " . (!empty($detalle['Producto']['name']) ? $detalle['Producto']['name'] : '') . " [p-u $ " . $detalle['Producto']['precio'] . "]" ?>
+                            <?php echo "Prod: " . (!empty($detalle['Producto']['name']) ? $detalle['Producto']['name'] : '') . " [p-u $ " . $detalle['Producto']['precio'] . "]" ?>
                             </span>
 
                              <?php

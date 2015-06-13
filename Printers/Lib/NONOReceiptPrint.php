@@ -13,6 +13,7 @@ class ReceiptPrint
      */
     public static function comanda ( $comanda_id )
     {
+    	debug( $comanda_id );die("asas");
         $Comanda = ClassRegistry::init('Comanda.Comanda');
 
 		$productos_x_comanda = array();

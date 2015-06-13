@@ -23,7 +23,7 @@ class ComandasEventListener implements CakeEventListener {
 			'Model.afterSaveAll' => array(
 				'callable' => 'onComandaPrint',
 				//'passParams' => true,
-			),			
+			),					
 		);
 	}
 
@@ -31,7 +31,6 @@ class ComandasEventListener implements CakeEventListener {
 	public function onComandaPrint( $event ) {
 		if ($event->subject()->name == 'Comanda') {
 			$event->subject()->id;
-
 			$comanda = ClassRegistry::init('Comanda.Comanda')->find('first', array(
 					'recursive' => -1,
 					'conditions' => array(

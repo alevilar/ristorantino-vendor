@@ -14,6 +14,7 @@ class DetalleComanda extends ComandaAppModel {
 
 	public $actsAs = array(
 		'Utils.SoftDelete', 
+		'Containable',
 		);
 
 	
@@ -39,7 +40,7 @@ class DetalleComanda extends ComandaAppModel {
 								'className' => 'Comanda.DetalleSabor',
 								'foreignKey' => 'detalle_comanda_id',
 								'dependent' => true,
-								'conditions' => '',
+								'conditions' => array('DetalleSabor.deleted'=>0),
 								'fields' => '',
 								'order' => '',
 								'limit' => '',

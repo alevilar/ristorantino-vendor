@@ -8,6 +8,16 @@
 **/
 echo $this->PE->cm('ESC');
 
+
+if (!empty($observacion)) {
+    echo "*********************************\n";
+    echo $observacion;
+    echo "\n";
+    echo "*********************************\n";
+}
+
+
+$cant_entradas = 0;
 if (!empty($entradas)) {
     $cant_entradas = count($entradas);
 
@@ -28,23 +38,33 @@ foreach ($productos as $detalle):
     }
 
 
+    $obstxt = trim($detalle['DetalleComanda']['observacion'],',');
+    if ( !empty( $obstxt ) ) {
+         $obstxt = ' (OBS: ' . $obstxt .")";
+    }
     $prod_cant = $detalle['DetalleComanda']['cant'];
-    $prod_name = $detalle['Producto']['name'] . ' - ' . $detalle['DetalleComanda']['observacion'];
+    $prod_name = $detalle['Producto']['name'] . $obstxt ;
+
     $prod_sabor = '';
     $primero = true;
     foreach ($detalle['DetalleSabor'] as $sabor) {
         if (!$primero) {
             $prod_sabor .= ', ';
         } else {
-            $prod_sabor .= ':: [';
+            $prod_sabor .= '[';
             $primero = false;
         }
         $prod_sabor .= $sabor['Sabor']['name'];
     }
     $prod_sabor .= (count($detalle['DetalleSabor']) == 0) ? '' : ']';
 
-    echo "$prod_cant) $prod_name $prod_sabor\n";
+    if ( !empty($detalle['DetalleSabor']) ) {
+        echo "$prod_cant) $prod_name\n   ADICIONAL: $prod_sabor";
+    } else {
+        echo "$prod_cant) $prod_name\n";
+    }
 
     $i++;
 endforeach;
+
 

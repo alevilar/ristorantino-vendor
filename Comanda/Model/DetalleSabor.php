@@ -12,6 +12,7 @@ class DetalleSabor extends ComandaAppModel {
 
 	public $actsAs = array(
 		'Utils.SoftDelete', 
+		'Containable',
 		);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed

@@ -18,7 +18,7 @@ class ReceiptPrint
      * @param  id $comanda_id
      * @return null
      */
-    public static function comanda ( $Comanda )
+    public static function comanda ( Comanda $Comanda )
     {
     	$comanda_id = $Comanda->id;
     	
@@ -28,12 +28,7 @@ class ReceiptPrint
 		// pero , por las dudas que ésto suceda, cuando yo listo los productos de una comanda, me los separa para ser impreso en Comanderas distintas
 		// Entonces, por lo genral (SIEMPRE) se imprimiria x 1 sola Comandera en este método del Componente
 
-		$comanderas_involucradas = $Comanda->comanderas_involucradas($comanda_id);
-
-		$entradas = $Comanda->listado_de_productos_con_sabores($comanda_id, DETALLE_COMANDA_TRAER_ENTRADAS);
-		$platos_principales = $Comanda->listado_de_productos_con_sabores($comanda_id, DETALLE_COMANDA_TRAER_PLATOS_PRINCIPALES);
-
-		$productos = array_merge($entradas, $platos_principales);
+		$comanderas_involucradas = $Comanda->comanderas_involucradas($comanda_id);	
 
 		// genero el array lindo paraimprimir por cada comanda
 		// o sea, genero un renglón de la comanda
@@ -41,13 +36,7 @@ class ReceiptPrint
 		// "1) Milanesa de pollo\n"
 		foreach($comanderas_involucradas as $printer_id):
 			if ( !empty($printer_id) ) {
-				Printaitor::send(array(
-						'productos' => $productos,
-						'entradas' => $entradas,
-						),
-						$printer_id,
-						'comandas' // user vista comandas.ctp
-				);
+				Printaitor::send( $Comanda, $printer_id, 'comandas');
 			}
 		endforeach;
    }

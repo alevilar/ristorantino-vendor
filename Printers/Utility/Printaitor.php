@@ -92,19 +92,19 @@ class Printaitor
  *      ), 'theprinterName', 'ticketViewName') 
  * 
  * 
- * @param Mesa Model $Mesa con la mesa incializada a un ID especifico
+ * @param Model $Model con la Model incializada a un ID especifico
  * @param string $printer_id or Id printer Key name to use with self::$ReceiptPrinters
  * @param string $viewName view file name like "ticket" from ticket.ctp
  * @return boolean returns the $PrinterOutput->send value
  */  
-    public static function send( $Mesa, $printer_id, $viewName) {
+    public static function send( Model $Model, $printer_id, $viewName) {
         App::uses('PrintaitorViewObj', 'Printers.Utility');
 
         // instanctia %this->Output
         self::__createOutput( $printer_id ); 
 
         // inicializa PrintaitorViewObj
-        $printViewObj = new  PrintaitorViewObj( $Mesa, $printer_id, $viewName );        
+        $printViewObj = new  PrintaitorViewObj( $Model, $printer_id, $viewName );        
         
         // callback antes de generar la vista
         self::$Output->beforeRender( $printViewObj ); 

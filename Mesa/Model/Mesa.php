@@ -133,12 +133,18 @@ class Mesa extends MesaAppModel {
 		  'Comanda' => array(
 			'className' => 'Comanda.Comanda',
 			'dependent' => true,
-			'order' => 'Comanda.created DESC'
+			'order' => 'Comanda.created DESC',
+			'conditions' => array(
+				'Comanda.deleted' => 0
+				)
 			), 
 		  'Pago' => array(
 			'className' => 'Mesa.Pago',
 			'dependent' => true,
-			'order' => 'Pago.created'
+			'order' => 'Pago.created',
+			'conditions' => array(
+				'Pago.deleted' => 0
+				)
 			),         
 		);
 
@@ -935,7 +941,15 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 
 
 
-	public function getFullDataForTicket ( $mesaId = null ) {
+	/**
+	*
+	*	Metodo usado en el PrintaitorViewObj para
+	*	generar los datos que seran enviados, en este caso al
+	*	ticket.ctp
+	* 	@param integer $mesaId ID de la mesa
+	*	@return array de datos que seran expuestos en la vista como variables "$this->set()"
+	**/
+	public function getViewDataForTicket ( $mesaId = null ) {
 		if ( empty($mesaId) ) {
 			$mesaId = $this->id;
 		}

@@ -31,8 +31,6 @@ ALTER TABLE  `users` CHANGE  `apellido`  `apellido` VARCHAR( 40 ) NULL DEFAULT  
 
 ALTER TABLE  `users` CHANGE  `domicilio`  `domicilio` VARCHAR( 110 ) NULL DEFAULT  '';
 
-ALTER TABLE `users` DROP `numero`;
-
 ALTER TABLE `mozos`  ADD `apellido` VARCHAR(64) NOT NULL AFTER `id`;
 ALTER TABLE  `mozos` ADD  `nombre` VARCHAR( 64 ) NOT NULL AFTER  `id`;
 
@@ -97,6 +95,10 @@ ALTER TABLE `tipo_de_pagos` DROP `description`;
 ALTER TABLE  `users` ADD  `rol_id` INT NOT NULL AFTER  `username`;
 
 
+ALTER TABLE  `account_egresos` ADD  `media_id` INT NULL AFTER `file`;
+ALTER TABLE  `account_gastos` ADD  `media_id` INT NULL AFTER `file`;
+
+
 INSERT INTO `configs` 
 (`config_category_id`, `key`, `value`,`created`, `modified`) 
 VALUES ('4', 'cobrada_hide_ms', '0', NOW(), NOW());
@@ -122,7 +124,7 @@ CREATE TABLE IF NOT EXISTS `tags` (
 
 
 ALTER TABLE  `iva_responsabilidades` ADD  `tipo_factura_id` INT NOT NULL;
-ALTER TABLE  `tipo_facturas` ADD  `codename` VARCHAR( 1 ) NULL AFTER  `name`
+ALTER TABLE  `tipo_facturas` ADD  `codename` VARCHAR( 1 ) NULL AFTER  `name`;
 DROP TABLE  IF EXISTS `egresos`;
 
 
@@ -147,3 +149,15 @@ INSERT INTO `estados` (`id`, `name`) VALUES
 (2, 'Cerrada'),
 (3, 'Cobrada');
 
+
+CREATE TABLE IF NOT EXISTS `media` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `model` varchar(32) DEFAULT NULL,
+  `type` varchar(48) NOT NULL,
+  `size` smallint(6) NOT NULL,
+  `name` varchar(48) NOT NULL,
+  `file` longblob NOT NULL,
+  `created` timestamp NULL DEFAULT NULL,
+  `modified` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8;

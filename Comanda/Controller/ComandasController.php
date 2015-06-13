@@ -1,12 +1,18 @@
 <?php
 
 App::uses('ComandaAppController', 'Comanda.Controller');
-
+App::uses('ReceiptPrint', 'Printers.Utility');
 
 class ComandasController extends ComandaAppController {
 
 	public $name = 'Comandas';
 
+
+    public function imprimir( $comanda_id ){
+        $this->Comanda->id = $comanda_id;
+        ReceiptPrint::comanda($this->Comanda);
+        $this->redirect( $this->referer() );
+    }
     
     
 	public function add( $mesa_id = null ){

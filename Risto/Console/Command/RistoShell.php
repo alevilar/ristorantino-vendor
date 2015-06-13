@@ -16,7 +16,7 @@
  */
 
 App::uses('Shell', 'Console');
-App::uses('AppModel', 'Model');
+App::uses('Model', 'Model');
 App::uses('ConnectionManager', 'Model');
 
 /**
@@ -31,8 +31,28 @@ class RistoShell extends Shell {
 
 	public $datasource = 'paxacarilo';
 
-	public $imgFolder = '/home/alejandro/Work/paxacarilo_mig/webroot/img/';
 
+	/**
+	*
+	*	Definido en risto.php
+	*	Configure::read('Risto.migrationImageFolder');
+	**/
+	public $imgFolder;
+
+
+	/**
+	*
+	*	Definido en risto.php
+	*	Configure::read('Risto.migrationImageUrl');
+	**/
+	public $urlFolder;
+
+
+	public function __construct($stdout = null, $stderr = null, $stdin = null) {
+		parent::__construct($stdout, $stderr, $stdin);
+		$this->imgFolder = Configure::read('Risto.migrationImageFolder');
+		$this->urlFolder = Configure::read('Risto.migrationImageUrl');
+	}
 
 	public function main () {
 		$this->out(' *-----------------------             ----------------------*/');
@@ -64,8 +84,12 @@ class RistoShell extends Shell {
 				$sAlias = 'tenant_'.$sAlias;
 				ConnectionManager::create( $sAlias, $tenantConf );
 
-
+				$this->out("|||||||||||||||||||||||||					||||| ");
+				$this->out("||||||||||||||||||||||||||||					||||| ");
+				$this->out("||||||||||||||||||||||||||||||||					||||| ");
+				$this->out(sprintf('Comporbando tenant %s', $sAlias));
 				$this->dispatchShell('Risto.risto_schema update -y --plugin Risto --connection '.$sAlias);
+				$this->out("", 2);
 			} catch (Exception $e ) {
 				$this->out("<error>".$e->getMessage()."</error>");
 			}
@@ -81,7 +105,10 @@ class RistoShell extends Shell {
 		$this->imageToMedia('Gasto');
 	}
 
-	private function imageToMedia ( $model ) {
+	private function imageToMedia ( $model ) {		
+		if ( !$this->__verifyFileFieldExists( $this->{$model} ) ) {
+			throw new CakeException("No existe el campo field, probablemente se este usando una version nueva de la Base de Datos?");
+		}
 		$modellist = $this->{$model}->find('all', array(
 			'conditions' => array(
 				"$model.file IS NOT NULL",
@@ -98,36 +125,52 @@ class RistoShell extends Shell {
 		$total = sizeof($modellist);
 		$this->out("Se va a comenzar a guardar imagenes de $model. Hay $total en total.");
 
-		$cont = 0;
+		$cont = 0;		
 		foreach ( $modellist as $e ) {
-			$im = $this->imgFolder . $e[$model]['file'];
+			if ( fmod( $cont++, 50) == 0 ){
+					$contSum = $cont-1;
+					$this->out("******************************************");
+					$this->out("*****   Van $contSum de $total *****");
+					$this->out("******************************************");
+			}
 
-			if ( file_exists( $im ) ) {
+
+			$im = $this->imgFolder . $e[$model]['file'];
+			if ( !is_file( $im ) || !filesize( $im ) ) {
+				$aFileName = explode( '/webroot/img/', $e[$model]['file']);
+				if (!empty($aFileName[0]) ){
+					$imUrl = $this->urlFolder . $aFileName[0];
+					$imAux = file_get_contents($imUrl);
+					if ( $imAux ) {
+						$this->out('descargando  imagen ONLINE a '.$im);
+						file_put_contents($im, $imAux);
+						//unset($imAux);
+					}
+				}
+			}
+
+			if ( is_file( $im ) && filesize( $im ) ) {
 				$media = array('Media' => array(
 								'model' => $model,
 								'type' 	=> "image/" . pathinfo($im, PATHINFO_EXTENSION),
 								'size'	=> filesize($im),
 								'name'	=> $e[$model]['file'],
 								'file'	=> file_get_contents($im)
-						));
-
-				if ( fmod( $cont++, 50) == 0 ){
-					$contSum = $cont-1;
-					$this->out("******************************************");
-					$this->out("*****   Van $contSum de $total *****");
-					$this->out("******************************************");
-				}
+						));				
 
 				$this->Media->create();
 				if ( $this->Media->save($media) ) {
 					$e[$model]['media_id'] = $this->Media->id;
-					$this->{$model}->save($e);
+					if ( $this->{$model}->save($e) ) {
+						$this->out("<success>$cont) SAVED: $im</success>");
+					} else {
+						$this->log("[$im] error guardando en Model $model el media_id ".$this->Media->id);
+					}
 				} else {
-					throw new CakeException("Error al guardar Media");
+					$this->log("[$im] error guardando Media");
 				}
-				$this->out("$cont) SAVED: $im");
 			} else {
-				$e[$model]['media_id'] = -1;
+				$e[$model]['media_id'] = 0;
 				$this->{$model}->save($e);
 
 				$this->out("<warning>La imagen $im NO EXISTE</warning>");
@@ -138,10 +181,14 @@ class RistoShell extends Shell {
 	}
 
 
+	private function __verifyFileFieldExists ( Model $Model) {
+		return (bool) $Model->schema('file');
+	}
+
 
 
 	private function __loadOldModels () {
-		$this->Media = new AppModel(array(
+		$this->Media = new Model(array(
                 'table' => 'media',
                 'ds' => $this->datasource,
                 'name' => 'Media',
@@ -150,7 +197,7 @@ class RistoShell extends Shell {
         ));
 
 
-		$this->Egreso = new AppModel(array(
+		$this->Egreso = new Model(array(
                 'table' => 'account_egresos',
                 'ds' => $this->datasource,
                 'name' => 'Egreso',
@@ -158,13 +205,8 @@ class RistoShell extends Shell {
                 'primaryKey' => 'id',
         ));
 
-		if ( !$this->Egreso->hasField('media_id') ) {
-			$this->Egreso->query("ALTER TABLE  `".$this->Egreso->table."` ADD  `media_id` INT NULL ;");
-			$this->out('Se creó la columna media_id para la tabla: '.$this->Gasto->table);
-		}
-
 		
-		$this->Gasto = new AppModel(array(
+		$this->Gasto = new Model(array(
                 'table' => 'account_gastos',
                 'ds' => $this->datasource,
                 'name' => 'Gasto',
@@ -172,14 +214,17 @@ class RistoShell extends Shell {
                 'primaryKey' => 'id',                
                 ));
 
-		if ( !$this->Gasto->hasField('media_id') ) {
-			$this->Gasto->query("ALTER TABLE  `".$this->Gasto->table."` ADD  `media_id` INT NULL ;");
+
+		if ( !$this->Egreso->hasField('media_id') ) {
+			$this->Egreso->query("ALTER TABLE  `".$this->Egreso->table."` ADD  `media_id` INT NULL ;");
 			$this->out('Se creó la columna media_id para la tabla: '.$this->Gasto->table);
 		}
 
 
-
-
+		if ( !$this->Gasto->hasField('media_id') ) {
+			$this->Gasto->query("ALTER TABLE  `".$this->Gasto->table."` ADD  `media_id` INT NULL ;");
+			$this->out('Se creó la columna media_id para la tabla: '.$this->Gasto->table);
+		}
 
 	}
 
