@@ -11,7 +11,7 @@
 *           tipodocumento
 *           domicilio
 *       
-*       @var String $tipo_factura
+*       @var String $tipo_factura (opcional)
 *           
 *       @var Array $productos
 *           nombre
@@ -27,9 +27,7 @@
 *       @var String|Int $mesa
 *
 **/
-if (empty($tipo_factura)) {
-    throw new CakeException("Ticket: Falta el tipo de factura");
-}
+
 
 if (empty($productos)) {
     throw new CakeException("Ticket: Faltan los productos");
