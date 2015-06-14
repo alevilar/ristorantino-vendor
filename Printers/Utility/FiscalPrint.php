@@ -26,7 +26,7 @@ class FiscalPrint
 			$viewname = 'cierre_x';
 		}
 
-		$send = Printaitor::send(array(),
+		$send = Printaitor::send(null,
 				self::__getFiscalPrinterId(),
 				$viewname // user vista comandas.ctp
 			);

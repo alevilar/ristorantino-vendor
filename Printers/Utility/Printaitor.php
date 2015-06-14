@@ -99,7 +99,7 @@ class Printaitor
  * @param string $viewName view file name like "ticket" from ticket.ctp
  * @return boolean returns the $PrinterOutput->send value
  */  
-    public static function send( Model $Model, $printer_id, $viewName) {
+    public static function send( Model $Model = null, $printer_id, $viewName) {
         $outRes = false;
         App::uses('PrintaitorViewObj', 'Printers.Utility');
 

@@ -149,16 +149,6 @@ class PrintersController extends PrintersAppController {
 
 
 
-	public function print_comanda ( $comanda_id) {
-		
-
-		ReceiptPrint::comanda($comanda_id);
-
-		$this->Session->setFlash("Se envió a imprimir comanda");
-	}
-
-
-
 	/**
 	 * @param string $type puede ser X o Z. 
 	 * 		El cierre X realiza un cierre parcial, típico para cambio de cajero
