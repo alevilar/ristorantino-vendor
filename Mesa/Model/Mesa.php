@@ -944,15 +944,6 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 	}
 
 
-	 public function getViewDataForNotaDeCredito () {
-        	return array(
-				'numero_ticket' => $numero_ticket,
-				'importe' => $importe,
-				'tipo_factura	' => $tipo,
-				'descripcion' => $descripcion,
-				'cliente' => $cliente,
-				);
-        };
 
 
 	/**

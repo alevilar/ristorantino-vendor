@@ -1,6 +1,6 @@
 <?php
 
-if ( empty(Configure::read('Afip.tipo_factura_id')) ) {
+if ( MtSites::isTenant() && empty(Configure::read('Afip.tipo_factura_id')) ) {
 ?>
     <div class="alert alert-danger alert-error">
     	Se debe configurar el Tipo de Factura

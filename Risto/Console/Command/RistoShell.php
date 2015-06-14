@@ -64,8 +64,16 @@ class RistoShell extends Shell {
 		$this->out('	      Es para migrar del viejo esquema de fotos file como un string en la BD a el nuevo sistema Medias donde se guarda todo en BBDD',2);
 		$this->out('    2) Risto.risto update_tenant_schemas');
 		$this->out('	      Es para actualizar los Tenant con el Schema de Risto. Actualiza la estructura de la BBDD. Usar con muchisimo ciudado', 2);
+		$this->out('    3) Risto.risto update_default_schema');
+		$this->out('	      Es para actualizar el schema general "default" del sitio', 2);
 	}
 
+
+	public function update_default_schema () {
+		$this->out(sprintf('Comporbando tenant %s', $sAlias));
+		$this->dispatchShell('Risto.risto_schema update -y --plugin Risto -c default');
+		$this->out("", 2);
+	}
 
 	public function update_tenant_schemas () {
 		$sites = ClassRegistry::init('Risto.Site')->find('list', array('fields'=>array('alias','name')));
@@ -88,7 +96,7 @@ class RistoShell extends Shell {
 				$this->out("||||||||||||||||||||||||||||					||||| ");
 				$this->out("||||||||||||||||||||||||||||||||					||||| ");
 				$this->out(sprintf('Comporbando tenant %s', $sAlias));
-				$this->dispatchShell('Risto.risto_schema update -y --plugin Risto --connection '.$sAlias);
+				$this->dispatchShell('Risto.risto_schema update -y --plugin Risto --name Tenant --connection '.$sAlias);
 				$this->out("", 2);
 			} catch (Exception $e ) {
 				$this->out("<error>".$e->getMessage()."</error>");
