@@ -3,7 +3,9 @@ App::uses('Printaitor', 'Printers.Utility');
 
 class PrintaitorViewObj {
 
-	public $viewTextRender = '';
+
+	public $viewTextRender;
+
 
 	public $printerId = null;
 
@@ -46,12 +48,8 @@ class PrintaitorViewObj {
 	**/
 	public function __construct ( Model $Model = null, $printer_id, $viewName ) {
 		$this->printerId = $printer_id;
-		
 		if ( $Model ) {
-			$this->Model = $Model;
-			if ( empty($this->Model->id ) ) {
-				throw new CakeException(sprintf("Se debe incializar el ID del Model '%s' para poder enviar a imprimir". $Model->name )) ;
-			}
+			$this->Model = $Model;		
 			$camelViewName = Inflector::camelize($viewName);
 			$methodName = 'getViewDataFor'.$camelViewName;
 			if ( method_exists($Model, $methodName ) ) {
@@ -71,9 +69,5 @@ class PrintaitorViewObj {
 	}
 
 
-	public function getView () {
-		 $this->viewTextRender = Printaitor::getView( $this );
-		 return $this->viewTextRender;
-	}
 
 }

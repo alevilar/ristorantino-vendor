@@ -47,16 +47,19 @@ class FiscalPrint
 	*
 	**/
 	public static function imprimirNotaDeCredito ( $numero_ticket, $importe, $tipo, $descripcion, $cliente = array() ) {
+        $NotaDeCredito = ClassRegistry::init('Printers.NotaDeCredito');
+        $NotaDeCredito->id = 1;
+        $NotaDeCredito->numero_ticket = $numero_ticket;
+        $NotaDeCredito->importe = $importe;
+        $NotaDeCredito->tipo = $tipo;
+        $NotaDeCredito->descripcion = $descripcion;
+        $NotaDeCredito->cliente = $cliente;
         
-		$send = Printaitor::send(array(
-				'numero_ticket' => $numero_ticket,
-				'importe' => $importe,
-				'tipo_factura' => $tipo,
-				'descripcion' => $descripcion,
-				'cliente' => $cliente,
-				),
-				self::__getFiscalPrinterId(),
-				'nota_de_credito' // user vista comandas.ctp
+
+		$send = Printaitor::send(
+								$NotaDeCredito, 
+								self::__getFiscalPrinterId(), 
+								'nota_de_credito' // user vista comandas.ctp
 			);
 
 		return $send;

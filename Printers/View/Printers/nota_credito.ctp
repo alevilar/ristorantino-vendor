@@ -23,16 +23,16 @@
     ?>
                <fieldset data-role="controlgroup" data-type="horizontal">
                <?php
-    echo $this->Form->input('tipo', array('label' => 'Seleccionar Tipo de Factura','options'=> array('B'=>'"B"', 'A' => '"A"'), 'type'=>'radio', 'required'=>'required'));
+    echo $this->Form->input('tipo', array('label' => 'Seleccionar Tipo de Factura','options'=> ClassRegistry::init('Risto.TipoFactura')->find('list'), 'type'=>'radio', 'required'=>'required'));
     ?>
                </fieldset>
     <?php
-    $cc = $this->Form->input('Cliente.razonsocial', array('label'=>'Razon Social (sin acentos ni eñies, ningún carácter "raro")'));
-    $cc .= $this->Form->input('Cliente.numerodoc', array('label'=>'CUIT'));
-    $cc .= $this->Form->input('Cliente.respo_iva', array('type'=>'hidden', 'value'=>'I'));
-    $cc .= $this->Form->input('Cliente.tipodoc', array('type'=>'hidden', 'value'=>'C'));
+    
+    echo $this->Form->input('cliente_id', array(
+                            'empty' => 'Seleccione',
+                            'options' => ClassRegistry::init('Fidelization.Cliente')->find('list')
+                                                        ));
 
-    echo $this->Html->div('factura_a',$cc,array('style'=>'display:none'),false);
 
     echo $this->Form->input('numero_ticket', array('label' => 'Número de Ticket (sin guiones "-")'));
 
@@ -51,15 +51,6 @@
                 </div>
                 
        <?php echo $this->Form->end() ?>         
-    <script type="text/javascript">
-        jQuery('#CajeroTipoA').live('change', function(){
-                jQuery('.factura_a').show();
-        });
-        
-        jQuery('#CajeroTipoB').live('change', function(){
-            jQuery('.factura_a').hide();
-        });
-    </script>
 
 
 

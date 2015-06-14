@@ -169,12 +169,24 @@ class PrintersController extends PrintersAppController {
         	$numeroTicket = $this->request->data['Cajero']['numero_ticket'];
         	$importe = $this->request->data['Cajero']['importe'];
         	$tipo_factura = $this->request->data['Cajero']['tipo'];
-        	$descrip = $this->request->data['Cajero']['descripcion'];        	
-        	$cliente = array(
-        		'nombre' => $this->request->data['Cliente']['razonsocial'],
-        		'nrodocumento' => $this->request->data['Cliente']['numerodoc'],
-        		'domicilio' => '.',
-        		) ;
+        	$descrip = $this->request->data['Cajero']['descripcion'];
+        	
+        	$cliente_id = $this->request->data['Cajero']['cliente_id'];
+        	$cliente = null;
+        	if (!empty($cliente_id)) {
+        		$cliente = ClassRegistry::init('Fidelization.Cliente')->find('first', array(
+        				'contain' => array(
+        						'TipoDocumento',
+        						'IvaResponsabilidad' => array(
+        							'TipoFactura'
+        							),
+        					),
+        				'conditions' => array(
+        					'Cliente.id' => $cliente_id
+        					)
+        			));
+        	}
+
 
             if ( FiscalPrint::imprimirNotaDeCredito($numeroTicket, $importe, $tipo_factura, $descrip, $cliente) )  {
             	$this->Session->setFlash("Se envió a imprimir una nota de crédito", 'Risto.flash_success');

@@ -113,7 +113,8 @@ class Printaitor
         self::$Output->beforeRender( $printViewObj ); 
        
         // genera la vista
-        $genView = $printViewObj->getView();
+        $genView = Printaitor::getView( $printViewObj );
+        $printViewObj->viewTextRender = $genView;
         if ( $genView ) {            
             // ejecuta la salida del resultado de la vista
             $outRes = self::__sendOutput( $printViewObj );
@@ -183,15 +184,12 @@ class Printaitor
 /**
  * Logic for creating the view rendered.
  * 
- * @param array $data all vars that will be accesible into the view
- * @param string $printer_id name of the printer
- * @param string $templateName name of the view
+ * @param PrintaitorViewObj $printViewObj
  */    
-    public static function getView( $printViewObj ) { 
+    public static function getView( PrintaitorViewObj $printViewObj ) { 
         $data = $printViewObj->dataToView;
         $printer_id = $printViewObj->printerId;
         $templateName = $printViewObj->viewName;
-
         if (empty($printer_id)) {
             return -1;
         }
@@ -222,20 +220,9 @@ class Printaitor
         $View->PE = new $helperName($View);
         
         $View->printaitorObj = $printViewObj;
-
-        try {
-            $view = $View->render( $viewName, false );
-            return $view;
-        } catch (Exception $e) {
-            if ($e->getCode() == 500 ) {
-                CakeLog::write('error', 'No se pudo encontrar la View: '.$viewName . ' '.$e->getMessage());
-                return false;
-            } else {
-                throw $e;
-            }
-        }
+        $view = $View->render( $viewName, false );
+        return $view;
         
-        return true;
     }
         
  

@@ -37,9 +37,8 @@ if (empty($importe)) {
     throw new CakeException("Ticket: El importe no puede quedar vacío");
 }
 
-$tipoId = $tipo_factura == Configure::read('Printers.default_tipo_factura_codename') ? 'S' : 'R';
 
-//abro el tiquet consumidor final
+
 if ( !empty($cliente)) {   
     $tipoDoc = null;
     if ( !empty($cliente['TipoDocumento']) ) {
@@ -50,11 +49,11 @@ if ( !empty($cliente)) {
     if ( !empty($cliente['IvaResponsabilidad']) ) {
         $respoIva = $cliente['IvaResponsabilidad']['codigo_fiscal'];
     }
-    echo $this->PE->setCustomerData($cliente['nombre'], 
-                                    $cliente['nrodocumento'], 
+    echo $this->PE->setCustomerData($cliente['Cliente']['nombre'], 
+                                    $cliente['Cliente']['nrodocumento'], 
                                     $respoIva, 
                                     $tipoDoc, 
-                                    $cliente['domicilio']
+                                    $cliente['Cliente']['domicilio']
     ); echo "\n";
 } else {
     //condumidor Final
@@ -63,9 +62,9 @@ if ( !empty($cliente)) {
 }
 
 
-echo $this->PE->setEmbarkNumber($numero_ticket);
+echo $this->PE->setEmbarkNumber( $numero_ticket );
 echo "\n";
-echo $this->PE->openDNFH($tipoId);
+echo $this->PE->openDNFH( $this->PE->arrayMapNCTipoTicket[$tipo_factura] );
 echo "\n";
 echo $this->PE->printLineItem( $descripcion, 1, $importe);
 echo "\n";

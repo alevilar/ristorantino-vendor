@@ -15,6 +15,17 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 			RISTO_TIPO_FACTURA_B_ID => 'B',
 			RISTO_TIPO_FACTURA_C_ID => 'C',			
   		);
+
+
+  	/**
+	*
+	* Mapea el ID del ristornatino con el de la Hasar 441
+	**/
+  	public $arrayMapNCTipoTicket = array(
+			RISTO_TIPO_FACTURA_A_ID => 'R',
+			RISTO_TIPO_FACTURA_B_ID => 'S',
+			RISTO_TIPO_FACTURA_C_ID => 'S',			
+  		);
 	
 	
 	
@@ -333,9 +344,8 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 				}
 			}
 			else{ 	
-				debug(is_null($tipo_documento));
-                            throw new InternalErrorException('Error, no existe el tipo de documento pasado: '.$tipo_documento);
-                            return -1;
+                throw new InternalErrorException('Error, no existe el tipo de documento pasado: '.$tipo_documento);
+                return -1;
 			}	
 		}
 		else{
