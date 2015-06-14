@@ -70,6 +70,7 @@ class PrintaitorViewObj {
 
 	public function getView () {
 		 $this->viewTextRender = Printaitor::getView( $this );
+		 return $this->viewTextRender;
 	}
 
 }

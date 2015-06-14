@@ -5,6 +5,18 @@ App::uses('FiscalPrinterHelper', 'Printers.Lib/DriverView/Helper');
 
 class HasarSMHP321fFiscalHelper extends FiscalPrinterHelper
 {
+
+
+	/**
+	*
+	* Mapea el ID del ristornatino con el de la Hasar 441
+	**/
+  	public $arrayMapTipoTicket = array(
+			RISTO_TIPO_FACTURA_A_ID => 'A',
+			RISTO_TIPO_FACTURA_B_ID => 'B',
+			RISTO_TIPO_FACTURA_C_ID => 'C',			
+  		);
+
 	
 	public $_cmd = array(
             'FS' => array('chr', 28),
@@ -25,10 +37,10 @@ class HasarSMHP321fFiscalHelper extends FiscalPrinterHelper
 	 * 							"B": abre ticket factura 'B' o 'C'
 	 */
 	public function openFiscalReceipt($tipo_ticket){
-		$tipo_ticket = strtoupper($tipo_ticket);
-                if ($tipo_ticket == 'T') {
-                    $tipo_ticket = 'B';
-                }
+		$tipo_ticket = $this->arrayMapTipoTicket[$tipo_ticket];		
+        if ($tipo_ticket == 'T') {
+            $tipo_ticket = 'B';
+        }
 		if($tipo_ticket == 'A' || $tipo_ticket == 'B' || $tipo_ticket == 'D' || $tipo_ticket == 'E'){
 			return "@".$this->cm('FS').$tipo_ticket.$this->cm('FS')."T";
 		}

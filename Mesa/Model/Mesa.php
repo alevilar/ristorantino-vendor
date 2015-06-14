@@ -961,8 +961,8 @@ function calcular_valor_cubierto ( $mesaId = null )  {
         	throw new NotFoundException("No se encontro mesa con el ID $mesaId");
         }
 
-		$tipo_factura = Configure::read('Printers.default_tipo_factura_codename');
-		$tipo_factura_id = Configure::read('Afip.tipofactura_id');
+		$tipo_factura = Configure::read('Afip.tipo_factura_id');		
+		$tipo_factura_id = Configure::read('Afip.tipo_factura_id');
         $mesa = $this->find('first',array(
             'contain'=>array(
                 'Mozo',

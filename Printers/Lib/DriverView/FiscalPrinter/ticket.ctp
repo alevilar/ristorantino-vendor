@@ -65,7 +65,7 @@ if ( Configure::check('Mesa.tituloMesa') ) {
 echo $this->PE->setTrailer(3, "-  -  -  -  -  -  -  -"); echo "\n";
 
 
-echo $this->PE->setTrailer(6, "  ORIENTACION AL COSUMIDOR PROVINCIA"); echo "\n";
+echo $this->PE->setTrailer(6, "  ORIENTACION AL CONSUMIDOR PROVINCIA"); echo "\n";
 echo $this->PE->setTrailer(7, "     DE BUENOS AIRES 0-800-333-6422"); echo "\n";
 
 

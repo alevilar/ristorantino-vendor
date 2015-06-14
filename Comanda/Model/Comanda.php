@@ -143,16 +143,20 @@ class Comanda extends ComandaAppModel {
 	public function getViewDataForComandas ( $id = null ) {
 		
 		$observacion = $this->field('observacion');
+		$this->contain(array(
+			'Mesa.Mozo'
+			));
+		$comanda = $this->read();
 		$entradas = $this->listado_de_productos_con_sabores($this->id, DETALLE_COMANDA_TRAER_ENTRADAS);
 		$platos_principales = $this->listado_de_productos_con_sabores($this->id, DETALLE_COMANDA_TRAER_PLATOS_PRINCIPALES);
 
 		$productos = array_merge($entradas, $platos_principales);
 
-
 		return array(
 			'productos'=> $productos,
 			'entradas' => $entradas,
 			'observacion' => $observacion,
+			'comanda' => $comanda,
 			);
 	}
 

@@ -4,10 +4,14 @@
 *   Esta vista debe recibir 2 variables
 *   @param array $entradas es un listado de productos que son entrada
 *   @param array $productos es un listado de todos los productos, incluyendo las entradas
+*   @param array $comanda Comanda con Mesa y Mozo
 *
 **/
 echo $this->PE->cm('ESC');
 
+
+echo "\n                 Comanda #".$comanda['Comanda']['id'];
+echo "\n             ".date('H:i:s d-m-Y', strtotime($comanda['Comanda']['created']));
 
 if (!empty($observacion)) {
     echo "*********************************\n";
@@ -68,3 +72,11 @@ foreach ($productos as $detalle):
 endforeach;
 
 
+echo "\n";
+echo " - " . strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$comanda['Mesa']['numero']."\n";
+echo " - " . strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$comanda['Mesa']['Mozo']['numero'];
+echo "\n";
+echo "\n";
+echo "\n";
+
+echo $this->PE->cm('CORTAR_PAPEL');

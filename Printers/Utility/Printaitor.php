@@ -40,7 +40,8 @@ class Printaitor
     *
     **/
     static $Output;
-    
+  
+  /*  
     public static function setup( Model $printer , $id = null)
     {                
         
@@ -63,7 +64,8 @@ class Printaitor
         self::$isLoad = true;
         
     }
-    
+    */
+
     
     /**
      * Fiscal close "X" (partial) or "Z" (daily close)
@@ -98,6 +100,7 @@ class Printaitor
  * @return boolean returns the $PrinterOutput->send value
  */  
     public static function send( Model $Model, $printer_id, $viewName) {
+        $outRes = false;
         App::uses('PrintaitorViewObj', 'Printers.Utility');
 
         // instanctia %this->Output
@@ -110,10 +113,14 @@ class Printaitor
         self::$Output->beforeRender( $printViewObj ); 
        
         // genera la vista
-        $printViewObj->getView();
-
-        // ejecuta la salida del resultado de la vista
-        return self::__sendOutput( $printViewObj ); 
+        $genView = $printViewObj->getView();
+        if ( $genView ) {            
+            // ejecuta la salida del resultado de la vista
+            $outRes = self::__sendOutput( $printViewObj );
+        } else {
+            throw new CakeException("La vista vino vacia");
+        }
+        return $outRes; 
     }
     
 
@@ -221,8 +228,10 @@ class Printaitor
             return $view;
         } catch (Exception $e) {
             if ($e->getCode() == 500 ) {
-                CakeLog::write('error', 'No se pudo encontrar la View: '.$viewName);
+                CakeLog::write('error', 'No se pudo encontrar la View: '.$viewName . ' '.$e->getMessage());
                 return false;
+            } else {
+                throw $e;
             }
         }
         

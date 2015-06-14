@@ -160,7 +160,7 @@ class AfipFacturasPrinterOutput extends PrinterOutput
         $this->__data = array_merge( $dataAux, $this->__data );
 
 
-        $tipo_comprobante = AfipWsv1::mapTipoFacturas( Configure::read('Afip.tipofactura_id') );
+        $tipo_comprobante = AfipWsv1::mapTipoFacturas( Configure::read('Afip.tipo_factura_id') );
         $cliente_tipo = AfipWsv1::CLIENTE_TIPO_DOCUMENTO_SIN_IDENTIFICAR;
         $cliente_doc = 0;
         if ( !empty($this->dataToView['fullMesa']['Cliente'])) {

@@ -65,6 +65,7 @@
         <![endif]-->
     </head>
     <body>
+        <?php echo $this->element('Risto.show_errors_for_config') ?>
         <a class="sr-only" href="#content">Skip to main content</a>
 
         <!-- Docs master nav -->

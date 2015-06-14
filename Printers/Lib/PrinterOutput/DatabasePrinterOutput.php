@@ -33,9 +33,13 @@ class DatabasePrinterOutput extends PrinterOutput
             $printJob['PrinterJob'] = array(
             		'text' => $printaitorViewObj->viewTextRender,
             		'printer_id' => $printaitorViewObj->printerId,
-            	);
-
-            return ClassRegistry::init("Printers.PrinterJob")->save($printJob);
+                );
+            $PrinterJob = ClassRegistry::init("Printers.PrinterJob");
+            $save = $PrinterJob->save($printJob);
+            if ( !$save ) {
+                throw new CakeException("No se pudo guardar en en la DB el PrintJob");                
+            }
+            return true;
         }
         
 }

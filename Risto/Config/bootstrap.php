@@ -67,6 +67,14 @@ CakePlugin::load('Barcodes');
 CakePlugin::load('Utils');
 
 
+define('RISTO_TIPO_FACTURA_A_ID', 1);
+define('RISTO_TIPO_FACTURA_B_ID', 2);
+define('RISTO_TIPO_FACTURA_X_ID', 3);
+define('RISTO_TIPO_FACTURA_M_ID', 4);
+define('RISTO_TIPO_FACTURA_C_ID', 5);
+define('RISTO_TIPO_FACTURA_VALE_ID', 6);
+define('RISTO_TIPO_FACTURA_OTRO_ID', 7);
+
 define("TIPO_DOCUMENTO_SIN_IDENTIFICAR", 8); // sin identificar
 define("IVA_RESPONSABILIDAD_CONSUMIDOR_FINAL", 4); // Consumidor Final
 define("IVA_RESPONSABILIDAD_RESPONSABLE_INSCRIPTO", 1); // Responsable Inscripto

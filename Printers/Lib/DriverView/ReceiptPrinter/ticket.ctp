@@ -1,4 +1,50 @@
 <?php 
+
+/**
+*
+*       Variables para generar un ticket
+*
+*       @var Array $cliente (opcional) 
+*           nombre            
+*           nrodocumento
+*           responsabiliad_iva
+*           tipodocumento
+*           domicilio
+*       
+*       @var String $tipo_factura
+*           
+*       @var Array $productos
+*           nombre
+*           cantidad
+*           precio
+*
+*       @var array fullMesa Todo el Objeto Mesa Completo
+*
+*       @var Float $importe_descuento  (opcional)
+*
+*       @var String|Int $mozo
+*
+*       @var String|Int $mesa
+*
+**/
+if (empty($tipo_factura)) {
+    throw new CakeException("Ticket: Falta el tipo de factura");
+}
+
+if (empty($productos)) {
+    throw new CakeException("Ticket: Faltan los productos");
+}
+
+if (empty($mozo)) {
+    throw new CakeException("Ticket: Falta el Mozo");
+}
+
+if (empty($mesa)) {
+    throw new CakeException("Ticket: Falta La mesa");
+}
+
+
+
         echo $this->PE->cm('ESC').'@'; // pongo el ESC para comenzar ESC/P 
         
         
@@ -11,52 +57,45 @@
             echo "\n\n";
         }
 
-        if (Configure::read('Restaurante.razon_social')){
-            echo Configure::read('Restaurante.razon_social');
-            echo "\n";
-        }
-        if (Configure::read('Restaurante.cuit')){
-            echo Configure::read('Restaurante.cuit');
-            echo "\n";
-        }
-        if (Configure::read('Restaurante.ib')){
-            echo Configure::read('Restaurante.ib');
-            echo "\n";
-        }
-        if (Configure::read('Restaurante.iva_resp')){
-            echo Configure::read('Restaurante.iva_resp');
-            echo "\n";
-        }
+      
         echo 'Fecha: '.date('d/m/y',strtotime('now')).'   Hora: '.date('H:i:s',strtotime('now'));
         echo "\n";
         echo "\n";
         echo "\n";
 
-        echo 'Cant. P.Unit. Item               Total';
-        echo "\n";
+       
 
 
-        foreach($items  as $item){
-                echo $item;
-                echo "\n";
+
+        //inserto los productos en vcomandas y cierro la mesa
+        if (!empty($productos)) {
+            echo 'Cant. P.Unit.  Item               Total';
+            echo "\n";
+
+            foreach ($productos as $p) {
+                $cant = str_pad($p['cantidad'], 5, " ", STR_PAD_LEFT);
+                $precio = str_pad(cqs_round($p['precio']), 9, " ", STR_PAD_LEFT);
+                $itemNombre = str_pad($p['nombre'], 18, " ", STR_PAD_LEFT);
+                $impTotal = str_pad(cqs_round($p['cantidad']*$p['precio']),8, " ", STR_PAD_LEFT);
+                echo $cant.$precio.$itemNombre.$impTotal."\n";
+            }
         }
+     
 
+        $subtotal = $fullMesa['Mesa']['subtotal']; // sin descuento
+        $total = $fullMesa['Mesa']['total']; // con descuento si lo tiene
 
-
-        $descuento = $porcentaje_descuento/100;
-        $total_c_descuento = cqs_round($total - ($total*$descuento));
-
-        if($porcentaje_descuento){
-                $tail = " -     SUBTOTAL                $$total";
+        if($importe_descuento){
+                $tail = " -     SUBTOTAL                $$subtotal";
                 echo $tail;
                 echo "\n";
 
-                $tail = " -     DTO.                   -%$porcentaje_descuento";
+                $tail = " -     DTO.                   -$$importe_descuento";
                 echo $tail;
                 echo "\n";
         }
 
-                $tail = " -     TOTAL                   $".$total_c_descuento;
+                $tail = " -     TOTAL                   $".$total;
         echo $tail;
 
         echo "\n\n";
@@ -68,20 +107,14 @@
         //  retorno de carro
         echo chr(13);
 
-        echo '  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -';
-        echo "\n";
-        echo '           Verifique antes de abonar';
-        echo "\n";
-        echo '        NO VALIDO COMO COMPROBANTE FISCAL';
+
         echo "\n";
         echo "\n";
         echo "\n";
-        echo "\n";
-        echo "\n";
-        echo "\n";
-        echo "\n";
+        echo "\n";        
 
 
 
         // probando corte completo ESC/P
         echo $this->PE->cm('ESC').'i';
+        echo $this->PE->cm('CORTAR_PAPEL').'i';
