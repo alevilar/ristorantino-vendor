@@ -25,6 +25,9 @@ abstract class PrinterHelperSkel extends Helper
     public $RETORNO_DE_CARRO = "";
 
 
+    // extra CM
+    protected $_cm = array();
+
 /**
  *  Returns the string corresponding to the $_cmd var
  * 
@@ -37,6 +40,9 @@ abstract class PrinterHelperSkel extends Helper
             if ( property_exists( $this, $name) ) {
                 return $this->{$name};
             } else {
+                if (array_key_exists($name, $this->_cm)) {
+                    return $this->_cm[$name];
+                }
                 throw new CakeException("no existe el comando $name para la funcion chr() configurado para esta impresora");
             }
             return '';
