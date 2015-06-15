@@ -10,19 +10,29 @@ abstract class PrinterHelperSkel extends Helper
  * 
  * @var array 
  */    
-    public $CR = "\x0D";
-    public $LF = "\x0A";
-    public $FS = "\x1C";
-    public $ESC = "\x1B";
-    public $DEL = "\x7F";
-    public $CORTAR_PAPEL = "";
-    public $ENFATIZADO = "";
-    public $SACA_ENFATIZADO = "";
-    public $TEXT_STRONG = "";
-    public $TEXT_NORMAL = "";
-    public $DOBLE_ALTO = "";
-    public $SACA_DOBLE_ALTO = "";
-    public $RETORNO_DE_CARRO = "";
+
+    protected $_cmd = array(
+        'CR' => "\x0D",
+        'LF' => "\x0A",
+        'FS' => "\x1C",
+        'ESC' => "\x1B",
+        'DEL' => "\x7F",
+        'CORTAR_PAPEL' => "",
+        'ENFATIZADO' => "",
+        'SACA_ENFATIZADO' => "",
+        'TEXT_STRONG' => "",
+        'TEXT_NORMAL' => "",
+        'DOBLE_ALTO' => "",
+        'SACA_DOBLE_ALTO' => "",
+        'RETORNO_DE_CARRO' => "",
+        'DOBLE_ANCHO_ON' => '',
+        'DOBLE_ANCHO_OFF' => '',
+        'DOBLE_ALTO_ON' => '',
+        'DOBLE_ALTO_OFF' => '',
+        'SACA_DOBLE_ALTO' => '',
+    );
+
+    
 
 
     // extra CM
@@ -36,15 +46,12 @@ abstract class PrinterHelperSkel extends Helper
  */        
         public function cm ($name){
             $name = strtoupper($name);
-
-            if ( property_exists( $this, $name) ) {
-                return $this->{$name};
-            } else {
-                if (array_key_exists($name, $this->_cm)) {
-                    return $this->_cm[$name];
-                }
-                throw new CakeException("no existe el comando $name para la funcion chr() configurado para esta impresora");
+        
+            if (array_key_exists($name, $this->_cm)) {
+                return $this->_cm[$name];
             }
+            CakeLog::write("no existe el comando $name para la funcion chr() configurado para esta impresora");
+        
             return '';
         }
               
