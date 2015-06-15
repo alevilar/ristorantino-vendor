@@ -114,5 +114,4 @@ if (empty($mesa)) {
 
 
         // probando corte completo ESC/P
-        echo $this->PE->cm('ESC').'i';
-        echo $this->PE->cm('CORTAR_PAPEL').'i';
+        echo $this->PE->cm('ESC').'i';        

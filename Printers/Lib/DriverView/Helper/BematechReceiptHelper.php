@@ -13,7 +13,10 @@ class BematechReceiptHelper extends PrinterHelperSkel
         'SACA_ENFATIZADO' => 'F',
         'TEXT_STRONG' => 'N4',
         'TEXT_NORMAL' => 'N2',
-        'DOBLE_ALTO' => 'd1',
+        'DOBLE_ANCHO_ON' => '\eW1',
+        'DOBLE_ANCHO_OFF' => '\eW0',
+        'DOBLE_ALTO_ON' => '\ew1',
+        'DOBLE_ALTO_OFF' => '\ew0',
         'SACA_DOBLE_ALTO' => 'd0',
     );
     
