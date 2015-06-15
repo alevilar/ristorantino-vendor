@@ -6,9 +6,9 @@ class BematechReceiptHelper extends PrinterHelperSkel
 {
     
     protected $_cmd = array(
-        'ESC' => array('chr', 27),
+        'ESC' => "\e",        
         'RETORNO_DE_CARRO' => array('chr', 13),
-        'CORTAR_PAPEL' => "w",
+        'CORTAR_PAPEL' => "\ei",
         'ENFATIZADO' => "E",
         'SACA_ENFATIZADO' => 'F',
         'TEXT_STRONG' => 'N4',

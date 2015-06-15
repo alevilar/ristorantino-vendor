@@ -8,6 +8,7 @@
 *
 **/
 echo $this->PE->cm('ESC');
+echo "@";
 
 
 echo "\n                 Comanda #".$comanda['Comanda']['id'];
