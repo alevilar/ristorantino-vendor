@@ -393,7 +393,7 @@ class AfipWsv1 {
 
     static function autenticar () {
     	$TA = self::getNotExpiredTA ();
-    	if (  === false ) {
+    	if ( $TA === false ) {
 			ini_set("soap.wsdl_cache_enabled", "0");
 			if (!file_exists(CERT)) {
 				throw new AfipWsException("Failed to open ".CERT);
@@ -414,9 +414,9 @@ class AfipWsv1 {
 				throw new AfipWsException("Error al editar el archivo TA.xml (verificar permisos?) en " . TMP . DS . "TA.xml");
 			}
 
-			return $TA;
     	}
     	
+		return $TA;
     }
 
 
@@ -425,8 +425,6 @@ class AfipWsv1 {
     	$xmlTa = Xml::build( $TAfile );
     	$aTa = Xml::toArray( $xmlTa );
 
-    	debug($aTa);die;
-    	
     	return $aTa;
     }
 /*

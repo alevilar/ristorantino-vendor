@@ -50,7 +50,7 @@ abstract class PrinterHelperSkel extends Helper
             if (array_key_exists($name, $this->_cm)) {
                 return $this->_cm[$name];
             }
-            CakeLog::write("no existe el comando $name para la funcion chr() configurado para esta impresora");
+            CakeLog::write('debug',"no existe el comando $name para la funcion chr() configurado para esta impresora En los Helpers por modelo");
         
             return '';
         }
