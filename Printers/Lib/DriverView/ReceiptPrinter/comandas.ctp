@@ -7,6 +7,8 @@
 *   @param array $comanda Comanda con Mesa y Mozo
 *
 **/
+
+echo $this->PE->cm('INICIAR'); // pongo el ESC para comenzar ESC/P 
 echo $this->PE->cm('DOBLE_ANCHO_ON'); // pongo el ESC para comenzar ESC/P 
 
 

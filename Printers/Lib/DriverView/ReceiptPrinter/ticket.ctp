@@ -43,7 +43,9 @@ if (empty($mesa)) {
 
 
 
-        echo $this->PE->cm('ESC').'@'; // pongo el ESC para comenzar ESC/P 
+        echo $this->PE->cm('INICIAR'); // pongo el ESC para comenzar ESC/P 
+
+        echo $this->PE->cm('DOBLE_ANCHO_ON'); // pongo el ESC para comenzar ESC/P 
         
         
         /*****
@@ -67,14 +69,18 @@ if (empty($mesa)) {
 
         //inserto los productos en vcomandas y cierro la mesa
         if (!empty($productos)) {
-            echo 'Cant. P.Unit.  Item               Total';
+
+            echo str_pad('Cant.', 5, " ", STR_PAD_LEFT);
+            echo str_pad('P.Unit.', 9, " ", STR_PAD_LEFT);
+            echo str_pad('Item', 18, " ", STR_PAD_LEFT);
+            echo str_pad('Total',8, " ", STR_PAD_LEFT);
             echo "\n";
 
             foreach ($productos as $p) {
-                $cant = str_pad($p['cantidad'], 5, " ", STR_PAD_LEFT);
+                $cant = str_pad(cqs_round($p['cantidad']), 5, " ", STR_PAD_LEFT);
                 $precio = str_pad(cqs_round($p['precio']), 9, " ", STR_PAD_LEFT);
                 $itemNombre = str_pad($p['nombre'], 18, " ", STR_PAD_LEFT);
-                $impTotal = str_pad(cqs_round($p['cantidad']*$p['precio']),8, " ", STR_PAD_LEFT);
+                $impTotal = str_pad("$".cqs_round($p['cantidad']*$p['precio']),8, " ", STR_PAD_LEFT);
                 echo $cant.$precio.$itemNombre.$impTotal."\n";
             }
         }
@@ -82,19 +88,23 @@ if (empty($mesa)) {
 
         $subtotal = $fullMesa['Mesa']['subtotal']; // sin descuento
         $total = $fullMesa['Mesa']['total']; // con descuento si lo tiene
+        $importe_descuento = $total - $subtotal;
 
         if($importe_descuento){
-                $tail = " -     SUBTOTAL                $$subtotal";
+                $subtotal = "$".cqs_round($subtotal);
+                $tail = "       SUBTOTAL          " . str_pad( $subtotal, 15, " ", STR_PAD_LEFT);
                 echo $tail;
                 echo "\n";
 
-                $tail = " -     DTO.                   -$$importe_descuento";
+                $importe_descuento = "-$".cqs_round($importe_descuento);
+                $tail = "       DTO.              " . str_pad( $importe_descuento, 15, " ", STR_PAD_LEFT);
                 echo $tail;
                 echo "\n";
+        } else {
+            $total = "$".cqs_round($total);
+            $tail = "       TOTAL                  ".str_pad( $total, 15, " ", STR_PAD_LEFT);
+            echo $tail;
         }
-
-                $tail = " -     TOTAL                   $".$total;
-        echo $tail;
 
         echo "\n\n";
 
@@ -103,7 +113,7 @@ if (empty($mesa)) {
         echo $tail;
 
         //  retorno de carro
-        echo chr(13);
+        echo $this->PE->cm('RETORNO_DE_CARRO');
 
 
         echo "\n";
@@ -114,4 +124,4 @@ if (empty($mesa)) {
 
 
         // probando corte completo ESC/P
-        echo $this->PE->cm('ESC').'i';        
+        echo $this->PE->cm('CORTAR_PAPEL');
