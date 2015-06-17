@@ -420,12 +420,25 @@ class AfipWsv1 {
     }
 
 
-    function getNotExpiredTA () {
+    static function getNotExpiredTA () {
     	$TAfile = TA;
     	$xmlTa = Xml::build( $TAfile );
     	$aTa = Xml::toArray( $xmlTa );
 
-    	return $aTa;
+    	$nowDate = date('c');
+    	if (!empty($aTa['loginTicketResponse']['header']['expirationTime']) 
+    		&& !empty($aTa['loginTicketResponse']['header']['generationTime']) 
+		) {
+
+	    	if ( $nowDate <= $aTa['loginTicketResponse']['header']['expirationTime']
+	    		 &&  $nowDate >= $aTa['loginTicketResponse']['header']['generationTime']) 
+	    	{
+	    		return $aTa;
+	    	} else {
+	    		return false;
+	    	}
+    	}
+    	return false;
     }
 /*
     public function __callWSFE($CMS)
