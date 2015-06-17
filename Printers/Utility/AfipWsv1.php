@@ -375,9 +375,8 @@ class AfipWsv1 {
 	**/
 	static function verifyAuth (){
 		
-		if ( self::$client === null ) {
-			self::autenticar();
-		}
+		self::autenticar();
+		
 		try{
 			$res = self::FEParamGetTiposTributos();
 		} catch (Exception $e) {
