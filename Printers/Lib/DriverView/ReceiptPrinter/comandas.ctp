@@ -9,17 +9,22 @@
 **/
 
 echo $this->PE->cm('INICIAR'); // pongo el ESC para comenzar ESC/P 
+//echo $this->PE->cm('BUZZER_ON'); // pongo el ESC para comenzar ESC/P 
+//echo $this->PE->cm('BUZZER_OFF'); // pongo el ESC para comenzar ESC/P 
 echo $this->PE->cm('DOBLE_ANCHO_ON'); // pongo el ESC para comenzar ESC/P 
 
 
-echo "\n                 Comanda #".$comanda['Comanda']['id'];
-echo "\n             ".date('H:i:s d-m-Y', strtotime($comanda['Comanda']['created']));
+// cantidad de caracteres que entre a lo ancho
+$C_ANCHO = 24;
+
+echo "\n".str_pad( "Comanda #".$comanda['Comanda']['id'], $C_ANCHO, " ",  STR_PAD_RIGHT);
+echo "\n".str_pad( date('H:i:s d-m-Y', strtotime($comanda['Comanda']['created'])), $C_ANCHO, " ",  STR_PAD_LEFT);
 
 if (!empty($observacion)) {
-    echo "*********************************\n";
+    echo str_pad("", $C_ANCHO, "*") ."\n";
     echo $observacion;
     echo "\n";
-    echo "*********************************\n";
+    echo str_pad("", $C_ANCHO, "*") ."\n";
 }
 
 
@@ -28,7 +33,9 @@ if (!empty($entradas)) {
     $cant_entradas = count($entradas);
 
     if ($cant_entradas > 0) {
-        echo " -----        ENTRADAS       -----";
+        echo "\n";
+        echo "\n";
+        echo str_pad("ENTRADA", $C_ANCHO, "-", STR_PAD_RIGHT) ."\n";
         echo "\n";
     }
 }
@@ -39,7 +46,8 @@ $i = 0;
 foreach ($productos as $detalle):
     if (($i == $cant_entradas) && count($productos)-$cant_entradas > 0) {
         echo "\n";
-        echo " -----   PLATOS PRINCIPALES   -----";
+        echo "\n";
+        echo str_pad("PPAL", $C_ANCHO, "-", STR_PAD_RIGHT) ."\n";
         echo "\n";
     }
 
@@ -73,12 +81,23 @@ foreach ($productos as $detalle):
     $i++;
 endforeach;
 
+echo "\n";
+echo "\n";
+echo "\n";
+
+echo str_pad(strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$comanda['Mesa']['numero'], $C_ANCHO/2-2, " ", STR_PAD_LEFT );
+echo "  |  ";
+echo str_pad(strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$comanda['Mesa']['Mozo']['numero'], $C_ANCHO/2-1, " ", STR_PAD_RIGHT);
 
 echo "\n";
-echo " - " . strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$comanda['Mesa']['numero']."\n";
-echo " - " . strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$comanda['Mesa']['Mozo']['numero'];
 echo "\n";
-echo "\n";
-echo "\n";
+echo "\n\n\n";
+echo $this->PE->cm('RETORNO_DE_CARRO');
+echo $this->PE->cm('RETORNO_DE_CARRO');
+echo $this->PE->cm('RETORNO_DE_CARRO');
+echo $this->PE->cm('RETORNO_DE_CARRO');
+echo $this->PE->cm('RETORNO_DE_CARRO');
+echo $this->PE->cm('RETORNO_DE_CARRO');
 
 echo $this->PE->cm('CORTAR_PAPEL');
+

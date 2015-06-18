@@ -44,15 +44,15 @@ if (empty($mesa)) {
 
 
         echo $this->PE->cm('INICIAR'); // pongo el ESC para comenzar ESC/P 
-
-        echo $this->PE->cm('DOBLE_ANCHO_ON'); // pongo el ESC para comenzar ESC/P 
+        echo $this->PE->cm('DOBLE_ANCHO_OFF'); // pongo el ESC para comenzar ESC/P 
         
         
         /*****
          * 				 ENCABEZADO
          */
         $header = Configure::read('Adicion.preTicketHeader');
-        if ($header) {
+        if ( $header) {
+            echo "\n";
             echo $header;
             echo "\n\n";
         }
@@ -88,29 +88,37 @@ if (empty($mesa)) {
 
         $subtotal = $fullMesa['Mesa']['subtotal']; // sin descuento
         $total = $fullMesa['Mesa']['total']; // con descuento si lo tiene
-        $importe_descuento = $total - $subtotal;
+        $importe_descuento = abs($total - $subtotal);
 
-        if($importe_descuento){
+        echo "----------------------------------------\n";
+        
+        if( $importe_descuento ){
                 $subtotal = "$".cqs_round($subtotal);
-                $tail = "       SUBTOTAL          " . str_pad( $subtotal, 15, " ", STR_PAD_LEFT);
-                echo $tail;
+                echo str_pad('SUBTOTAL', 25, " ", STR_PAD_RIGHT );
+                echo str_pad( $subtotal, 15, " ", STR_PAD_LEFT);
                 echo "\n";
+
 
                 $importe_descuento = "-$".cqs_round($importe_descuento);
-                $tail = "       DTO.              " . str_pad( $importe_descuento, 15, " ", STR_PAD_LEFT);
-                echo $tail;
+                echo str_pad('DTO.', 25, " ", STR_PAD_RIGHT );
+                echo str_pad( $importe_descuento, 15, " ", STR_PAD_LEFT);
                 echo "\n";
-        } else {
-            $total = "$".cqs_round($total);
-            $tail = "       TOTAL                  ".str_pad( $total, 15, " ", STR_PAD_LEFT);
-            echo $tail;
         }
 
+        $total = "$".cqs_round($total);
+        echo $this->PE->cm('DOBLE_ANCHO_ON');
+        echo 'TOTAL';
+        echo str_pad( $total, 19, " ", STR_PAD_LEFT);
+        
         echo "\n\n";
 
-        $tail  = " \n - " . strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$mozo;
-        $tail .= " \n - " . strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$mesa."\n";
-        echo $tail;
+
+        echo str_pad(strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$mesa, 10, " ", STR_PAD_LEFT );
+        echo "  |  ";
+        echo str_pad(strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$mozo, 11, " ", STR_PAD_RIGHT);
+
+
+        echo $this->PE->cm('DOBLE_ANCHO_OFF');
 
         //  retorno de carro
         echo $this->PE->cm('RETORNO_DE_CARRO');
@@ -118,6 +126,8 @@ if (empty($mesa)) {
 
         echo "\n";
         echo "\n";
+        echo "\n";
+        echo "\n";  
         echo "\n";
         echo "\n";        
 

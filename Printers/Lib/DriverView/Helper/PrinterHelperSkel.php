@@ -10,32 +10,6 @@ abstract class PrinterHelperSkel extends Helper
  * 
  * @var array 
  */    
-
-    protected $_cmd = array(
-        'CR' => "\x0D",
-        'LF' => "\x0A",
-        'FS' => "\x1C",
-        'ESC' => "\x1B",
-        'DEL' => "\x7F",
-        'CORTAR_PAPEL' => "",
-        'ENFATIZADO' => "",
-        'SACA_ENFATIZADO' => "",
-        'TEXT_STRONG' => "",
-        'TEXT_NORMAL' => "",
-        'DOBLE_ALTO' => "",
-        'SACA_DOBLE_ALTO' => "",
-        'RETORNO_DE_CARRO' => "",
-        'DOBLE_ANCHO_ON' => '',
-        'DOBLE_ANCHO_OFF' => '',
-        'DOBLE_ALTO_ON' => '',
-        'DOBLE_ALTO_OFF' => '',
-        'SACA_DOBLE_ALTO' => '',
-    );
-
-    
-
-
-    // extra CM
     protected $_cm = array();
 
 /**

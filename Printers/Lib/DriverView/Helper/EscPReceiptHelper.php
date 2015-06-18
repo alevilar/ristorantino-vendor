@@ -6,8 +6,9 @@ class EscPReceiptHelper extends PrinterHelperSkel
 {    
          
 
-    protected $_cmd = array(
+    protected $_cm = array(
         'ESC'               => "\x1B",        
+        'INICIAR'           => "\x1B@",
         'RETORNO_DE_CARRO'  => "\r",
         'CORTAR_PAPEL'      => "\x1Bi",
         'ENFATIZADO'        => "\x1BE",
