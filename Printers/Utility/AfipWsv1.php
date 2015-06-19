@@ -421,6 +421,8 @@ class AfipWsv1 {
 
     static function getNotExpiredTA () {
     	$TAfile = TA;
+    	if ( !file_exists( $TAfile ) ) return false;
+    	
     	$xmlTa = Xml::build( $TAfile );
     	$aTa = Xml::toArray( $xmlTa );
 
