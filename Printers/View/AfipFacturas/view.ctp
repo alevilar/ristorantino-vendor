@@ -89,15 +89,15 @@ $afipFactura = json_decode( $factura['AfipFactura']['json_data'] );
 						<P>
 							<span class="pull-right">
 								<b><?php echo $afipFactura->Cliente->TipoDocumento->name; ?>: </b>
-								<?php echo $afipFactura->Cliente->nrodocumento; ?>
+								<?php echo $afipFactura->Cliente->nrodocumento;?>
 							</span>
 
 
 							<b>Señor/es: </b><?php echo $afipFactura->Cliente->nombre; ?><br/>
 							
-							<?php if (!empty($afipFactura->Cliente->responsabiliad_iva) ) { ?>
+							<?php if (!empty($afipFactura->Cliente->IvaResponsabilidad->name) ) { ?>
 								<span style="float: right">
-									<b>Condición: </b><?php echo $afipFactura->Cliente->responsabiliad_iva; ?>
+									<b><?php echo $afipFactura->Cliente->IvaResponsabilidad->name; ?></b>
 								</span>
 							<?php } ?>
 							
