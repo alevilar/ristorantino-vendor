@@ -119,7 +119,7 @@ class Printaitor
             // ejecuta la salida del resultado de la vista
             $outRes = self::__sendOutput( $printViewObj );
         } else {
-            throw new CakeException("La vista vino vacia");
+            CakeLog::write("debug", "La vista '$viewName' vino vacia");
         }
         return $outRes; 
     }
@@ -220,7 +220,11 @@ class Printaitor
         $View->PE = new $helperName($View);
         
         $View->printaitorObj = $printViewObj;
-        $view = $View->render( $viewName, false );
+        try {
+            $view = $View->render( $viewName, false );
+        } catch (Exception $e) {
+            CakeLog::write('debug','No existe la vista de Plugin Printer para '.$e->getMessage() );
+        }
         return $view;
         
     }

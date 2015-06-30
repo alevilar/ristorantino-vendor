@@ -10,7 +10,7 @@ class ComandasController extends ComandaAppController {
 
     public function imprimir( $comanda_id ){
         $this->Comanda->id = $comanda_id;
-        ReceiptPrint::comanda($this->Comanda);
+        ReceiptPrint::comanda( $this->Comanda );
         $this->redirect( $this->referer() );
     }
     

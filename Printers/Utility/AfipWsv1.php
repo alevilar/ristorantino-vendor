@@ -299,9 +299,9 @@ class AfipWsv1 {
 	static function start () {
 
 		self::$CUIT = Configure::read('Restaurante.cuit');
+		self::autenticar();
 		self::conectarClienteSoap();
 		self::checkAfipWServicesStatus();
-		self::verifyAuth ();
 	}
 
 
@@ -367,24 +367,6 @@ class AfipWsv1 {
 	}
 
 
-	/**
-	*
-	*	Verifica que este autenticado, caso contrario me autentifica
-	*
-	*
-	**/
-	static function verifyAuth (){
-		
-		self::autenticar();
-		
-		try{
-			$res = self::FEParamGetTiposTributos();
-		} catch (Exception $e) {
-			// expiro la sesion
-			self::autenticar();
-		}
-		return true;
-	}
 
 
 
@@ -393,6 +375,7 @@ class AfipWsv1 {
     static function autenticar () {
     	$TA = self::getNotExpiredTA ();
     	if ( $TA === false ) {
+    		CakeLog::write('debug', 'TA creandose');
 			ini_set("soap.wsdl_cache_enabled", "0");
 			if (!file_exists(CERT)) {
 				throw new AfipWsException("Failed to open ".CERT);
@@ -419,6 +402,13 @@ class AfipWsv1 {
     }
 
 
+    /**
+    *
+    *	me devuelve el contenido del archivo TA per en cormato array
+    *	si no existe o esta expirado devuelve false
+    *
+    *	@return boolean|array del XML Data del archivo TA
+    **/
     static function getNotExpiredTA () {
     	$TAfile = TA;
     	if ( !file_exists( $TAfile ) ) return false;
@@ -429,16 +419,12 @@ class AfipWsv1 {
     	$nowDate = date('c');
     	if (!empty($aTa['loginTicketResponse']['header']['expirationTime']) 
     		&& !empty($aTa['loginTicketResponse']['header']['generationTime']) 
-		) {
-
-	    	if ( $nowDate <= $aTa['loginTicketResponse']['header']['expirationTime']
-	    		 &&  $nowDate >= $aTa['loginTicketResponse']['header']['generationTime']) 
-	    	{
+		 	&& $nowDate <= $aTa['loginTicketResponse']['header']['expirationTime']
+	    	&&  $nowDate >= $aTa['loginTicketResponse']['header']['generationTime']
+	    	) {
 	    		return $aTa;
-	    	} else {
-	    		return false;
-	    	}
     	}
+
     	return false;
     }
 /*

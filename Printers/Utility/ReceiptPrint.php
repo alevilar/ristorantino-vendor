@@ -34,11 +34,15 @@ class ReceiptPrint
 		// o sea, genero un renglón de la comanda
 		// por ejmeplo me queraria algo asi:
 		// "1) Milanesa de pollo\n"
+    $comanderasRet = array();
 		foreach($comanderas_involucradas as $printer_id):
 			if ( !empty($printer_id) ) {
-				Printaitor::send( $Comanda, $printer_id, 'comandas');
+				$ret = Printaitor::send( $Comanda, $printer_id, 'comandas');
+        $comanderasRet[$printer_id] = $ret;
 			}
 		endforeach;
+
+    return $comanderasRet;
    }
 
 
