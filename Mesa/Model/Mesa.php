@@ -204,13 +204,8 @@ class Mesa extends MesaAppModel {
 	*
 	**/
 	private function __completeWithTotals () {
-		if ( empty($this->data['Mesa']['subtotal']) ) {
-			$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
-		}
-
-		if ( empty($this->data['Mesa']['total']) ) {
-			$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
-		}
+		$this->data['Mesa']['subtotal'] = $this->calcular_subtotal( $this->data['Mesa']['id'] );
+		$this->data['Mesa']['total'] = $this->calcular_total( $this->data['Mesa']['id'] );
 	}
 
 
