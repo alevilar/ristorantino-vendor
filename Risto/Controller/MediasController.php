@@ -57,7 +57,9 @@ class MediasController extends AppController {
         $this->Media->recursive = -1;
         $media = $this->Media->read(null, $id);
 
-        if ( $media['Media']['type'] == "image/pdf") {
+        list( $type, $ext ) = explode("/", $media['Media']['type']);
+        $ext = strtolower($ext);
+        if ( $ext == "pdf") {
             // pdf thumb
             $im = new imagick();
             $im->readImageBlob($media['Media']['file']);
@@ -66,22 +68,26 @@ class MediasController extends AppController {
             if ( $num_pages > 0) {
                 $im->setIteratorIndex(0);
             }
-        } elseif ( strpos($media['Media']['type'], 'image/' ) !== false ) {
+            $im->setImageFormat('jpg');
+            $type = 'image/jpg';
+        } elseif ( $ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif" || $ext == "tiff" ) {
             $type = $media['Media']['type'];
             $im = new imagick();
             $im->readImageBlob($media['Media']['file']);
             $im->scaleImage($width, $height);
+            $im->setImageFormat('jpg');
+            $type = 'image/jpg';
         } else {
             // si no son imagenes no mostrar, solo retornar un icono generico
             $file_generic_path = App::pluginPath('Risto') . DS . 'webroot' . DS . 'img' . DS . 'generic_file_doc.png';
-            $genImg = file_get_contents( $file_generic_path );
+            $genImg = file_get_contents( $file_generic_path );     
+            $im = new imagick();
             $im->readImageBlob( $genImg );
-            $im->scaleImage($width, $height);            
+            $im->scaleImage($width, $height); 
+            $type = 'image/png';
         }
-
-        $im->setImageFormat('jpg');
+        
         $body = $im->getImageBlob();
-        $type = 'image/jpg';
 
         $this->response->header( 'Content-disposition', "filename=" . $media['Media']['name'] );
 

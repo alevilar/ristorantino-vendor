@@ -46,9 +46,9 @@ class PxHtmlHelper extends Bs3HtmlHelper {
         }
         if (!empty($id)){
             $route = array('plugin' => 'risto', 'controller'=>'medias', 'action'=>'thumb', $id );
-            if ( !empty($options['width']) || !empty($options['height'] ) ) {
-                $route[] = (int) $options['width'];
-                $route[] = (int) $options['height'];
+            if ( ( !empty($options['width']) && is_numeric($options['width']) ) || ( !empty($options['height'] ) && is_numeric($options['height']) ) ) {
+                $route[] = (float) !empty($options['width']) ? $options['width'] : 0 ;
+                $route[] = (float) !empty($options['height']) ? $options['height'] : 0;
             }
             $url = $this->Html->url( $route );
     		return $this->Html->image( $url , $options );	
