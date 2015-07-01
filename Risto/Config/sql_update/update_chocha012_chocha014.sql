@@ -232,4 +232,4 @@ INSERT INTO `printers` (`id`, `name`, `alias`, `driver`, `driver_model`, `output
 
 UPDATE productos SET
 printer_id = NULL 
-WHERE printer_id = 4
+WHERE printer_id NOT IN (1,2,3)

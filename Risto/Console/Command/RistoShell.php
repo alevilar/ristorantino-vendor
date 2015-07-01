@@ -76,7 +76,15 @@ class RistoShell extends Shell {
 	}
 
 	public function update_tenant_schemas () {
-		$sites = ClassRegistry::init('Risto.Site')->find('list', array('fields'=>array('alias','name')));
+		if ( !empty($this->args[0])) {
+			$tenant = $this->args[0];
+			$sites = array( $tenant=>$tenant);
+			$this->out("<info>Actualizando solo el Tenant $tenant</info>");
+		} else {
+			$this->out('<info>Actualizando todos los tenants</info>');
+			$sites = ClassRegistry::init('Risto.Site')->find('list', array('fields'=>array('alias','name')));
+		}
+
 		foreach ( $sites as $sAlias=>$sName ) {
 			try {
 				// listar sources actuales
@@ -95,25 +103,32 @@ class RistoShell extends Shell {
 				$this->out("|||||||||||||||||||||||||					||||| ");
 				$this->out("||||||||||||||||||||||||||||					||||| ");
 				$this->out("||||||||||||||||||||||||||||||||					||||| ");
-				$this->out(sprintf('Comporbando tenant %s', $sAlias));
+				$this->out(sprintf('Verificando tenant %s', $sAlias));
 				$this->dispatchShell('Risto.risto_schema update -y --plugin Risto --name Tenant --connection '.$sAlias);
 				$this->out("", 2);
 			} catch (Exception $e ) {
 				$this->out("<error>".$e->getMessage()."</error>");
 			}
 		}
-	}
+	}	
 
 	public function image_to_foto () {
 		$this->out("iniciando");
 
+		if ( empty( $this->args[0] ) ) {
+			$this->error("Se debe indicar el nombre del tenant datasource (previamente configurado en databases.php) que quiero actualizar");
+			exit;
+		}
+
+		$this->datasource = $this->args[0];
+
 		$this->__loadOldModels();
 
-		$this->imageToMedia('Egreso');
-		$this->imageToMedia('Gasto');
+		$this->__imageToMedia('Egreso');
+		$this->__imageToMedia('Gasto');
 	}
 
-	private function imageToMedia ( $model ) {		
+	private function __imageToMedia ( $model ) {		
 		if ( !$this->__verifyFileFieldExists( $this->{$model} ) ) {
 			throw new CakeException("No existe el campo field, probablemente se este usando una version nueva de la Base de Datos?");
 		}
