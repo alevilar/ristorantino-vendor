@@ -76,8 +76,7 @@ class MediaUploadableBehavior extends ModelBehavior {
 	      }
 	      $Model->data[$Model->alias][$this->_form_fk] = $Model->Media->id;
 	    }
-	    debug("misio");
-	    die;
+	    
 	    return $Model->beforeSave();
 	  }
 }

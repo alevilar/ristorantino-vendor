@@ -232,4 +232,13 @@ INSERT INTO `printers` (`id`, `name`, `alias`, `driver`, `driver_model`, `output
 
 UPDATE productos SET
 printer_id = NULL 
-WHERE printer_id NOT IN (1,2,3)
+WHERE printer_id NOT IN (1,2,3);
+
+
+UPDATE mesas
+set checkout = time_cobro
+where 
+time_cobro IS NOT NULL
+AND checkout IS NULL;
+
+
