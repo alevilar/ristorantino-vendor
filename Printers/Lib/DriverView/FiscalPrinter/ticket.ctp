@@ -100,7 +100,7 @@ if (!empty($productos)) {
     foreach ($productos as $p) {
 
         echo $this->PE->printLineItem(
-                $p['nombre'], $p['cantidad'], $p['precio'], $ivaPorcent ); echo "\n";
+                $p['nombre'], cqs_round( $p['cantidad'] ), cqs_round( $p['precio'] ), $ivaPorcent ); echo "\n";
     }
 }
 
