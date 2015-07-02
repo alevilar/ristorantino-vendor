@@ -5,11 +5,7 @@ App::uses('FiscalPrinterHelper', 'Printers.Lib/DriverView/Helper');
 
 class Hasar441FiscalHelper extends FiscalPrinterHelper
 {
-	$_cm array(
-		'FS' => "\x1C",
-		'DOBLE_ANCHO' => "\xF4",
-		'DEL' => "\x7F",
-		);
+	
 	
 	/**
 	*
