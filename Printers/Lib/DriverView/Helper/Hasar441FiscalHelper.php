@@ -5,6 +5,11 @@ App::uses('FiscalPrinterHelper', 'Printers.Lib/DriverView/Helper');
 
 class Hasar441FiscalHelper extends FiscalPrinterHelper
 {
+	$_cm array(
+		'FS' => "\x1C",
+		'DOBLE_ANCHO' => "\xF4",
+		'DEL' => "\x7F",
+		);
 	
 	/**
 	*
@@ -162,7 +167,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 	public function dailyClose($tipo_cierre = 'X'){
 		$tipo_cierre = strtoupper($tipo_cierre);
 		if($tipo_cierre == 'X' || $tipo_cierre == 'Z'){
-			$comando = "9".$this->cm('FS').$tipo_cierre;	
+			$comando = "9\x1C".$tipo_cierre;	
 		}
 		else{
 			$comando = false;

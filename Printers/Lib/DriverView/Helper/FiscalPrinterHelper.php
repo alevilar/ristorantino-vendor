@@ -4,8 +4,11 @@ App::uses('PrinterHelperSkel', 'Printers.Lib/DriverView/Helper');
 
 abstract class FiscalPrinterHelper  extends PrinterHelperSkel
 {
-	/* Llenar para cada tipo y modelo de impresora estos 3 variables estaticas  */
-	protected $DOBLE_ANCHO = "\xF4";
+	protected $_cm array(
+		'FS' => "\x1C",
+		'DOBLE_ANCHO' => "\xF4",
+		'DEL' => "\x7F",
+		);
 
 
         /**
