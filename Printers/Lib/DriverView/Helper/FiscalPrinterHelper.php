@@ -4,7 +4,7 @@ App::uses('PrinterHelperSkel', 'Printers.Lib/DriverView/Helper');
 
 abstract class FiscalPrinterHelper  extends PrinterHelperSkel
 {
-	protected $_cm array(
+	protected $_cm = array(
 		'FS' => "\x1C",
 		'DOBLE_ANCHO' => "\xF4",
 		'DEL' => "\x7F",
