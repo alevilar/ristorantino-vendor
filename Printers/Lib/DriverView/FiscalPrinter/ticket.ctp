@@ -96,9 +96,11 @@ echo $this->PE->openFiscalReceipt($tipo_factura); echo "\n";
 
 //inserto los productos en vcomandas y cierro la mesa
 if (!empty($productos)) {
+    $ivaPorcent = Configure::read('Afip.default_iva_porcentaje');
     foreach ($productos as $p) {
+
         echo $this->PE->printLineItem(
-                $p['nombre'], $p['cantidad'], $p['precio']); echo "\n";
+                $p['nombre'], $p['cantidad'], $p['precio'], $ivaPorcent ); echo "\n";
     }
 }
 
