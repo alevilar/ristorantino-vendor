@@ -242,3 +242,9 @@ time_cobro IS NOT NULL
 AND checkout IS NULL;
 
 
+
+
+INSERT INTO `estados` (`id`, `name`, `color`) VALUES
+(1, 'Abierta', 'btn-info'),
+(2, 'Facturada', 'btn-warning'),
+(3, 'Cobrada', 'btn-default');
