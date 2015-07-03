@@ -346,12 +346,10 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 			}
 			else{ 	
                 throw new InternalErrorException('Error, no existe el tipo de documento pasado: '.$tipo_documento);
-                return -1;
 			}	
 		}
 		else{
-                        throw new InternalErrorException('Error, no existe el tipo responsabilidad IVA: '.$respo_iva);
-			return -2; // fallo respo_iva
+            throw new InternalErrorException('Error, no existe el tipo responsabilidad IVA: '.$respo_iva);
 		} 
 		return $comando;
 	}

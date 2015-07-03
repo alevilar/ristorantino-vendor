@@ -51,31 +51,32 @@ foreach ($productos as $detalle):
         echo "\n";
     }
 
-
-    $obstxt = trim($detalle['DetalleComanda']['observacion'],',');
-    if ( !empty( $obstxt ) ) {
-         $obstxt = ' (OBS: ' . $obstxt .")";
-    }
     $prod_cant = $detalle['DetalleComanda']['cant'];
-    $prod_name = $detalle['Producto']['name'] . $obstxt ;
+    $prod_name = $detalle['Producto']['name'] ;
 
     $prod_sabor = '';
     $primero = true;
     foreach ($detalle['DetalleSabor'] as $sabor) {
         if (!$primero) {
             $prod_sabor .= ', ';
-        } else {
-            $prod_sabor .= '[';
+        } else {            
             $primero = false;
         }
         $prod_sabor .= $sabor['Sabor']['name'];
     }
-    $prod_sabor .= (count($detalle['DetalleSabor']) == 0) ? '' : ']';
 
-    if ( !empty($detalle['DetalleSabor']) ) {
-        echo "$prod_cant) $prod_name\n   ADICIONAL: $prod_sabor";
+    
+
+
+    if ( !empty($prod_sabor) ) {
+        echo "$prod_cant $prod_name: $prod_sabor\n";
     } else {
-        echo "$prod_cant) $prod_name\n";
+        echo "$prod_cant $prod_name\n";
+    }
+
+    if (!empty( $detalle['DetalleComanda']['observacion'] )) {
+        $obstxt = trim($detalle['DetalleComanda']['observacion'],',');
+        echo "  OBS: $obstxt\n";
     }
 
     $i++;
