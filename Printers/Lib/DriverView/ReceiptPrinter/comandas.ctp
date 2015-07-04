@@ -92,10 +92,7 @@ echo str_pad(strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$comanda['M
 
 echo "\n";
 echo "\n";
-echo "\n\n\n";
-echo $this->PE->cm('RETORNO_DE_CARRO');
-echo $this->PE->cm('RETORNO_DE_CARRO');
-echo $this->PE->cm('RETORNO_DE_CARRO');
+echo "\n";
 echo $this->PE->cm('RETORNO_DE_CARRO');
 echo $this->PE->cm('RETORNO_DE_CARRO');
 echo $this->PE->cm('RETORNO_DE_CARRO');

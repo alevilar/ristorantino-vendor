@@ -126,9 +126,6 @@ if (empty($mesa)) {
 
         echo "\n";
         echo "\n";
-        echo "\n";
-        echo "\n";  
-        echo "\n";
         echo "\n";        
 
 
