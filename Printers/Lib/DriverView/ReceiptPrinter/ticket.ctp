@@ -78,7 +78,7 @@ if (empty($mesa)) {
 
             foreach ($productos as $p) {
                 $cant = str_pad(cqs_round($p['cantidad']), 5, " ", STR_PAD_LEFT);
-                $precio = str_pad(cqs_round($p['precio']), 9, " ", STR_PAD_LEFT);
+                $precio = "$".str_pad(cqs_round($p['precio']), 9, " ", STR_PAD_LEFT);
                 $itemNombre = str_pad($p['nombre'], 26, " ", STR_PAD_LEFT);
                 $impTotal = str_pad("$".cqs_round($p['cantidad']*$p['precio']),8, " ", STR_PAD_LEFT);
                 echo $cant.$precio.$itemNombre.$impTotal."\n";
@@ -90,7 +90,7 @@ if (empty($mesa)) {
         $total = $fullMesa['Mesa']['total']; // con descuento si lo tiene
         $importe_descuento = abs($total - $subtotal);
 
-        echo "----------------------------------------\n";
+        echo str_repeat("-", 48)."\n";
         
         if( $importe_descuento ){
                 $subtotal = "$".cqs_round($subtotal);
