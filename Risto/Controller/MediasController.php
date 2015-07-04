@@ -11,6 +11,11 @@ class MediasController extends AppController {
 
     public function view ($id) {
         $this->Media->recursive = -1;
+
+        if ( !$this->Media->exists($id) ) {
+            throw new CakeException("Media ID: $id Not found");
+            
+        }
         $media = $this->Media->read(null, $id);
 
         $body = $media['Media']['file'];
