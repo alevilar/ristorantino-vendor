@@ -162,13 +162,8 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 	 */
 	public function dailyClose($tipo_cierre = 'X'){
 		$tipo_cierre = strtoupper($tipo_cierre);
-		if($tipo_cierre == 'X' || $tipo_cierre == 'Z'){
-			$comando = "9\x1C".$tipo_cierre;	
-		}
-		else{
-			$comando = false;
-		}
-		return $comando;
+		
+		return  "9\x1C".$tipo_cierre;		
 	}
 	
 	
