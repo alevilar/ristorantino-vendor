@@ -276,8 +276,16 @@ class MesasController extends MesaAppController {
         $mozos = $this->Mesa->Mozo->listFullName();
         
         $this->id = $id;
-        $this->request->data['Mesa']['checkin'] = date('Y-m-d', strtotime($this->request->data['Mesa']['checkin']));
-        $this->request->data['Mesa']['checkout'] = date('Y-m-d', strtotime($this->request->data['Mesa']['checkout']));
+
+        $checkinTime = strtotime($this->request->data['Mesa']['checkin']);
+        if ( $checkinTime ) {
+            $this->request->data['Mesa']['checkin'] = date('Y-m-d', $checkinTime);
+        }
+
+        $checkoutTime = strtotime($this->request->data['Mesa']['checkout']);
+        if ( $checkoutTime ) {
+            $this->request->data['Mesa']['checkout'] = date('Y-m-d', $checkoutTime);
+        }
         $estados = $this->Mesa->Estado->find('list');
         $clientes = $this->Mesa->Cliente->find('list');
         $this->set('estados', $estados);        

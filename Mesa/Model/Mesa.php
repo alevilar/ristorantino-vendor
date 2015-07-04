@@ -288,12 +288,17 @@ class Mesa extends MesaAppModel {
 	 	$diasData = array();
 	 	foreach ($dias as $dia) {
 	 		$mesas = $this->find('first', array(
+	 			'recursive' => -1,
 	 			'fields' => array(
 	 				'sum(Mesa.cant_comensales) as suma',	 				
 	 				),
 	 			'conditions' => array(
 	 				'DATE(Mesa.checkin) <=' => $dia,
-	 				'DATE(Mesa.checkout) >' => $dia,
+	 				'OR' => array(
+	 					'DATE(Mesa.checkout) >=' => $dia,
+	 					'Mesa.checkout IS NULL',
+	 					),
+	 				'Mesa.deleted' => 0
 	 				),
 	 			));
 	 		

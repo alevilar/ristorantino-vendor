@@ -43,14 +43,12 @@
 
                     <legend><?php __('Totales de %s', Configure::read('Mesa.tituloMesa')); ?></legend>
                     <?php
+                    echo $this->Form->input('checkin', array( 'type'=>'date'));
+                    echo $this->Form->input('checkout', array( 'type'=>'date'));
                     
-                    echo $this->Form->input('time_cobro', array( 'type'=>'date'));
-                    echo $this->Form->input('time_cerro', array( 'type'=>'date'));
+                    echo $this->Form->input('time_cerro', array( 'type'=>'date', 'Fecha de Facturación'));
+                    echo $this->Form->input('time_cobro', array( 'type'=>'date', 'label'=>'Fecha de Cobro'));
 
-                    if ( Configure::read("Site.type") == SITE_TYPE_HOTEL) {
-                        echo $this->Form->input('checkin', array( 'type'=>'date'));
-                        echo $this->Form->input('checkout', array( 'type'=>'date' ));
-                    }
 
                     if ( Configure::read("Adicion.cantidadCubiertosObligatorio")) {
                         echo $this->Form->input('cant_comensales', array('label'=> __("Cantidad de %s", Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) )));
