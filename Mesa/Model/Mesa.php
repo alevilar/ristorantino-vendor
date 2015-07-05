@@ -45,10 +45,7 @@ class Mesa extends MesaAppModel {
 	);
 
 	public $filterArgs = array(
-		'deleted' => array(
-            'type' => 'value',
-            'defaultValue' => array('0','1'),
-            ),
+		
         'numero' => array(
             'type' => 'value',
             ),
@@ -284,8 +281,18 @@ class Mesa extends MesaAppModel {
 
 
 	public function comensales_por_dia($fechaDesde, $fechaHasta) {
+
+		$horarioCorte = Configure::read('Horario.corte_del_dia');
+		if ( $horarioCorte < 10 ) {
+			$horarioCorte = "0$horarioCorte";
+		}
+		$sqlHorarioDeCorteCheckin  = "DATE( SUBTIME(Mesa.checkin , '$horarioCorte:00:00') )";
+		$sqlHorarioDeCorteCheckout = "DATE( SUBTIME(Mesa.checkout, '$horarioCorte:00:00') )";
+
+
 	 	$dias = crear_fechas($fechaDesde, $fechaHasta);
 	 	$diasData = array();
+	 	
 	 	foreach ($dias as $dia) {
 	 		$mesas = $this->find('first', array(
 	 			'recursive' => -1,
@@ -293,10 +300,10 @@ class Mesa extends MesaAppModel {
 	 				'sum(Mesa.cant_comensales) as suma',	 				
 	 				),
 	 			'conditions' => array(
-	 				'DATE(Mesa.checkin) <=' => $dia,
+	 				"$sqlHorarioDeCorteCheckin <=" => $dia,
 	 				'OR' => array(
-	 					'DATE(Mesa.checkout) >=' => $dia,
-	 					'Mesa.checkout IS NULL',
+	 					"$sqlHorarioDeCorteCheckout >=" => $dia,
+	 					"$sqlHorarioDeCorteCheckout IS NULL",
 	 					),
 	 				'Mesa.deleted' => 0
 	 				),

@@ -78,7 +78,7 @@ foreach ($productos as $detalle):
         $obstxt = trim($detalle['DetalleComanda']['observacion'],',');
         echo "  OBS: $obstxt\n";
     }
-
+    echo "\n";
     $i++;
 endforeach;
 

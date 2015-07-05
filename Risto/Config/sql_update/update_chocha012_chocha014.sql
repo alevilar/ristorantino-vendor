@@ -230,6 +230,15 @@ INSERT INTO `printers` (`id`, `name`, `alias`, `driver`, `driver_model`, `output
 (3, 'barra', 'Barra', 'Receipt', 'Bematech', 'Cups', '2015-05-26 23:35:25', '2015-05-27 00:00:18');
 
 
+
+
+INSERT INTO `estados` (`id`, `name`, `color`) VALUES
+(1, 'Abierta', 'btn-info'),
+(2, 'Facturada', 'btn-warning'),
+(3, 'Cobrada', 'btn-default');
+
+
+
 UPDATE productos SET
 printer_id = NULL 
 WHERE printer_id NOT IN (1,2,3);
@@ -243,8 +252,16 @@ AND checkout IS NULL;
 
 
 
+UPDATE mesas
+set checkin = created
+where 
+created IS NOT NULL
+AND checkin IS NULL;
 
-INSERT INTO `estados` (`id`, `name`, `color`) VALUES
-(1, 'Abierta', 'btn-info'),
-(2, 'Facturada', 'btn-warning'),
-(3, 'Cobrada', 'btn-default');
+UPDATE mesas
+SET checkout = modified
+WHERE modified IS NOT NULL
+AND modified <> "0000-00-00 00:00"
+AND checkout = "0000-00-00 00:00"
+AND time_cobro = "0000-00-00 00:00"
+AND deleted = 0

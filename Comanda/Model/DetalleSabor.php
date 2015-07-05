@@ -43,8 +43,11 @@ class DetalleSabor extends ComandaAppModel {
 				)
 			)
 		);
-		$this->DetalleComanda->Comanda->Mesa->id = $ds['DetalleComanda']['Comanda']['mesa_id'];
-		return $this->DetalleComanda->Comanda->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+		if ( !empty($ds['DetalleComanda']['Comanda']['mesa_id']) ) {
+			$this->DetalleComanda->Comanda->Mesa->id = $ds['DetalleComanda']['Comanda']['mesa_id'];
+			return $this->DetalleComanda->Comanda->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+		}
+		return true;
 	}
 
 }

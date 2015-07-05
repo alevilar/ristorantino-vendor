@@ -15,6 +15,7 @@ class DetalleComanda extends ComandaAppModel {
 	public $actsAs = array(
 		'Utils.SoftDelete', 
 		'Containable',
+		'Search.Searchable',
 		);
 
 	
@@ -86,8 +87,11 @@ class DetalleComanda extends ComandaAppModel {
 				)
 			)
 		);
-		$this->Comanda->Mesa->id = $ds['Comanda']['mesa_id'];
-		return $this->Comanda->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+		if ( !empty($ds['Comanda']['mesa_id']) ) {
+			$this->Comanda->Mesa->id = $ds['Comanda']['mesa_id'];
+			return $this->Comanda->Mesa->saveField('modified', date('Y-m-d H:i:s'));
+		}
+		return true;
 	}
 
        
