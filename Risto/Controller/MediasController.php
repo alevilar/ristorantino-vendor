@@ -13,8 +13,7 @@ class MediasController extends AppController {
         $this->Media->recursive = -1;
 
         if ( !$this->Media->exists($id) ) {
-            throw new CakeException("Media ID: $id Not found");
-            
+            throw new NotFoundException();            
         }
         $media = $this->Media->read(null, $id);
 
@@ -60,6 +59,9 @@ class MediasController extends AppController {
     **/
     public function thumb ($id, $width = 150, $height = null) {
         $this->Media->recursive = -1;
+        if ( !$this->Media->exists($id) ) {
+            throw new NotFoundException();            
+        }
         $media = $this->Media->read(null, $id);
 
         list( $type, $ext ) = explode("/", $media['Media']['type']);

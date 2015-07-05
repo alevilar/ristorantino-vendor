@@ -143,6 +143,16 @@ class DetalleComanda extends ComandaAppModel {
 			}
 
 
+			// convertir [DetalleSabor] en sabores, porque viene asi del JS
+			if ( $dc['DetalleSabor'] ) {
+				$detalleSabores = array();
+				foreach ( $dc['DetalleSabor'] as $ds ) {
+					$detalleSabores[] = array('Sabor'=>$ds);
+				}
+				unset( $dc['DetalleSabor'] );
+				$dc['DetalleSabor'] = $detalleSabores;
+			}
+
 			$v_comanderas[ $dc['printer_id'] ]['DetalleComanda'][] = $dc;
 		}
 		$comandas = array();
