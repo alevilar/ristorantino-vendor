@@ -82,8 +82,12 @@ class MediasController extends AppController {
             $im = new imagick();
             $im->readImageBlob($media['Media']['file']);
             $im->scaleImage($width, $height);
-            $im->setImageFormat('jpg');
-            $type = 'image/jpg';
+
+            if ( $ext == 'jpg' || $ext == 'jpeg') {
+                $im->setInterlaceScheme(Imagick::INTERLACE_PLANE);
+            }
+            //$im->setImageFormat('jpg');
+            //$type = 'image/jpg';
         } else {
             // si no son imagenes no mostrar, solo retornar un icono generico
             $file_generic_path = App::pluginPath('Risto') . DS . 'webroot' . DS . 'img' . DS . 'generic_file_doc.png';
