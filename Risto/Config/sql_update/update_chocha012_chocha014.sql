@@ -263,5 +263,4 @@ SET checkout = modified
 WHERE modified IS NOT NULL
 AND modified <> "0000-00-00 00:00"
 AND checkout = "0000-00-00 00:00"
-AND time_cobro = "0000-00-00 00:00"
 AND deleted = 0

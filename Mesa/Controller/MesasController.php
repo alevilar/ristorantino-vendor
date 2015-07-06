@@ -20,7 +20,7 @@ class MesasController extends MesaAppController {
     public function index() {
         $this->Prg->commonProcess();
         $conds = $this->Mesa->parseCriteria( $this->Prg->parsedParams() );
-
+        $conds['Mesa.deleted'] = 0;
         $this->Paginator->settings['conditions'] = $conds;
         $this->Paginator->settings['contain'] = array(
             'Mozo(numero)',
