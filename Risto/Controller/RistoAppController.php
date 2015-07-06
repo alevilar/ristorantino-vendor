@@ -84,6 +84,8 @@ class RistoAppController extends Controller {
         $this->set('elementMenu', 'menu');
 
 
+        $this->Auth->allow(array('auth_callback', 'auth_login'));
+
         $this->Auth->loginAction = array(
                 'plugin' => 'users',
                 'controller' => 'users',
