@@ -801,11 +801,13 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 
 
 		function reabrir($mesa_id = null){
+			$this->clear();
 			if (!empty($mesa_id)) {
 				$this->id = $mesa_id;
 			}
-						
-			return $this->saveField('estado_id', MESA_ABIERTA);
+			$this->set('checkout', null);
+			$this->set('estado_id', MESA_ABIERTA);
+			return $this->save();
 		}
 		
 		
