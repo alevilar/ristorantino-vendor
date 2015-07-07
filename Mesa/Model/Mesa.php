@@ -968,8 +968,7 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 		if (empty($mesaId )) {
         	throw new NotFoundException("No se encontro mesa con el ID $mesaId");
         }
-
-		$tipo_factura = Configure::read('Afip.tipo_factura_id');		
+		
 		$tipo_factura_id = Configure::read('Afip.tipo_factura_id');
         $mesa = $this->find('first',array(
             'contain'=>array(
@@ -987,10 +986,9 @@ function calcular_valor_cubierto ( $mesaId = null )  {
         ));
 
     	
-        if( empty($mesa['Cliente']) || empty($mesa['Cliente']['id']) ){
+        if( empty($mesa['Cliente']['id']) ){
             $mesa['Cliente'] = array();
-        } elseif ( !empty($mesa['Cliente']['IvaResponsabilidad']['TipoFactura']['codename']) ) {
-    		$tipo_factura = $mesa['Cliente']['IvaResponsabilidad']['TipoFactura']['codename'];
+        } elseif ( !empty($mesa['Cliente']['IvaResponsabilidad']['TipoFactura']['id']) ) {    		
     		$tipo_factura_id = $mesa['Cliente']['IvaResponsabilidad']['TipoFactura']['id'];
         }
         
@@ -1036,7 +1034,6 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 				'mesa' 				  => $mesa_numero,
 				'cliente' 			  => $mesa['Cliente'],
 				'tipo_factura_id' 	  => $tipo_factura_id,
-				'tipo_factura' 		  => $tipo_factura,
 				'iva_responsabilidad' => $iva_responsabilidad
 				);
         return $dataFull;

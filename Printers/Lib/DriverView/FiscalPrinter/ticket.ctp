@@ -27,7 +27,7 @@
 *       @var String|Int $mesa
 *
 **/
-if (empty($tipo_factura)) {
+if (empty($tipo_factura_id)) {
     throw new CakeException("Ticket: Falta el tipo de factura");
 }
 
@@ -90,7 +90,7 @@ if (!empty($cliente)) {
 }
 
 //abro el tiquet poniendo la condicion ante el iva seleccionada
-echo $this->PE->openFiscalReceipt($tipo_factura); echo "\n";
+echo $this->PE->openFiscalReceipt($tipo_factura_id); echo "\n";
 
 
 

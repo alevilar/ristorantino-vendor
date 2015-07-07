@@ -35,7 +35,7 @@ class PrintersController extends PrintersAppController {
 				'Hasar1120f'=>'Hasar1120f',
 				'HasarSMHP321f'=>'Hasar SMHP 32X'
 				), 
-			'Comandera' => array(
+			'Receipt' => array(
 				'Bematech' => 'Bematech',
 				'EscP' => 'EscP',
 				)
@@ -45,6 +45,7 @@ class PrintersController extends PrintersAppController {
 			'Cups' => 'Cups',
 			'Database' => 'Database',
 			'AfipFacturas' => 'Afip Facturas Online',
+			'File' => 'File',
 		);
 
 
@@ -91,7 +92,7 @@ class PrintersController extends PrintersAppController {
 		$this->request->data['Printer']['output'] = Configure::read('Printers.output');
 
 		$this->set('drivers', $this->drivers );
-		$this->set('driver_models', $this->driver_models);
+		$this->set('driverModels', $this->driver_models);
 		$this->set('outputs', $this->outputs);
 	}
 
@@ -114,14 +115,19 @@ class PrintersController extends PrintersAppController {
 				$this->Session->setFlash(__('The printer could not be saved. Please, try again.'));
 			}
 		} else {
-			$options = array('conditions' => array('Printer.' . $this->Printer->primaryKey => $id));
+			$options = array(
+				'conditions' => array('Printer.' . $this->Printer->primaryKey => $id),
+				'recursive' => -1,
+				);
 			$this->request->data = $this->Printer->find('first', $options);
 		}
 
-		$this->request->data['Printer']['output'] = Configure::read('Printers.output');
+		if (empty( $this->request->data['Printer']['output'] ) ) {
+			$this->request->data['Printer']['output'] = Configure::read('Printers.output');
+		}
 
 		$this->set('drivers', $this->drivers );
-		$this->set('driver_models', $this->driver_models);
+		$this->set('driverModels', $this->driver_models);
 		$this->set('outputs', $this->outputs);
 	}
 

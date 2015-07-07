@@ -44,15 +44,10 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
      *			"E": Nota de Débito B/C
      * 
 	 */
-	public function openFiscalReceipt($tipo_ticket){
-
+	public function openFiscalReceipt( $tipo_ticket ){
 		$tipo_ticket = $this->arrayMapTipoTicket[$tipo_ticket];
-		if($tipo_ticket == 'T' || $tipo_ticket == 'A' || $tipo_ticket == 'B' || $tipo_ticket == 'D' || $tipo_ticket == 'E'){
-			return "@".$this->cm('FS').$tipo_ticket.$this->cm('FS')."T";
-		}
-		else{
-			return '';
-		}
+		
+		return "@".$this->cm('FS').$tipo_ticket.$this->cm('FS')."T";	
 	}
 	
 	/**
