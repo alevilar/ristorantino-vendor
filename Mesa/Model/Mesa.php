@@ -809,6 +809,17 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 			$this->set('estado_id', MESA_ABIERTA);
 			return $this->save();
 		}
+
+
+		function checkout($mesa_id = null){
+			$this->clear();
+			if (!empty($mesa_id)) {
+				$this->id = $mesa_id;
+			}
+			$this->set('checkout', date('Y-m-d H:i:s'));
+			$this->set('estado_id', MESA_CHECKOUT);
+			return $this->save();
+		}
 		
 		
 		

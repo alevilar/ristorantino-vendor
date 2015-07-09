@@ -340,6 +340,20 @@ class MesasController extends MesaAppController {
     }
 */
 
+    public function checkout ( $id ) {
+        if ( $this->Mesa->checkout( $id ) ) {           
+            if ( !$this->request->is('ajax') ) {            
+                $this->Session->setFlash( __('Se hizo checkout de la %s', Configure::read('Mesa.tituloMesa') ), 'Risto.flash_success');
+                $this->redirect($this->referer());
+            } else {
+                exit(0);
+            }
+        } else {
+            throw new CakeException(__("Falló al reabrir la mesa"));
+            
+        }
+    }
+
 
     public function reabrir($id){
         if ( $this->Mesa->reabrir($id) ) {           
@@ -347,7 +361,7 @@ class MesasController extends MesaAppController {
                 $this->Session->setFlash( __('Se reabrió la %s', Configure::read('Mesa.tituloMesa') ), 'Risto.flash_success');
                 $this->redirect($this->referer());
             } else {
-                exit;
+                exit(0);
             }
         } else {
             throw new CakeException(__("Falló al reabrir la mesa"));

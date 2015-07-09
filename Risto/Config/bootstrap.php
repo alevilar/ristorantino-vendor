@@ -96,6 +96,7 @@ define('RISTO_DEFAULT_IVA_PORCENTAJE', Configure::read('Afip.default_iva_porcent
 define('MESA_ABIERTA', 1);
 define('MESA_CERRADA', 2);
 define('MESA_COBRADA', 3);
+define('MESA_CHECKOUT', 4);
 
 define('TIPO_DE_PAGO_EFECTIVO', 1);
 
