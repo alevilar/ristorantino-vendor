@@ -177,7 +177,7 @@ class Mesa extends MesaAppModel {
 			// NEW MESA
 			// al crear, si el checkin vino vacio hacer que sea AHORA (== a created)
 			if (empty($this->data['Mesa']['checkin'])) {
-				$this->data['Mesa']['checkin'] = date('Y-m-d h:i:s');
+				$this->data['Mesa']['checkin'] = date('Y-m-d H:i:s');
 			}
 		}
 
