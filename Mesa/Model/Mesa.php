@@ -280,7 +280,7 @@ class Mesa extends MesaAppModel {
 
 
 
-	public function comensales_por_dia($fechaDesde, $fechaHasta) {
+	public function delDia($fechaDesde, $fechaHasta) {
 
 		$horarioCorte = Configure::read('Horario.corte_del_dia');
 		if ( $horarioCorte < 10 ) {
@@ -297,7 +297,11 @@ class Mesa extends MesaAppModel {
 	 		$mesas = $this->find('first', array(
 	 			'recursive' => -1,
 	 			'fields' => array(
-	 				'sum(Mesa.cant_comensales) as suma',	 				
+	 				'count(*) as cant',
+	 				'sum(Mesa.cant_comensales) as suma',
+					'sum(Mesa.subtotal) as "subtotal"',
+					'sum(Mesa.total) as "total"',
+					'sum(Mesa.total)/sum(Mesa.cant_comensales) as "promedio_cubiertos"',
 	 				),
 	 			'conditions' => array(
 	 				"$sqlHorarioDeCorteCheckin <=" => $dia,
@@ -310,10 +314,17 @@ class Mesa extends MesaAppModel {
 	 			));
 	 		
 	 		if ( !empty($mesas[0]['suma']) ) {
-	 			$diasData[$dia] = (int)$mesas[0]['suma'];
+	 			$suma = (int)$mesas[0]['suma'];
 	 		} else {
-	 			$diasData[$dia] = 0;
+	 			$suma = 0;
 	 		}
+	 		$diasData[$dia] = array(
+	 			'cant' => $mesas[0]['cant'],
+	 			'cubiertos' => $suma,
+	 			'subtotal' => $mesas[0]['subtotal'],
+	 			'total' => $mesas[0]['total'],
+	 			'promedio_cubiertos' => $mesas[0]['promedio_cubiertos'],
+ 			);
 	 	}
 	 	return $diasData;
 	}

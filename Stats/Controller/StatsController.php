@@ -18,92 +18,61 @@ class StatsController extends StatsAppController
         $limit = '';
         $lineas = array($desdeHasta);
         // por default buscar 1 semana atras
-        if (empty($this->request->data['Linea'])) {
-            $this->request->data['Linea'][0]['hasta'] = date('Y-m-d', strtotime('now'));
-            $this->request->data['Linea'][0]['desde'] = date('Y-m-d', strtotime('-6 day'));
+        if ( empty($this->request->data['Stat']['desde']) )  {
+            $this->request->data['Stat']['desde'] = date('Y-m-d', strtotime('-6 day'));
         }
 
-        $mesasLineas = array();
-        if (!empty($this->request->data['Linea'])) {
-            $lineas = array();
-            foreach ($this->request->data['Linea'] as $linea) {
-                if (!empty($linea['desde']) && !empty($linea['hasta'])) {
-                    $desde = $linea['desde'];
-                    $hasta = $linea['hasta'];
-                    // buscar gastos
-                    $gasOps = array(
-                        'fields' => array(
-                            'sum(Gasto.importe_neto) as neto',
-                            'sum(Gasto.importe_total) as total',
-                        ),
-                        'conditions' => array(
-                            'Gasto.created BETWEEN ? AND ?' => array($desde, $hasta)
-                        ),
-                        'group' => array(
-                            'DATE(Gasto.created)'
-                        )
-                    );
-                    // primero buscar los egresos del intervalo seleccionado
-                    $egresos = $this->Egreso->pagosDelDia($desde, $hasta);
-                    $egresos_total = 0;
-                    foreach ($egresos as $e) {
-                        $egresos_total += $e['Egreso']['importe'];
-                    }
-                    $this->set('egresos_total', $egresos_total);
-                    $egresos = array($egresos);
-                    $gastosSumas = $this->Gasto->find('first', $gasOps);
-                    if (empty($gastosSumas)) {
-                        $gastosSumas[0]['neto'] = $gastosSumas[0]['total'] = 0;
-                    }
-                    $gasOps['group'] = array(
-                        'DATE(Gasto.created)'
-                    );
-                    $gastos = $this->Gasto->find('all', $gasOps);
-                    $this->set('gastos', $gastos);
-                    $this->set('gastos_neto', $gastosSumas[0]['neto']);
-                    $this->set('gastos_total', $gastosSumas[0]['total']);
-
-                    // buscar las zetas
-                    $zetas = $this->Zeta->delDia($desde, $hasta);
-                    $zeta_iva_total = $zeta_neto_total = 0;
-                    foreach ($zetas as $z) {
-                        $zeta_iva_total += $z[0]['iva'];
-                        $zeta_neto_total += $z[0]['neto'];
-                    }
-                    $this->set('zetas', $zetas);
-                    $this->set('zeta_iva_total', $zeta_iva_total);
-                    $this->set('zeta_neto_total', $zeta_neto_total);
-
-                    // luego, lo mas largo: buscar las mesas
-                    $fields = array();
-                    $group = array();
-
-
-                    $cubiertos = array_reverse( $this->Mesa->comensales_por_dia($desde, $hasta) );
-                    $this->set('cubiertos', $cubiertos);
-                    
-                    $mesas = $this->Mesa->totalesDeMesasEntre($desde, $hasta);
-                    $resumenCuadro = array(
-                        'total' => 0,
-                        'subtotal' => 0,
-                        'cubiertos' => 0,
-                        'desde' => $desde,
-                        'hasta' => $hasta,
-                    );
-                    foreach ($mesas as &$m) {
-                        $m['Mesa'] = $m[0];
-                        $resumenCuadro['cubiertos'] += $m['Mesa']['cant_cubiertos'];
-                        $resumenCuadro['total'] += $m['Mesa']['total'];
-                        $resumenCuadro['subtotal'] += $m['Mesa']['subtotal'];
-                        unset($m[0]);
-                    }
-                    $mesasLineas[] = $mesas;
-                }
-            }
+        // por default buscar hasta hoy
+        if ( empty($this->request->data['Stat']['hasta']) )  {
+            $this->request->data['Stat']['hasta'] = date('Y-m-d', strtotime('now'));
         }
-        $this->set('egresos', $egresos);
-        $this->set('mesas', $mesasLineas);
-        $this->set('resumenCuadro', $resumenCuadro);
+
+        $desde = $this->request->data['Stat']['desde'];
+        $hasta = $this->request->data['Stat']['hasta'];
+            
+
+           
+        // detalle de egresos por dia
+        $egresos = $this->Egreso->delDia($desde, $hasta);
+        $this->set('egresos', $egresos );
+
+        $egresos = $this->Egreso->sumaDelDia($desde, $hasta);
+        $this->set('egresos_total', $egresos['total']);
+
+        
+
+        // listado de gastos de la fecha
+        $gastos = $this->Gasto->delDia($desde, $hasta);
+        $this->set('gastos', $gastos);
+
+        $gastos = $this->Gasto->sumaDelDia($desde, $hasta);
+        $this->set('gastos_neto', $gastos['neto']);
+        $this->set('gastos_total', $gastos['total']);
+
+
+        // buscar las zetas
+        $zetas = $this->Zeta->delDia($desde, $hasta);
+        $this->set('zetas', $zetas);
+
+        $zetas = $this->Zeta->sumaDelDia($desde, $hasta);
+        $this->set('zeta_iva_total', $zetas['monto_iva']);
+        $this->set('zeta_neto_total', $zetas['monto_neto']);
+        $this->set('zeta_nc_iva', $zetas['nota_credito_iva']);
+        $this->set('zeta_nc_neto', $zetas['nota_credito_neto']);
+
+       
+        // sumatorias de mesas y cubiertos            
+        $mesas = $this->Mesa->delDia($desde, $hasta);
+        $this->set('mesas', $mesas);
+
+
+        // sumatorias de ingresos - pagos
+        $pagos = $this->Pago->delDia($desde, $hasta);
+        $this->set('pagos', $pagos);
+
+        $pagos = $this->Pago->sumaDelDia($desde, $hasta);
+        $this->set('valor', $pagos['valor']);
+           
     }
 
     function mozos_total()

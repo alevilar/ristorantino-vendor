@@ -10,7 +10,13 @@ class Pago extends MesaAppModel {
 	public $actsAs = array(
         'Search.Searchable',
         'Containable', 
-        'Utils.SoftDelete',       
+        'Utils.SoftDelete',   
+        'Risto.DiaBuscable' => array(
+                'fechaField' => 'created',
+                'fieldsParaSumatoria' => array(
+                        "valor",
+                ),
+            ),    
         );
 
 
@@ -75,4 +81,5 @@ class Pago extends MesaAppModel {
             'field' => 'Pago.created <='
             ),        
         );
+
 }

@@ -43,8 +43,8 @@
 
                     <legend><?php __('Totales de %s', Configure::read('Mesa.tituloMesa')); ?></legend>
                     <?php
-                    echo $this->Form->input('checkin', array( 'type'=>'date'));
-                    echo $this->Form->input('checkout', array( 'type'=>'date'));
+                    echo $this->Form->input('checkin', array( 'type'=>'datetime'));
+                    echo $this->Form->input('checkout', array( 'type'=>'datetime'));
                     
                     echo $this->Form->input('time_cerro', array( 'type'=>'date', 'Fecha de Facturación'));
                     echo $this->Form->input('time_cobro', array( 'type'=>'date', 'label'=>'Fecha de Cobro'));

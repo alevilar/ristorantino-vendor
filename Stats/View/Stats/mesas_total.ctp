@@ -1,34 +1,51 @@
+<?php
+function toJsXY( $list, $field ) {
+    $newarr = array();
+    foreach ($list as $dia => $value) {
+        if (!empty($value) ) {
+            $newarr[$dia] = (float)$value[$field];
+        } else {
+            $newarr[$dia] = 0;
+        }
+    }
+    return $newarr;
+}
+
+
+$gastosXY  = toJsXY($gastos, 'importe_total');
+$egresosXY = toJsXY($egresos, 'total');
+$pagosXY   = toJsXY($pagos, 'valor');
+$zetasXY   = toJsXY($zetas, 'created');
+$mesasXY   = toJsXY($mesas, 'total');
+
+?>
 
 <script language="javascript" type="text/javascript">
     var mesas = [],
             egresos = [];
 <?php if (!empty($mesas)) { ?>
-        mesas = <?php echo json_encode($mesas); ?>;
+        mesas = <?php echo json_encode($mesasXY); ?>;
 <?php } ?>
 
 <?php if (!empty($egresos)) { ?>
-        egresos = <?php echo json_encode($egresos); ?>;
+        egresos = <?php echo json_encode( array( $egresosXY) ); ?>;
 <?php } ?>
 </script>
 
 <div class="row">
     <?php
-    echo $this->Form->create('Mesa', array('url' => array('controller' => 'stats', 'action' => 'mesas_total')));
+    echo $this->Form->create('Stat');
     ?>
     <div class="col-md-4">
 
         <legend>Rango de Fechas</legend>
         <div class="row">
             <div class="col-md-4">
-                <?php
-                echo $this->Form->input('Linea.0.desde', array('type' => 'date'));
-                ?>
+                <?php echo $this->Form->input('desde', array('type' => 'date'));?>
             </div>
 
             <div class="col-md-4">
-                <?php
-                echo $this->Form->input('Linea.0.hasta', array('type' => 'date'));
-                ?>
+                <?php echo $this->Form->input('hasta', array('type' => 'date')); ?>
             </div>
 
             <div class="col-md-4"><br><?php echo $this->Form->submit('Aceptar', array('class' => 'btn btn-default btn-md')); ?> </div>
@@ -66,7 +83,7 @@
 
 <div class="row">
     <div class="col-md-12">
-        <div id="chart1" ></div>
+        <div id="line-chart" ></div>
     </div>
 </div>
 
@@ -247,15 +264,28 @@
     </div>
 </div>
 
+
+<script type="text/javascript"
+          src="https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart']
+            }]
+          }"></script>
+
 <?php
 echo $this->Html->css('/stats/css/examples', false);
 echo $this->Html->css('/stats/css/stats', false);
 
 
-echo $this->Html->script('/stats/js/jqplot/jquery.jqplot.js', false); //plugin estadisticas
-echo $this->Html->script('/stats/js/jqplot/plugins/jqplot.dateAxisRenderer.js', false);
-echo $this->Html->script('/stats/js/jqplot/plugins/jqplot.highlighter.js', false);
+echo $this->Html->script("https://www.google.com/jsapi?autoload={
+            'modules':[{
+              'name':'visualization',
+              'version':'1',
+              'packages':['corechart']
+            }]
+          }", false); //plugin estadisticas
 
 echo $this->Html->script('/stats/js/mesas_total', false); //plugin estadisticas
-?>
 
