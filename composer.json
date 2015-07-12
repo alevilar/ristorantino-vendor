@@ -24,7 +24,6 @@
 		"codaxis/cakephp-bootstrap3-helpers": "1.1",
 		"ristorantino/ext-auth": "master@dev",
 		"ristorantino/aditions": "master@dev",
-		"composer/installers": "~1.0",
-		"scottharwell/google-charts": "dev-master"
+		"composer/installers": "~1.0"
 	}
 }
