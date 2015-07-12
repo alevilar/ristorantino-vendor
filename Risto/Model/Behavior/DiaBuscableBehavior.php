@@ -46,17 +46,63 @@ class DiaBuscableBehavior extends ModelBehavior {
     	$modelName = $Model->name;
 
     	$gasOps = array();
+    	$resField = array();
     	foreach ( $this->fieldsParaSumatoria as $field ) {
             $gasOps['fields'][] = "sum($modelName.$field) as $field";
+            $resField[$field] = 0;
     	}
 
-        $res = $this->__desdeHasta( $Model, $desde, $hasta, $gasOps);            
-
-        if (!empty($res[0][0])) {
-        	return $res[0][0];
-        }
-        return array();
+        $res = $this->__desdeHastaSum( $Model, $desde, $hasta, $gasOps);            
+        // les pongo los valores a cada campo
+        if ( !empty($res[0]) ) {
+            foreach ( $resField as $field=>$val ) {
+        		if (!empty($res[0][$field])) {
+        			$resField[$field] = $res[0][$field];
+        		}
+	        }            
+    	}    
+        return $resField;
     }
+
+
+
+    /**
+    *
+    *   Busca por su fecha desde-hasta
+    *
+    **/
+    public function __desdeHastaSum( Model $Model, $desde, $hasta, $ops = array() ) {
+    	$horarioCorte = Configure::read('Horario.corte_del_dia');
+		if ( $horarioCorte < 10 ) {
+			$horarioCorte = "0$horarioCorte";
+		}
+
+
+    	$modelName = $Model->name;
+    	$fechaField = $this->fechaField;
+
+
+    	$sqlHorarioDeCorte  = "DATE( SUBTIME( $modelName.$fechaField , '$horarioCorte:00:00') )";
+
+        $default = array(            
+            'group' => array(
+                "DATE($modelName.$fechaField)"
+            ),
+            'recursive' => -1
+        );
+        $conds = $default + $ops;
+
+
+ 		$conds['conditions']["$sqlHorarioDeCorte BETWEEN ? AND ?"] = array($desde, $hasta );
+ 		$list = $Model->find('first', $conds);
+ 		if ( !empty($list) && array_key_exists($modelName, $list)) {
+ 			$list = $list[$modelName];
+ 		}
+	 	
+		return $list;
+    }
+
+
 
 
     /**

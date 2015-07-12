@@ -5,18 +5,7 @@ App::uses('Bs3HtmlHelper', 'Bs3Helpers.View/Helper');
 
 
 class PxHtmlHelper extends Bs3HtmlHelper {
-
-
-	/**
-	 * Other helpers used by FormHelper
-	 *
-	 * @var array
-	 */
-	public $helpers = array(
-		'Html' => array(
-            'className' => 'Bs3Helpers.Bs3Html'
-            ),
-		);
+	
 
     public function mediaLink ( $media, $options = array() ) {
         if( is_numeric($media) ) {
@@ -32,7 +21,7 @@ class PxHtmlHelper extends Bs3HtmlHelper {
 
 
         $route = array('plugin' => 'risto', 'controller'=>'medias', 'action'=>'view', $id );       
-        $url = $this->Html->url( $route );
+        $url = $this->url( $route );
         return $this->link($img, $url, array('escape'=>false));
     }
 
@@ -50,8 +39,8 @@ class PxHtmlHelper extends Bs3HtmlHelper {
                 $route[] = (float) !empty($options['width']) ? $options['width'] : 0 ;
                 $route[] = (float) !empty($options['height']) ? $options['height'] : 0;
             }
-            $url = $this->Html->url( $route );
-    		return $this->Html->image( $url , $options );	
+            $url = $this->url( $route );
+    		return $this->image( $url , $options );	
     	}
 	}
 
@@ -67,7 +56,5 @@ class PxHtmlHelper extends Bs3HtmlHelper {
 	
 		return $image;
 	}
-
-
             
 }
