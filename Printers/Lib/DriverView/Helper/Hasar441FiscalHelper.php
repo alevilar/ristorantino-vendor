@@ -323,25 +323,15 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
      *       Con eso podremos utilizar una funcion mas simple y mas extensible como is_in_array(tipos_docs, "C")
 	 */
 	public function setCustomerData($nombre_cliente = " ",$documento = " ",$respo_iva = 'C', $tipo_documento = " ", $domicilio = '-'){
-		$nombre_cliente = substr($nombre_cliente,0,45);
+		$nombre_cliente = trim(substr($nombre_cliente,0,45));
 		$respo_iva = strtoupper($respo_iva);
 		$tipo_documento = strtoupper($tipo_documento);
-		if ( $tipo_documento == "") {
+		if ( $tipo_documento === "") {
 			$tipo_documento = " ";
 		}
-		
-		if($respo_iva == 'I' || $respo_iva == 'E' || $respo_iva == 'A' || $respo_iva == 'C' || $respo_iva == 'T'){
-			if( $tipo_documento == 'C' || $tipo_documento == 'L' || $tipo_documento == '0' || $tipo_documento == '1' || $tipo_documento == '2' || $tipo_documento == '3' || $tipo_documento == '4' || $tipo_documento == ' ')
-			{	
-				$comando = "b".$this->cm('FS').$nombre_cliente.$this->cm('FS').$documento.$this->cm('FS').$respo_iva.$this->cm('FS').$tipo_documento.$this->cm('FS').$domicilio;				
-			}
-			else{ 	
-                throw new InternalErrorException('Error, no existe el tipo de documento pasado: '.$tipo_documento);
-			}	
-		}
-		else{
-            throw new InternalErrorException('Error, no existe el tipo responsabilidad IVA: '.$respo_iva);
-		} 
+			
+		$comando = "b".$this->cm('FS').$nombre_cliente.$this->cm('FS').$documento.$this->cm('FS').$respo_iva.$this->cm('FS').$tipo_documento.$this->cm('FS').$domicilio;				
+			
 		return $comando;
 	}
 
