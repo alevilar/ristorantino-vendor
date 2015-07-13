@@ -17,7 +17,7 @@ class PrintersController extends PrintersAppController {
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session');
+	//public $components = array('Paginator', 'Session');
 
 
 	public $drivers = array(
@@ -178,9 +178,10 @@ class PrintersController extends PrintersAppController {
         	$descrip = $this->request->data['Cajero']['descripcion'];
         	
         	$cliente_id = $this->request->data['Cajero']['cliente_id'];
-        	$cliente = null;
+        	$cliente = array('Cliente'=>null);
         	if (!empty($cliente_id)) {
-        		$cliente = ClassRegistry::init('Fidelization.Cliente')->find('first', array(
+        		$Cliente = ClassRegistry::init('Fidelization.Cliente');
+        		$cliente = $Cliente->find('first', array(
         				'contain' => array(
         						'TipoDocumento',
         						'IvaResponsabilidad' => array(

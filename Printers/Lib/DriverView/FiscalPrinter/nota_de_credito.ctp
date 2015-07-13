@@ -41,7 +41,7 @@ if (empty($importe)) {
 
 
 //abro el tiquet consumidor final
-if (!empty($cliente)) {
+if (!empty($cliente['Cliente'])) {
    
     $tipoDoc = null;
     if ( !empty($cliente['TipoDocumento']) ) {
@@ -52,12 +52,12 @@ if (!empty($cliente)) {
     if ( !empty($cliente['IvaResponsabilidad']) ) {
         $respoIva = $cliente['IvaResponsabilidad']['codigo_fiscal'];
     }
-    echo $this->PE->setCustomerData($cliente['nombre'], 
-                                    $cliente['nrodocumento'], 
+    $cus = $this->PE->setCustomerData($cliente['Cliente']['nombre'], 
+                                    $cliente['Cliente']['nrodocumento'], 
                                     $respoIva, 
                                     $tipoDoc, 
-                                    $cliente['domicilio']
-    ); echo "\n";
+                                    $cliente['Cliente']['domicilio']
+    ); echo "$cus\n";
 } else {
     //condumidor Final
     echo $this->PE->setCustomerData();
