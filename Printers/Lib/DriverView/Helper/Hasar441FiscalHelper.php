@@ -333,10 +333,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 		if($respo_iva == 'I' || $respo_iva == 'E' || $respo_iva == 'A' || $respo_iva == 'C' || $respo_iva == 'T'){
 			if( $tipo_documento == 'C' || $tipo_documento == 'L' || $tipo_documento == '0' || $tipo_documento == '1' || $tipo_documento == '2' || $tipo_documento == '3' || $tipo_documento == '4' || $tipo_documento == ' ')
 			{	
-				$comando = "b".$this->cm('FS').$nombre_cliente.$this->cm('FS').$documento.$this->cm('FS').$respo_iva.$this->cm('FS').$tipo_documento;
-				if($domicilio){
-					$comando .= $this->cm('FS').$domicilio;
-				}
+				$comando = "b".$this->cm('FS').$nombre_cliente.$this->cm('FS').$documento.$this->cm('FS').$respo_iva.$this->cm('FS').$tipo_documento.$this->cm('FS').$domicilio;				
 			}
 			else{ 	
                 throw new InternalErrorException('Error, no existe el tipo de documento pasado: '.$tipo_documento);
