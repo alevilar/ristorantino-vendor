@@ -37,7 +37,17 @@ class DiaBuscableBehavior extends ModelBehavior {
 
 
     public function delDia( Model $Model, $desde, $hasta ) {
-        return $this->__desdeHasta($Model, $desde, $hasta);
+        $modelName = $Model->name;
+
+        $gasOps = array();
+        $resField = array();
+        foreach ( $this->fieldsParaSumatoria as $field ) {
+            $gasOps['fields'][] = "sum($modelName.$field) as $field";
+            $resField[$field] = 0;
+        }
+
+        $list = $this->__desdeHasta($Model, $desde, $hasta, $gasOps);
+        return $list;
     }
 
 
@@ -53,15 +63,8 @@ class DiaBuscableBehavior extends ModelBehavior {
     	}
 
         $res = $this->__desdeHastaSum( $Model, $desde, $hasta, $gasOps);            
-        // les pongo los valores a cada campo
-        if ( !empty($res[0]) ) {
-            foreach ( $resField as $field=>$val ) {
-        		if (!empty($res[0][$field])) {
-        			$resField[$field] = $res[0][$field];
-        		}
-	        }            
-    	}    
-        return $resField;
+       
+        return $res;
     }
 
 
@@ -85,21 +88,17 @@ class DiaBuscableBehavior extends ModelBehavior {
     	$sqlHorarioDeCorte  = "DATE( SUBTIME( $modelName.$fechaField , '$horarioCorte:00:00') )";
 
         $default = array(            
-            'group' => array(
-                "DATE($modelName.$fechaField)"
-            ),
             'recursive' => -1
         );
         $conds = $default + $ops;
 
-
- 		$conds['conditions']["$sqlHorarioDeCorte BETWEEN ? AND ?"] = array($desde, $hasta );
+        $conds['conditions']["$sqlHorarioDeCorte BETWEEN ? AND ?"] = array($desde, $hasta );
  		$list = $Model->find('first', $conds);
- 		if ( !empty($list) && array_key_exists($modelName, $list)) {
- 			$list = $list[$modelName];
- 		}
-	 	
-		return $list;
+        $newList = array();
+        if ( !empty($list[0]) ) {
+            $newList = $list[0];
+        }
+		return $newList;
     }
 
 
@@ -123,10 +122,7 @@ class DiaBuscableBehavior extends ModelBehavior {
 
     	$sqlHorarioDeCorte  = "DATE( SUBTIME( $modelName.$fechaField , '$horarioCorte:00:00') )";
 
-        $default = array(            
-            'group' => array(
-                "DATE($modelName.$fechaField)"
-            ),
+        $default = array(                       
             'recursive' => -1
         );
         $conds = $default + $ops;
@@ -138,11 +134,11 @@ class DiaBuscableBehavior extends ModelBehavior {
 	 	foreach ($dias as $dia) {
 	 		$conds['conditions']["$sqlHorarioDeCorte"] = $dia;
 	 		$list = $Model->find('first', $conds);
-	 		if ( !empty($list) && array_key_exists($modelName, $list)) {
-	 			$list = $list[$modelName];
-	 		}
-	 		$diasData[$dia] = $list;
-	 	}
+            if ( !empty($list[0]) ) {
+                $list = $list[0];
+            }
+            $diasData[$dia] = $list;
+        }
 		return $diasData;
     }
 
