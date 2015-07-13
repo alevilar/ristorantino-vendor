@@ -161,6 +161,12 @@ class Mesa extends MesaAppModel {
 
 		if ( empty($this->data['Mesa']['id']) && empty($this->data['Mesa']['estado_id'])) {
 			$this->data['Mesa']['estado_id'] = MESA_ABIERTA;
+
+			// NEW MESA
+			// al crear, si el checkin vino vacio hacer que sea AHORA (== a created)
+			if (empty($this->data['Mesa']['checkin'])) {
+				$this->data['Mesa']['checkin'] = date('Y-m-d H:i:s');
+			}
 		}
 
 		if ( !empty($this->data['Mesa']['id']) ) {
@@ -173,12 +179,6 @@ class Mesa extends MesaAppModel {
 			$this->__cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada();
 
 			$this->__completeWithTotals();
-		} else {
-			// NEW MESA
-			// al crear, si el checkin vino vacio hacer que sea AHORA (== a created)
-			if (empty($this->data['Mesa']['checkin'])) {
-				$this->data['Mesa']['checkin'] = date('Y-m-d H:i:s');
-			}
 		}
 
 		return true;

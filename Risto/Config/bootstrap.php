@@ -89,7 +89,6 @@ define('SITE_TYPE_GENERIC', 'generic');
 define('RISTO_IVA_0', 0);
 define('RISTO_IVA_105', 10.5);
 define('RISTO_IVA_21', 21);
-define('RISTO_DEFAULT_IVA_PORCENTAJE', Configure::read('Afip.default_iva_porcentaje'));
 
 
 /* TIENEN QUE SER LOS MISMOS ID´s QUE EN LA TABLA !!! */
