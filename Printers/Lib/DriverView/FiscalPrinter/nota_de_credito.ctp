@@ -39,7 +39,10 @@ if (empty($importe)) {
 
 
 
-if ( !empty($cliente)) {   
+
+//abro el tiquet consumidor final
+if (!empty($cliente)) {
+   
     $tipoDoc = null;
     if ( !empty($cliente['TipoDocumento']) ) {
         $tipoDoc = $cliente['TipoDocumento']['codigo_fiscal'];
@@ -49,11 +52,11 @@ if ( !empty($cliente)) {
     if ( !empty($cliente['IvaResponsabilidad']) ) {
         $respoIva = $cliente['IvaResponsabilidad']['codigo_fiscal'];
     }
-    echo $this->PE->setCustomerData($cliente['Cliente']['nombre'], 
-                                    $cliente['Cliente']['nrodocumento'], 
+    echo $this->PE->setCustomerData($cliente['nombre'], 
+                                    $cliente['nrodocumento'], 
                                     $respoIva, 
                                     $tipoDoc, 
-                                    $cliente['Cliente']['domicilio']
+                                    $cliente['domicilio']
     ); echo "\n";
 } else {
     //condumidor Final
