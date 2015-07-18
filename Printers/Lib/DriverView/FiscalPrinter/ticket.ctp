@@ -105,7 +105,10 @@ if (!empty($productos)) {
 }
 
 if (!empty($importe_descuento)) {
-    echo $this->PE->generalDiscount($importe_descuento); echo "\n";
+    $customer =  $this->PE->generalDiscount($importe_descuento);
+    if (!empty($customer)) {
+        echo $customer."\n";
+    }
 }
 
 echo $this->PE->closeFiscalReceipt(); echo "\n";
