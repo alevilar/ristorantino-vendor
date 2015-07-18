@@ -105,7 +105,7 @@ if (!empty($productos)) {
 }
 
 if (!empty($importe_descuento)) {
-    $customer =  $this->PE->generalDiscount($importe_descuento);
+    $customer =  trim($this->PE->generalDiscount($importe_descuento));
     if (!empty($customer)) {
         echo $customer."\n";
     }

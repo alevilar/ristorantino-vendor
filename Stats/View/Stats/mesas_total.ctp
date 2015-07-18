@@ -43,7 +43,7 @@ foreach ($pagos as $fecha=>$ingreso) {
     $tableData[] = array( $fecha
                         , (float)$mesas[$fecha]['cubiertos']
                         , $this->Number->currency( $mesas[$fecha]['promedio_cubiertos'] )
-                        , $this->Number->currency( $mesas[$fecha]['total'] )
+                        , $this->Number->currency( $mesas[$fecha]['total']/ (!empty($ingreso['cant_dias'])?$ingreso['cant_dias']:1 ) )
                         , $this->Number->currency( @$ingreso['valor'] )
                         , $this->Number->currency( @$egresos[$fecha]['total'] )
                         , $this->Number->currency( @$zetas[$fecha]['monto_iva'] + @$zetas[$fecha]['monto_neto'] )

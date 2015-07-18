@@ -302,13 +302,11 @@ class Mesa extends MesaAppModel {
 					'sum(Mesa.subtotal) as "subtotal"',
 					'sum(Mesa.total) as "total"',
 					'sum(Mesa.total)/sum(Mesa.cant_comensales) as "promedio_cubiertos"',
+					"DATEDIFF(Mesa.checkin, Mesa.checkout) as cant_dias",
 	 				),
 	 			'conditions' => array(
 	 				"$sqlHorarioDeCorteCheckin <=" => $dia,
-	 				'OR' => array(
-	 					"$sqlHorarioDeCorteCheckout >=" => $dia,
-	 					"$sqlHorarioDeCorteCheckout IS NULL",
-	 					),
+ 					"$sqlHorarioDeCorteCheckout >=" => $dia,	 				
 	 				'Mesa.deleted' => 0
 	 				),
 	 			));
@@ -320,6 +318,7 @@ class Mesa extends MesaAppModel {
 	 		}
 	 		$diasData[$dia] = array(
 	 			'cant' => $mesas[0]['cant'],
+	 			'cant_dias' => $mesas[0]['cant_dias'] + 1,
 	 			'cubiertos' => $suma,
 	 			'subtotal' => $mesas[0]['subtotal'],
 	 			'total' => $mesas[0]['total'],

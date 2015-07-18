@@ -73,7 +73,7 @@ class StatsController extends StatsAppController
         $mesas = $this->Mesa->delDia($desde, $hasta);
         $this->set('mesas', $mesas);
         $mesaSubTotal = $mesaTotal = $mesaCubiertos = 0;
-        foreach ( $mesas as $m ) {
+        foreach ( $mesas as $m ) {            
             $mesaTotal += $m['total'];
             $mesaSubTotal += $m['subtotal'];
             $mesaCubiertos += $m['cubiertos'];
