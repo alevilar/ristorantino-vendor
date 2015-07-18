@@ -14,7 +14,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
   	public $arrayMapTipoTicket = array(
 			RISTO_TIPO_FACTURA_A_ID => 'A',
 			RISTO_TIPO_FACTURA_B_ID => 'B',
-			RISTO_TIPO_FACTURA_C_ID => 'C',			
+			RISTO_TIPO_FACTURA_C_ID => 'B',			
   		);
 
 

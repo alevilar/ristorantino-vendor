@@ -43,6 +43,7 @@ foreach ($pagos as $fecha=>$ingreso) {
     $tableData[] = array( $fecha
                         , (float)$mesas[$fecha]['cubiertos']
                         , $this->Number->currency( $mesas[$fecha]['promedio_cubiertos'] )
+                        , $this->Number->currency( $mesas[$fecha]['total'] )
                         , $this->Number->currency( @$ingreso['valor'] )
                         , $this->Number->currency( @$egresos[$fecha]['total'] )
                         , $this->Number->currency( @$zetas[$fecha]['monto_iva'] + @$zetas[$fecha]['monto_neto'] )
@@ -133,6 +134,7 @@ echo $this->Html->script("https://www.google.com/jsapi?autoload={
                             __('Fecha'),
                             Inflector::pluralize(Configure::read('Mesa.tituloCubierto')),
                             __('Promedio de %s', Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))),
+                            __('Ventas'),
                             __('Ingresos'),
                             __('Egresos'),
                             __('Zetas')
