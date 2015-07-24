@@ -13,12 +13,12 @@
 		  </button>
 		  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 		    <li role="presentation">
-		    	<?php echo $this->Html->link( __('User Dashboard'), '/', array('escape'=>false)); ?>
+		    	<?php echo $this->Html->link( __('Mis Comercios'), '/', array('escape'=>false)); ?>
 	    	</li>
 
 
 	    	<li role="menu">
-		    	<?php echo $this->Html->link( __('Edit My Profile'), array(
+		    	<?php echo $this->Html->link( __('Editar mi Perfil'), array(
 		    		'tenant' => false,
 		    		'plugin'=>'users', 'controller'=>'users','action'=>'my_edit'), array('escape'=>false)); ?>
 	    	</li>
@@ -28,7 +28,7 @@
 		    <li role="presentation" class="divider"></li>
 		    
 		    <li role="menu">
-		    	<?php echo $this->Html->link(__('Log Out')
+		    	<?php echo $this->Html->link(__('Cerrar Sesión')
 		    						, array(
 		    							'controller' => 'users', 
 		    							'action' => 'logout', 

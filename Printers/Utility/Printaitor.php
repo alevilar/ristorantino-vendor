@@ -220,6 +220,7 @@ class Printaitor
         $View->PE = new $helperName($View);
         
         $View->printaitorObj = $printViewObj;
+        $view = null;
         try {
             $view = $View->render( $viewName, false );
         } catch (Exception $e) {
