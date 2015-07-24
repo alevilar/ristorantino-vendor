@@ -133,7 +133,7 @@ echo $this->Html->script("https://www.google.com/jsapi?autoload={
                      echo $this->Html->tableHeaders( array(
                             __('Fecha'),
                             Inflector::pluralize(Configure::read('Mesa.tituloCubierto')),
-                            __('Promedio de %s', Inflector::pluralize(Configure::read('Mesa.tituloCubierto'))),
+                            __('Promedio x %s', Configure::read('Mesa.tituloCubierto')),
                             __('Ventas'),
                             __('Ingresos'),
                             __('Egresos'),
