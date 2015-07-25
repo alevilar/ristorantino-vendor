@@ -322,7 +322,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
      * @todo Hacer que los tipos de responsabilidad IVA y los tipos de documentos sean arrays pasados como parametros
      *       Con eso podremos utilizar una funcion mas simple y mas extensible como is_in_array(tipos_docs, "C")
 	 */
-	public function setCustomerData($nombre_cliente = "",$documento = "",$respo_iva = 'T', $tipo_documento = " ", $domicilio = null){
+	public function setCustomerData($nombre_cliente = "",$documento = "",$respo_iva = 'C', $tipo_documento = "", $domicilio = '-'){
 		$nombre_cliente = trim(substr($nombre_cliente,0,45));
 		$respo_iva = strtoupper($respo_iva);
 		$tipo_documento = strtoupper($tipo_documento);
@@ -338,10 +338,10 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 			$tipo_documento = ' ';
 		}
 		if (empty($domicilio)){
-			$domicilio = '.';
+			$domicilio = '-';
 		}
 		if (empty($respo_iva)) {
-			$respo_iva = "T";
+			$respo_iva = "C";
 		}
 		$comando = "b".$this->cm('FS').$nombre_cliente.$this->cm('FS').$documento.$this->cm('FS').$respo_iva.$this->cm('FS').$tipo_documento.$this->cm('FS').$domicilio;				
 			
