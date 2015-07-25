@@ -331,7 +331,7 @@ class Hasar441FiscalHelper extends FiscalPrinterHelper
 		}
 
 		if ( empty($documento) ){
-			return "";
+			$documento = "";
 		}
 
 		if (empty($tipo_documento)) {
