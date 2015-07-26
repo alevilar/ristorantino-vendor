@@ -14,7 +14,7 @@
 		echo $this->Form->input('codigo_fiscal',array('label'=>__('Código Fiscal')));
         echo $this->Form->input('name',array('label'=>__('Nombre')));
          ?>
-     <?if (empty($this->request->data['TipoDocumento']['id'])):?>
+     <?php if (empty($this->request->data['TipoDocumento']['id'])):?>
         <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
      <?php else: ?>
         <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
