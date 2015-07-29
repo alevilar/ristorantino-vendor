@@ -1,0 +1,529 @@
+/*
+custom classes starts with p-
+
+colors darker to lighter
+blue
+0B2D71
+1D4189
+284D97
+4673C3
+
+3C578D
+
+grey
+101010
+535353
+6d6d6d
+6a6a6a
+
+red
+b71d21
+
+almost white
+F5F9FB
+
+*/
+
+
+body {
+	font-family: 'Merriweather Sans', sans-serif;
+	font-style: normal;
+	background:#F5F9FB;
+	}
+	
+	
+.p-hide{
+	display:none;
+	}
+
+/*HEADER*/
+	
+	#p-header{
+		border-top:6px solid #b71d21;		
+	}
+	
+
+	#p-header.navbar{
+		margin-bottom: 0px;
+	}
+		
+		
+			#p-header .eslogan{
+				font-size:18px;
+				color:#869CCD;
+				font-weight:400;
+				clear:both;
+				margin: 0px;
+				font-size: small;
+			}
+		
+			#p-header form input:first-child {
+				margin-right: 3px;
+			}
+			#p-header form input {
+				height:45px;
+				background-color:#284D97;
+				font-weigth:300;
+				color:#869CCD;
+				border:0;
+			}
+		
+			#p-header .navbar-toggle{
+				background-image:url(img/login-chevron-dw.png);
+			}
+			
+			#p-header button, #p-header .navbar-toggle, #p-header .btn{
+				min-width:45px;
+				height:45px;
+				background-color:#4b73c3;
+				border:0;
+				background-position:center;
+				background-repeat:no-repeat;
+			}
+			
+			#p-header button:hover, #p-header .navbar-toggle:hover{
+				background-color:#869CCD;
+			}
+		
+		
+			#p-header form button{
+				background-image:url(img/login-chevron.png);
+			}
+		
+			#p-header .p-facebook .btn{
+				background-image:url(img/login-facebook.png);
+			}
+			#p-header .p-google .btn{
+				background-image:url(img/login-google.png);
+			}
+		
+			/*fix margin right stuff*/
+			#p-header .navbar-right{margin-right:0;}
+			
+			/*align right stuff*/
+			.p-login{
+				float:left;
+				margin-top: 15px;  	
+				text-align: left;			
+			}
+			.p-login-media {float:right;}
+			
+			.p-new-user a{
+				font-size:14px;
+				font-weight:300;
+				color:#869CCD;
+				text-decoration:none;
+			}
+		
+			.p-new-user a:hover{color:#FFFFFF;}
+			
+			p.navbar-text{color:#FFFFFF !important;}
+
+
+			.p-login form {
+				margin: 0px;
+				padding: 0px;
+			}
+
+@media (max-width: 1199px) and (min-width:768px) {
+
+			#p-header .p-login, #p-header .p-login-media{ margin-top:10px;}
+			#p-header form {padding:0;}
+}
+
+@media (max-width: 767px) {
+
+			/*remove align right stuff*/
+		
+			#p-header .p-login{ float:none !important;}
+			#p-header .p-login-media{float:none !important;}
+		
+			/*fix form stuff*/
+			#p-header .navbar-form input {margin:4px 0;}
+			#p-header .navbar-form button {margin:6px 0; width:100%;}
+		 
+			p.navbar-text{margin-right:10px; !important;}
+	
+}
+
+/*SLIDER*/
+
+	#p-slider{
+		background-image:url(img/bg-pic-1.jpg);
+		background-repeat:no-repeat;
+		background-position:center;
+		background-attachment: fixed;
+		background-size: cover;
+		text-align:center;
+		color:#1e1f22;
+	}
+	
+		#p-slider h1{
+			font-weight:700;
+			font-size:76px;
+			margin-top:180px;
+		}
+	
+		#p-slider p{
+			font-size:50px;
+		}
+		
+		.p-flecha{
+			display:block;
+			width:32px;
+			height:32px;
+			background-image:url(img/arrow-down.png);
+			padding:auto;
+			margin:20px auto;
+		}
+		
+		.p-slide-btn a{
+			width:378px;
+			height:82px;
+			text-transform:uppercase;
+			font-size:28px;
+			font-weight:700;
+			padding-top:20px;
+		}
+	
+		.p-gratis{
+			width:190px;
+			height:79px;
+			background-image:url(img/es-gratis.png);
+			z-index:9000;
+			position:relative;
+			padding:auto;
+			margin:-20px auto 100px auto;
+		}
+		
+
+
+/*CARACTERISTICAS*/
+
+	#p-caracteristicas{
+	}
+	
+		/*left*/
+		#p-caracteristicas .p-left{
+			
+		}
+
+		#p-caracteristicas div[class^="p-mod-"]{
+			font-size:11px;
+			line-height:16px;
+			color:#c9c9c9;
+			margin-bottom:10px;
+			width:250px;
+		}
+		
+		#p-caracteristicas div[class^="p-mod-"] h2{
+			font-weight:700;
+			color:#c9c9c9;
+			font-size:38px;
+		}		
+		
+		#p-caracteristicas div[class^="p-mod-"] p{
+			clear:both;
+			float:none;
+		}
+		
+		#p-caracteristicas div[class^="p-mod-"]:hover, #p-caracteristicas div.p-current{
+			font-size:22px;
+			line-height:32px;
+			color:#595959;
+			margin-bottom:10px;
+			width:100%;
+			cursor:pointer;
+			background-image:url(img/line.gif);
+			background-repeat:repeat-x;
+		}
+		
+		#p-caracteristicas div[class^="p-mod-"]:hover h2, #p-caracteristicas div.p-current h2{
+			font-weight:700;
+			color:#0b2d71;
+			font-size:78px;
+			display:block;
+			float:left;			
+			padding-right:10px;
+		}	
+		
+		#p-caracteristicas div.p-mod-1:hover h2{
+			background:
+		}		
+		
+	
+		/*right*/
+		#p-caracteristicas .p-right{
+			
+		}
+		
+		#p-caracteristicas .p-right .p-mobile-phone, #p-caracteristicas .p-right [class^="p-img-"]{
+			display:block;
+			width:100%;
+			height:688px;
+			background-repeat:no-repeat;
+			background-position:center;
+		}
+
+
+		#p-caracteristicas .p-right .p-mobile-phone{
+			background-image:url(img/cell-phone-bg.jpg);
+		}
+
+		#p-caracteristicas .p-right .p-img-1{
+			background-image:url(img/cell-phone-pic-pymes.jpg);
+		}
+
+		#p-caracteristicas .p-right .p-img-2{
+			background-image:url(img/cell-phone-pic-rest.jpg);
+		}
+		
+		#p-caracteristicas .p-right .p-img-3{
+			background-image:url(img/cell-phone-pic-hotel.jpg);
+		}
+
+
+		#p-caracteristicas .p-right [class^="p-img-"]{	
+			display:none;
+		}
+		
+		#p-caracteristicas .p-right [class^="p-img-"].p-current{	
+			display:block;
+		}
+		
+					
+/*SERVICIOS*/
+
+	#p-servicios{
+		background-image:url(img/bg-pic-2.jpg);
+		background-repeat:no-repeat;
+		background-position:center;
+		background-attachment: fixed;
+		background-size: cover;
+		border-top: 6px solid #b71d21;
+	}
+
+		/*left*/
+		#p-servicios .p-left{
+			margin-top:65px;
+		}
+		
+		#p-servicios .p-left div{
+			display:block;
+			float:left;
+			background-color:#1D4189;
+			width:220px;
+			height:278px;
+			color:#FFF;
+			margin:20px;
+			text-align:center;
+			padding:20px;
+			font-size:17px;
+			line-height:25px;
+		}	
+		
+		#p-servicios .p-left div::before{
+			content:url(img/px.png);
+			display:block;
+			height:122px;
+			width:74px;
+			background-image:url(img/check.png);
+			padding:auto;
+			margin:auto;
+			margin-top:-60px;
+		}
+
+		#p-servicios .p-left div h3{
+			font-size:23px;
+			line-height:30px;
+		}
+		
+		/*right*/
+	
+		#p-servicios .p-right h2{
+			font-size:60px;
+			font-weight:700;
+			color:#000;
+			margin-top:66px;
+			margin-bottom:15px;
+			line-height:65px;
+		}
+	
+		#p-servicios  .p-right p{
+			font-size:23px;
+			color:#000;
+			line-height:30px;
+		}
+
+
+
+	
+/*TESTIMONIOS*/
+
+	#p-testimonios{
+		font-size:16px;
+		color:#6d6d6d;
+		border-top: 6px solid #b71d21;
+	}
+	
+		#p-testimonios h2{
+			font-size:60px;
+			font-weight:700;
+			color:#1D4189;
+			margin-top:35px;
+			margin-bottom:35px;
+		}
+		
+		#p-testimonios h3{
+			font-size:30px;
+			color:#1D4189;
+			margin-top:50px;
+			margin-bottom:20px;
+		}
+		
+		#p-testimonios p{
+			line-height:30px;
+		}
+		
+			#p-testimonios span[class^="p-mod-"]{
+				display:block;
+				margin-bottom:80px;
+			}
+			
+			#p-testimonios .p-mod-1{
+				margin-left:0;
+				margin-right:80px;	}
+		
+			#p-testimonios .p-mod-2{
+				margin: auto 40px;
+			}
+			
+			#p-testimonios .p-mod-3{
+				margin-left:80px;
+				margin-right:0;
+			}	
+		
+			#p-testimonios span[class^="p-mod-"]::before{
+				content:url(img/fix.png);
+				display:block;
+				height:295px;
+				width:299px;
+				background-repeat:no-repeat;
+				background-position:center;
+			}
+			
+			#p-testimonios .p-mod-1::before{
+				background-image:url(img/man1.jpg);
+			}
+		
+			#p-testimonios .p-mod-2::before{
+				background-image:url(img/man2.jpg);
+			}
+			
+			#p-testimonios .p-mod-3::before{
+				background-image:url(img/man3.jpg);
+			}	
+		
+
+		/* MENU */
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+
+/*FOOTER*/
+	#p-footer{
+		background-color:#181818;
+		color:#FFFFFF;
+		display:block;
+		padding-top:74px;
+	}
+	
+
+		#p-footer .p-links{
+			text-transform:uppercase;
+			font-size:14px;
+			line-height:20px;
+		}
+
+			#p-footer .p-links a{
+				color:#535353;
+				text-decoration:none;
+			}
+	
+			#p-footer .p-links a:hover{
+				color:#FFF;
+			}
+
+
+		#p-footer .p-logo-footer{
+			text-align:center;
+			display:block;
+			background-image:url(img/logo-PaxaPos.png);
+			width:174px;
+			height:36px;
+			margin:auto;
+			padding:auto;
+		}		
+
+
+		#p-footer .p-social-media ul {
+			width:230px;
+		}
+
+			#p-footer .p-social-media ul li{
+				float:left;
+				width:70px;
+				height:70px;
+				background: #101010;
+				margin-right:10px;
+			}	
+	
+			#p-footer .p-social-media ul li:last-child{
+				margin:0;
+			}
+	
+	
+				#p-footer .p-social-media ul li a{
+					width:70px;
+					height:70px;
+					background-color:transparent;
+					background-repeat:no-repeat;
+					background-position:center;
+				}	
+						
+						#p-footer .p-social-media ul li a.p-sm-facebook{
+							background-image:url(img/social-media-facebook.png);
+						}
+		
+						#p-footer .p-social-media ul li a.p-sm-youtube{
+							background-image:url(img/social-media-youtube.png);
+						}
+		
+						#p-footer .p-social-media ul li a.p-sm-googleplus{
+							background-image:url(img/social-media-google-plus.png);
+						}
+					
+		
+		#p-footer .p-copyright{
+			margin-top:60px;
+			background-color:#101010;
+			color:#535353;
+			line-height:60px;
+		}
+		
+		
+
+
+/* mensajes */
+.message{
+	margin-bottom: 0px;
+	text-align: center;
+}

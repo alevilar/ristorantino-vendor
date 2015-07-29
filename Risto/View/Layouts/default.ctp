@@ -32,6 +32,12 @@
         <meta name="theme-color" content="#ffffff">
 
 
+
+        <!--google  font Lato-->
+        <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:700,400,300' rel='stylesheet' type='text/css'>
+        
+
+
         <?php echo $this->Html->charset(); ?>
         <title><?php echo $title_for_layout; ?></title>
         <?php
@@ -40,10 +46,13 @@
         //echo $this->Html->meta('icon');
 
         echo $this->Html->css(array(
-            '/risto/lib/bootstrap/css/bootstrap.min',
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
            // '/risto/lib/bootstrap/css/bootstrap-theme.min',
           //  '/risto/lib/bootstrap/css/dataTables.bootstrap',
-            '/risto/css/ristorantino/style',
+            '/paxapos/css/paxapos-bootstrap-supernice',
+            //'/risto/css/ristorantino/style',
+            '/risto/css/ristorantino/paxapos.bootstrap',
+            '/risto/css/ristorantino/p-carousel-fade',
             '/risto/lib/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min',
         ));
 
@@ -52,7 +61,7 @@
         
         echo $this->Html->script(array(
             '/risto/js/jquery.min',
-            '/risto/lib/bootstrap/js/bootstrap.min',
+            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
          //   '/risto/lib/bootstrap/js/jquery.dataTables.min',
             '/risto/lib/bootstrap_datetimepicker/js/bootstrap-datetimepicker.min',
         ));
@@ -74,67 +83,112 @@
         <?php echo $this->element('Risto.show_errors_for_config') ?>
         <a class="sr-only" href="#content">Skip to main content</a>
 
-        <!-- Docs master nav -->
-        <header class="navbar navbar-default bs-docs-nav" role="banner">
 
-
-            <div class="container">            
-
-                <?php echo $this->element('Risto.user_login_nav'); ?>
-
-                <div class="navbar-header">
-                    <?php 
-                    echo $this->fetch("navbar-brand");
-
-                    if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
-                        if ( Configure::check('Site.logo_path') ) {
-                            $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array('height'=>'50'));
-                            echo $this->Html->link($imgLogo, array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
-                        }
-                        // link a dashboard del sitio tenant
-                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'navbar-brand tenant-name'));
-                    } else {
-                        // link a HOME
-                        if ( Configure::check('Site.logo_path') ) {
-                            $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array('height'=>'50'));
-                            echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
-                        } else {
-                            echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name')) ;
-                        }
-                    }
+        <?php
+        $flashMes = $this->Session->flash();
+        $authMes  = $this->Session->flash('auth');          
+        if ( $flashMes || $authMes ) {
+            ?>
+         <div class="row">
+                <div id="mesajes alert  alert-dismissible" class="col-md-12" role="alert">
+                    <?php
+                    echo $flashMes;
+                    echo $authMes;       
                     ?>
                 </div>
+        </div>
+        <?php }?>
 
-                <?php if ( !empty($elementMenu) && $this->elementExists($elementMenu)) {
-                    echo $this->element($elementMenu);
-                }
-                echo $this->fetch("navbar-main-menu");
-                ?>
+        <header class="navbar navbar-default bs-docs-nav" role="banner" id="p-header">
+            <div class="container">
+                <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                        </button>
+
+                           
+                            <?php 
+                            echo $this->fetch("navbar-brand");
+
+                             // link a HOME
+                            if ( Configure::check('Site.logo_path') ) {
+                                $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array());
+                                echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
+                            } else {
+                                echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name')) ;
+                            }
+                            ?>
+                        <p class="text-nowrap eslogan">Innovando, gestionando, creciendo.</p>
+                </div>
+                
+                <div aria-expanded="false" class="navbar-collapse collapse">
+                    <div class="navbar-right">
+                        <?php echo $this->element('Risto.user_login_nav'); ?>
+                    </div> 
+                </div>
             </div>
         </header>
 
-        <div class="container bs-docs-container" id="content">
 
-            <div class="row">
-                <div id="mesajes alert  alert-dismissible" class="col-md-12" role="alert">
-                    <?php
-                    echo $this->Session->flash();
-                    echo $this->Session->flash('auth');                    
-                    ?>
-                </div>
-            </div>
+        <?php echo $this->fetch('pre-content'); ?>
+
+        <div class="container bs-docs-container" id="content">       
             
             <div class="row">
                 <?php echo $this->fetch('content'); ?>
             </div>
         </div>
 
-        <footer>
+        <?php echo $this->fetch('post-content'); ?>
+
+
+
+        <footer id="p-footer">      
             <div class="container">
-                <div class="logo">
-                    <h1><?php echo Configure::read('System.name') . ' ' . Configure::read('System.version') ?></h1>
-                </div>               
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="p-links">
+                            <ul class="list-unstyled">
+                                <li>
+                                    <?php
+                                     echo $this->Html->link('Términos y Condiciones', array('plugin'=>false, 'controller'=>'pages', 'action'=>'tos')); 
+                                     ?>                                     
+                                </li>                               
+
+                                <li>
+                                    <?php
+                                    echo $this->Html->link('Contacto',
+                                        array('plugin'=>'risto', 'controller'=>'users', 'action'=>'register')
+                                        );
+                                    ?>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-logo-footer">
+                            <span class="p-hide">PaxaPos</span>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="p-social-media">
+                                <ul class="nav list-unstyled pull-right">
+                                    <li class="img-circle"><a href="https://facebook.com/paxapos" class="p-sm-facebook"><span class="p-hide">Facebook</span></a></li>
+                                    <li class="img-circle"><a href="https://www.youtube.com/channel/UCa90_rTOMD4qdOhi2WQV6rw" class="p-sm-youtube"><span class="p-hide">Youtube</span></a></li>
+                                    <li class="img-circle"><a href="https://twitter.com/paxapos" class="p-sm-twitter"><span class="p-hide">Twitter</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </footer>
+            
+            <div class="row">
+                <div class="col-md-12 text-center footer-bottom">
+                    <h1><?php echo Configure::read('System.name') . ' ' . Configure::read('System.version') ?></h1>
+                    <div class="p-copyright">Copyright 2015 PaxaPos</div>
+
+                </div>
+            </div>
     </body>
 </html>
