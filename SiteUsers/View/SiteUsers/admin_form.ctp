@@ -22,9 +22,13 @@
 			<?php
 				echo $this->Form->input('id');
 				echo $this->Form->input('username', array(
-					'label' => __d('users', 'Username')));
+					'label' => __d('users', 'Username'),
+					'disabled' => true,
+					));
 				echo $this->Form->input('email', array(
-					'label' => __d('users', 'Email')));
+					'label' => __d('users', 'Email'),
+					'disabled' => true,
+					));
 				if (!empty($roles)) {
 					echo $this->Form->input('Rol', array(
 						'label' => __d('users', 'Role')
@@ -35,17 +39,6 @@
 					echo $this->Form->input('Site', array(
 						'label' => __d('users', 'Site')
 						));
-				}
-			
-				echo $this->Form->input('active', array(
-						'label' => __d('users', 'Active')));
-
-
-				if ( empty($this->request->data['$model']['tos']) ) {
-					$tosLink = $this->Html->link(__d('users', 'Terms of Service')
-						, array('tenant'=>false,'controller' => 'pages', 'action' => 'tos', 'plugin' => null));
-					echo $this->Form->input('tos', array(
-						'label' => __d('users', 'I have read and agreed to ') . $tosLink));
 				}
 			?>
 		</fieldset>

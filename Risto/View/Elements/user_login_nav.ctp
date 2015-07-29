@@ -1,16 +1,6 @@
- <?php if ($this->Session->check('Auth.User')): ?>
-
- 	<?php 
-
- 	if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
- 		echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'navbar-brand tenant-name'));
- 	}
-
-
+ <?php if ($this->Session->check('Auth.User')):
  	$userName = $this->Session->read('Auth.User.username') . " <small>(" . $this->Session->read('Auth.User.email').")</small>"; 
  	?>
-
-
 
     <div>
 

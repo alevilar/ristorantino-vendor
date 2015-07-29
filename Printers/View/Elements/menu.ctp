@@ -27,8 +27,6 @@ if ($this->name == 'Clasificaciones' && $this->action == 'index') {
 }
 ?>
 
-<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-    <ul class="nav navbar-nav">
         <li class="dropdown">
             <?php echo $this->Html->link(__('Usuarios').'<b class="caret"></b>', '#', array(
                  "class"=>"dropdown-toggle" ,
@@ -129,7 +127,3 @@ if ($this->name == 'Clasificaciones' && $this->action == 'index') {
                 </li>
             </ul>
            </li>
-    </ul>
-
-
-</nav>

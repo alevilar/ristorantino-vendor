@@ -1,3 +1,5 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
 /*
 custom classes starts with p-
 
@@ -25,11 +27,28 @@ F5F9FB
 */
 
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Merriweather Sans', sans-serif;
+  font-weight: 500;
+  line-height: 1.1;
+  color: inherit;
+}
+
 body {
-	font-family: 'Merriweather Sans', sans-serif;
+	font-family: 'Lato';
 	font-style: normal;
-	background:#F5F9FB;
-	}
+}
 	
 	
 .p-hide{
@@ -526,4 +545,26 @@ body {
 .message{
 	margin-bottom: 0px;
 	text-align: center;
+}
+
+
+.bs-docs-container{
+	padding-bottom: 35px;
+	background-color: #fff;
+}
+
+.navbar-subdefault {
+  background-color: #437bff;
+  border-color: #2969ff;
+}
+
+
+header.navbar .tenant-name{
+	float: left;
+	  margin-left: 10px;	  
+	  padding-left: 10px;
+	  /* height: 40px; */
+}
+
+header.navbar .tenant-name a{		
 }

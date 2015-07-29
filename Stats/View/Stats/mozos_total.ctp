@@ -9,6 +9,7 @@
 <div class="clearfix"></div>
 
 <div class="row">
+    <div class="col-sm-12">
     <table class="table table-bordered table-condensed table-responsive table-striped ">
         <thead>
             <tr>
@@ -50,5 +51,6 @@
         </tbody>
         
     </table>
+    </div>
 </div>
 

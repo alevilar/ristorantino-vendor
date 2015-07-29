@@ -50,7 +50,7 @@
            // '/risto/lib/bootstrap/css/bootstrap-theme.min',
           //  '/risto/lib/bootstrap/css/dataTables.bootstrap',
             '/paxapos/css/paxapos-bootstrap-supernice',
-            //'/risto/css/ristorantino/style',
+            '/risto/css/ristorantino/style',
             '/risto/css/ristorantino/paxapos.bootstrap',
             '/risto/css/ristorantino/p-carousel-fade',
             '/risto/lib/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min',
@@ -89,18 +89,21 @@
         $authMes  = $this->Session->flash('auth');          
         if ( $flashMes || $authMes ) {
             ?>
-         <div class="row">
+        <div class="fluid-container">
+            <div class="row">
                 <div id="mesajes alert  alert-dismissible" class="col-md-12" role="alert">
                     <?php
                     echo $flashMes;
                     echo $authMes;       
                     ?>
                 </div>
+            </div>
         </div>
         <?php }?>
 
         <header class="navbar navbar-default bs-docs-nav" role="banner" id="p-header">
             <div class="container">
+                 
                 <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
@@ -120,14 +123,46 @@
                             ?>
                         <p class="text-nowrap eslogan">Innovando, gestionando, creciendo.</p>
                 </div>
+
                 
                 <div aria-expanded="false" class="navbar-collapse collapse">
+                    
+                    <?php
+                    if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
+                        ?>
+                        <h1>
+                        <?php
+                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'tenant-name text-info'));
+                        ?>
+                        </h1>
+                        <?php
+                    }
+                    ?>
+
+
+
                     <div class="navbar-right">
                         <?php echo $this->element('Risto.user_login_nav'); ?>
                     </div> 
                 </div>
             </div>
         </header>
+
+
+        <?php 
+        if ( !empty($elementMenu) && $this->elementExists($elementMenu)) {
+            ?>
+            <nav class="" role="navigation">
+                <div class="container">
+                    <ul class="nav nav-tabs nav-justified">
+                    <?php echo $this->element($elementMenu); ?>
+                    </ul>
+                </div>
+            </nav>
+            <?php
+        }
+        echo $this->fetch("navbar-main-menu");
+        ?>
 
 
         <?php echo $this->fetch('pre-content'); ?>

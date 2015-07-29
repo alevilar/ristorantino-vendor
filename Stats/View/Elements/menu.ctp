@@ -21,8 +21,6 @@ if( $this->name == 'Mesas' && $this->action == 'index') {
 
 
 ?>
-<nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
-     <ul class="nav navbar-nav">
         <li class="<?php echo $c1?>"><?php echo $this->Html->link('Ventas totales', array('plugin'=>'stats', 'controller'=>'stats', 'action'=>'mesas_total'),array('class'=>'ventas'));?></li>
         
         <li class="<?php echo $c2?>"><?php echo $this->Html->link(__('Ventas x %s', Configure::read('Mesa.tituloMozo') ),  array('plugin'=>'stats', 'controller'=>'stats', 'action'=>'mozos_total'),array('class'=>'ventas'));?></li>
@@ -33,8 +31,3 @@ if( $this->name == 'Mesas' && $this->action == 'index') {
 
 
         <li class="<?php echo $c5?>"><?php echo $this->Html->link('Listado de '.Inflector::pluralize( Configure::read('Mesa.tituloMesa') ), array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'index'),array('class'=>'ventas'));?></li>
-
-
-    </ul>
-    
-</nav>
