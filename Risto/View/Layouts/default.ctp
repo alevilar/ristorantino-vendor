@@ -130,9 +130,9 @@
                     <?php
                     if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
                         ?>
-                        <h1>
+                        <h1 class="tenant-name text-info">
                         <?php
-                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class' => 'tenant-name text-info'));
+                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'));
                         ?>
                         </h1>
                         <?php
@@ -193,7 +193,7 @@
                                 <li>
                                     <?php
                                     echo $this->Html->link('Contacto',
-                                        array('plugin'=>'risto', 'controller'=>'users', 'action'=>'register')
+                                        array('plugin'=>'paxapos', 'controller'=>'paxapos', 'action'=>'contact')
                                         );
                                     ?>
                                 </li>

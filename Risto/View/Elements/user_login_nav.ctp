@@ -2,7 +2,7 @@
  	$userName = $this->Session->read('Auth.User.username') . " <small>(" . $this->Session->read('Auth.User.email').")</small>"; 
  	?>
 
-    <div>
+    <div class="navbar-user-logued">
 
 	 	<div class="dropdown">
 		  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">

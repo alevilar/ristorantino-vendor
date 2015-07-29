@@ -118,6 +118,10 @@ body {
 		
 			/*fix margin right stuff*/
 			#p-header .navbar-right{margin-right:0;}
+
+			#p-header .navbar-user-logued{
+				margin-top: 15px;
+			}
 			
 			/*align right stuff*/
 			.p-login{
@@ -561,10 +565,11 @@ body {
 
 header.navbar .tenant-name{
 	float: left;
-	  margin-left: 10px;	  
-	  padding-left: 10px;
-	  /* height: 40px; */
+	margin-left: 50px;
+	margin-top: 15px;
+	margin-bottom: 0px;
 }
 
-header.navbar .tenant-name a{		
+header.navbar .tenant-name a{	
+	color: #4b73c3;	
 }
