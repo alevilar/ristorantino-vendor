@@ -60,12 +60,14 @@
 	        <?php
 
 	        echo $this->Form->create('User', array( 'url' => array('plugin'=>'users','controller'=>'users','action'=>'login'), 'role'=>'form', 'class' => 'navbar-form'));
-			echo $this->Form->input('username',array(
-				'placeholder'=>'Usuario', 
-				'label'=>false,
-				'div' => false,
-				'style' => 'margin-right: 3px;'
-				));
+
+	        echo $this->Form->input('email',array(
+	        	'placeholder'=>'Email', 
+	        	'label'=>false, 
+	        	'div' => false,
+				'style' => 'margin-right: 3px;')
+	        );
+
 			echo $this->Form->input('password', array('type'=>'password','placeholder'=>'Contraseña', 'label'=>false, 'div' => false,));
 
 			echo $this->Form->button('<span class="p-hide">Ingresar</span>', array('type'=>'submit','class'=>'btn btn-default', 'escape'=>false));
