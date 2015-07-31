@@ -656,16 +656,16 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 		 * @param integer $cantMenues cantidad, por ejemplo
 		 * @param float $total
 		 */
-		// function getProductosSinDescripcion($cantMenues, $descripcion = 'Menu'){
-		//     if ($descripcion == 'Menu' && ($descAux = Configure::read('Mesa.descripcionSinProductos'))){
-		//         $descripcion = $descAux;
-		//     }
-		//     $prod[0]['nombre'] = $descripcion;
-		//     $total = $this->calcular_subtotal();
-		//     $prod[0]['precio'] = number_format( $total/$cantMenues, 2);
-		//     $prod[0]['cantidad'] = $cantMenues;
-		//     return $prod;
-		// }
+	public function getProductosSinDescripcion($cantMenues, $descripcion = 'Menu'){
+	     if ($descripcion == 'Menu' && ($descAux = Configure::read('Mesa.descripcionSinProductos'))){
+		         $descripcion = $descAux;
+		    }
+		    $prod[0]['nombre'] = $descripcion;
+		    $total = $this->calcular_total();
+		    $prod[0]['precio'] = $total/$cantMenues;
+		    $prod[0]['cantidad'] = $cantMenues;
+		    return $prod;
+	}
 
 
 	public function dameProductosParaTicket( $id = 0 ){
