@@ -11,7 +11,7 @@
 		}
 	],
 	"require": {
-		"cakephp/cakephp": "~2.7",
+		"cakephp/cakephp": "2.7.2",
 		"ext-imagick": "*",
 		"cakedc/search": "~2.2",
 		"ristorantino/install": "master@dev",
