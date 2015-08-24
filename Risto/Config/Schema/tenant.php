@@ -446,7 +446,7 @@ class TenantSchema extends CakeSchema {
 		'type' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 48, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'size' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 6, 'unsigned' => false),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 48, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-		'file' => array('type' => 'binary', 'null' => false, 'default' => null),
+		'file' => array('type' => 'longblob', 'null' => false, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
