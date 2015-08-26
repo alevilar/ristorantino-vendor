@@ -66,15 +66,22 @@ body {
 		margin-bottom: 0px;
 	}
 		
-		
+	.navbar-brand{
+		height: auto !important;
+	}
+	.logo-logueado img{
+		height: 36px;
+	}
+
+
 			#p-header .eslogan{
 				font-size:18px;
 				color:#869CCD;
 				font-weight:400;
 				clear:both;
-				margin: 0px;
-				font-size: small;
 			}
+
+						
 		
 			#p-header form input:first-child {
 				margin-right: 3px;
@@ -91,7 +98,7 @@ body {
 				background-image:url(img/login-chevron-dw.png);
 			}
 			
-			#p-header button, #p-header .navbar-toggle, #p-header .btn{
+			#p-header button, #p-header .navbar-toggle, #p-header .btn, .btn-oauth{
 				min-width:45px;
 				height:45px;
 				background-color:#4b73c3;
@@ -109,10 +116,10 @@ body {
 				background-image:url(img/login-chevron.png);
 			}
 		
-			#p-header .p-facebook .btn{
+			.p-facebook .btn{
 				background-image:url(img/login-facebook.png);
 			}
-			#p-header .p-google .btn{
+			.p-google .btn{
 				background-image:url(img/login-google.png);
 			}
 		
@@ -129,7 +136,7 @@ body {
 				margin-top: 15px;  	
 				text-align: left;			
 			}
-			.p-login-media {float:right;}
+			#p-header .p-login-media {float:right;}
 			
 			.p-new-user a{
 				font-size:14px;
@@ -182,13 +189,12 @@ body {
 	}
 	
 		#p-slider h1{
-			font-weight:700;
-			font-size:76px;
-			margin-top:180px;
+			font-weight:700;		
+			margin-top:170px;
 		}
 	
 		#p-slider p{
-			font-size:50px;
+			font-size:242%;
 		}
 		
 		.p-flecha{
@@ -257,8 +263,7 @@ body {
 			margin-bottom:10px;
 			width:100%;
 			cursor:pointer;
-			background-image:url(img/line.gif);
-			background-repeat:repeat-x;
+			border-bottom: 1px solid #ccc;
 		}
 		
 		#p-caracteristicas div[class^="p-mod-"]:hover h2, #p-caracteristicas div.p-current h2{
@@ -290,7 +295,7 @@ body {
 
 
 		#p-caracteristicas .p-right .p-mobile-phone{
-			background-image:url(img/cell-phone-bg.jpg);
+			background-image:url(img/cell-phone-bg.png);
 		}
 
 		#p-caracteristicas .p-right .p-img-1{
@@ -346,7 +351,7 @@ body {
 		}	
 		
 		#p-servicios .p-left div::before{
-			content:url(img/px.png);
+			content:url(img/fix.png);
 			display:block;
 			height:122px;
 			width:74px;
@@ -433,6 +438,8 @@ body {
 				width:299px;
 				background-repeat:no-repeat;
 				background-position:center;
+				border-radius: 50%;
+    			border-bottom-left-radius:0; 
 			}
 			
 			#p-testimonios .p-mod-1::before{
@@ -467,6 +474,7 @@ body {
 		color:#FFFFFF;
 		display:block;
 		padding-top:74px;
+		margin-top: 15px;
 	}
 	
 
@@ -553,8 +561,7 @@ body {
 
 
 .bs-docs-container{
-	padding-bottom: 35px;
-	background-color: #fff;
+	
 }
 
 .navbar-subdefault {

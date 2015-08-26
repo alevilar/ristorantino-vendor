@@ -113,12 +113,17 @@
                             <?php 
                             echo $this->fetch("navbar-brand");
 
+                            $logeadoClassForLogo = '';
+                            if ( $this->Session->read('Auth.User.id') ) {
+                                $logeadoClassForLogo = 'logo-logueado';
+                            }
+
                              // link a HOME
                             if ( Configure::check('Site.logo_path') ) {
                                 $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array());
-                                echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo', 'escape'=>false)); 
+                                echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo '.$logeadoClassForLogo, 'escape'=>false)); 
                             } else {
-                                echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name')) ;
+                                echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name '.$logeadoClassForLogo)) ;
                             }
                             ?>
                         <p class="text-nowrap eslogan">Innovando, gestionando, creciendo.</p>
@@ -217,15 +222,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>    
+                <div class="clearfix"></div>         
+                <br><br><br>   
             </div>
             
-            <div class="row">
-                <div class="col-md-12 text-center footer-bottom">
-                    <h1><?php echo Configure::read('System.name') . ' ' . Configure::read('System.version') ?></h1>
-                    <div class="p-copyright">Copyright 2015 PaxaPos</div>
-
-                </div>
-            </div>
+        </footer>
     </body>
 </html>

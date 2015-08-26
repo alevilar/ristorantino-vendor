@@ -7,7 +7,7 @@ App::uses('MesaAppController', 'Mesa.Controller');
 
 class MesasController extends MesaAppController {
 
-    var $name = 'Mesas';
+    public $name = 'Mesas';
 
 
 

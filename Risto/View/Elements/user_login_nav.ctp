@@ -41,7 +41,8 @@
 		  </ul>
 		</div>
     </div>
-<?php else: ?>
+<?php 
+elseif ( ! ( $this->request->params['plugin'] == 'users' && $this->request->params['controller'] == 'users' && $this->request->params['action'] == 'login' ) ) : ?>
 
 	<div class="p-login">
 	    

@@ -19,7 +19,7 @@
         color: #000;
         background-position: center top;
         background-repeat: no-repeat;
-        padding-top: 134px;
+        padding-top: 141px;
 
 }
 
@@ -81,3 +81,7 @@
 	background-image: url("../img/inventario.png");
 }
 
+
+.timeline{
+    background: transparent !important;
+}
