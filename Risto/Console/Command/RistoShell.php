@@ -29,7 +29,12 @@ App::uses('ConnectionManager', 'Model');
  */
 class RistoShell extends Shell {
 
-	public $datasource = 'paxacarilo';
+	/**
+	*
+	*	Datasource that will use. Defined in:
+	* 						Config/risto.php
+	**/
+	public $datasource;
 
 
 	/**
@@ -50,6 +55,7 @@ class RistoShell extends Shell {
 
 	public function __construct($stdout = null, $stderr = null, $stdin = null) {
 		parent::__construct($stdout, $stderr, $stdin);
+		$this->datasource = Configure::read('Risto.migrationDatasource')
 		$this->imgFolder = Configure::read('Risto.migrationImageFolder');
 		$this->urlFolder = Configure::read('Risto.migrationImageUrl');
 	}
