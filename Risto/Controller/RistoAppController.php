@@ -54,6 +54,7 @@ class RistoAppController extends Controller {
                     'contain' => array('Site')
                 )
             ),        
+            'flash' => array('element'=>'Risto.flash_error'),
         ),
         'ExtAuth.ExtAuth',
         'MtSites.MtSites',
