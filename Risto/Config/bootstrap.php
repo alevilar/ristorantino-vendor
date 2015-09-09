@@ -1,5 +1,5 @@
 <?php
-
+CakePlugin::load('MtSites', array('routes' => true, 'bootstrap' => true));
 
 // called as CakeNumber
 App::uses('CakeNumber', 'Utility');
