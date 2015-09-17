@@ -27,7 +27,7 @@ class Mozo extends MesaAppModel {
     );
     
 	var $validate = array(
-            'numero' => 'notempty',
+            'numero' => 'notBlank',
 	);
 
         

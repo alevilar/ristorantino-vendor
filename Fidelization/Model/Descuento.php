@@ -15,7 +15,7 @@ class Descuento extends FidelizationAppModel {
 
 
 	public $validate = array(
-		'name' => array('notempty'),
+		'name' => array('notBlank'),
 		'porcentaje' => array(
             'numeric' => array(
                 'rule' => 'numeric',

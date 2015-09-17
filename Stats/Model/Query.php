@@ -2,8 +2,8 @@
 class Query extends PqueryAppModel {
 
 	var $validate = array(
-		'name' => array('notempty'),
-		'query' => array('notempty'),
+		'name' => array('notBlank'),
+		'query' => array('notBlank'),
 	);
 
 	

@@ -5,7 +5,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 
 <div class="row">
 
-	<div class="col-md-4">
+	<div class="col-md-4 hidden-sm hidden-xs">
 		<h3>Novedades PaxaPos</h3>
 		<a class="twitter-timeline" href="https://twitter.com/PaxaPos" data-widget-id="636390749106511872">Tweets @PaxaPos.</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>

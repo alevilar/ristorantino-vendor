@@ -7,8 +7,8 @@ class IvaResponsabilidad extends RistoTenantAppModel {
 
 	
 	public $validate = array(
-		'codigo_fiscal' => array('notempty'),
-		'name' => array('notempty')
+		'codigo_fiscal' => array('notBlank'),
+		'name' => array('notBlank')
 	);
 
     public $actsAs = array(

@@ -33,8 +33,8 @@ class Sabor extends ProductAppModel {
  */
 	public $validate = array(
 		'name' => array(
-			'notempty' => array(
-				'rule' => array('notempty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,

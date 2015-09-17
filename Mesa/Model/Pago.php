@@ -23,8 +23,8 @@ class Pago extends MesaAppModel {
     
     public $validate = array(
         'mesa_id' => array(
-            'notEmpty' => array(
-                'rule'     => 'notEmpty',
+            'notBlank' => array(
+                'rule'     => 'notBlank',
             ),
             'numeric' => array(
                 'rule'     => 'numeric',

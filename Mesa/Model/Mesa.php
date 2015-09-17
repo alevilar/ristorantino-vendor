@@ -18,11 +18,11 @@ class Mesa extends MesaAppModel {
 
 	public $validate = array(
 		'mozo_id' => array(
-		 'notempty',
+		 'notBlank',
 		 'numeric',
 		 ),
 		'numero' => array(
-		 'notempty',
+		 'notBlank',
 		 )
 		);
 

@@ -1,12 +1,18 @@
 <?php 
-class RistoSchema extends CakeSchema {
+App::uses('RistoBaseSchema', 'Risto.Model');
 
-	public function before($event = array()) {
-		return true;
-	}
 
-	public function after($event = array()) {
-	}
+class RistoSchema extends RistoBaseSchema {
+
+	
+	public $__defaultValues = array(			
+			'roles' => array(			
+					array(
+						'name' => 'Superadmin',
+						'machin_name' => 'superadmin'
+						),
+			)
+		);
 
 
 
@@ -137,5 +143,7 @@ class RistoSchema extends CakeSchema {
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
+
+
 
 }

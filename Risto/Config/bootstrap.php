@@ -1,4 +1,8 @@
 <?php
+
+
+
+
 CakePlugin::load('MtSites', array('routes' => true, 'bootstrap' => true));
 CakePlugin::load('Aditions', array('routes' => true, 'bootstrap' => true));
 CakePlugin::load('Account', array('routes' => true, 'bootstrap' => true));

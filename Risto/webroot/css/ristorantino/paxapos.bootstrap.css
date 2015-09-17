@@ -541,6 +541,10 @@ body {
 						#p-footer .p-social-media ul li a.p-sm-googleplus{
 							background-image:url(img/social-media-google-plus.png);
 						}
+
+						#p-footer .p-social-media ul li a.p-sm-twitter{
+							background-image:url(img/social-media-twitter.png);
+						}
 					
 		
 		#p-footer .p-copyright{

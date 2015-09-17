@@ -5,7 +5,7 @@ class TipoDePago extends RistoTenantAppModel {
 
 	public $name = 'TipoDePago';
 	public $validate = array(
-		'name' => array('notempty')
+		'name' => array('notBlank')
 	);
 
 

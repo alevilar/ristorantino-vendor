@@ -45,8 +45,8 @@ class AfipFactura extends PrintersAppModel {
  */
 	public $validate = array(
 		'mesa_id' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -55,8 +55,8 @@ class AfipFactura extends PrintersAppModel {
 			),
 		),
 		'punto_de_venta' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -65,8 +65,8 @@ class AfipFactura extends PrintersAppModel {
 			),
 		),	
 		'comprobante_nro' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -75,8 +75,8 @@ class AfipFactura extends PrintersAppModel {
 			),
 		),	
 		'cae' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -85,8 +85,8 @@ class AfipFactura extends PrintersAppModel {
 			),
 		),	
 		'importe_total' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -95,8 +95,8 @@ class AfipFactura extends PrintersAppModel {
 			),
 		),	
 		'importe_neto' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,
@@ -105,8 +105,8 @@ class AfipFactura extends PrintersAppModel {
 			),
 		),	
 		'importe_iva' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
+			'notBlank' => array(
+				'rule' => array('notBlank'),
 				//'message' => 'Your custom message here',
 				//'allowEmpty' => false,
 				//'required' => false,

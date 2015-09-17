@@ -132,8 +132,8 @@ class Cliente extends FidelizationAppModel {
         'imprime_ticket' => array('boolean'),
     
         'nombre' => array(
-            'notempty' => array(
-                'rule' => 'notempty',
+            'notBlank' => array(
+                'rule' => 'notBlank',
                 'required' => true,
                 )
         ),

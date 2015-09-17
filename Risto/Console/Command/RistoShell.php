@@ -55,7 +55,7 @@ class RistoShell extends Shell {
 
 	public function __construct($stdout = null, $stderr = null, $stdin = null) {
 		parent::__construct($stdout, $stderr, $stdin);
-		$this->datasource = Configure::read('Risto.migrationDatasource')
+		$this->datasource = Configure::read('Risto.migrationDatasource');
 		$this->imgFolder = Configure::read('Risto.migrationImageFolder');
 		$this->urlFolder = Configure::read('Risto.migrationImageUrl');
 	}

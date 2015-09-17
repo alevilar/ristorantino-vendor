@@ -1,17 +1,19 @@
 
 .dashboard-buttons{
     text-align: center;
-    margin: auto;
+    margin: 0px;
+    padding: 0px;
 }
 
 .dashboard-buttons li{
     display: inline-block;
+    width: 32%;
 }
 
 
 .dashboard-buttons a{
       display: block;
-        width: 240px;
+        width: 100%;
         height: 187px;
         text-decoration: none;
         vertical-align: middle;

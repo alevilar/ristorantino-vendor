@@ -64,7 +64,7 @@ class Media extends AppTenantModel {
 
     public $validate = array(
     	'type' => array(
-	        'rule'    => 'notEmpty',
+	        'rule'    => 'notBlank',
 	        'message' => 'Se debe guardar el tipo del archivo'
 	    ),
 	    'file' => array(

@@ -23,7 +23,7 @@ class Categoria extends ProductAppModel
     //public $cacheQueries = true;
 
     public $validate = array(
-        'name' => array('notempty')
+        'name' => array('notBlank')
     );
 
 
@@ -57,15 +57,17 @@ class Categoria extends ProductAppModel
                 
     $this->recursive = 1;
     $this->id = $categoria_id;
-//                $this->contain(array(
-//                    'Producto', 
-//                    'Sabor',
-//                ));
+    //                $this->contain(array(
+    //                    'Producto', 
+    //                    'Sabor',
+    //                ));
     $array_categoria = $this->read();
-//                debug($array_categoria );die;
-                $array_final = $array_categoria['Categoria'];
-                $array_final['Producto'] = $array_categoria['Producto'];
-                $array_final['Sabor'] = $array_categoria['Sabor'];
+    if (empty($array_categoria)) {
+        return array();
+    }
+    $array_final = $array_categoria['Categoria'];
+    $array_final['Producto'] = $array_categoria['Producto'];
+    $array_final['Sabor'] = $array_categoria['Sabor'];
     //agarro los herederos del ROOT
     $resultado = $this->children($categoria_id,1);
 
