@@ -49,38 +49,15 @@ class ClientesController extends FidelizationAppController {
 
 
 
-	public function jqm_clientes($tipo = 'todos'){
-		// die("asas asmasm");
-		 	$this->Cliente->contain(array(
-		 		'Descuento',
-		 		'TipoDocumento',
-		 		'IvaResponsabilidad' => array('TipoFactura'),
-		 		'Mesa'
-		 		));
+	public function jqm_clientes($tipo = 't'){
 
-             $this->conHeader = false;
-             $this->pageTitle = __('Listado de %s', Inflector::pluralize( Configure::read('Mesa.tituloCliente')));
-             $tipo = '';
-             $clientes = array();
-             switch ($tipo) {
-                 case 'a':
-                 case 'A':
-                     $clientes = $this->Cliente->todosLosTipoA();
-                     $tipo = 'a';
-                     break;
-                 case 'd':
-                 case 'descuento':
-                     $clientes = $this->Cliente->todosLosDeDescuentos();
-                     $tipo = 'd';
-                     break;
-                 default:
-                     $tipo = 't';
-                         $clientes = $this->Cliente->todos();
-                     break;
-             }
+            $this->conHeader = false;
+            $this->pageTitle = __('Listado de %s', Inflector::pluralize( Configure::read('Mesa.tituloCliente')));
+             
+            $clientes = $this->Cliente->todos();
             // $this->layout = 'jqm' ;
             $this->set('title_for_layout', Inflector::pluralize( Configure::read('Mesa.tituloCliente')) );
-            $this->set('tipo',$tipo);
+            $this->set('tipo', $tipo);
             $this->set('clientes',$clientes);
         }
 
@@ -88,16 +65,18 @@ class ClientesController extends FidelizationAppController {
 	// addFacturaA
     function simple_add() {
         $this->pageTitle = 'Agregar Factura A';
+        $this->layout = false;
 		if (!empty($this->request->data)) {
 			$this->Cliente->create();
 			if ($this->Cliente->save($this->request->data)) {
 				$this->Session->setFlash(__('Se agregó un nuevo %s', Configure::read('Mesa.tituloCliente') ));
+            	$this->set('cliente_id', $this->Cliente->id);
+            	$this->render('jqm_result');
 			} else {
 				$this->Session->setFlash(__('El %s no pudo ser gardado, intente nuevamente.', Configure::read('Mesa.tituloCliente')), 'Risto.flash_error');
+				throw new InternalErrorException("Error al guardar el cliente");
+				
 			}
-            $this->set('cliente_id', $this->Cliente->id);
-            $this->layout = false;
-            $this->render('jqm_result');
 		}
 		
 		$tipo_documentos = $this->Cliente->TipoDocumento->find('list');

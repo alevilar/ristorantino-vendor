@@ -24,6 +24,9 @@ class Cliente extends FidelizationAppModel {
             'nombre_nrodocumento' => 'CONCAT(Cliente.nombre, " (", Cliente.nrodocumento, ")")'
         );
 
+
+    public $order = array('Cliente.nombre'=> 'ASC');
+
 /**
  * Display field
  *
@@ -225,7 +228,7 @@ class Cliente extends FidelizationAppModel {
     {
         $clientes = $this->find($type, array(
             'order' => 'Cliente.nombre',
-//                    'limit' => 10,
+            'limit' => 100,
             'contain' => array(
                 'Descuento'
             ),

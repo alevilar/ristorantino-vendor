@@ -6,7 +6,7 @@ class TipoDocumento extends RistoTenantAppModel {
 	public $name = 'TipoDocumento';
 
 	public $validate = array(
-		'name' => array('notempty')
+		'name' => array('notBlank')
 	);
 
     public $actsAs = array(

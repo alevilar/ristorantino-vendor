@@ -11,6 +11,62 @@ class TenantBaseSchema extends RistoBaseSchema {
 
 
 	public $__defaultValues = array(
+			'account_tipo_impuestos' => array(
+				array(
+					'name' => 'IVA 21%',
+					'porcentaje' => 21,
+					'tiene_neto' => 1,
+					'tiene_impuesto' => 1,
+					),
+				array(
+					'name' => 'IVA 10,5%',
+					'porcentaje' => 10.50,
+					'tiene_neto' => 1,
+					'tiene_impuesto' => 1,
+					),
+				array(
+					'name' => 'IVA 27%',
+					'porcentaje' => 27,
+					'tiene_neto' => 1,
+					'tiene_impuesto' => 1,
+					),
+				array(
+					'name' => 'Neto No Gravado',
+					'porcentaje' => 0,
+					'tiene_neto' => 1,
+					'tiene_impuesto' => 0,
+					),
+				array(
+					'name' => 'Conceptos Excluidos',
+					'porcentaje' => 0,
+					'tiene_neto' => 0,
+					'tiene_impuesto' => 1,
+					),
+				array(
+					'name' => 'I.G.',
+					'porcentaje' => 0,
+					'tiene_neto' => 0,
+					'tiene_impuesto' => 1,
+					),
+				array(
+					'name' => 'I.V.A.',
+					'porcentaje' => 0,
+					'tiene_neto' => 1,
+					'tiene_impuesto' => 1,
+					),
+				array(
+					'name' => 'I.B.',
+					'porcentaje' => 0,
+					'tiene_neto' => 0,
+					'tiene_impuesto' => 1,
+					),
+				array(
+					'name' => 'IIBB CAP FED',
+					'porcentaje' => 0,
+					'tiene_neto' => 1,
+					'tiene_impuesto' => 1,
+					),
+				),
 			'clientes' => array(
 				array(
 					'nombre' => "[Example] Google Arg. SRL",
