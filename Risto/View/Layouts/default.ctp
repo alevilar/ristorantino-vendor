@@ -184,15 +184,11 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
-                        <div class="p-links">
-                            <ul class="list-unstyled">
-                                <li>
+                        <div class="p-links text-center">
                                     <?php
                                      echo $this->Html->link('Términos y Condiciones', array('plugin'=>false, 'controller'=>'pages', 'action'=>'tos')); 
                                      ?>                                     
-                                </li>                               
-
-                                <li>
+                                     <br>
                                     <cite>info@paxapos.com</cite>
                                     <?php
 
@@ -211,7 +207,7 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="p-social-media">
-                                <ul class="nav list-unstyled pull-right">
+                                <ul class="nav list-unstyled">
                                     <li class="img-circle"><a href="https://facebook.com/paxapos" class="p-sm-facebook"><span class="p-hide">Facebook</span></a></li>
                                     <li class="img-circle"><a href="https://www.youtube.com/channel/UCa90_rTOMD4qdOhi2WQV6rw" class="p-sm-youtube"><span class="p-hide">Youtube</span></a></li>
                                     <li class="img-circle"><a href="https://twitter.com/paxapos" class="p-sm-twitter"><span class="p-hide">Twitter</span></a></li>
