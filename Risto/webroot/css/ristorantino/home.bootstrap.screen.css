@@ -1,0 +1,41 @@
+/*
+MIN-WIDTH 767
+
+
+*/
+
+.p-main-background{
+		display: block;
+		background-image:url(img/bg-pic-1_1700x800.jpg);
+		height: 800px;
+		background-size: cover;
+		position: absolute;
+
+	  width: 100%;
+	}	
+
+
+#p-header.navbar{
+	height: 120px;
+}
+
+#p-slider{		
+		margin-top: 100px;
+		height: 680px;
+	}
+
+
+
+#carousel-mensajes{
+	padding-top: 78px;
+}	
+
+
+#p-caracteristicas div.p-mod  h2{
+			font-size:300%;
+}	
+
+
+#p-testimonios h2{
+	font-size: 300%;
+}		

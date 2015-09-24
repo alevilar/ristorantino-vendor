@@ -145,7 +145,7 @@ body {
 				text-decoration:none;
 			}
 		
-			.p-new-user a:hover{color:#FFFFFF;}
+			.p-new-user a:hover{color:#244289;}
 			
 			p.navbar-text{color:#FFFFFF !important;}
 
@@ -176,38 +176,9 @@ body {
 	
 }
 
-.p-main-background{
-	background-repeat:no-repeat;
-		background-position:bottom center;		
-		background-size: cover;
-		margin-top: -128px;
-		padding-top: 128px;
-}	
 
-/*SLIDER*/
-@media (max-width: 800px) {  
-	.p-main-background{
-		background-image:url(img/bg-pic-1_800x375.jpg);
-		height: 375px;
-	}
-}
-
-/*SLIDER*/
-@media (min-width: 801px) {  
-	.p-main-background{
-		background-image:url(img/bg-pic-1_1700x800.jpg);
-		height: 800px;
-	}
-}
-
-
-
-#carousel-mensajes{
-	padding-top: 78px;
-}
 
 	#p-slider{		
-		margin-top: 100px;
 		text-align:center;
 		color:#1e1f22;
 	}
@@ -231,12 +202,13 @@ body {
 		}
 		
 		.p-slide-btn a{
-			width:378px;
-			height:82px;
 			text-transform:uppercase;
 			font-size:28px;
 			font-weight:700;
 			padding-top:20px;
+			padding-bottom:20px;
+			padding-left:10px;
+			padding-right:10px;
 		}
 	
 		.p-gratis{
@@ -274,10 +246,6 @@ body {
 		#p-caracteristicas div.p-mod  h2{
 			color:#c9c9c9;
 			font-weight:700;
-			font-size:78px;
-			display:block;
-			float:left;			
-			padding-right:10px;
 		}		
 		
 		#p-caracteristicas div.p-mod  p{
@@ -291,18 +259,10 @@ body {
 		}
 		
 		#p-caracteristicas div.p-mod:hover h2, #p-caracteristicas div.p-current h2{
-			font-weight:700;
 			color:#0b2d71;
-			font-size:78px;
-			display:block;
-			float:left;			
-			padding-right:10px;
 		}	
 		
-		#p-caracteristicas div.p-mod-1:hover h2{
-			background:
-		}		
-		
+	
 	
 		/*right*/
 		#p-caracteristicas .p-right{
@@ -361,28 +321,28 @@ body {
 	}
 
 		/*left*/
-		#p-servicios .p-left{
+		#p-servicios .p-lista-servicios{
 			margin-top:65px;
 		}
 		
-		#p-servicios .p-left div{
-			display:block;
-			float:left;
+		#p-servicios .box-servicio{
 			background-color:#1D4189;
-			width:220px;
-			height:278px;
 			color:#FFF;
-			margin:20px;
 			text-align:center;
 			padding:20px;
 			font-size:17px;
 			line-height:25px;
 		}	
+
+		#p-servicios .box-servicio-container{
+			display:block;
+			float:left;
+		}
 		
-		#p-servicios .p-left div::before{
+		#p-servicios .box-servicio::before{
 			content:url(img/fix.png);
 			display:block;
-			height:122px;
+			height:116px;
 			width:74px;
 			background-image:url(img/check.png);
 			padding:auto;
@@ -390,7 +350,7 @@ body {
 			margin-top:-60px;
 		}
 
-		#p-servicios .p-left div h3{
+		#p-servicios .box-servicio h3{
 			font-size:23px;
 			line-height:30px;
 		}
@@ -424,7 +384,6 @@ body {
 	}
 	
 		#p-testimonios h2{
-			font-size:60px;
 			font-weight:700;
 			color:#1D4189;
 			margin-top:35px;
@@ -432,54 +391,43 @@ body {
 		}
 		
 		#p-testimonios h3{
-			font-size:30px;
+			font-size:160%;
 			color:#1D4189;
-			margin-top:50px;
-			margin-bottom:20px;
 		}
 		
 		#p-testimonios p{
 			line-height:30px;
 		}
 		
-			#p-testimonios span[class^="p-mod-"]{
+		#p-testimonios .p-mod-frame{
+			display:block;
+			height:295px;
+			width:100%;
+			border-radius: 30%;
+			border-top-left-radius:0; 
+			border-bottom-right-radius: 0;
+
+			overflow: hidden;
+		}
+		
+			#p-testimonios .p-mod{
+				content:url(img/fix.png);
 				display:block;
-				margin-bottom:80px;
+				width:100%;
+				background-repeat:no-repeat;
+				background-position:center;
+				background-size: cover;
 			}
 			
 			#p-testimonios .p-mod-1{
-				margin-left:0;
-				margin-right:80px;	}
-		
-			#p-testimonios .p-mod-2{
-				margin: auto 40px;
-			}
-			
-			#p-testimonios .p-mod-3{
-				margin-left:80px;
-				margin-right:0;
-			}	
-		
-			#p-testimonios span[class^="p-mod-"]::before{
-				content:url(img/fix.png);
-				display:block;
-				height:295px;
-				width:299px;
-				background-repeat:no-repeat;
-				background-position:center;
-				border-radius: 50%;
-    			border-bottom-left-radius:0; 
-			}
-			
-			#p-testimonios .p-mod-1::before{
 				background-image:url(img/man1.jpg);
 			}
 		
-			#p-testimonios .p-mod-2::before{
+			#p-testimonios .p-mod-2{
 				background-image:url(img/man2.jpg);
 			}
 			
-			#p-testimonios .p-mod-3::before{
+			#p-testimonios .p-mod-3{
 				background-image:url(img/man3.jpg);
 			}	
 		

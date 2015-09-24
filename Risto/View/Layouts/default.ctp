@@ -56,6 +56,7 @@
             '/risto/lib/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min',
         ));
 
+        
 
         echo $this->element('Risto.per_role_style');
         
@@ -80,6 +81,7 @@
         <![endif]-->
     </head>
     <body>
+    <div class="p-main-background"></div>
         <?php echo $this->element('Risto.show_errors_for_config') ?>
         <a class="sr-only" href="#content">Skip to main content</a>
 
@@ -102,14 +104,9 @@
         <?php }?>
 
         <header class="navbar navbar-default bs-docs-nav" role="banner" id="p-header">
-            <div class="container">
+            <div class="fluid-container">
                  
-                <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                        </button>
-
-                           
+                <div class="navbar-header col-md-4 col-sm-12">
                             <?php 
                             echo $this->fetch("navbar-brand");
 
@@ -130,7 +127,7 @@
                 </div>
 
                 
-                <div aria-expanded="false" class="navbar-collapse collapse">
+                <div aria-expanded="false" class=" col-md-8 col-sm-12">
                     
                     <?php
                     if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
@@ -227,6 +224,6 @@
                 <br><br><br>   
             </div>
             
-        </footer>
+        </footer>        
     </body>
 </html>
