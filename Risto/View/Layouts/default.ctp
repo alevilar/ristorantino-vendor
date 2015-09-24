@@ -93,7 +93,7 @@
             ?>
         <div class="fluid-container">
             <div class="row">
-                <div id="mesajes alert  alert-dismissible" class="col-md-12" role="alert">
+                <div id="mesajes" class="col-md-12" role="alert">
                     <?php
                     echo $flashMes;
                     echo $authMes;       

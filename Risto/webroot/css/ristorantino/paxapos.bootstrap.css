@@ -49,7 +49,16 @@ body {
 	font-family: 'Lato';
 	font-style: normal;
 }
-	
+
+#mesajes{
+	margin: 0px;
+	padding: 0px;
+}	
+#mesajes .alert{
+	padding-top: 20px;
+	padding-bottom: 20px; 
+	margin-bottom: 0px !important;
+}
 	
 .p-hide{
 	display:none;
