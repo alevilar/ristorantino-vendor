@@ -177,20 +177,35 @@ body {
 }
 
 /*SLIDER*/
-
+@media (max-width: 800px) {  
 	#p-slider{
-		background-image:url(img/bg-pic-1.jpg);
+		background-image:url(img/bg-pic-1_800x375.jpg);
+	}
+}
+
+/*SLIDER*/
+@media (min-width: 801px) {  
+	#p-slider{
+		background-image:url(img/bg-pic-1_1700x800.jpg);
+	}
+}
+
+#carousel-mensajes{
+	padding-top: 78px;
+}
+
+	#p-slider{		
 		background-repeat:no-repeat;
-		background-position:center;
-		background-attachment: fixed;
+		background-position:bottom center;		
 		background-size: cover;
 		text-align:center;
 		color:#1e1f22;
+		height: 550px;
 	}
 	
 		#p-slider h1{
 			font-weight:700;		
-			margin-top:170px;
+			margin-top:10px;
 		}
 	
 		#p-slider p{
