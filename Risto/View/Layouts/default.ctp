@@ -190,11 +190,12 @@
                                      ?>                                     
                                      <br>
                                     <cite>info@paxapos.com</cite>
+
                                     <?php
 
-                                    //echo $this->Html->link('Contacto',
-                                    //    array('plugin'=>'paxapos', 'controller'=>'paxapos', 'action'=>'contact')
-                                    //    );
+                                    echo $this->Html->link('Contacto',
+                                        array('plugin'=>'paxapos', 'controller'=>'paxapos', 'action'=>'contact')
+                                        );
                                     ?>
                                 </li>
                             </ul>
