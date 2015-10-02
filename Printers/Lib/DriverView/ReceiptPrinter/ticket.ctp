@@ -113,9 +113,9 @@ if (empty($mesa)) {
         echo "\n\n";
 
 
-        echo str_pad(strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$mesa, 10, " ", STR_PAD_LEFT );
-        echo "  |  ";
-        echo str_pad(strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$mozo, 11, " ", STR_PAD_RIGHT);
+        echo strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$comanda['Mesa']['numero'];
+        echo "\n";
+        echo strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$comanda['Mesa']['Mozo']['numero'];
 
 
         echo $this->PE->cm('DOBLE_ANCHO_OFF');

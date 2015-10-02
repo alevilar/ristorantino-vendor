@@ -423,6 +423,7 @@ body {
 				content:url(img/fix.png);
 				display:block;
 				width:100%;
+				height: 300px;
 				background-repeat:no-repeat;
 				background-position:center;
 				background-size: cover;

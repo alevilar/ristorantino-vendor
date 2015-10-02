@@ -86,9 +86,10 @@ echo "\n";
 echo "\n";
 echo "\n";
 
-echo str_pad(strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$comanda['Mesa']['numero'], $C_ANCHO/2-2, " ", STR_PAD_LEFT );
-echo "  |  ";
-echo str_pad(strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$comanda['Mesa']['Mozo']['numero'], $C_ANCHO/2-1, " ", STR_PAD_RIGHT);
+echo strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$comanda['Mesa']['numero'];
+echo "\n";
+echo strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$comanda['Mesa']['Mozo']['numero'];
+
 
 echo "\n";
 echo "\n";
