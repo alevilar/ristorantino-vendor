@@ -113,9 +113,9 @@ if (empty($mesa)) {
         echo "\n\n";
 
 
-        echo strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$comanda['Mesa']['numero'];
+        echo strtoupper( Configure::read('Mesa.tituloMesa') ) . ": ".$fullMesa['Mesa']['numero'];
         echo "\n";
-        echo strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$comanda['Mesa']['Mozo']['numero'];
+        echo strtoupper( Configure::read('Mesa.tituloMozo') ) . ": ".$fullMesa['Mozo']['numero'];
 
 
         echo $this->PE->cm('DOBLE_ANCHO_OFF');
