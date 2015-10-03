@@ -126,6 +126,10 @@ class Cliente extends FidelizationAppModel {
         'domicilio' => array(
             'type' => 'like',
             ),
+        'search' => array(
+            'type' => 'query',
+            'method' => 'filerBySearch',
+            ),
         );
 
 
@@ -343,6 +347,20 @@ class Cliente extends FidelizationAppModel {
         }
         $ret = $this->find('first',array('conditions'=>array('Cliente.id'=>$id),'contain'=>array('IvaResponsabilidad')));
         return $ret;
+    }
+
+
+    // Or conditions with like
+    public function filerBySearch($data) {
+        $filter = $data['search'];
+        $condition = array(
+            'OR' => array(
+                $this->alias . '.nombre LIKE' => '%' . $filter . '%',
+                $this->alias . '.nrodocumento LIKE' => '%' . $filter . '%',
+                $this->alias . '.codigo' => $filter,
+            )
+        );
+        return $condition;
     }
 
 

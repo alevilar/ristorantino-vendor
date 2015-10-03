@@ -8,14 +8,14 @@ App::uses('FidelizationAppController', 'Fidelization.Controller');
  */
 class ClientesController extends FidelizationAppController {
 
-    public $presetVars = true; // using the model configuration
+   // public $presetVars = true; // using the model configuration
          
 /**
  * Components
  *
  * @var array
  */
-	public $components = array('Paginator', 'Session', 'Search.Prg');
+	//public $components = array('Paginator', 'Session', 'Search.Prg');
 
 /**
  * index method
@@ -25,7 +25,6 @@ class ClientesController extends FidelizationAppController {
 	public function index() {
 		$this->Prg->commonProcess();
         $conds = $this->Cliente->parseCriteria( $this->Prg->parsedParams() );
-
 		$this->Cliente->recursive = 0;
                 
         $descuentoMaximo = Configure::read('Mozo.descuento_maximo');
@@ -45,6 +44,7 @@ class ClientesController extends FidelizationAppController {
 		$ivaResponsabilidades = $this->Cliente->IvaResponsabilidad->find('list');
 		$this->set(compact('descuentos', 'tipoDocumentos', 'ivaResponsabilidades'));
 		$this->set('clientes', $this->Paginator->paginate());
+		$this->set('_serialize', array('clientes'));
 	}
 
 
