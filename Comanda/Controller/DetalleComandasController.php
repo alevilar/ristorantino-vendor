@@ -122,7 +122,7 @@ class DetalleComandasController extends ComandaAppController {
             ));
         $this->set(compact('productos', 'mesas', 'mesa_id'));
 
-        $this->DetalleComanda->Comanda->contain(array('DetalleComanda' => array('DetalleSabor.Sabor')));
+        $this->DetalleComanda->Comanda->contain(array('DetalleComanda' => array('DetalleSabor.Sabor','Producto')));
         $this->set('comanda', $this->DetalleComanda->Comanda->read());
 
         
@@ -176,4 +176,3 @@ class DetalleComandasController extends ComandaAppController {
 	}
 
 }
-?>

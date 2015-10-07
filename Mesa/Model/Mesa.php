@@ -1,5 +1,6 @@
 <?php
 
+
 App::uses('MesaAppModel', 'Mesa.Model');
 
 class Mesa extends MesaAppModel {
@@ -528,28 +529,6 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 
 
 
-	/**
-	 * Me devuelve ellistado de productos de una mesa en especial
-	 *
-	 */
-	function listado_de_productos($id = 0)
-	{
-		if($id != 0) 	$this->id = $id;	
-		
-		$items = $this->Comanda->DetalleComanda->find('all',array(
-		   'conditions'=>array(
-			  'Comanda.mesa_id'=>$this->id,
-			  '(DetalleComanda.cant - DetalleComanda.cant_eliminada) >'=>0),
-		   'order'=>'Comanda.id ASC, Producto.categoria_id ASC, Producto.id ASC',
-		   'contain'=>array('Producto','Comanda','DetalleSabor'=>'Sabor(name,precio)')
-		   ));
-		for($i=0; $i<count($items); $i++){
-			$items[$i]['DetalleComanda']['cant_final'] = $items[$i]['DetalleComanda']['cant']-	$items[$i]['DetalleComanda']['cant_eliminada'];
-		}
-		
-		return $items;
-	}
-
 
 	function ultimasCobradas($limit = 20){
 
@@ -563,86 +542,6 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 	  return $mesas;
   }
 
-
-
- //  function listado_de_abiertas($recursive = -1){
-
- //      $conditions = array("Mesa.estado_id" => MESA_ABIERTA);
-
- //      if($recursive>-1){
- //         $this->recursive = $recursive;			
- //         $mesas = $this->find('all', array('conditions'=>$conditions));
- //     }			
- //     else{
- //         $mesas = $this->find('all', array(
- //            'conditions'=>$conditions,
- //            'contain'=>array('Mozo(numero)')
- //            ));
- //     }
- //     return $mesas;
- // }
-
-
-//  function listadoAbiertasYSinCobrar($recursive = -1){
-
-//   $conditions = array("Mesa.estado_id <" => MESA_COBRADA);
-
-//   if($recursive>-1){
-//      $this->recursive = $recursive;
-//      $mesas = $this->find('all', array(
-//         'conditions'=>$conditions));
-//  }
-//  else{
-//      $mesas = $this->find('all', array(
-//         'conditions'=>$conditions,
-//         'contain'=>array('Mozo(numero, id)')));
-//  }
-
-//             //debug($mesas);
-//  return $mesas;
-// }
-
-
-	/**
-	 * nos dice si el numero de mesa existe o no
-	 * 
-	 * @param integer numero demesa
-	 * @return boolean
-	 */
-// 	function numero_de_mesa_existente($numero_mesa = 0){
-// 		if($numero_mesa == 0){
-//             if(!empty($this->data['Mesa']['numero'])){
-//                $numero_mesa = $this->data['Mesa']['numero'];
-//            }
-//        }		
-
-//        $this->recursive = -1;
-//        $conditions = array(
-//         'estado_id'=>MESA_ABIERTA, 
-//         'numero'=>$numero_mesa);
-
-//        if(!empty($this->id)){
-//          if($this->id != ''){
-//             $conditions = array_merge($conditions, array('Mesa.id <>'=> $this->id));
-
-//         }
-//     }
-
-//     $result = $this->find('count',array('conditions'=>$conditions));
-
-//     return ($result>0)?true:false;
-
-// }
-
-
-// function getNumero($mesa_id = 0){
-//   if($mesa_id != 0){
-//      $this->id = $mesa_id;
-//  }
-//  $mesa = $this->read();
-//  return $mesa['Mesa']['numero'];
-
-// }
 
 
 		/**
@@ -687,19 +586,20 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 	                where ds.detalle_comanda_id = dc.id
 	                group by ds.detalle_comanda_id
 	                ),0) precio,
-	      dc.id,
-	      p.order as orden
-	      from
-	      comandas c
-	      left join detalle_comandas dc on dc.comanda_id = c.id
-	      left join detalle_sabores ds on ds.detalle_comanda_id = dc.id
-	      left join productos p on p.id = dc.producto_id
-	      where c.mesa_id = $this->id
-	      group by dc.id
-	      ) as DetalleComanda
-	      group by name, precio
-	      having cant > 0
-	      order by orden
+		      dc.id,
+		      p.order as orden
+		      from
+		      comandas c
+		      left join detalle_comandas dc on dc.comanda_id = c.id
+		      left join detalle_sabores ds on ds.detalle_comanda_id = dc.id
+		      left join productos p on p.id = dc.producto_id
+		      where c.mesa_id = $this->id
+		      AND c.deleted = 0 AND dc.deleted = 0
+		      group by dc.id
+		      ) as DetalleComanda
+		      group by name, precio
+		      having cant > 0
+		      order by orden
 	      ");
 
           $vItems = array();
@@ -1064,4 +964,3 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 
 
 }
-	

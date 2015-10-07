@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 
 App::uses('ProductAppController', 'Product.Controller');
@@ -8,11 +8,6 @@ App::uses('ProductAppController', 'Product.Controller');
 class ProductosController extends ProductAppController {
 
 	public $name = 'Productos';
-
-	public $components = array(        
-        'Search.Prg',
-        'Paginator', 
-        );
 
         
 	public function index() {
@@ -255,4 +250,3 @@ class ProductosController extends ProductAppController {
       
 }
 
-?>

@@ -1,4 +1,4 @@
-﻿<?php    
+<?php    
 if ( !empty($this->request->data['TipoDePago']['media_id']) ) {
 	echo $this->Html->imageMedia($this->request->data['TipoDePago']['media_id'], array('width'=>100));
 }

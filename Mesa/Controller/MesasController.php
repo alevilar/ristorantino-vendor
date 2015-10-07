@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 App::uses('MesaAppController', 'Mesa.Controller');
 
@@ -10,10 +10,8 @@ class MesasController extends MesaAppController {
     public $name = 'Mesas';
 
 
-
     public $paginate = array(
-        'order' => array('Mesa.created' => 'asc'),
-        // 'paramType' => 'querystring',
+        'order' => array('Mesa.created' => 'asc')
     );
     
     
@@ -57,7 +55,7 @@ class MesasController extends MesaAppController {
 
 
     public function view($id = null) {
-
+        throw new NotImplementedException("Metodo para visualizacion aun no esta implementado");
         if (!$id) {
             $this->Session->setFlash(__('Invalid Mesa.'));
             $this->redirect(array('action'=>'index'));
@@ -297,7 +295,7 @@ class MesasController extends MesaAppController {
         }
 
         if (!$this->request->is('ajax')){
-            $this->redirect($this->referer());
+            $this->redirect(array('action'=>'index'));
         } else {
             die(1);
         }

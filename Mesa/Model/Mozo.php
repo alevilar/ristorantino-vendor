@@ -101,7 +101,7 @@ class Mozo extends MesaAppModel {
             } else {
                 // es restaurante u otros comercios
                 $conditionsMesa = array(
-                    "Mesa.checkout IS NULL",
+                    "Mesa.estado_id" => array( MESA_ABIERTA, MESA_CERRADA, MESA_COBRADA),
                     'Mesa.deleted' => 0,    
                 );
             }
@@ -149,6 +149,11 @@ class Mozo extends MesaAppModel {
      * @return array Mozos con sus mesas, Comandas, detalleComanda, productos y sabores
      */
     public function mesasBorradas($mozo_id = null, $lastAccess = null){
+            if ( empty($lastAccess) ) {
+                return array();
+            }
+
+
             $conditions = array();
             
             // si vino el mozo por parametro, es porque solo quiero las mesas de ese mozo
@@ -158,32 +163,24 @@ class Mozo extends MesaAppModel {
                 // todos los mozos activos
                 $conditions['Mozo.activo'] =  1;
             }
+                       
             
-            // condiciones para traer mesas abiertas y pendientes de cobro
-            if ( Configure::read('Site.type') == SITE_TYPE_HOTEL ) {
-                // si es hotel
-                $conditionsMesa = array(
-                    'Mesa.deleted' => 0,        
-                    'Mesa.checkin >' => date('Y-m-d', strtotime('-1 month')),
+            // traer solo las mesas actualizadas luego del ultimo pedido
+            $conditionsMesa = array(
+                    'OR' => array (
+                        array(
+                            'Mesa.deleted' => 1,
+                            'Mesa.deleted_date >=' => $lastAccess,
+                        ),
+                        array(
+                            'Mesa.estado_id' => MESA_CHECKOUT,
+                            'Mesa.checkout >=' => $lastAccess,
+                            )
+                        )
                 );
-            } else {
-                // es restaurante u otros comercios
-                $conditionsMesa = array(
-                    "Mesa.checkout IS NULL",
-                    'Mesa.deleted' => 0,        
-                );
-            }
-            
-            // si vino el parametro lastAccess, traer solo las mesas actualizadas luego del ultimo pedido
-            if ( !empty($lastAccess) ) {
-                $conditionsMesa['Mesa.deleted'] = '1';
-                $conditionsMesa[] = 'Mesa.deleted_date IS NOT NULL';
-                $conditionsMesa['Mesa.deleted_date >='] = $lastAccess;
-            }
-            
             $contain = $this->Mesa->defaultContain;
             $contain['conditions'] = $conditionsMesa;
-            unset($contain[0]);
+            unset($contain[0]); // saco al Mozo del contain
             $optionsCreated = array(
                 'contain' => array('Mesa' => $contain),
                 'conditions'=> $conditions,

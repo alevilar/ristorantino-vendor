@@ -1,4 +1,4 @@
-﻿<div class="col-md-3">
+<div class="col-md-3">
 
     <h2>Usuarios</h2>
     <div class="list-group">

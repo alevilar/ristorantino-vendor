@@ -1,4 +1,4 @@
-﻿<?php    
+<?php    
 
 echo $this->Html->script('/risto/js/jquery/jquery.jeditable.mini', array('inline'=>false));
 echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));

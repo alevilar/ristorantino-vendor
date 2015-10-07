@@ -1,4 +1,4 @@
-﻿
+
 <div class="productos form">
 <?php echo $this->Form->create('Producto');?>
 	<fieldset>

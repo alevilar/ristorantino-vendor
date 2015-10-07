@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 App::uses('RistoTenantAppModel', 'Risto.Model');
 
 class TipoDocumento extends RistoTenantAppModel {

@@ -190,6 +190,11 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'color'=> 'btn-default',
 					),
 				),
+				array(
+					'name' => 'Checkout',
+					'color'=> 'btn-success',
+					),
+				),
 		);
 
 

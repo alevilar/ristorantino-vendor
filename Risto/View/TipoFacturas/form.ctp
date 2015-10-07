@@ -1,4 +1,4 @@
-﻿<div class="tipoDePagos form">
+<div class="tipoDePagos form">
     
 <?php echo $this->Form->create('TipoFactura', array('type' => 'file', 'action'=>'edit'));?>
 	<fieldset>
