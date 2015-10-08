@@ -8,8 +8,6 @@ class TenantBaseSchema extends RistoBaseSchema {
 	public $connection = 'risto_tenant';
 
 
-
-
 	public $__defaultValues = array(
 			'account_tipo_impuestos' => array(
 				array(
@@ -66,7 +64,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'tiene_neto' => 1,
 					'tiene_impuesto' => 1,
 					),
-				),
+			),
 			'clientes' => array(
 				array(
 					'nombre' => "[Example] Google Arg. SRL",
@@ -74,7 +72,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'tipo_documento_id' => 1, // CUIT
 					'iva_responsabilidad_id' => 1, // Resp. Insc
 					)
-				),
+			),
 			'printers' => array(
 				array(
 					'name'  => 'fiscal',
@@ -90,7 +88,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'driver_model' => 'Bematech',
 					'output' => 'Database',
 					),
-				),
+			),
 			'iva_responsabilidades' => array(
 				array(
 					'codigo_fiscal' => 'I',
@@ -122,15 +120,15 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'name' => 'Responsable Monotributo',
 					'tipo_factura_id' => 1,
 					),
-				),			
+			),			
 			'observacion_comandas' => array(
 				array('name' => "[Ejemplo] Observación para producto"),
 				array('name' => "[Ejemplo] Otra observación de producto"),
-				),
+			),
 			'observaciones' => array(
 				array('name' => "[Ejemplo] Observación de pedido general"),
 				array('name' => "[Ejemplo] Observación de pedido 2"),
-				),
+			),
 			'tipo_documentos' => array(
 				array('codigo_fiscal' => 'C', 'name' => 'CUIT'),
 				array('codigo_fiscal' => 'L', 'name' => 'CUIL'),
@@ -140,7 +138,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 				array('codigo_fiscal' => '3', 'name' => 'Pasaporte'),
 				array('codigo_fiscal' => '4', 'name' => 'Cédula de Identidad'),
 				array('codigo_fiscal' => '' , 'name' => 'Sin identificar'),
-				),
+			),
 			'tipo_de_pagos' => array(
 				array('name' => 'Efectivo', 'media_id' => 1 ),
 				array('name' => 'No Paga', 'media_id' => 2 ),
@@ -149,7 +147,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 				array('name' => 'Tarjeta Master Card', 'media_id' => 5 ),
 				array('name' => 'Tarjeta Visa Debito', 'media_id' => 6 ),
 				array('name' => 'Tarjeta Maestro', 'media_id' => 7 ),
-				),
+			),
 			'tipo_facturas' => array(
 				array('name' => '"A"'),
 				array('name' => '"B"'),
@@ -158,10 +156,10 @@ class TenantBaseSchema extends RistoBaseSchema {
 				array('name' => '"C"'),
 				array('name' => 'Vale'),
 				array('name' => 'Otros'),
-				),
+			),
 			'cash_cajas' => array(
 				array('name' => 'Caja Ventas'),
-				),
+			),
 			'roles' => array(
 					array(
 						'name' => 'Administrador',
@@ -175,26 +173,25 @@ class TenantBaseSchema extends RistoBaseSchema {
 						'name' => 'Adicionista',
 						'machin_name' => 'adicionista',
 						),
-				),
+			),
 			'estados' => array(
 				array(
 					'name' => 'Abierta',
 					'color'=> 'btn-info',
-					),
+				),
 				array(
 					'name' => 'Facturada',
 					'color'=> 'btn-warning',
-					),
+				),
 				array(
 					'name' => 'Cobrada',
 					'color'=> 'btn-default',
-					),
 				),
 				array(
 					'name' => 'Checkout',
 					'color'=> 'btn-success',
-					),
 				),
+			),
 		);
 
 
@@ -239,7 +236,10 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'rght' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'parent_id' => array('column' => 'parent_id', 'unique' => 0),
+			'lft' => array('column' => 'lft', 'unique' => 0),
+			'rght' => array('column' => 'rght', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -255,7 +255,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'media_id' => array('column' => 'media_id', 'unique' => 0),
+			'tipo_de_pago_id' => array('column' => 'tipo_de_pago_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -268,7 +270,10 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'egreso_id' => array('column' => 'egreso_id', 'unique' => 0),
+			'gasto_id' => array('column' => 'gasto_id', 'unique' => 0),
+			'egreso_gasto' => array('column' => array('egreso_id','gasto_id'), 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -289,7 +294,13 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'cierre_id' => array('column' => 'cierre_id', 'unique' => 0),
+			'clasificacion_id' => array('column' => 'clasificacion_id', 'unique' => 0),
+			'tipo_factura_id' => array('column' => 'tipo_factura_id', 'unique' => 0),
+			'factura_nro' => array('column' => 'factura_nro', 'unique' => 0),
+			'fecha' => array('column' => 'fecha', 'unique' => 0),
+			'media_id' => array('column' => 'media_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -300,7 +311,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'tipo_impuesto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'importe' => array('type' => 'float', 'null' => false, 'default' => '0', 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'gasto_id' => array('column' => 'gasto_id', 'unique' => 0),
+			'tipo_impuesto_id' => array('column' => 'tipo_impuesto_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_bin', 'engine' => 'InnoDB')
 	);
@@ -312,7 +325,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'neto' => array('type' => 'decimal', 'null' => true, 'default' => '0.00', 'length' => '10,2', 'unsigned' => false),
 		'importe' => array('type' => 'decimal', 'null' => true, 'default' => '0.00', 'length' => '10,2', 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'gasto_id' => array('column' => 'gasto_id', 'unique' => 0),
+			'tipo_impuesto_id' => array('column' => 'tipo_impuesto_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -357,7 +372,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'mesa_id' => array('column' => 'mesa_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
@@ -377,7 +393,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'caja_id' => array('column' => 'caja_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -409,7 +426,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'arqueo_id' => array('column' => 'arqueo_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -428,7 +446,10 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'parent' => array('column' => 'parent_id', 'unique' => 0)
+			'parent' => array('column' => 'parent_id', 'unique' => 0),
+			'lft' => array('column' => 'lft', 'unique' => 0),
+			'rght' => array('column' => 'rght', 'unique' => 0),
+			'media_id' => array('column' => 'media_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -449,7 +470,12 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'codigo' => array('column' => 'codigo', 'unique' => 0),
+			'descuento_id' => array('column' => 'descuento_id', 'unique' => 0),
+			'nrodocumento' => array('column' => 'nrodocumento', 'unique' => 0),
+			'tipo_documento_id' => array('column' => 'tipo_documento_id', 'unique' => 0),
+			'iva_responsabilidad_id' => array('column' => 'iva_responsabilidad_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -547,7 +573,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'detalle_comanda_id' => array('column' => 'detalle_comanda_id', 'unique' => 0),
+			'sabor_id' => array('column' => 'sabor_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -580,7 +608,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'producto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'grupo_sabor_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'producto_id' => array('column' => 'producto_id', 'unique' => 0),
+			'grupo_sabor_id' => array('column' => 'grupo_sabor_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -591,7 +621,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'producto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'producto_id' => array('column' => 'producto_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -624,7 +655,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => false, 'default' => '0000-00-00 00:00:00'),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'product_id' => array('column' => 'product_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -635,7 +667,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'category_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -646,7 +678,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'tipo_factura_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'tipo_factura_id' => array('column' => 'tipo_factura_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -688,6 +721,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'estado_id' => array('column' => array('estado_id'), 'unique' => 0),
 			'time_cerro' => array('column' => array('time_cerro', 'time_cobro'), 'unique' => 0),
 			'mozo_id' => array('column' => 'mozo_id', 'unique' => 0),
 			'checkin' => array('column' => 'checkin', 'unique' => 0),
@@ -747,7 +781,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'mesa_id' => array('column' => 'mesa_id', 'unique' => 0),
+			'tipo_de_pago_id' => array('column' => 'tipo_de_pago_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -809,7 +845,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'categoria_id' => array('column' => 'categoria_id', 'unique' => 0),
+			'printer_id' => array('column' => 'printer_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -830,7 +868,10 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'producto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'tag_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'prod_tags' => array('column' => array('producto_id', 'tag_id'), 'unique' => 0),
+			'prod_id' => array('column' => 'producto_id', 'unique' => 0),
+
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -864,7 +905,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'user_id' => array('column' => array('user_id', 'rol_id'), 'unique' => 0)
+			'user_id' => array('column' => array('user_id', 'rol_id'), 'unique' => 0),
+			'user_rol' => array('column' => array('user_id','rol_id'), 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -880,7 +922,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'categoria_id' => array('column' => 'categoria_id', 'unique' => 0),
+			'grupo_sabor_id' => array('column' => 'grupo_sabor_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -901,7 +945,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 110, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'media_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),			
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);

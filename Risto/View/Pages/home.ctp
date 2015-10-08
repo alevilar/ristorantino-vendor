@@ -1,9 +1,9 @@
-<div class="col-md-8">
+<div class="col-md-8  hidden-xs">
 	<?php if ( !$this->Session->check('Auth.User')){ ?>
 	<h3>Registrese para ingresar al sistema</h3>
 	<h1>¡Punto de Venta Web, y GRATUITO!</h1>
 
-	<div class="col-md-4 col-md-offset-4 hidden-xs">
+	<div class="col-md-4 col-md-offset-4">
 		<hr />
 	<?php echo $this->Html->link('Registrate', array('plugin'=> 'users','controller'=>'users', 'action'=>'register'), array('class'=>'btn btn-lg btn-success btn-block')) ?>
 	</div>
