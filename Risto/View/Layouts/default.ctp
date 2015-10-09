@@ -188,9 +188,9 @@
                                     <?php
                                      echo $this->Html->link('Términos y Condiciones', array('plugin'=>false, 'controller'=>'pages', 'action'=>'tos')); 
                                      ?>                                     
-                                     <br>
+                                    <br>
                                     <cite>info@paxapos.com</cite>
-
+                                    <br>
                                     <?php
 
                                     echo $this->Html->link('Contacto',
