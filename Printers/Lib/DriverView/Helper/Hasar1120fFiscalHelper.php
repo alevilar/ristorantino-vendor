@@ -329,10 +329,11 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 			else{ 	
 				throw new CakeException("Tipo de documento no válido: \"$tipo_documento\"");
 			}	
-		}
-		else{
+		} else{
 			throw new CakeException("Responsabilidad ante el IVA inválido: \"$respo_iva\"");
+		}
 		return $comando;
+	}
 	}
 
 
