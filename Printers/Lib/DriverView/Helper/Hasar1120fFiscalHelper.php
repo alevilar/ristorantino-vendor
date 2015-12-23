@@ -334,7 +334,6 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 		}
 		return $comando;
 	}
-	}
 
 
 
