@@ -34,12 +34,15 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 				</li>  
 				 
 
-			<!--    <li>   
-					<?php echo $this->Html->link('Inventario', '/inventory', array('id' => 'bton-inven')); ?>
-				</li>  -->
+			  
 		   </ul>
 		  
 			<ul class="dashboard-buttons">
+
+				<li>   
+					<?php echo $this->Html->link('Compras', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'index'), array('id' => 'bton-pedidos')); ?>
+				</li> 
+
 
 				<li>  
 					<?php echo $this->Html->link('Estadisticas', array('plugin' => 'stats', 'controller' => 'stats', 'action' => 'mesas_total'), array('id' => 'bton-estadisticas')); ?>

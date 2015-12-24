@@ -360,7 +360,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 	);
 
 
-	public $pedido_estados = array(
+	public $compras_pedido_estados = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
@@ -370,9 +370,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		),
 	);	
 
-	public $pedidos = array(
+	public $compras_pedidos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
-		'pedido_estado_id' => array('type' => 'integer', 'null' => true),
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
@@ -382,9 +381,11 @@ class TenantBaseSchema extends RistoBaseSchema {
 	);
 
 
-	public $pedido_mercaderias = array(
+	public $compras_pedido_mercaderias = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'pedido_id' => array('type' => 'integer', 'null' => false),
+		'mercaderia_id' => array('type' => 'integer', 'null' => false),
+		'pedido_estado_id' => array('type' => 'boolean', 'null' => false, 'default'=>false),
 		'medida_unidad_id' => array('type' => 'integer', 'null' => false),
 		'cantidad' => array('type' => 'decimal', 'null' => false, 'default' => null, 'length' => '10,2', 'unsigned' => false),
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null),
@@ -398,7 +399,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 
 
 
-	public $mercaderias = array(
+	public $compras_mercaderias = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 120, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
@@ -409,8 +410,21 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
 
+	public $compras_mercaderias_proveedores = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'mercaderia_id' => array('type' => 'integer', 'null' => false),
+		'proveedor_id' => array('type' => 'integer', 'null' => false),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
 
-	public $medida_unidades = array(
+
+
+	public $compras_unidad_de_medidas = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 120, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
