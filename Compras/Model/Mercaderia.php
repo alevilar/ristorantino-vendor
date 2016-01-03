@@ -6,6 +6,12 @@ App::uses('ComprasAppModel', 'Compras.Model');
  */
 class Mercaderia extends ComprasAppModel {
 
+/**
+ * Use database config
+ *
+ * @var string
+ */
+	public $useDbConfig = 'schema_tenant';
 
 /**
  * Validation rules
@@ -24,4 +30,7 @@ class Mercaderia extends ComprasAppModel {
 			),
 		),
 	);
+
+
+	public $belongsTo = array('Compras.UnidadDeMedida');
 }

@@ -67,22 +67,29 @@ class PedidoMercaderia extends ComprasAppModel {
  */
 	public $belongsTo = array(
 		'Pedido' => array(
-			'className' => 'Pedido',
+			'className' => 'Compras.Pedido',
 			'foreignKey' => 'pedido_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
 		'PedidoEstado' => array(
-			'className' => 'PedidoEstado',
+			'className' => 'Compras.PedidoEstado',
 			'foreignKey' => 'pedido_estado_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
 		),
-		'MedidaUnidad' => array(
-			'className' => 'MedidaUnidad',
-			'foreignKey' => 'medida_unidad_id',
+		'UnidadDeMedida' => array(
+			'className' => 'Compras.UnidadDeMedida',
+			'foreignKey' => 'unidad_de_medida_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'Mercaderia' => array(
+			'className' => 'Compras.Mercaderia',
+			'foreignKey' => 'mercaderia_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

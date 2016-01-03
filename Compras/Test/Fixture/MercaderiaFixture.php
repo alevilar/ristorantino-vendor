@@ -29,8 +29,8 @@ class MercaderiaFixture extends CakeTestFixture {
 		array(
 			'id' => 1,
 			'name' => 'Lorem ipsum dolor sit amet',
-			'created' => 1450994329,
-			'modified' => 1450994329
+			'created' => 1451060866,
+			'modified' => 1451060866
 		),
 	);
 

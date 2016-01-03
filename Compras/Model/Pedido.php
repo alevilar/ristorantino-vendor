@@ -12,6 +12,9 @@ class Pedido extends ComprasAppModel {
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
+	public $order = array('Pedido.created'=>'DESC');
+
+	
 /**
  * hasMany associations
  *
@@ -19,7 +22,7 @@ class Pedido extends ComprasAppModel {
  */
 	public $hasMany = array(		
 		'PedidoMercaderia' => array(
-			'className' => 'PedidoMercaderia',
+			'className' => 'Compras.PedidoMercaderia',
 			'foreignKey' => 'pedido_id',
 			'dependent' => false,
 			'conditions' => '',

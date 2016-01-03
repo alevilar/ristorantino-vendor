@@ -5,7 +5,7 @@ CakePlugin::load('MtSites', array('routes' => true, 'bootstrap' => true));
 CakePlugin::load('Aditions', array('routes' => true, 'bootstrap' => true));
 CakePlugin::load('Account', array('routes' => true, 'bootstrap' => true));
 
-CakePlugin::load(array('Users', 'ExtAuth', 'DebugKit', 'Search'));
+CakePlugin::load(array('Users', 'ExtAuth', 'DebugKit', 'Search', 'Compras'));
 
 
 CakePlugin::load('Stats', array('routes' => true));
