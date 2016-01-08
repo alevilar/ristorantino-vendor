@@ -21,7 +21,6 @@ class PedidoMercaderiasController extends ComprasAppController {
 	function form($id = null)
     {
         if ( $this->request->is(array('post', 'put')) ) {
-            debug($this->request->data);
             if ( $this->PedidoMercaderia->save( $this->request->data ) ) {
                 $this->Session->setFlash('la mercaderia del pedido ha sido guardada');
             } else {

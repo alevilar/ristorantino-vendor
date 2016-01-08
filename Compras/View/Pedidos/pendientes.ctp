@@ -11,8 +11,9 @@ foreach ($pedidos as $prov) {
 			<tr>
 				<th>Estado</th>
 				<th>Cantidad</th>
+				<th>U/Medida</th>
 				<th>Mercaderia</th>
-				<th>Acciones</th>
+				<th class="hidden-print">Acciones</th>
 			</tr>	
 		</thead>
 		
@@ -25,15 +26,16 @@ foreach ($pedidos as $prov) {
 			$estado = $merca['PedidoEstado']['name'];
 			$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
 
-			$detalle =  Inflector::pluralize($uMedida)." de " .$mercaderia;
+			$detalle = $mercaderia;
 
 			?>
 
 			<td><?php echo $estado;?></td>
 			<td><?php echo $cant;?></td>
+			<td><?php echo ($cant == 1) ? $uMedida : Inflector::pluralize($uMedida);?></td>
 			<td><?php echo $detalle;?></td>
 			
-			<td>
+			<td class="hidden-print">
 				<?php echo $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['PedidoMercaderia']['id'] ) );?>
 				 | 
 				<?php echo $this->Html->link("completado", array('controller'=>'PedidoMercaderias', 'action'=>'completar', $merca['PedidoMercaderia']['id'] ) );?>

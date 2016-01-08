@@ -49,7 +49,8 @@ class MercaderiasController extends ComprasAppController {
 			}
 		}
 
-		$this->request->data = $this->Mercaderia->find('first', array('condition'=>array('Mercaderia.id'=>$id)));
+        $this->Mercaderia->id = $id;
+		$this->request->data = $this->Mercaderia->read();
 
         $defaultProveedores = $this->Mercaderia->Proveedor->find('list');
         $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');

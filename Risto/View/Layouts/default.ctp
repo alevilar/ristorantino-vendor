@@ -43,6 +43,7 @@
         <?php
 
 
+
         //echo $this->Html->meta('icon');
 
         echo $this->Html->css(array(
@@ -56,7 +57,9 @@
             '/risto/lib/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min',
         ));
 
-        
+        echo $this->Html->css(array('/risto/css/ristorantino/print'), 'stylesheet', array('media' => 'print'));
+
+
 
         echo $this->element('Risto.per_role_style');
         
@@ -91,7 +94,7 @@
         $authMes  = $this->Session->flash('auth');          
         if ( $flashMes || $authMes ) {
             ?>
-        <div class="fluid-container">
+        <div class="fluid-container hidden-print">
             <div class="row">
                 <div id="mesajes" class="col-md-12" role="alert">
                     <?php
@@ -103,7 +106,7 @@
         </div>
         <?php }?>
 
-        <header class="navbar navbar-default bs-docs-nav" role="banner" id="p-header">
+        <header class="navbar navbar-default bs-docs-nav hidden-print" role="banner" id="p-header">
             <div class="fluid-container">
                  
                 <div class="navbar-header col-md-4 col-sm-12">
@@ -154,7 +157,7 @@
         <?php 
         if ( !empty($elementMenu) && $this->elementExists($elementMenu)) {
             ?>
-            <nav class="" role="navigation">
+            <nav class="hidden-print" role="navigation">
                 <div class="container">
                     <ul class="nav nav-tabs nav-justified">
                     <?php echo $this->element($elementMenu); ?>
@@ -180,7 +183,7 @@
 
 
 
-        <footer id="p-footer">      
+        <footer id="p-footer" class="hidden-print">      
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">

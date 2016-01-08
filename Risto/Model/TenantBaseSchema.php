@@ -396,7 +396,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'pedido_id' => array('type' => 'integer', 'null' => false),
 		'mercaderia_id' => array('type' => 'integer', 'null' => false),
-		'pedido_estado_id' => array('type' => 'boolean', 'null' => true, 'default'=>false),
+		'pedido_estado_id' => array('type' => 'integer', 'null' => false, 'default'=>1), // COMPRAS_PEDIDO_ESTADO_PENDIENTE
 		'unidad_de_medida_id' => array('type' => 'integer', 'null' => false),
 		'cantidad' => array('type' => 'decimal', 'null' => false, 'default' => null, 'length' => '10,2', 'unsigned' => false),
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null),
