@@ -316,13 +316,14 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 		$nombre_cliente = substr($nombre_cliente,0,45);
 		$respo_iva = strtoupper($respo_iva);
 		$tipo_documento = strtoupper($tipo_documento);
-        $domicilio = empty($domicilio)?'.':$domicilio;
+        $domicilio = empty(trim($domicilio))?'.':$domicilio;
 
 		
 		if($respo_iva == 'I' || $respo_iva == 'E' || $respo_iva == 'A' || $respo_iva == 'C' || $respo_iva == 'T'){
 			if( $tipo_documento == 'C' || $tipo_documento == 'L' || $tipo_documento == '0' || $tipo_documento == '1' || $tipo_documento == '2' || $tipo_documento == '3' || $tipo_documento == '4')
 			{	
 				$comando = "b".$this->cm('FS').$nombre_cliente.$this->cm('FS').$documento.$this->cm('FS').$respo_iva.$this->cm('FS').$tipo_documento.$this->cm('FS').$domicilio;
+                $comando .= $this->cm('FS').$domicilio;
 			}
 			else{ 	
 				throw new CakeException("Tipo de documento no válido: \"$tipo_documento\"");
