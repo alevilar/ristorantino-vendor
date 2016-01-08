@@ -36,7 +36,7 @@ class PedidoEstado extends ComprasAppModel {
  */
 	public $hasMany = array(
 		'PedidoMercaderia' => array(
-			'className' => 'PedidoMercaderia',
+			'className' => 'Compras.PedidoMercaderia',
 			'foreignKey' => 'pedido_estado_id',
 			'dependent' => false,
 			'conditions' => '',

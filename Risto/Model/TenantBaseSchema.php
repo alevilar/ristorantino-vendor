@@ -89,6 +89,16 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'output' => 'Database',
 					),
 			),
+			'compras_pedido_estados' => array(
+					array(
+						'id' => COMPRAS_PEDIDO_ESTADO_PENDIENTE,
+						'name' => 'Pendiente',
+					),
+					array(
+						'id' => COMPRAS_PEDIDO_ESTADO_COMPLETADO,
+						'name' => 'Completado',
+					),
+				),
 			'iva_responsabilidades' => array(
 				array(
 					'codigo_fiscal' => 'I',
@@ -372,7 +382,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 
 	public $compras_pedidos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
-		'observacion' => array('type' => 'text', 'null' => true, 'default' => null),
+		'observacionescion' => array('type' => 'text', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'index', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
@@ -385,14 +396,18 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'pedido_id' => array('type' => 'integer', 'null' => false),
 		'mercaderia_id' => array('type' => 'integer', 'null' => false),
-		'pedido_estado_id' => array('type' => 'boolean', 'null' => false, 'default'=>false),
+		'pedido_estado_id' => array('type' => 'boolean', 'null' => true, 'default'=>false),
 		'unidad_de_medida_id' => array('type' => 'integer', 'null' => false),
 		'cantidad' => array('type' => 'decimal', 'null' => false, 'default' => null, 'length' => '10,2', 'unsigned' => false),
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'pedido_id' => array('column' => 'pedido_id', 'unique' => 0),
+			'mercaderia_id' => array('column' => 'mercaderia_id', 'unique' => 0),
+			'pedido_estado_id' => array('column' => 'pedido_estado_id', 'unique' => 0),
+			'unidad_de_medida_id' => array('column' => 'unidad_de_medida_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);	
@@ -403,10 +418,12 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 120, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'unidad_de_medida_id' => array('type' => 'integer', 'null' => false),
+		'default_proveedor_id' => array('type' => 'integer', 'null' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'unidad_de_medida_id' => array('column' => 'unidad_de_medida_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -418,7 +435,9 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'mercaderia_id' => array('column' => 'mercaderia_id', 'unique' => 0),
+			'proveedor_id' => array('column' => 'proveedor_id', 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);

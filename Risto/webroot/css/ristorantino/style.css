@@ -54,3 +54,12 @@
 .center{
   text-align: center;
 }
+
+
+.tt-menu{
+    background-color: white;
+}
+
+.tt-dataset{
+    padding: 10px 5px;
+}

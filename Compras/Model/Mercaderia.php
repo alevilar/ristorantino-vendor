@@ -6,13 +6,9 @@ App::uses('ComprasAppModel', 'Compras.Model');
  */
 class Mercaderia extends ComprasAppModel {
 
-/**
- * Use database config
- *
- * @var string
- */
-	public $useDbConfig = 'schema_tenant';
 
+	public $order = array('Mercaderia.name'=>'ASC');
+	
 /**
  * Validation rules
  *
@@ -32,5 +28,20 @@ class Mercaderia extends ComprasAppModel {
 	);
 
 
-	public $belongsTo = array('Compras.UnidadDeMedida');
+	public $belongsTo = array(
+		'Compras.UnidadDeMedida', 
+		'Proveedor' => array(
+			'className' => 'Account.Proveedor',
+			'foreignKey' => 'default_proveedor_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+			)
+
+		);
+
+
+	public $filterArgs = array(
+
+		);
 }

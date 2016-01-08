@@ -24,7 +24,7 @@ class Pedido extends ComprasAppModel {
 		'PedidoMercaderia' => array(
 			'className' => 'Compras.PedidoMercaderia',
 			'foreignKey' => 'pedido_id',
-			'dependent' => false,
+			'dependent' => true,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',
@@ -36,4 +36,23 @@ class Pedido extends ComprasAppModel {
 		)
 	);
 
+
+
+	public $belongsTo = array(
+		'User' => array(
+			'className' => 'Users.User',
+			'foreignKey' => 'created_by',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		);
+
+
+	public function beforeSave($options = array()) {
+		if ( empty($this->data['Pedido']['id']) ) {
+			$this->data['Pedido']['created_by'] = CakeSession::read('Auth.User.id');
+		}
+		return parent::beforeSave($options);
+	}
 }
