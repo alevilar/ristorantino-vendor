@@ -103,32 +103,32 @@ class TenantBaseSchema extends RistoBaseSchema {
 				array(
 					'codigo_fiscal' => 'I',
 					'name' => 'Resp. Inscripto',
-					'tipo_factura_id' => 1,
+					'tipo_factura_id' => RISTO_TIPO_FACTURA_A_ID, // fact "A"
 					),
 				array(
 					'codigo_fiscal' => 'E',
 					'name' => 'Exento',
-					'tipo_factura_id' => 1,
+					'tipo_factura_id' => RISTO_TIPO_FACTURA_B_ID, // fact "B"
 					),
 				array(
 					'codigo_fiscal' => 'A',
 					'name' => 'No Responsable',
-					'tipo_factura_id' => 1,
+					'tipo_factura_id' => RISTO_TIPO_FACTURA_B_ID, // fact "B"
 					),
 				array(
 					'codigo_fiscal' => 'C',
 					'name' => 'Consumidor Final',
-					'tipo_factura_id' => 1,
+					'tipo_factura_id' => RISTO_TIPO_FACTURA_B_ID, // fact "B"
 					),
 				array(
 					'codigo_fiscal' => 'T',
 					'name' => 'No Categorizado',
-					'tipo_factura_id' => 1,
+					'tipo_factura_id' => RISTO_TIPO_FACTURA_B_ID, // fact "B"
 					),
 				array(
 					'codigo_fiscal' => 'M',
 					'name' => 'Responsable Monotributo',
-					'tipo_factura_id' => 1,
+					'tipo_factura_id' => RISTO_TIPO_FACTURA_B_ID, // fact "B"
 					),
 			),			
 			'observacion_comandas' => array(

@@ -71,6 +71,8 @@ class ClientesController extends FidelizationAppController {
 			if ($this->Cliente->save($this->request->data)) {
 				$this->Session->setFlash(__('Se agregó un nuevo %s', Configure::read('Mesa.tituloCliente') ));
             	$this->set('cliente_id', $this->Cliente->id);
+            	$this->Cliente->contain( array('Descuento', 'IvaResponsabilidad', 'TipoDocumento') );
+            	$this->request->data = $this->Cliente->read();
             	$this->render('jqm_result');
 			} else {
 				$this->Session->setFlash(__('El %s no pudo ser gardado, intente nuevamente.', Configure::read('Mesa.tituloCliente')), 'Risto.flash_error');
@@ -85,8 +87,6 @@ class ClientesController extends FidelizationAppController {
 		$descuentos = $this->Cliente->Descuento->find('list');
 		$tipoDocumentos = $this->Cliente->TipoDocumento->find('list');
 		$ivaResponsabilidades = $this->Cliente->IvaResponsabilidad->find('list');
-		$this->set(compact('descuentos', 'tipoDocumentos', 'ivaResponsabilidades'));
-
 		$this->set(compact('descuentos', 'tipoDocumentos', 'ivaResponsabilidades'));
 	}
 
