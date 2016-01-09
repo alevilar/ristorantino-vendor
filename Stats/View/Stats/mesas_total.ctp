@@ -41,6 +41,7 @@ foreach ($pagos as $fecha=>$ingreso) {
     $googleChartData[] = array( $fecha, (float) @$ingreso['valor'], (float) @$egresos[$fecha]['total'], (float) @$zetas[$fecha]['monto_iva'] + @$zetas[$fecha]['monto_neto']);
 
     $tableData[] = array( $fecha
+                        , $mesas[$fecha]['cant'] 
                         , (float)$mesas[$fecha]['cubiertos']
                         , $this->Number->currency( $mesas[$fecha]['promedio_cubiertos'] )
                         , $this->Number->currency( $mesas[$fecha]['total']/ (!empty($ingreso['cant_dias'])?$ingreso['cant_dias']:1 ) )
@@ -132,6 +133,7 @@ echo $this->Html->script("https://www.google.com/jsapi?autoload={
                      <?php 
                      echo $this->Html->tableHeaders( array(
                             __('Fecha'),
+                            Inflector::pluralize(Configure::read('Mesa.tituloMesa')),
                             Inflector::pluralize(Configure::read('Mesa.tituloCubierto')),
                             __('Promedio x %s', Configure::read('Mesa.tituloCubierto')),
                             __('Ventas'),

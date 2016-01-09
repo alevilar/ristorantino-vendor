@@ -50,9 +50,9 @@
                     echo $this->Form->input('time_cobro', array( 'type'=>'date', 'label'=>'Fecha de Cobro'));
 
 
-                    if ( Configure::read("Adicion.cantidadCubiertosObligatorio")) {
+                    //if ( Configure::read("Adicion.cantidadCubiertosObligatorio")) {
                         echo $this->Form->input('cant_comensales', array('label'=> __("Cantidad de %s", Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) )));
-                    }
+                    //}
 
                     echo $this->Form->input('observation', array());
 

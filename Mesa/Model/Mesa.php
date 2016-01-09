@@ -306,8 +306,8 @@ class Mesa extends MesaAppModel {
 					"DATEDIFF(Mesa.checkin, Mesa.checkout) as cant_dias",
 	 				),
 	 			'conditions' => array(
-	 				"$sqlHorarioDeCorteCheckin <=" => $dia,
- 					"$sqlHorarioDeCorteCheckout >=" => $dia,	 				
+	 				"$sqlHorarioDeCorteCheckin" => $dia,
+ 					//"$sqlHorarioDeCorteCheckout >=" => $dia,	 				
 	 				'Mesa.deleted' => 0
 	 				),
 	 			));
