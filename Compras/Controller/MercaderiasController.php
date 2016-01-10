@@ -14,11 +14,11 @@ class MercaderiasController extends ComprasAppController {
 
         $this->Paginator->settings['conditions'] = $conds; 
 
+
         $mercaderias = $this->Paginator->paginate();
         $defaultProveedor = $this->Mercaderia->Proveedor->find('list');
         $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');
         $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas'));
-        $this->set('_serialize', array('mercaderias'));
 	}
 
 
@@ -33,7 +33,7 @@ class MercaderiasController extends ComprasAppController {
 		}
 
         $defaultProveedores = $this->Mercaderia->Proveedor->find('list');
-        $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');
+        $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');    
         $this->set(compact('defaultProveedores', 'unidadDeMedidas'));
 	}
 

@@ -55,4 +55,28 @@ class Pedido extends ComprasAppModel {
 		}
 		return parent::beforeSave($options);
 	}
+
+
+	public function getViewDataForPedidos ( $pedidoId = null ) {
+		if ( empty($pedidoId) ) {
+			$pedidoId = $this->id;
+		}
+		if (empty($pedidoId )) {
+        	throw new NotFoundException("No se encontro pedido con el ID $pedidoId");
+        }
+
+        $this->contain(array(
+        	'User',
+        	'PedidoMercaderia' => array(
+        		'Mercaderia' => array('Proveedor'),
+        		'PedidoEstado',
+        		'UnidadDeMedida',
+        		),
+        	));
+        return array(
+        	'pedido' => $this->read() ,
+        	'proveedores' => $this->PedidoMercaderia->Mercaderia->Proveedor->find('list'),
+        	);
+		
+	}
 }

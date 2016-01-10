@@ -40,7 +40,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 			<ul class="dashboard-buttons">
 
 				<li>   
-					<?php echo $this->Html->link('Compras', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'index'), array('id' => 'bton-pedidos')); ?>
+					<?php echo $this->Html->link('Compras', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'pendientes'), array('id' => 'bton-pedidos')); ?>
 				</li> 
 
 

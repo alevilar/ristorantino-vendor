@@ -9,18 +9,19 @@ class PedidosController extends ComprasAppController {
 
 	public function index() {
 		$pedidos = $this->Paginator->paginate();
-		$this->set(compact('pedidos'));
+		$this->set(compact('pedidos'));     
+
 	}
 
 
 	public function pendientes() {
 		$pedidos = $this->Pedido->PedidoMercaderia->find('all', array(
 			'conditions' => array(
-				'PedidoMercaderia.pedido_estado_id' => COMPRAS_PEDIDO_ESTADO_PENDIENTE,
+				'PedidoMercaderia.pedido_estado_id <>' => COMPRAS_PEDIDO_ESTADO_COMPLETADO,
 				),
 			'contain' => array(
 				'Mercaderia'=> array('Proveedor'),
-				'Pedido',
+				'Pedido'=>array('User'),
 				'UnidadDeMedida',
 				'PedidoEstado',
 				),
@@ -33,7 +34,9 @@ class PedidosController extends ComprasAppController {
 			$pedPorProv[$provId]['PedidoMercaderia'][] = $p;
 		}
 		$pedidos = $pedPorProv;
-		$this->set(compact('pedidos'));	
+
+		$pedidoEstados = $this->Pedido->PedidoMercaderia->PedidoEstado->find('list');
+		$this->set(compact('pedidos', 'pedidoEstados'));
 	}
 
 	public function add () {
@@ -46,17 +49,31 @@ class PedidosController extends ComprasAppController {
 					),
 				'PedidoMercaderia' => array(),
 			);
+			
 			foreach ( $this->request->data['PedidoMercaderia'] as $pedido ) {
-				if ($pedido['cantidad']) {
-					$pedidoLimpio['PedidoMercaderia'][] = array('PedidoMercaderia' => $pedido);
+				if ( $pedido['cantidad'] ) {
+					$mercaderia = array(
+						'id'   => empty($pedido['mercaderia_id']) ? null : $pedido['mercaderia_id'],
+						'name' => $pedido['mercaderia'],
+						'unidad_de_medida_id' => $pedido['unidad_de_medida_id'],
+						);
+
+					if ($pedido) {
+						$pedido['Mercaderia'] = $mercaderia;
+					}
+					$pedidoLimpio['PedidoMercaderia'][] = array(
+						'PedidoMercaderia' => $pedido,
+						);
 				}
 			}
 			
-			if ( $pedidoLimpio ) {
-
-				if ( $this->Pedido->saveAll($pedidoLimpio) ) {
+			if ( $pedidoLimpio ) {				
+				if ( $this->Pedido->saveAll($pedidoLimpio, array('deep'=>true)) ) {
 					$this->Session->setFlash('Se ha guardado correctamente un nuevo pedido');
+					ReceiptPrint::imprimirPedidoCompra($this->Pedido);
 				} else {
+					debug($pedidoLimpio);
+					debug($this->Pedido->validationErrors);
 					$this->Session->setFlash('Error al guardar el pedido', 'Risto.flash_error');
 				}
 			} else {
@@ -66,8 +83,8 @@ class PedidosController extends ComprasAppController {
 
 		$unidadDeMedidas = $this->Pedido->PedidoMercaderia->UnidadDeMedida->find('list');
 		$mercaderias = $this->Pedido->PedidoMercaderia->Mercaderia->find('list');
-
-		$this->set(compact('mercaderias', 'unidadDeMedidas'));
+		$mercaUnidades = $this->Pedido->PedidoMercaderia->Mercaderia->find('list', array('fields'=> array('id', 'unidad_de_medida_id')));
+		$this->set(compact('mercaderias', 'unidadDeMedidas', 'mercaUnidades'));
 	}
 
 

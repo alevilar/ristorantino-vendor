@@ -62,4 +62,17 @@ class ReceiptPrint
    		return $send;
 
    }
+
+
+   public static function imprimirPedidoCompra ( Pedido $Pedido ) {
+     // $Mesa = ClassRegistry::init('Mesa.Mesa');
+
+      $send = Printaitor::send( $Pedido, 
+                    self::__getFiscalPrinterId(), 
+                    'pedidos' // user vista comandas.ctp
+      );
+      
+      return $send;
+
+   }
 }

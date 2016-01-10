@@ -7,9 +7,9 @@ App::uses('ComprasAppController', 'Compras.Controller');
 class PedidoMercaderiasController extends ComprasAppController {
 
 
-	public function completar ($id) {
+	public function cambiarEstado ($id, $estadoId) {
         $this->PedidoMercaderia->id=$id;
-        if ( $this->PedidoMercaderia->saveField('pedido_estado_id', COMPRAS_PEDIDO_ESTADO_COMPLETADO) ){
+        if ( $this->PedidoMercaderia->saveField('pedido_estado_id', $estadoId) ){
             $this->Session->setFlash("Se marcó como completado el Pedido #$id");
         } else {
             $this->Session->setFlash("Error al marcar como completado al pedido #$id", 'Risto.flash_error');

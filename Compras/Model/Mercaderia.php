@@ -8,6 +8,22 @@ class Mercaderia extends ComprasAppModel {
 
 
 	public $order = array('Mercaderia.name'=>'ASC');
+
+
+	public $actsAs = array(
+		'Search.Searchable',
+	);
+
+
+
+	public $filterArgs = array(
+		
+        'search' => array(
+        	'field' => 'Mercaderia.name',
+            'type' => 'like',
+            ),
+        );
+
 	
 /**
  * Validation rules
@@ -41,7 +57,4 @@ class Mercaderia extends ComprasAppModel {
 		);
 
 
-	public $filterArgs = array(
-
-		);
 }

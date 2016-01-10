@@ -7,10 +7,14 @@ App::uses('ComprasAppController', 'Compras.Controller');
 class UnidadDeMedidasController extends ComprasAppController {
 
 
+
 	public function index() {
-		$unidadDeMedidas = $this->UnidadDeMedida->find('all');
+
+		$this->Prg->commonProcess();
+        $conditions = $this->UnidadDeMedida->parseCriteria( $this->Prg->parsedParams() );
+        
+		$unidadDeMedidas = $this->UnidadDeMedida->find('all', array('conditions'=>$conditions));
 		$this->set(compact('unidadDeMedidas'));
-        $this->set('_serialize', array('unidadDeMedidas'));
 	}
 
 

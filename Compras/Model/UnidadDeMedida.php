@@ -14,6 +14,21 @@ class UnidadDeMedida extends ComprasAppModel {
  */
 	public $displayField = 'name';
 
+
+	public $actsAs = array(
+		'Search.Searchable',
+		);
+
+
+
+	public $filterArgs = array(
+		
+        'search' => array(
+        	'field' => 'UnidadDeMedida.name',
+            'type' => 'like',
+            ),
+        );
+
 /**
  * Validation rules
  *
