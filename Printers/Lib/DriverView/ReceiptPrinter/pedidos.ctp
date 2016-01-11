@@ -37,7 +37,7 @@ foreach ($pedido['PedidoMercaderia'] as $merca ) {
 
 foreach ($prv as $p) {
 	echo $p['Proveedor']['name']."\n";
-	if ( !empty(trim($p['Proveedor']['telefono'])) ) {
+	if ( !empty($p['Proveedor']['telefono']) ) {
 		echo "Tel: ".$p['Proveedor']['telefono']."\n";
 	}
 	echo "\n";
