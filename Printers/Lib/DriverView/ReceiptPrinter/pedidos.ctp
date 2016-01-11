@@ -1,7 +1,5 @@
-    PEDIDO DE COMPRA
+    PEDIDO DE COMPRA Nº<?php echo $pedido['Pedido']['id']?>
 
-
-Viendo el pedido #<?php echo $pedido['Pedido']['id']?>
 
 
 
@@ -16,7 +14,12 @@ foreach ($pedido['PedidoMercaderia'] as $merca ) {
 		$observacion = $merca['observacion'];
 		$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
 
-		$detalle = $cant .") ". Inflector::pluralize($uMedida)." de " .$mercaderia;
+		$umedidaTxt = ($cant>1)? Inflector::pluralize($uMedida) : $uMedida;
+
+		if ( $observacion ) {
+			$observacion = ". OBS: " .$observacion;
+		}
+		$detalle = "$cant $umedidaTxt de $mercaderia$observacion";
 
     	$descoProve = array(    		
     			'id' => 0,
@@ -34,6 +37,10 @@ foreach ($pedido['PedidoMercaderia'] as $merca ) {
 
 foreach ($prv as $p) {
 	echo $p['Proveedor']['name']."\n";
+	if ( !empty(trim($p['Proveedor']['telefono'])) ) {
+		echo "Tel: ".$p['Proveedor']['telefono']."\n";
+	}
+	echo "\n";
 	foreach ($p['Merca'] as $m) {
 		echo $m."\n";
 	}
@@ -43,4 +50,11 @@ foreach ($prv as $p) {
 }
 
 
-?>
+    echo "\n";
+    echo "\n";
+    echo "\n";        
+
+
+
+    // probando corte completo ESC/P
+    echo $this->PE->cm('CORTAR_PAPEL');
