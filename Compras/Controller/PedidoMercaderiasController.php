@@ -18,6 +18,32 @@ class PedidoMercaderiasController extends ComprasAppController {
 	}
 
 
+    public function historial() {
+        $this->Prg->commonProcess();
+        $conds = $this->PedidoMercaderia->parseCriteria( $this->Prg->parsedParams() );
+
+        $this->Paginator->settings = array(
+            'order'  => array(
+                'PedidoMercaderia.created' => 'DESC',
+                ),
+            'contain' => array(
+                'Mercaderia'=> array('Proveedor'),
+                'Pedido'=>array('User'),
+                'UnidadDeMedida',
+                'PedidoEstado',
+                ),
+            'conditions' => $conds,
+        );
+
+        $pedidos = $this->Paginator->paginate();
+
+
+        $pedidoEstados = $this->PedidoMercaderia->PedidoEstado->find('list');
+        $proveedores = $this->PedidoMercaderia->Mercaderia->Proveedor->find('list');
+        $this->set(compact('pedidos', 'pedidoEstados', 'proveedores'));
+    }
+
+
 	function form($id = null)
     {
         if ( $this->request->is(array('post', 'put')) ) {

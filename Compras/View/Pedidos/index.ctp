@@ -21,10 +21,14 @@
 	<?php
 		$rows = [];
 		foreach ( $pedidos as $p ) {
+
+			$links = $this->Html->link('ver',array('action'=>'view', $p['Pedido']['id']));
+			$links .= " | ";
+			$links .=  $this->Html->link("imprimir", array('action'=>'imprimir', $p['Pedido']['id'] ) );
 			$rows[] = array(
 				$p['Pedido']['id'],
 				$this->Time->nice($p['Pedido']['created']),
-				$this->Html->link('ver',array('action'=>'view', $p['Pedido']['id'])),
+				$links,
 				);
 		}
 		echo $this->Html->tableCells($rows);

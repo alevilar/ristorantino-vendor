@@ -39,6 +39,9 @@ class PedidosController extends ComprasAppController {
 		$this->set(compact('pedidos', 'pedidoEstados'));
 	}
 
+
+
+
 	public function add () {
 		if ($this->request->is(array('put','post'))) {
 
@@ -87,6 +90,13 @@ class PedidosController extends ComprasAppController {
 		$this->set(compact('mercaderias', 'unidadDeMedidas', 'mercaUnidades'));
 	}
 
+
+	public function imprimir ( $id ) {
+		$this->Pedido->id = $id;
+		ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+		$this->Session->setFlash( __( "Se envio a imprimir un pedido de compra" ));
+		$this->redirect($this->referer() );
+	}
 
 	public function view ( $id ) {
 		$pedido = $this->Pedido->find('first', array(

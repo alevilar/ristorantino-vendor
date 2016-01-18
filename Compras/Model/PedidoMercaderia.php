@@ -12,6 +12,34 @@ class PedidoMercaderia extends ComprasAppModel {
 
 	public $order = array('PedidoMercaderia.created'=>'DESC');
 
+
+	public $actsAs = array( 'Containable', 'Search.Searchable');
+
+
+
+	public $filterArgs = array(		
+        'pedido_id' => array(
+            'type' => 'value',    
+            ),
+        'mercaderia_id' => array(
+            'type' => 'value',
+            ),
+        'pedido_estado_id' => array(
+            'type' => 'value',
+            ),
+        'unidad_de_medida_id' => array(
+            'type' => 'value',
+            ),
+        'proveedor_id' => array(
+            'type' => 'value',
+            'field' => 'Mercaderia.proveedor_id'
+            ),
+        'created_by' => array(
+            'type' => 'value',
+            'field' => 'Pedido.created_by'
+            ),
+        );
+
 /**
  * Validation rules
  *

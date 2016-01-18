@@ -16,7 +16,10 @@
                     <?php echo $this->Html->link('Pendientes', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'pendientes')) ?>
                 </li>                
                 <li class="<?php echo $c1 ?>">
-                    <?php echo $this->Html->link('Listar Todos', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'index')) ?>
+                    <?php echo $this->Html->link('Historial', array('plugin'=>'compras', 'controller'=>'pedido_mercaderias', 'action'=>'historial')) ?>
+                </li>
+                <li class="<?php echo $c1 ?>">
+                    <?php echo $this->Html->link('Listar Pedidos', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'index')) ?>
                 </li>                
             </ul>
         </li>

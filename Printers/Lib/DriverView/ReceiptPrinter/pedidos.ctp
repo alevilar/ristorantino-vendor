@@ -1,6 +1,9 @@
     PEDIDO DE COMPRA Nº<?php echo $pedido['Pedido']['id']?>
 
 
+  - <?php echo $this->Time->format( $pedido['Pedido']['created'], "%A %d/%m/%y %H:%M" )?> -
+
+
 
 
 <?php

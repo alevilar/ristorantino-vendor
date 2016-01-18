@@ -31,7 +31,11 @@
 			<td><?php echo $detalle;?></td>
 			<td><?php echo $proveedor;?></td>
 			
-			<td><?php echo $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['id'] ) );?></td>
+			<td>
+				<?php echo $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['id'] ) );?> | 
+				<?php echo $this->Html->link("imprimir", array('controller'=>'PedidoMercaderias', 'action'=>'imprimir', $merca['id'] ) );?>
+
+					</td>
 		</tr>
 	<?php }?>
 	</table>
