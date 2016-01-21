@@ -220,7 +220,7 @@ class Hasar1120fFiscalHelper extends FiscalPrinterHelper
 	 * @return string $comando
 	 */
 	public function delHeaderTrailer(){
-		$comando = "]".$this->cm('FS')."0".$this->cm('FS').$this->cm('DEL')."\n";
+		$comando = "]".$this->cm('FS')."0".$this->cm('FS').$this->cm('DEL');
 		return $comando;
 	}
 	
