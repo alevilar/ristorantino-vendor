@@ -745,7 +745,7 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 			if ( $horarioCorte < 10 ) {
 				$horarioCorte = "0$horarioCorte";
 			}
-			$sqlHorarioDeCorte = "DATE(SUBTIME(Mesa.time_cerro, '$horarioCorte:00:00'))";
+			$sqlHorarioDeCorte = "DATE(SUBTIME(Mesa.checkin, '$horarioCorte:00:00'))";
 			$desde = empty($fechaDesde) ? date('Y-m-d', strtotime('now')) : $fechaDesde;
 			$hasta = empty($fechaHasta) ? date('Y-m-d', strtotime('now')) : $fechaHasta;
 			$defaultOrder = array();
@@ -763,7 +763,7 @@ function calcular_valor_cubierto ( $mesaId = null )  {
 				);
 			if ( empty($conds['order'])) {
 				$defaultOrder = array(
-					"Mesa.time_cerro DESC"
+					"Mesa.checkin DESC"
 					);
 			}
 			

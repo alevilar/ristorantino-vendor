@@ -124,7 +124,6 @@ class StatsController extends StatsAppController
                     'Mozo'
                 )
             ));
-
             // traer array de fechas
             $fechas = array_flip(crear_fechas($desde, $hasta));
             $fechas = array_reverse($fechas);
