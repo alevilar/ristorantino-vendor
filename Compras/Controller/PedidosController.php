@@ -14,6 +14,22 @@ class PedidosController extends ComprasAppController {
 	}
 
 
+	public function marcar_las_del_proveedor_como_completada( $proveedor_id ) {
+
+		if ( $this->request->is(array('put', 'post'))) {
+			$mercas = $this->request->data['PedidoMercaderia'];
+			$this->Pedido->PedidoMercaderia->updateAll(	
+				array(
+					'PedidoMercaderia.pedido_estado_id' => COMPRAS_PEDIDO_ESTADO_COMPLETADO
+					),
+				array(
+					'PedidoMercaderia.id' => $mercas
+					)
+				);
+		}
+	}
+
+
 	public function pendientes() {
 		$pedidos = $this->Pedido->PedidoMercaderia->find('all', array(
 			'conditions' => array(
@@ -30,8 +46,9 @@ class PedidosController extends ComprasAppController {
 		$pedPorProv = array();
 		foreach ($pedidos as $p) {			
 			$provId = !empty($p['Mercaderia']['Proveedor']['id']) ? $p['Mercaderia']['Proveedor']['id'] : 0;
-			$pedPorProv[$provId]['Proveedor'] = $p['Mercaderia']['Proveedor'];
-			$pedPorProv[$provId]['PedidoMercaderia'][] = $p;
+			$pedEst = $p['PedidoMercaderia']['pedido_estado_id'];
+			$pedPorProv[$pedEst][$provId]['Proveedor'] = $p['Mercaderia']['Proveedor'];
+			$pedPorProv[$pedEst][$provId]['PedidoMercaderia'][] = $p;
 		}
 		$pedidos = $pedPorProv;
 
@@ -112,5 +129,22 @@ class PedidosController extends ComprasAppController {
 
 		$this->set('pedido', $pedido);
 	}
+
+
+	public function delete($id = null)
+    {
+        if (!$id) {
+            $this->Session->setFlash(__('Invalid id for Pedido', true));
+            $this->redirect( $this->referer() );
+        }
+        if ($this->Pedido->delete($id)) {
+            $this->Session->setFlash(__('Pedido deleted', true));
+            if ( !$this->request->is('ajax') ) {
+                $this->redirect($this->referer() );
+            }
+        }
+        $this->Session->setFlash(__('The Pedido could not be deleted. Please, try again.', true));
+        $this->redirect($this->referer() );
+    }
 
 }

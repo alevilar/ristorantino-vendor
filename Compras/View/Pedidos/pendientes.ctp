@@ -1,10 +1,24 @@
+<h2>Índice por Estado del Pedido</h2>
 
-<h1>Pedidos Pendientes</h1>
-<button value="imprimir" class="btn btn-info btn-lg center hidden-print" onclick="javascript:window.print()">Imprimir</button>
+<div class="btn-group-vertical">
+<?php
+foreach ($pedidos as $estId => $pedidosProv) {
+	echo $this->Html->link($pedidoEstados[$estId], "#pedido-id-$estId", array('class'=>'btn btn-sm btn-default'));
+}
+?>
+</div>
+
+
+<button value="imprimir" class="btn btn-info btn-lg center hidden-print pull-right" onclick="javascript:window.print()">Imprimir</button>
 
 <?php
 
-foreach ($pedidos as $prov) {
+foreach ($pedidos as $estId => $pedidosProv) {
+
+?>
+	<h2 id="pedido-id-<?php echo $estId?>" style="border-top: 2px solid #ccc; border-bottom: 1px solid #ccc"><?php echo Inflector::pluralize( $pedidoEstados[$estId]); ?></h2>
+<?php
+foreach ($pedidosProv as $prov) {
 
 	?>
 	<table class="table table-condensed">
@@ -27,7 +41,9 @@ foreach ($pedidos as $prov) {
 			</tr>	
 		</thead>
 		
-	<?php foreach ($prov['PedidoMercaderia'] as $merca ) { ?>
+	<?php 
+		$cont = -1;
+		foreach ($prov['PedidoMercaderia'] as $merca ) { ?>
 		<tr>
 			<?php 
 			$cant = (float)$merca['PedidoMercaderia']['cantidad'];
@@ -51,25 +67,40 @@ foreach ($pedidos as $prov) {
 			<td><?php echo $observacion;?></td>
 			
 			<td class="hidden-print">
-				<?php echo $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['PedidoMercaderia']['id'] ) );?>
+				<div class="">
+				<?php echo $this->Html->link("Editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['PedidoMercaderia']['id'] ), array('') );?>
 				
+				<?php echo $this->Html->link(__('Borrar')
+                        						, array('controller'=>'PedidoMercaderias', 'action'=>'delete', $merca['PedidoMercaderia']['id'])
+                        						, array('class'=>'btn btn-danger btn-sm acl acl-administrador')
+                        						, __('Desea borrar el Pedido de Mercaderia: "%s"', $merca['Mercaderia']['name'])
+                        						); ?>
+				
+
 				<div class="btn-group" role="group">
 
+				<button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+    			Cambiar Estado<span class="caret"></span></button>
+
+				<ul class="dropdown-menu" role="menu">
 				<?php 
 				foreach ($pedidoEstados as $esId => $est) {
 					if ( $merca['PedidoEstado']['id'] != $esId ) {
-						echo $this->Html->link($est, array('controller'=>'PedidoMercaderias', 'action'=>'cambiarEstado', $merca['PedidoMercaderia']['id'], $esId ), array(
+						echo "<li>".$this->Html->link($est, array('controller'=>'PedidoMercaderias', 'action'=>'cambiarEstado', $merca['PedidoMercaderia']['id'], $esId ), array(
 							'class' => 'btn-group btn-default btn-sm',
 							 'role' => "group",
-							) );
+							) )."</li>";
 					}
 
 				}
 				?>
+				</ul>
 				</div>
 			</td>
 		</tr>
 	<?php }?>
 	</table>
 	<?php
+}
+
 }

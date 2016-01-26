@@ -68,14 +68,17 @@ class PedidoMercaderiasController extends ComprasAppController {
         $this->set('mercaderias', $mercaderias);
     }
 
-    function delete($id = null)
+   
+
+    public function delete($id = null)
     {
-        if (!$id) {
-            $this->Session->setFlash(__('Invalid id for Clasificacion', true));
+        if (!$this->PedidoMercaderia->exists( $id) ) {
+            $this->Session->setFlash(__('Invalid id for PedidoMercaderia', 'Risto.flash_error'));
         }
-        if ($this->Clasificacion->delete($id)) {
-            $this->Session->setFlash(__('Clasificacion deleted', true));
+        if ($this->PedidoMercaderia->delete($id)) {
+            $this->Session->setFlash(__('PedidoMercaderia deleted', true));
         }
-        $this->redirect(array('action' => 'index'));
+        $this->redirect( $this->referer() );
     }
+
 }
