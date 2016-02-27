@@ -52,6 +52,13 @@ class Mercaderia extends ComprasAppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+			),
+		'Rubro' => array(
+			'className' => 'Compras.Rubro',
+			'foreignKey' => 'rubro_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 			)
 
 		);

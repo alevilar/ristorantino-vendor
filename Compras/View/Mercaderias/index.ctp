@@ -10,6 +10,7 @@
 		<th>Nombre</th>
 		<th>Unidad de Medida</th>
 		<th>Default Proveedor</th>
+		<th>Rubro</th>
 	</tr>
 </thead>
 <tbody>
@@ -19,6 +20,7 @@
 		<td><?php echo $m['Mercaderia']['name']?></td>
 		<td><?php echo $m['UnidadDeMedida']['name']?></td>
 		<td><?php echo $m['Proveedor']['name']?></td>
+		<td><?php echo $m['Rubro']['name']?></td>
 		<td>
 			<?php echo $this->Html->link('editar', array('action'=>'edit', $m['Mercaderia']['id']), array('class'=>'btn btn-default'));?>
 

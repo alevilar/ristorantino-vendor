@@ -15,7 +15,7 @@ foreach ($pedido['PedidoMercaderia'] as $merca ) {
 		$mercaderia = $merca['Mercaderia']['name'];
 		$estado = $merca['PedidoEstado']['name'];
 		$observacion = $merca['observacion'];
-		$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
+		$proveedor = !empty($merca['Proveedor']['name'])? $merca['Proveedor']['name'] : '';
 
 		$umedidaTxt = ($cant>1)? Inflector::pluralize($uMedida) : $uMedida;
 
@@ -29,12 +29,12 @@ foreach ($pedido['PedidoMercaderia'] as $merca ) {
     			'name' => '',
     		);
 
-    	if ( empty($merca['Mercaderia']['Proveedor']) ) {
-    		$merca['Mercaderia']['Proveedor'] = $descoProve;
+    	if ( empty($merca['Proveedor']) ) {
+    		$merca['Proveedor'] = $descoProve;
     	}
     	
-    	$prv[ $merca['Mercaderia']['Proveedor']['id'] ]['Proveedor'] = $merca['Mercaderia']['Proveedor'];
-    	$prv[ $merca['Mercaderia']['Proveedor']['id'] ]['Merca'][] = $detalle;
+    	$prv[ $merca['Proveedor']['id'] ]['Proveedor'] = $merca['Proveedor'];
+    	$prv[ $merca['Proveedor']['id'] ]['Merca'][] = $detalle;
  }
 
 

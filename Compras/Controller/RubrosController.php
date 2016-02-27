@@ -44,10 +44,10 @@ class RubrosController extends ComprasAppController {
 		if ($this->request->is('post')) {
 			$this->Rubro->create();
 			if ($this->Rubro->save($this->request->data)) {
-				$this->Flash->set(__('The rubro has been saved.'));
+				$this->Session->setFlash(__('The rubro has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->set(__('The rubro could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The rubro could not be saved. Please, try again.'));
 			}
 		}
 		$proveedores = $this->Rubro->Proveedor->find('list');
@@ -67,10 +67,10 @@ class RubrosController extends ComprasAppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Rubro->save($this->request->data)) {
-				$this->Flash->success(__('The rubro has been saved.'));
+				$this->Session->setFlash(__('The rubro has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Flash->error(__('The rubro could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The rubro could not be saved. Please, try again.'));
 			}
 		} else {
 			$options = array('conditions' => array('Rubro.' . $this->Rubro->primaryKey => $id));

@@ -20,7 +20,9 @@
                 </li>
                 <li class="<?php echo $c1 ?>">
                     <?php echo $this->Html->link('Listar Pedidos', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'index')) ?>
-                </li>                
+                </li>   
+
+                
             </ul>
         </li>
 
@@ -38,7 +40,16 @@
 
                  <li class="<?php echo $c1 ?>">
                     <?php echo $this->Html->link('Unidades de Medida', array('plugin'=>'compras', 'controller'=>'UnidadDeMedidas', 'action'=>'index')) ?>
-                </li>              
+                </li>
+
+                <li class="<?php echo $c1 ?>">
+                    <?php echo $this->Html->link('Rubros', array('plugin'=>'compras', 'controller'=>'Rubros', 'action'=>'index')) ?>
+                </li>  
+
+                <li class="<?php echo $c1 ?>">
+                    <?php echo $this->Html->link('Asignar Rubro', array('plugin'=>'compras', 'controller'=>'mercaderias', 'action'=>'asignar_rubros')) ?>
+                </li>
+            
             </ul>
         </li>
        

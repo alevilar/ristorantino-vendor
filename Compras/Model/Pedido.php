@@ -71,6 +71,7 @@ class Pedido extends ComprasAppModel {
         		'Mercaderia' => array('Proveedor'),
         		'PedidoEstado',
         		'UnidadDeMedida',
+        		'Proveedor',
         		),
         	));
         return array(

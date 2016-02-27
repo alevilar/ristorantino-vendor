@@ -57,7 +57,7 @@
 $classActive = 'active';
 $isfirst = true; 
 
-foreach ($pedidos as $estId => $pedidosProv) {		
+foreach ($pedidos as $estId => $pedidosRub) {		
 ?>
 	<div id="pedido-estado-id-<?php echo $estId?>" class="tab-pane fade in <?php echo $classActive?>">
 <?php
@@ -66,13 +66,22 @@ foreach ($pedidos as $estId => $pedidosProv) {
 		$classActive = '';
 	}
 
-	foreach ($pedidosProv as $prov) {
+	foreach ($pedidosRub as $rub) {
 
 		?>
 		<table class="table table-condensed table-responsive">
-		    <caption class="center"><h4><?php echo !empty($prov['Proveedor']['name']) ? $prov['Proveedor']['name']: 'Sin Proveedor Definido'?></h4>
+		    <caption class="center"><h4><?php echo !empty($rub['Rubro']['name']) ? $rub['Rubro']['name']: 'Sin Rubro Definido'?></h4>
 
-		    	<?php echo !empty($prov['Proveedor']['telefono'])? "(Tel: ".$prov['Proveedor']['telefono'].")":"";?>
+		    	<?php 
+		    		if ( !empty($rub['Rubro']['Proveedor']) ) {
+		    			foreach ($rub['Rubro']['Proveedor'] as $proveedor) {
+		    				$telefono = !empty($proveedor['telefono']) ? " (".$proveedor['telefono'].")" : '';
+		    				echo $proveedor['name']. $telefono;
+		    				echo "<br>";
+		    			}
+		    		}
+
+		    	?>
 		    </caption>
 
 			<thead>
@@ -91,7 +100,7 @@ foreach ($pedidos as $estId => $pedidosProv) {
 			
 		<?php 
 			$cont = -1;
-			foreach ($prov['PedidoMercaderia'] as $merca ) { ?>
+			foreach ($rub['PedidoMercaderia'] as $merca ) { ?>
 			<tr>
 				<?php 
 				$cant = (float)$merca['PedidoMercaderia']['cantidad'];

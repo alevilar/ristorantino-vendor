@@ -103,6 +103,13 @@ class PedidoMercaderia extends ComprasAppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		'Proveedor' => array(
+			'className' => 'Account.Proveedor',
+			'foreignKey' => 'proveedor_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'PedidoEstado' => array(
 			'className' => 'Compras.PedidoEstado',
 			'foreignKey' => 'pedido_estado_id',

@@ -12,22 +12,7 @@ class PedidosController extends ComprasAppController {
 		$this->set(compact('pedidos'));     
 
 	}
-
-
-	public function marcar_las_del_proveedor_como_completada( $proveedor_id ) {
-
-		if ( $this->request->is(array('put', 'post'))) {
-			$mercas = $this->request->data['PedidoMercaderia'];
-			$this->Pedido->PedidoMercaderia->updateAll(	
-				array(
-					'PedidoMercaderia.pedido_estado_id' => COMPRAS_PEDIDO_ESTADO_COMPLETADO
-					),
-				array(
-					'PedidoMercaderia.id' => $mercas
-					)
-				);
-		}
-	}
+	
 
 
 	public function pendientes() {
@@ -36,7 +21,7 @@ class PedidosController extends ComprasAppController {
 				'PedidoMercaderia.pedido_estado_id <>' => COMPRAS_PEDIDO_ESTADO_COMPLETADO,
 				),
 			'contain' => array(
-				'Mercaderia'=> array('Proveedor'),
+				'Mercaderia'=> array('Proveedor', 'Rubro'=>'Proveedor'),
 				'Pedido'=>array('User'),
 				'UnidadDeMedida',
 				'PedidoEstado',
@@ -44,14 +29,14 @@ class PedidosController extends ComprasAppController {
 			'order' => array('PedidoEstado.id', 'PedidoMercaderia.created'=>'DESC'),
 		));
 
-		$pedPorProv = array();
+		$pedPorRubro = array();
 		foreach ($pedidos as $p) {			
-			$provId = !empty($p['Mercaderia']['Proveedor']['id']) ? $p['Mercaderia']['Proveedor']['id'] : 0;
+			$rubroId = !empty($p['Mercaderia']['Rubro']['id']) ? $p['Mercaderia']['Rubro']['id'] : 0;
 			$pedEst = $p['PedidoMercaderia']['pedido_estado_id'];
-			$pedPorProv[$pedEst][$provId]['Proveedor'] = $p['Mercaderia']['Proveedor'];
-			$pedPorProv[$pedEst][$provId]['PedidoMercaderia'][] = $p;
+			$pedPorRubro[$pedEst][$rubroId]['Rubro'] = $p['Mercaderia']['Rubro'];
+			$pedPorRubro[$pedEst][$rubroId]['PedidoMercaderia'][] = $p;
 		}
-		$pedidos = $pedPorProv;
+		$pedidos = $pedPorRubro;
 
 		$pedidoEstados = $this->Pedido->PedidoMercaderia->PedidoEstado->find('list', array('order'=>array('PedidoEstado.id')));
 		$this->set(compact('pedidos', 'pedidoEstados'));
@@ -60,7 +45,7 @@ class PedidosController extends ComprasAppController {
 
 
 
-	public function add () {
+	public function add ( $id = null ) {
 		if ($this->request->is(array('put','post'))) {
 
 
@@ -70,7 +55,10 @@ class PedidosController extends ComprasAppController {
 					),
 				'PedidoMercaderia' => array(),
 			);
-			
+			if (!empty($id)) {
+				$pedidoLimpio['Pedido']['id'] = $id;
+			}
+
 			foreach ( $this->request->data['PedidoMercaderia'] as $pedido ) {
 				if ( $pedido['cantidad'] ) {
 					$mercaderia = array(
@@ -100,7 +88,16 @@ class PedidosController extends ComprasAppController {
 			} else {
 				$this->Session->setFlash('Error, el pedido quedo vacio, o sea, no se seleccionaron cantidades', 'Risto.flash_error');
 			}
+		} else {
+			if ( !empty($id) ) {
+				if ( !$this->Pedido->exists($id) ) {
+					throw new NotFoundException("El ID de pedido #$id no pudo ser encontrado");
+				}
+				$this->request->data['Pedido']['id'] = $id;
+			}
 		}
+
+
 
 		$unidadDeMedidas = $this->Pedido->PedidoMercaderia->UnidadDeMedida->find('list');
 		$mercaderias = $this->Pedido->PedidoMercaderia->Mercaderia->find('list');
@@ -124,6 +121,7 @@ class PedidosController extends ComprasAppController {
 					'Mercaderia'=>array('Proveedor'),
 					'UnidadDeMedida',
 					'PedidoEstado',
+					'Proveedor',
 					)
 				)
 			));

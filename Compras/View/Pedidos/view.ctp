@@ -1,5 +1,9 @@
 <h1>Viendo el pedido #<?php echo $pedido['Pedido']['id']?></h1>
 
+<?php echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-lg btn-default pull-right')); ?>
+
+<?php echo $this->Html->link('Agregar Mercaderias a Este Pedido', array('action'=>'add', $pedido['Pedido']['id']), array('class'=>'btn btn btn-primary')); ?>
+
 <div>
 	<table class="table">
 		<thead>
@@ -20,7 +24,7 @@
 			$uMedida = $merca['UnidadDeMedida']['name'];
 			$mercaderia = $merca['Mercaderia']['name'];
 			$estado = $merca['PedidoEstado']['name'];
-			$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
+			$proveedor = !empty($merca['Proveedor']['name'])? $merca['Proveedor']['name'] : '';
 
 			$detalle =  Inflector::pluralize($uMedida)." de " .$mercaderia;
 
@@ -32,8 +36,7 @@
 			<td><?php echo $proveedor;?></td>
 			
 			<td>
-				<?php echo $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['id'] ) );?> | 
-				<?php echo $this->Html->link("imprimir", array('controller'=>'PedidoMercaderias', 'action'=>'imprimir', $merca['id'] ) );?>
+				<?php echo $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['id'] ) );?>
 
 					</td>
 		</tr>

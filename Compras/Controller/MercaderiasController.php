@@ -21,6 +21,34 @@ class MercaderiasController extends ComprasAppController {
         $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas'));
 	}
 
+    public function asignar_rubros() {
+        if ($this->request->is(array('post', 'put'))) {
+            if ( $this->Mercaderia->save($this->request->data) ) {
+                $this->Session->setFlash("Se ha guardado correctamente a la mercaderia");
+            } else {
+                $this->Session->setFlash("Error al guardar la mercaderia", 'Risto.flash_error');
+            }
+        }
+
+        $this->Prg->commonProcess();
+        $conds = $this->Mercaderia->parseCriteria( $this->Prg->parsedParams() );
+
+        $conds[] = 'Mercaderia.rubro_id IS NULL';
+        $this->Paginator->settings['conditions'] = $conds; 
+
+        $this->Paginator->settings['limit'] = 1; 
+
+
+        $mercaderias = $this->Paginator->paginate();
+        if ( !empty($mercaderias)) {
+            $this->request->data = $mercaderias[0];
+        }
+        $rubros = $this->Mercaderia->Rubro->find('list');
+        $defaultProveedores = $this->Mercaderia->Proveedor->find('list');
+        $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');
+        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas', 'rubros'));
+    }
+
 
 	public function add() {
 		if ($this->request->is(array('put','post'))){
@@ -32,9 +60,10 @@ class MercaderiasController extends ComprasAppController {
 			}
 		}
 
+		$rubros = $this->Mercaderia->Rubro->find('list');
         $defaultProveedores = $this->Mercaderia->Proveedor->find('list');
         $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');    
-        $this->set(compact('defaultProveedores', 'unidadDeMedidas'));
+        $this->set(compact('defaultProveedores', 'unidadDeMedidas', 'rubros'));
 	}
 
 
@@ -53,8 +82,9 @@ class MercaderiasController extends ComprasAppController {
 		$this->request->data = $this->Mercaderia->read();
 
         $defaultProveedores = $this->Mercaderia->Proveedor->find('list');
+        $rubros = $this->Mercaderia->Rubro->find('list');
         $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');
-        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas'));
+        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas', 'rubros'));
         $this->set('_serialize', array('mercaderias'));
         $this->render('add');
 	}
