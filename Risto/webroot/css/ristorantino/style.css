@@ -63,3 +63,8 @@
 .tt-dataset{
     padding: 10px 5px;
 }
+
+
+a.px-media-link:hover{
+  opacity: 0.7;
+}

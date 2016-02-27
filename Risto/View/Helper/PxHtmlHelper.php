@@ -22,7 +22,7 @@ class PxHtmlHelper extends Bs3HtmlHelper {
 
         $route = array('plugin' => 'risto', 'controller'=>'medias', 'action'=>'view', $id );       
         $url = $this->url( $route );
-        return $this->link($img, $url, array('escape'=>false));
+        return $this->link($img, $url, array('escape'=>false, 'class'=>'px-media-link'));
     }
 
 
