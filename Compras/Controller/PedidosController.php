@@ -41,6 +41,7 @@ class PedidosController extends ComprasAppController {
 				'UnidadDeMedida',
 				'PedidoEstado',
 				),
+			'order' => array('PedidoEstado.id', 'PedidoMercaderia.created'=>'DESC'),
 		));
 
 		$pedPorProv = array();
@@ -52,7 +53,7 @@ class PedidosController extends ComprasAppController {
 		}
 		$pedidos = $pedPorProv;
 
-		$pedidoEstados = $this->Pedido->PedidoMercaderia->PedidoEstado->find('list');
+		$pedidoEstados = $this->Pedido->PedidoMercaderia->PedidoEstado->find('list', array('order'=>array('PedidoEstado.id')));
 		$this->set(compact('pedidos', 'pedidoEstados'));
 	}
 

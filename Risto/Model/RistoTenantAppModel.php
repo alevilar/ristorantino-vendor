@@ -55,8 +55,8 @@ class RistoTenantAppModel extends RistoAppModel {
 	**/
 	private function __buildTenant () {	
 		// usar tenant para este model
-		MtSites::connectDatasourceWithCurrentTenant();
-		$this->useDbConfig = MtSites::getTenantDataSourceName();	
+		MtSites::connectDatasourceWithCurrentTenant('nuevin2');
+		$this->useDbConfig = MtSites::getTenantDataSourceName('nuevin2');	
 	}
 
 }
