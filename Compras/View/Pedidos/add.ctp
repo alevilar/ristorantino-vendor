@@ -1,4 +1,4 @@
-<?php if ($this->request->data['Pedido']['id']) { ?>
+<?php if (!empty($this->request->data['Pedido']['id'])) { ?>
     <h1>Agregando Mercaderias al Pedido <?php echo $this->Html->link("#".$this->request->data['Pedido']['id'], array('action'=>'view', $this->request->data['Pedido']['id']))?></h1>
 <?php } else { ?>
     <h1>Nuevo Pedido</h1>
