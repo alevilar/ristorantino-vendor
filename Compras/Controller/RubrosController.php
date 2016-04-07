@@ -44,17 +44,10 @@ class RubrosController extends ComprasAppController {
 		if ($this->request->is('post')) {
 			$this->Rubro->create();
 			if ($this->Rubro->save($this->request->data)) {
-<<<<<<< HEAD
 				$this->Session->setFlash(__('The rubro has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The rubro could not be saved. Please, try again.'));
-=======
-				$this->Flash->success(__('The rubro has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Flash->error(__('The rubro could not be saved. Please, try again.'));
->>>>>>> 5d23b1003be6d1affad52961bd637dc31a9cc759
 			}
 		}
 		$proveedores = $this->Rubro->Proveedor->find('list');
@@ -74,17 +67,10 @@ class RubrosController extends ComprasAppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Rubro->save($this->request->data)) {
-<<<<<<< HEAD
-				$this->Session->setFlash(__('The rubro has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The rubro could not be saved. Please, try again.'));
-=======
 				$this->Flash->success(__('The rubro has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Flash->error(__('The rubro could not be saved. Please, try again.'));
->>>>>>> 5d23b1003be6d1affad52961bd637dc31a9cc759
 			}
 		} else {
 			$options = array('conditions' => array('Rubro.' . $this->Rubro->primaryKey => $id));
