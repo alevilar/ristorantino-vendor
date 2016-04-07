@@ -29,7 +29,7 @@
 				$class = ' class="altrow"';
 			}
 		?>
-			<tr><?php echo $class;?>>
+			<tr<?php echo $class;?>>
 				<td>
 					<?php
 		                echo $tags['Tag']['id']; ?>
