@@ -4,7 +4,12 @@ App::uses('ProductAppModel', 'Product.Model');
 
 class Tag extends ProductAppModel{
  
-    public $hasAndBelongsToMany = array('Product.Producto');
+    public $hasAndBelongsToMany = array(
+    	'Producto' => array(
+    		'className' => 'Product.Producto',
+    		'order' => array('Producto.name'=>'asc'),
+    		)
+    	);
     public $actsAs = array(
     'Search.Searchable',
     'Containable',

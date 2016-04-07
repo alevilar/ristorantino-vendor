@@ -3,12 +3,16 @@ App::uses('ProductAppController', 'Product.Controller');
 
 
 class TagsController extends ProductAppController {
+
+    public $name = 'Tags';
+
+
+
     public $paginate = array(
         'order' => array('Tag.created' => 'asc'),
     );
 
 
-    public $scaffold;
 
     public function index() {
         $this->Prg->commonProcess();
@@ -41,7 +45,7 @@ class TagsController extends ProductAppController {
             $this->redirect(array('action'=>'index'));
         }
         if (!empty($this->request->data)) {
-            if ($this->Sabor->save($this->request->data)) {
+            if ($this->Tag->save($this->request->data)) {
                 $this->Session->setFlash(__('La Etiqueta ha sido guardada'), 'Risto.flash_success');
                 $this->redirect(array('action'=>'index'));
             } else {
@@ -49,18 +53,25 @@ class TagsController extends ProductAppController {
             }
         }
         if (empty($this->request->data)) {
-            $this->request->data = $this->Sabor->read(null, $id);
+            $this->request->data = $this->Tag->read(null, $id);
         }
         $productos = $this->Tag->Producto->find('list');
         $this->set(compact('productos'));
         $this->render('form');
     }
 
+    public function view( $id ) {
+        $this->Tag->Producto->order = array('Producto.name'=>'desc');
+        $tag = $this->Tag->read(null, $id);
+
+        $this->set('tag', $tag);
+    }
+
     public function delete($id = null) {
-        if (!$id) {
+        if (!$id || !$this->Tag->exists($id)) {
             $this->Session->setFlash(__('ID de la Etiqueta Inválida'), 'Risto.flash_error');
         }
-        if ($this->Sabor->delete($id)) {
+        if ($this->Tag->delete($id)) {
             $this->Session->setFlash(__('La Etiqueta Borrada'), 'Risto.flash_success');
         }
         $this->redirect(array('action'=>'index'));
