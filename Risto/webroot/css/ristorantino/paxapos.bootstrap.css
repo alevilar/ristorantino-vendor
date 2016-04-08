@@ -116,7 +116,7 @@ body {
 				background-repeat:no-repeat;
 			}
 			
-			#p-header button:hover, #p-header .navbar-toggle:hover{
+			#p-header button:hover,  #p-header .btn:hover, #p-header .navbar-toggle:hover{
 				background-color:#869CCD;
 			}
 		
@@ -154,7 +154,7 @@ body {
 				text-decoration:none;
 			}
 		
-			.p-new-user a:hover{color:#244289;}
+			.p-new-user a:hover{color:#fff;}
 			
 			p.navbar-text{color:#FFFFFF !important;}
 
