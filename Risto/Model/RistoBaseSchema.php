@@ -70,7 +70,7 @@ class RistoBaseSchema extends CakeSchema {
 	*	@param string $tablename Nombre de la tabla
 	*	@return array listado de valores a insertar en la tabla para hacer el saveAll
 	**/
-	private function __getDefaultValues ( $tableName ) {
+	public function __getDefaultValues ( $tableName ) {
 		$values = $this->__defaultValues;
 
 		if ( $values && $tableName && array_key_exists( $tableName, $values )) {

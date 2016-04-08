@@ -6,7 +6,7 @@ if ( !empty($this->request->data['TipoDePago']['media_id']) ) {
 
 <div class="tipoDePagos form">
     
-<?php echo $this->Form->create('TipoDePago', array('type' => 'file', 'action'=>'edit'));?>
+<?php echo $this->Form->create('TipoDePago', array('type' => 'file'));?>
 	<fieldset>
 	<?php
          if (empty($this->request->data['TipoDePago']['id'])):?>

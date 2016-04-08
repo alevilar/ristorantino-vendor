@@ -155,12 +155,11 @@ class TenantBaseSchema extends RistoBaseSchema {
 			),
 			'tipo_de_pagos' => array(
 				array('name' => 'Efectivo', 'media_id' => 1 ),
-				array('name' => 'No Paga', 'media_id' => 2 ),
-				array('name' => 'Tarjeta Amex', 'media_id' => 3 ),
-				array('name' => 'Tarjeta Visa', 'media_id' => 4 ),
-				array('name' => 'Tarjeta Master Card', 'media_id' => 5 ),
-				array('name' => 'Tarjeta Visa Debito', 'media_id' => 6 ),
-				array('name' => 'Tarjeta Maestro', 'media_id' => 7 ),
+				array('name' => 'Tarjeta Amex', 'media_id' => 2 ),
+				array('name' => 'Tarjeta Visa', 'media_id' => 3 ),
+				array('name' => 'Tarjeta Master Card', 'media_id' => 4 ),
+				array('name' => 'Tarjeta Visa Debito', 'media_id' => 5 ),
+				array('name' => 'Tarjeta Maestro', 'media_id' => 6 ),
 			),
 			'tipo_facturas' => array(
 				array('name' => '"A"'),
@@ -206,6 +205,62 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'color'=> 'btn-success',
 				),
 			),
+
+			'media' => array(
+				array(
+					'id' => 1, 
+					'model' => 'TipoDePago', 
+					'type' => 'image/png', 
+					'size' => 8978, 
+					'name' => 'efectivo.png', 
+					'file_name' => 'media_files/efectivo.png',
+					),
+
+				array(
+					'id' => 2, 
+					'model' => 'TipoDePago', 
+					'type' => 'image/png', 
+					'size' => 8472, 
+					'name' => 'amex.png', 
+					'file_name' => 'media_files/amex.png',
+					),
+
+				array(
+					'id' => 3, 
+					'model' => 'TipoDePago', 
+					'type' => 'image/png', 
+					'size' => 7973, 
+					'name' => 'visa.png', 
+					'file_name' => 'media_files/visa.png',
+					),
+
+				array(
+					'id' => 4, 
+					'model' => 'TipoDePago', 
+					'type' => 'image/png', 
+					'size' => 6981, 
+					'name' => 'master.png', 
+					'file_name' => 'media_files/master.png',
+					),
+
+				array(
+					'id' => 5, 
+					'model' => 'TipoDePago', 
+					'type' => 'image/png', 
+					'size' => 4691, 
+					'name' => 'electron.png', 
+					'file_name' => 'media_files/electron.png',
+					),
+
+				array(
+					'id' => 6, 
+					'model' => 'TipoDePago', 
+					'type' => 'image/png', 
+					'size' => 5624, 
+					'name' => 'maestro.png', 
+					'file_name' => 'media_files/maestro.png',
+					),
+				),
 		);
 
 
@@ -213,17 +268,47 @@ class TenantBaseSchema extends RistoBaseSchema {
 	public $__extraDefaultValues = array();
 
 
+
+	public function string2Hex($string){
+	    $hex='';
+	    for ($i=0; $i < strlen($string); $i++){
+	        $hex .= dechex(ord($string[$i]));
+	    }
+	    return $hex;
+	}
+
 	public function after($event = array()) {
 		parent::after( $event );
 
+
 		if ( !empty($event['create']) ) {
 			$modelNameEvent = $event['create'];
+
+	        if ($modelNameEvent == 'media') {
+				// insertar imagenes Media
+				$insertValues = $this->__getDefaultValues( $modelNameEvent);
+		        if ( $insertValues ) {
+		        	$model = $this->__getModel( $modelNameEvent, $this->connection);
+		            foreach($insertValues as &$iv) {
+		            	// el include instancia la variable $valor
+		            	$file = file_get_contents( App::pluginPath('Risto') . DS . "Config/Schema" . DS . $iv['file_name'] );
+	        			$iv['file'] = $file;
+	        			unset($valor);
+	        		}
+		            if ( $model ) {
+		            	$model->saveAll( $insertValues );
+		            }    
+		        }
+
+        	}
+
+			
 	        $insertValues = $this->__getExtraDefaultValues( $modelNameEvent);
 
 	        
 	        if ( $insertValues ) {
 	        	$model = $this->__getModel( $modelNameEvent, $this->connection);
-	            
+	        	
 	            if ( $model ) {
 	            	$model->saveAll( $insertValues );
 	            }    

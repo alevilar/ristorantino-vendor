@@ -6,7 +6,7 @@
     <h2><?php echo __('Iva Responsabilidades'); ?></h2>
 	<table class="table">
     <tr>
-    	<?php echo $this->Form->create('IvaResponsabilidad',array('action'=>'index'));?>
+    	<?php echo $this->Form->create('IvaResponsabilidad');?>
 	    <th><strong><?php echo __('Buscar')?></strong></th>
     	<th colspan= "2"><?php echo $this->Form->input('IvaResponsabilidad.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
     	<th colspan= "1"><?php echo $this->Form->input('IvaResponsabilidad.codigo_fiscal', array('placeholder'=>'Codigo Fiscal', 'label'=>false, 'required' => 0));?></th>
@@ -37,17 +37,8 @@
 <?php endforeach; ?>
 	</table>
 	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de {:count} registros totales, iniciando en el registro{:start}, terminando en {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-	 echo $this->Paginator->prev('<< ' . __('anterior'), array(), null, array('class' => 'btn btn-default'));?>
-	|<? echo $this->Paginator->numbers(array('separator' => ''));?>
-	<? echo $this->Paginator->next(__('siguiente') . '>>', array(), null, array('class' => 'btn btn-default'));?>
-	</div>
+	<?php echo $this->element('Risto.pagination'); ?>
+	</p>
 </div>
 <!--<div class="actions">
 	<h3><?php echo __('Actions'); ?></h3>
