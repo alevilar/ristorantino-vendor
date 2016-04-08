@@ -1,6 +1,7 @@
 <div class="rubros index">
 	<h2><?php echo __('Rubros'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+<?php echo $this->Html->link(__('Nuevo Rubro'), array('action' => 'add'), array('class'=>'btn btn-lg btn-primary pull-right')); ?></li>
+	<table class="table">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -39,12 +40,4 @@
 		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
 	?>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Rubro'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Proveedores'), array('controller' => 'proveedores', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Proveedor'), array('controller' => 'proveedores', 'action' => 'add')); ?> </li>
-	</ul>
 </div>
