@@ -12,6 +12,9 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 	</div>
 
 	<div class="col-md-8">
+
+	<?php echo $this->element('Risto.google_ads/horizontal'); ?>
+
 		<div class="jumbotron">
 		   	<ul class="dashboard-buttons">
 				<li>
@@ -55,3 +58,4 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 		</div>
 	</div>
 </div>
+

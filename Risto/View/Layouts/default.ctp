@@ -109,7 +109,7 @@
         <header class="navbar navbar-default bs-docs-nav hidden-print" role="banner" id="p-header">
             <div class="fluid-container">
                  
-                <div class="navbar-header col-md-4 col-sm-12">
+                <div class="navbar-header col-md-3 col-sm-12">
                             <?php 
                             echo $this->fetch("navbar-brand");
 
@@ -130,7 +130,7 @@
                 </div>
 
                 
-                <div aria-expanded="false" class=" col-md-8 col-sm-12">
+                <div aria-expanded="false" class=" col-md-6 col-sm-12 center">
                     
                     <?php
                     if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
@@ -144,12 +144,15 @@
                     }
                     ?>
 
-
-
-                    <div class="navbar-right">
-                        <?php echo $this->element('Risto.user_login_nav'); ?>
-                    </div> 
                 </div>
+
+                <div aria-expanded="false" class=" col-md-3 col-sm-12">
+                    <div class="pull-right">
+                    <?php echo $this->element('Risto.user_login_nav'); ?>
+                    </div>
+                </div>
+
+
             </div>
         </header>
 
@@ -183,7 +186,12 @@
 
 
 
-        <footer id="p-footer" class="hidden-print">      
+
+<div class="row">
+    <?php echo $this->element('Risto.google_ads/horizontal'); ?>
+</div>
+
+        <footer id="p-footer" class="hidden-print">
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
