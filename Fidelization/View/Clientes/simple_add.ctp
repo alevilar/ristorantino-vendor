@@ -7,7 +7,9 @@
     <div data-role="content" data-theme="f">
         <div id="form-cliente-a" class="clientes form">
             <?php echo $this->Form->create('Cliente', array( 
-                                        'action'=>'simple_add', 
+                                        'url' => array(
+                                            'action'=>'simple_add', 
+                                        ),
                                         'onsubmit' => 'return false;',
                                         'id' =>'form-cliente-add', 
                                         'data-ajax'=>'false'));?>
