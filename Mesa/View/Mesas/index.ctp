@@ -3,7 +3,7 @@
 <h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa') ) ;?></h1>
 
 <div class="row">
-        <?php echo $this->Form->create("Mesa", array("action" => "index")); ?>        
+        <?php echo $this->Form->create("Mesa"); ?>        
         <div class=" col-md-1">
             <?php echo $this->Form->input('numero', array('label' => Configure::read('Mesa.tituloMesa'), 'required'=>false)); ?>
             <?php echo $this->Form->input('mozo_id', array('label' => Configure::read('Mesa.tituloMozo'), 'empty' => 'Todos', 'required'=>false )); ?>

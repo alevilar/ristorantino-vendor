@@ -40,7 +40,7 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 <table class="productos table">
         <tr>
 	<?php 
-	echo $this->Form->create("Producto",array("action"=>"index")); 
+	echo $this->Form->create("Producto"); 
 	echo $this->Form->input("id") 
 	?>
 	<th><?php echo $this->Form->input('name',array('placeholder'=>'Nombre del producto', 'label'=>false, 'required'=>false));?></th>

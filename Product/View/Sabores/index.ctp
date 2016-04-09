@@ -7,11 +7,11 @@
 <table class="table">
 
     <tr>
-	<?php echo $this->Form->create('Sabor',array('action'=>'index'));?>
-	<th><strong><?php echo __('Buscar')?></strong></th>
+	<?php echo $this->Form->create('Sabor');?>
     <th><?php echo $this->Form->input('Sabor.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
 	<th><?php echo $this->Form->input('categoria_name',array('placeholder'=>'Categoría', 'label'=>false));?></th>
 	<th><?php echo $this->Form->input('Sabor.precio',array('placeholder'=>'Precio', 'label'=>false));?></th>
+	<th></th>
 	<th><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
               echo $this->Form->end();?></th>
     </tr>

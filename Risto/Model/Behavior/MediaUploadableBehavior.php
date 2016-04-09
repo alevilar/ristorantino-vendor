@@ -66,7 +66,6 @@ class MediaUploadableBehavior extends ModelBehavior {
 	    	&& $Model->data[$Model->alias][$this->_form_field_name]['error'] == 0
 	    	){
 	      $data = array('Media' => $Model->data[$Model->alias][$this->_form_field_name]);
-	      debug($data);
 	      $data['Media']['file'] = file_get_contents($Model->data[$Model->alias][$this->_form_field_name]['tmp_name']);
 	      $data['Media']['model'] = $Model->name;
 	      if ( !$Model->Media->save($data)) {

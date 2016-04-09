@@ -1,6 +1,6 @@
 <div class="tipoDePagos form">
     
-<?php echo $this->Form->create('TipoDocumento', array('type' => 'file', 'action'=>'edit'));?>
+<?php echo $this->Form->create('TipoDocumento', array('type' => 'file'));?>
 	<fieldset>
 <?php
      if (empty($this->request->data['TipoDocumento']['id'])):?>

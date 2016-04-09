@@ -8,9 +8,9 @@
 
 <table class="table">
     <tr>
-	<?php echo $this->Form->create('TipoFactura',array('action'=>'index'));?>
+	<?php echo $this->Form->create('TipoFactura');?>
 	<th><strong><?php echo __('Buscar')?></strong></th>
-	<th colspan= "3"><?php echo $this->Form->input('Observacion.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
+	<th colspan= "3"><?php echo $this->Form->input('name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
 	<th><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
               echo $this->Form->end();?></th>
     </tr>

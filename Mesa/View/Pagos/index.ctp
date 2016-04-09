@@ -14,7 +14,7 @@ $this->Paginator->options(array('url' => $this->request->query));
 </p>
 <table class="table">
 
-<?php echo $this->Form->create("Pago", array("action" => "index", 'method'=>'get')); ?>
+<?php echo $this->Form->create("Pago", array('method'=>'get')); ?>
 <thead>
 <tr>
 	<th>&nbsp;</th>
@@ -74,19 +74,19 @@ foreach ($pagos as $pago):
 		<td class="text-center">
 			<?php echo $pago['Pago']['id']; ?>
 		</td>
-                <td class="text-center">
+        <td class="text-center">
 			<?php echo $pago['Mesa']['Mozo']['numero']; ?>
 		</td>
 		<td class="text-center">
 			<?php echo $this->Html->link($pago['Mesa']['numero'], array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'edit', $pago['Mesa']['id'] )); ?>
 		</td>
-                <td class="text-center">
+        <td class="text-center">
 			<?php echo $this->Html->imageMedia($pago['TipoDePago']['media_id'], array('height'=> '45', 'title'=>$pago['TipoDePago']['name'], 'alt'=>$pago['TipoDePago']['name'])); ?>
 		</td>
-                <td class="text-right">
+        <td class="text-right">
 			<?php echo $this->Number->currency($pago['Pago']['valor']); ?>
 		</td>
-                <td class="text-center">
+        <td class="text-center">
 			<?php echo $this->Time->format($pago['Pago']['created'], '%a %e de %B %H:%M'); ?>
 		</td>
 		<td class="actions">
@@ -97,7 +97,7 @@ foreach ($pagos as $pago):
 <?php
  endforeach;
 }else{
-    echo('<td colspan="5">No se encontraron elementos</td>');
+    echo('<td colspan="7" class=" center"><span class="text-info">No se encontraron elementos</span></td>');
 }
 
 ?>

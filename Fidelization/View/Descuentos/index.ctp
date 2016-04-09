@@ -1,5 +1,3 @@
-<div class="observaciones index">
-
 <div class="users index">
 <h2><?php echo __('Descuentos');?></h2>
 <div class="btn-group pull-right">
@@ -8,9 +6,9 @@
 
 <table class="table">
     <tr>
-	<?php echo $this->Form->create('Observacion',array('action'=>'index'));?>
+	<?php echo $this->Form->create('Descuento');?>
 	<th><strong><?php echo __('Buscar')?></strong></th>
-	<th colspan= "4"><?php echo $this->Form->input('Observacion.name',array('placeholder'=>'Nombre', 'label'=>false, 'required' => 0));?></th>
+	<th colspan= "4"><?php echo $this->Form->input('name',array('placeholder'=>__('Nombre del Descuento'), 'label'=>false, 'required' => 0));?></th>
 	<th><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
               echo $this->Form->end();?></th>
     </tr>

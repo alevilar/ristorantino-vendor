@@ -9,13 +9,13 @@ class ObservacionComandasController extends ComandaAppController
 
     public function index() {
 
-    $this->Prg->commonProcess();
-    $conds = $this->ObservacionComanda->parseCriteria( $this->Prg->parsedParams() );
-    $this->Paginator->settings['conditions'] = $conds;
-    $this->ObservacionComanda->recursive = 0;
-    $observacion = $this->Paginator->paginate('ObservacionComanda');
-    $this->set('observacion',$observacion);
-}
+        $this->Prg->commonProcess();
+        $conds = $this->ObservacionComanda->parseCriteria( $this->Prg->parsedParams() );
+        $this->Paginator->settings['conditions'] = $conds;
+        $this->ObservacionComanda->recursive = -1;
+        $observacion = $this->Paginator->paginate();
+        $this->set('observacion',$observacion);
+    }
     public function add() {
 
         if (!empty($this->request->data)) {
