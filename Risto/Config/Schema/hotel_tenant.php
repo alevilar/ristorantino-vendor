@@ -31,7 +31,7 @@ class HotelTenantSchema extends TenantBaseSchema {
 					'rght' 			=> 3,
 					'name' 			=> 'Dobles',
 					'description' 	=> '',
-					'media_id' 		=> 8,
+					'media_id' 		=> null,
 				),
 				array(
 					'parent_id' 	=> 1,
@@ -39,7 +39,7 @@ class HotelTenantSchema extends TenantBaseSchema {
 					'rght' 			=> 5,
 					'name' 			=> 'Singles',
 					'description' 	=> '',
-					'media_id' 		=> 9,
+					'media_id' 		=> null,
 				),
 				array(
 					'parent_id' 	=> 1,
@@ -47,7 +47,7 @@ class HotelTenantSchema extends TenantBaseSchema {
 					'rght' 			=> 7,
 					'name' 			=> 'Bufette',
 					'description' 	=> '',
-					'media_id' 		=> 10,
+					'media_id' 		=> null,
 				),
 			),
 			'productos' => array(
