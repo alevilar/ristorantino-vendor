@@ -25,7 +25,14 @@ class PxHtmlHelper extends Bs3HtmlHelper {
         return $this->link($img, $url, array('escape'=>false, 'class'=>'px-media-link'));
     }
 
-
+    /**
+     * 
+     *  Crea un tag IMG para los MEDIA ed la DB
+     * 
+     *  @param integer or array $media, puede ser un ID o bien un array del model Media
+     *  @param array $options es un array de opciones para el tag img
+     * 
+     **/
 	public function imageMedia ( $media, $options = array() ) {        
         if( is_numeric($media) ) {
             $id = $media;

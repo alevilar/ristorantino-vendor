@@ -7,6 +7,7 @@ CakePlugin::load('Account', array('routes' => true, 'bootstrap' => true));
 
 CakePlugin::load(array('Users', 'ExtAuth', 'DebugKit', 'Search'));
 
+CakePlugin::load('Comanda', array( 'bootstrap' => true));
 
 CakePlugin::load('Compras', array('bootstrap' => true));
 CakePlugin::load('Stats', array('routes' => true));

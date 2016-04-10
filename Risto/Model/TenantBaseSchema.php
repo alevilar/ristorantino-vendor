@@ -65,6 +65,20 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'tiene_impuesto' => 1,
 					),
 			),
+			'comanda_estados' => array(
+				array(
+					'id' => COMANDA_ESTADO_PENDIENTE,
+					'name' => 'Pendiente',
+					),
+				array(
+					'id' => COMANDA_ESTADO_MARCHANDO,
+					'name' => 'Marchando',
+					),
+				array(
+					'id' => COMANDA_ESTADO_LISTO,
+					'name' => 'Listo',
+					),
+				),
 			'clientes' => array(
 				array(
 					'nombre' => "[Example] Google Arg. SRL",
@@ -699,9 +713,21 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
 
+
+	public $comanda_estados = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'primary'),
+		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 60, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+
 	public $comandas = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'mesa_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'index'),
+		'printer_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
+		'comanda_estado_id' => array('type' => 'integer', 'null' => false, 'default' => COMANDA_ESTADO_PENDIENTE, 'unsigned' => false, 'key' => 'index'),
 		'prioridad' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 4, 'unsigned' => false),
 		'impresa' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
@@ -710,7 +736,10 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'mesa_id' => array('column' => 'mesa_id', 'unique' => 0)
+			'mesa_id' => array('column' => 'mesa_id', 'unique' => 0),
+			'comanda_estado_id' => array('column' => 'comanda_estado_id', 'unique' => 0),
+			'printer_id' => array('column' => 'printer_id', 'unique' => 0),
+			'comanda_estado_id_printer_id' => array('column' => array('printer_id', 'comanda_estado_id'), 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);

@@ -38,12 +38,27 @@ class Comanda extends ComandaAppModel {
 	
 	
 	var $belongsTo = array(
-			'Mesa' => array('className' => 'Mesa.Mesa',
-								'foreignKey' => 'mesa_id',
-								'conditions' => '',
-								'fields' => '',
-								'order' => ''
-			)
+			'Mesa' => array(
+				'className' => 'Mesa.Mesa',
+				'foreignKey' => 'mesa_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+			),
+			'Printer' => array(
+				'className' => 'Printers.Printer',
+				'foreignKey' => 'printer_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+				),
+			'ComandaEstado' => array(
+				'className' => 'Comanda.ComandaEstado',
+				'foreignKey' => 'comanda_estado_id',
+				'conditions' => '',
+				'fields' => '',
+				'order' => ''
+				),
 	);
         
 	

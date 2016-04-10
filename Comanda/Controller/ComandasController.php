@@ -30,7 +30,61 @@ class ComandasController extends ComandaAppController {
             }
             $this->set('mesa_id', $mesa_id);                 
 	}
+
+
+    /**
+     * 
+     * Listado de comandas activas para ser utilizado por el comandero
+     * en el restaurante
+     * 
+     * @param integer $printer_id si no se selecciona ningna impresora trae a todas
+     * 
+     * 
+     **/
+    public function comandero( $printer_id = null ){
+        $conditions = array(
+                'comanda_estado_id !=' => COMANDA_ESTADO_LISTO,
+                'comanda_estado_id IS NOT NULL',
+                );
+
+        if (!empty($printer_id)) {
+            $conditions['printer_id'] = $printer_id;
+        }
+        $comandas = $this->Comanda->find('all', array(
+            'conditions' => $conditions,
+            'order' => array('Comanda.created' => 'ASC'),
+            'contain' => array(
+                'Printer',
+                'ComandaEstado',
+                'Mesa' => 'Mozo',
+                'DetalleComanda' => array(
+                    'Producto',
+                    'DetalleSabor' => array('Sabor'),
+                    ),
+                )
+            ));
+
+        $printers = $this->Comanda->Printer->find('list');
+        $comandaEstados = $this->Comanda->ComandaEstado->find('list');
+
+        $this->set(compact('comandas', 'printers', 'printer_id', 'comandaEstados'));
+    }
 	
+
+    /**
+     *
+     *  Pasa una comanda a otro estado
+     * 
+     *  @param integer $comanda_id ID de la comanda
+     *  @param integer $comanda_estado_id ID del estado que quiero modificar
+     * 
+     **/
+    public function comandero_estado_change( $comanda_id, $comanda_estado_id ){
+        $this->Comanda->id = $comanda_id;
+        $this->Comanda->saveField('comanda_estado_id', $comanda_estado_id);
+        $this->redirect( $this->referer() );
+    }
+
 	
 
     public function edit ( $id ) {
