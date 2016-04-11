@@ -42,6 +42,8 @@ class ComandasController extends ComandaAppController {
      * 
      **/
     public function comandero( $printer_id = null ){
+        $this->elementMenu = null;
+        $this->layout = "comandero";
         $conditions = array(
                 'comanda_estado_id !=' => COMANDA_ESTADO_LISTO,
                 'comanda_estado_id IS NOT NULL',
@@ -64,10 +66,15 @@ class ComandasController extends ComandaAppController {
                 )
             ));
 
+
+        $cantComandas = $this->Comanda->find('count', array(
+            'conditions' => $conditions,
+            ));
+
         $printers = $this->Comanda->Printer->find('list');
         $comandaEstados = $this->Comanda->ComandaEstado->find('list');
 
-        $this->set(compact('comandas', 'printers', 'printer_id', 'comandaEstados'));
+        $this->set(compact('comandas', 'cantComandas', 'printers', 'printer_id', 'comandaEstados'));
     }
 	
 

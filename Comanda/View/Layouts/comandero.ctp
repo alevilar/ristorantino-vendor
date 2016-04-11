@@ -106,51 +106,31 @@
         </div>
         <?php }?>
 
-        <header class="navbar navbar-default bs-docs-nav hidden-print" role="banner" id="p-header">
+        <header>
             <div class="fluid-container">
                  
                 <div class="navbar-header col-md-3 col-sm-12">
-                            <?php 
-                            echo $this->fetch("navbar-brand");
+                    <?php 
+                    echo $this->fetch("navbar-brand");
 
-                            $logeadoClassForLogo = '';
-                            if ( $this->Session->read('Auth.User.id') ) {
-                                $logeadoClassForLogo = 'logo-logueado';
-                            }
+                    $logeadoClassForLogo = '';
+                    if ( $this->Session->read('Auth.User.id') ) {
+                        $logeadoClassForLogo = 'logo-logueado';
+                    }
 
-                             // link a HOME
-                            if ( Configure::check('Site.logo_path') ) {
-                                $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array());
-                                echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo '.$logeadoClassForLogo, 'escape'=>false)); 
-                            } else {
-                                echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name '.$logeadoClassForLogo)) ;
-                            }
-                            ?>
-                        <p class="text-nowrap eslogan">Innovando, gestionando, creciendo.</p>
+                     // link a HOME
+                    $imgLogo = $this->Html->image('/paxapos/img/logotypo_azul.png', array());
+                    echo $this->Html->link($imgLogo, 
+                        array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), 
+                        array('class' => 'navbar-brand navbar-brand-logo '.$logeadoClassForLogo, 'escape'=>false)); 
+                    
+                    ?>
                 </div>
 
                 
-                <div aria-expanded="false" class=" col-md-6 col-sm-12 center">
-                    
-                    <?php
-                    if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
-                        ?>
-                        <h1 class="tenant-name text-info">
-                        <?php
-                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'));
-                        ?>
-                        </h1>
-                        <?php
-                    }
-                    ?>
-
-                </div>
-
-                <div aria-expanded="false" class=" col-md-3 col-sm-12">
-                    <div class="pull-right">
-                    <?php echo $this->element('Risto.user_login_nav'); ?>
-                    </div>
-                </div>
+                <div aria-expanded="false" class=" col-md-9 col-sm-12 center">
+                    <?php echo $this->fetch("comandero-title");?>
+                </div>              
 
 
             </div>
@@ -175,11 +155,9 @@
 
         <?php echo $this->fetch('pre-content'); ?>
 
-        <div class="container bs-docs-container" id="content">       
+        <div class="fluid-container" id="content">       
             
-            <div class="row">
                 <?php echo $this->fetch('content'); ?>
-            </div>
         </div>
 
         <?php echo $this->fetch('post-content'); ?>
@@ -234,9 +212,6 @@
             
         </footer>
 
-
         <?php echo $this->element('Paxapos.google_analitycs') ?>    
-
-
     </body>
 </html>

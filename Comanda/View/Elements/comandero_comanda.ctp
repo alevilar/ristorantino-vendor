@@ -1,25 +1,30 @@
-<?php echo $this->Html->css('/comanda/css/comandero_comanda');?>
-<div class="comanda col-sm-4">
-<div class="box">
+
+
+<div class="comanda bg-success" id="comanda-id-<?php echo $comanda['Comanda']['id'];?>">
 
 			<?php
 			$class = '';
 			if ($comanda['ComandaEstado']['id'] == COMANDA_ESTADO_PENDIENTE) {
-				$class = 'text-primary';
+				$class = 'text-danger bg-danger';
 			}
 			if ($comanda['ComandaEstado']['id'] == COMANDA_ESTADO_MARCHANDO) {
-				$class = 'text-success';
+				$class = 'text-success bg-success';
 			}
 			if ($comanda['ComandaEstado']['id'] == COMANDA_ESTADO_LISTO) {
-				$class = 'text-danger';
+				$class = 'text-default';
 			}
 			?>
-			<h2 class="center <?php echo $class?>"><?php echo $comanda['ComandaEstado']['name']?></h2>
+
+	<div class="small center"><b>Comanda #<?php echo $comanda['Comanda']['id']?></b></div>
+	<div class="small center">Creada: <?php echo $this->Time->nice( $comanda['Comanda']['created'])?></div>
+
+
+	<h2 class="center <?php echo $class?>"><?php echo $comanda['ComandaEstado']['name']?></h2>
 	
 
 
 	<div class="row center">
-		<div class="col-md-3">	
+		<div class="col-md-6 mozo">	
 			<?php 
 			$mozoConFoto = $comanda['Mesa']['Mozo']['media_id'];
 			if ( $mozoConFoto ) {
@@ -32,12 +37,9 @@
 			?>
 		</div>
 
-		<div class="col-md-9">
+		<div class="col-md-6 mesa-numero">
 			Mesa: <?php echo $comanda['Mesa']['numero']?>
-
-
 			
-			<h4>Comanda #<?php echo $comanda['Comanda']['id']?></h4>
 		</div>
 	</div>
 
@@ -49,7 +51,7 @@
 	</div>
 	<?php } ?>
 
-	Creada: <?php echo $this->Time->nice( $comanda['Comanda']['created'])?><br>
+	
 
 	
 
@@ -83,42 +85,41 @@
 	// crear un link para pasar el siguiente estado
 	
 
+	$linkPrev = $linkNext = null;
 
-	// btn ant
+	// btn and
 	$comandaEstadoAntId = $comanda['ComandaEstado']['id'] - 1;
 	if ( $comandaEstadoAntId >= COMANDA_ESTADO_PENDIENTE ) {
-		$link = array('action'=>'comandero_estado_change', $comanda['Comanda']['id'], $comandaEstadoAntId );
-		$estadoName = $comandaEstados[$comandaEstadoAntId];
+		$linkPrev = array('action'=>'comandero_estado_change', $comanda['Comanda']['id'], $comandaEstadoAntId );
+		$linkPrev = Router::url($linkPrev);
 
-		if ($comandaEstadoAntId == COMANDA_ESTADO_PENDIENTE) {
-			$class = 'btn-primary';
-		}
-		if ($comandaEstadoAntId == COMANDA_ESTADO_MARCHANDO) {
-			$class = 'btn-success';
-		}
-		if ($comandaEstadoAntId == COMANDA_ESTADO_LISTO) {
-			$class = 'btn-danger';
-		}
-		echo $this->Html->link($estadoName, $link, array('class'=>"btn btn-sm $class")); 
 	}
 
 	// btn next
 	$comandaEstadoNextId = $comanda['ComandaEstado']['id'] + 1;
 	if ( $comandaEstadoNextId <= COMANDA_ESTADO_LISTO ) {
-		$link = array('action'=>'comandero_estado_change', $comanda['Comanda']['id'], $comandaEstadoNextId );
-		$estadoName = $comandaEstados[$comandaEstadoNextId];
-
-		if ($comandaEstadoNextId == COMANDA_ESTADO_PENDIENTE) {
-			$class = 'btn-primary';
-		}
-		if ($comandaEstadoNextId == COMANDA_ESTADO_MARCHANDO) {
-			$class = 'btn-success';
-		}
-		if ($comandaEstadoNextId == COMANDA_ESTADO_LISTO) {
-			$class = 'btn-danger';
-		}
-		echo $this->Html->link($estadoName, $link, array('class'=>"btn btn-sm $class")); 
+		$linkNext = array('action'=>'comandero_estado_change', $comanda['Comanda']['id'], $comandaEstadoNextId );
+		$linkNext = Router::url($linkNext);
 	}
 	?>
 </div>
-</div>
+
+
+<script>
+	
+	comandaId = "#comanda-id-<?php echo $comanda['Comanda']['id'];?>";
+	$comanda = $(comandaId);
+
+	<?php if ( $linkNext ) { ?>
+	$comanda.on('click', function(){
+		location.href = "<?php echo $linkNext?>";
+	});
+	<?php } ?>
+
+
+	<?php if ( $linkPrev ) { ?>
+	$comanda.on('dblclick', function(){
+		location.href = "<?php echo $linkPrev?>";
+	});
+	<?php } ?>
+</script>

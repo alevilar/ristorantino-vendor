@@ -22,6 +22,8 @@ App::uses('Controller', 'Controller');
 class RistoAppController extends Controller {
 
     public $layout = 'Risto.default';
+
+    public $elementMenu = 'menu';
     
 
     public $helpers = array(
@@ -78,11 +80,14 @@ class RistoAppController extends Controller {
         'DebugKit.Toolbar',        
     );
 
+    public function beforeRender() {
+        $this->set('elementMenu', $this->elementMenu);
+    }
+
     public function beforeFilter()
      {            
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
-        $this->set('elementMenu', 'menu');
 
 
         $this->Auth->allow(array('auth_callback', 'auth_login'));
