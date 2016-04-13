@@ -60,16 +60,9 @@ Your browser does not support the audio element.
 <script>
 	
 	$("#printer-id-select").on('change', function(e){
-		console.info(this);
-		console.info(e);
-		console.debug( $(this).data('href') );
 		location.href = $(this).data('href') + "/" + $(this).val();
 	});
 
-
-	// hacer sonar audio
-	vid = document.getElementById("sound-alert");		
-	vid.play();
 
 
 // actualizacion de pagina cuando hay una comanda nueva
@@ -77,6 +70,8 @@ Your browser does not support the audio element.
 	setInterval(function(){ 
 		$.post('<?php echo Router::url(array("action"=>"hayActualizacion", $printer_id))?>', function( data ){
 			if ( data ) {
+				vid = document.getElementById("sound-alert");		
+				vid.play();
 				location.href =  window.location.href;
 			}
 		});

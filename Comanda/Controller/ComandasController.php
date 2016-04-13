@@ -41,7 +41,7 @@ class ComandasController extends ComandaAppController {
      * 
      * 
      **/
-    public function comandero( $printer_id = null ){
+    public function comandero( $printer_id = null){
         $this->elementMenu = null;
         $this->layout = "comandero";
         $conditions = array(
@@ -66,7 +66,6 @@ class ComandasController extends ComandaAppController {
                 )
             ));
         
-        $comandasActualizadas = $this->hayActualizacion( $printer_id );
         $this->autoRender = true;
         
         $cantComandas = $this->Comanda->find('count', array(
@@ -79,7 +78,7 @@ class ComandasController extends ComandaAppController {
         $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id.$printer_id");
         $comandaLeidaUltima = CakeSession::read("Comandero.ultima_comanda_id.$printer_id");
 
-        $this->set(compact('comandas', 'cantComandas', 'printers', 'printer_id', 'comandaEstados', 'comandasActualizadas'));
+        $this->set(compact('comandas', 'cantComandas', 'printers', 'printer_id', 'comandaEstados'));
     }
 
 

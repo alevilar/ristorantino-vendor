@@ -78,6 +78,17 @@ class DetalleComanda extends ComandaAppModel {
         );
 
 
+
+	public function __construct($id = false, $table = null, $ds = null) {
+		parent::__construct( $id, $table, $ds );
+
+		App::uses('ComandasEventHandler','Comanda.Event');
+		App::uses('ClassRegistry','Utility');
+
+		$this->getEventManager()->attach( new ComandasEventHandler );
+	}
+	
+
 	public function afterSave(  $created, $options = array() ) 
 	{
 		$ds = $this->find('first', array(

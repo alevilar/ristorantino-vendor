@@ -22,7 +22,7 @@ class ComandasEventHandler implements CakeEventListener {
 		);
 	}
 	public function onAfterSave ($event) {
-		if ( $event->data[0] == true ) {
+		if ( $event->data[0] == true && !empty( $event->subject->data['Comanda'] )) {			
 			$printerId = $event->subject->data['Comanda']['printer_id'];
 	 		Cache::write("Comandero.ultima_comanda_id.$printerId",$event->subject->id);
 		}

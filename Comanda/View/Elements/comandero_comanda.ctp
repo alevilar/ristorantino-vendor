@@ -73,7 +73,25 @@
 		<?php }?>
 		</ul>
 
-		<?php 
+		
+
+	</div>
+	
+	<div class="comanda-actions btn-group center"  role="group">
+	<?php 
+
+		echo $this->Html->link('Mover a otra Mesa', array('action'=>'edit', $comanda['Comanda']['id']), array('class'=>'btn btn-default'));
+
+		echo $this->Html->link('Borrar Comanda', array('action'=>'delete', $comanda['Comanda']['id']), array('class'=>'btn btn-danger'), __('Seguro desea eliminar la Comanda #%s ?', $comanda['Comanda']['id']));
+
+	?>
+	</div>
+
+</div>
+
+
+
+<?php 
 		// crear un link para pasar el siguiente estado
 		
 
@@ -94,21 +112,6 @@
 			$linkNext = Router::url($linkNext);
 		}
 		?>
-
-	</div>
-	
-	<div class="comanda-actions btn-group center"  role="group">
-	<?php 
-
-		echo $this->Html->link('Mover a otra Mesa', array('action'=>'edit', $comanda['Comanda']['id']), array('class'=>'btn btn-default'));
-
-		echo $this->Html->link('Borrar Comanda', array('action'=>'delete', $comanda['Comanda']['id']), array('class'=>'btn btn-danger'), __('Seguro desea eliminar la Comanda #%s ?', $comanda['Comanda']['id']));
-
-	?>
-	</div>
-
-</div>
-
 
 <script>
 	
