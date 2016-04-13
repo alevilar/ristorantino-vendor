@@ -84,7 +84,11 @@
         <![endif]-->
     </head>
     <body>
-    <div class="p-main-background"></div>
+    <div id="body-wrapper">
+        <div class="p-main-background"></div>
+        <div id="content">
+
+
         <?php echo $this->element('Risto.show_errors_for_config') ?>
         <a class="sr-only" href="#content">Skip to main content</a>
 
@@ -186,10 +190,9 @@
 
 
 
-
-<div class="row">
+        </div> <!-- #content -->
+        
     <?php echo $this->element('Risto.google_ads/horizontal'); ?>
-</div>
 
         <footer id="p-footer" class="hidden-print">
             <div class="container">
@@ -237,6 +240,6 @@
 
         <?php echo $this->element('Paxapos.google_analitycs') ?>    
 
-
+    </div>
     </body>
 </html>

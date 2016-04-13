@@ -3,3 +3,4 @@
 define( 'COMANDA_ESTADO_PENDIENTE'	, 1);
 define( 'COMANDA_ESTADO_MARCHANDO'	, 2);
 define( 'COMANDA_ESTADO_LISTO'		, 3);
+

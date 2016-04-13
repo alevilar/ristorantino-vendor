@@ -1,5 +1,4 @@
-
-<div class="center col-md-12">
+<div class="center">
 	<br>
 
 

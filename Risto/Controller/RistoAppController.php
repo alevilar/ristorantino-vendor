@@ -105,7 +105,7 @@ class RistoAppController extends Controller {
 
 
       public function isAuthorized () {
-        return true;
+        return false;
       }
 
 

@@ -65,16 +65,42 @@ class ComandasController extends ComandaAppController {
                     ),
                 )
             ));
-
-
+        
+        $comandasActualizadas = $this->hayActualizacion( $printer_id );
+        $this->autoRender = true;
+        
         $cantComandas = $this->Comanda->find('count', array(
             'conditions' => $conditions,
             ));
 
-        $printers = $this->Comanda->Printer->find('list');
+        $printers = $this->Comanda->Printer->find('list', array('conditions'=>array('driver !=' => 'Fiscal')));
         $comandaEstados = $this->Comanda->ComandaEstado->find('list');
+    
+        $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id.$printer_id");
+        $comandaLeidaUltima = CakeSession::read("Comandero.ultima_comanda_id.$printer_id");
 
-        $this->set(compact('comandas', 'cantComandas', 'printers', 'printer_id', 'comandaEstados'));
+        $this->set(compact('comandas', 'cantComandas', 'printers', 'printer_id', 'comandaEstados', 'comandasActualizadas'));
+    }
+
+
+    public function hayActualizacion( $printer_id = null ){
+        $this->autoRender = false;
+        $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id.$printer_id");
+        $comandaLeidaUltima = CakeSession::read("Comandero.ultima_comanda_id.$printer_id");
+        CakeSession::write("Comandero.ultima_comanda_id.$printer_id", $comandaGuardadaUltima);
+
+        $comandasActualizadas = false;
+        
+        if ( empty($comandaLeidaUltima) ) {
+            return false;
+        }
+
+        if ( !empty($comandaGuardadaUltima) && $comandaLeidaUltima != $comandaGuardadaUltima 
+                    ){
+            $comandasActualizadas = $comandaGuardadaUltima;
+        }
+
+        return $comandasActualizadas;
     }
 	
 
@@ -88,7 +114,10 @@ class ComandasController extends ComandaAppController {
      **/
     public function comandero_estado_change( $comanda_id, $comanda_estado_id ){
         $this->Comanda->id = $comanda_id;
+        $estadoAnteriorId = $this->Comanda->field('comanda_estado_id');
         $this->Comanda->saveField('comanda_estado_id', $comanda_estado_id);
+        $link = '<a href="' . Router::url(array( 'action' => 'comandero_estado_change', $comanda_id, $estadoAnteriorId)) .'" class="btn btn-default">Deshacer Cambios</a>';
+        $this->Session->setFlash("Se ha modificado el estado de la Comanda #$comanda_id. $link");
         $this->redirect( $this->referer() );
     }
 

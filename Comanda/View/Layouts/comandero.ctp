@@ -83,8 +83,10 @@
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body>    
+    <div id="body-wrapper">
     <div class="p-main-background"></div>
+    <div id="content">
         <?php echo $this->element('Risto.show_errors_for_config') ?>
         <a class="sr-only" href="#content">Skip to main content</a>
 
@@ -164,10 +166,10 @@
 
 
 
+        <?php echo $this->element('Risto.google_ads/horizontal'); ?>
 
-<div class="row">
-    <?php echo $this->element('Risto.google_ads/horizontal'); ?>
-</div>
+
+        </div><!-- #content-->
 
         <footer id="p-footer" class="hidden-print">
             <div class="container">
@@ -212,6 +214,8 @@
             
         </footer>
 
-        <?php echo $this->element('Paxapos.google_analitycs') ?>    
+        <?php echo $this->element('Paxapos.google_analitycs') ?>
+
+        </div>
     </body>
 </html>

@@ -27,33 +27,48 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 					}
 					?>
 				</li>
-			   
-				<li>
-					<?php echo $this->Html->link('Contabilidad', array('controller' => 'account', 'action' => 'index', 'plugin' => 'account'), array('id' => 'bton-contabilidad')); ?>
-				</li>       
 
-				<li>  
-					<?php echo $this->Html->link('Arqueo', array('plugin' => 'cash', 'controller' => 'arqueos'), array('id' => 'bton-caja')); ?>
-				</li>  
-				 
+				
+				<?php if ( Configure::read('Site.type') == SITE_TYPE_RESTAURANTE ) {?>
+				<li>
+				<?php
+					echo $this->Html->link('Comandero', array('controller' => 'comandas', 'action' => 'comandero', 'plugin' => 'comanda'), array('id' => 'bton-comandero')); 
+					?>
+				</li>    
+				<?php } ?>
+
+
+				<li>   
+					<?php echo $this->Html->link('Compras', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'pendientes'), array('id' => 'bton-pedidos')); ?>
+				</li> 
+			    
+
+				
+				 <li>   
+					<?php echo $this->Html->link('Admin', array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array('id' => 'bton-admin')); ?>
+				</li>
 
 			  
 		   </ul>
 		  
 			<ul class="dashboard-buttons">
 
-				<li>   
-					<?php echo $this->Html->link('Compras', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'pendientes'), array('id' => 'bton-pedidos')); ?>
-				</li> 
+				<li>  
+					<?php echo $this->Html->link('Estadisticas', array('plugin' => 'stats', 'controller' => 'stats', 'action' => 'mesas_total'), array('id' => 'bton-estadisticas')); ?>
+				</li>
+				      
+
+
+				<li>
+					<?php echo $this->Html->link('Contabilidad', array('controller' => 'account', 'action' => 'index', 'plugin' => 'account'), array('id' => 'bton-contabilidad')); ?>
+				</li>
 
 
 				<li>  
-					<?php echo $this->Html->link('Estadisticas', array('plugin' => 'stats', 'controller' => 'stats', 'action' => 'mesas_total'), array('id' => 'bton-estadisticas')); ?>
-				</li>     
+					<?php echo $this->Html->link('Arqueo', array('plugin' => 'cash', 'controller' => 'arqueos'), array('id' => 'bton-caja')); ?>
+				</li>  
 
-				 <li>   
-					<?php echo $this->Html->link('Admin', array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array('id' => 'bton-admin')); ?>
-				</li>
+				
 			</ul>
 		</div>
 	</div>

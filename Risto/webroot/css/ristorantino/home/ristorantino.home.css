@@ -55,6 +55,11 @@
     background-image: url("reservations.png");
 }
 
+
+#bton-comandero{
+    background-image: url("comandero.png");
+}
+
 #bton-estadisticas{
 	background-image: url("stats.png");
 }
