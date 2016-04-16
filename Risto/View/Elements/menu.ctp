@@ -124,5 +124,3 @@ if ($this->name == 'Clasificaciones' && $this->action == 'index') {
                 <li class="<?php echo $c5 ?>">
                     <?php echo $this->Html->link(__('Impresoras'),  array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index')) ?>
                 </li>
-            </ul>
-           </li>

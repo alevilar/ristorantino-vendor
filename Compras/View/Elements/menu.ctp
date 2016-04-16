@@ -1,8 +1,7 @@
 <?php $c1 = '' ?>
-
 		<li class="">
                 <?php echo $this->Html->link('Nuevo Pedido', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'add'), array('class'=>'btn btn-success')) ?>
-            </li>
+        </li>
 
 
         <li class="dropdown">
@@ -65,7 +64,3 @@
         </li>
 
         
-    </ul>      
-
-
-</nav>
