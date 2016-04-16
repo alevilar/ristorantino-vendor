@@ -194,7 +194,7 @@ function hablarInit() {
 		var voices = speechSynthesis.getVoices();
 	    if (voices.length !== 0) {
 	    	var manola = new SpeechSynthesisUtterance(txt);
-			manola.lang = 'es-LA';
+			manola.lang = 'es';
 			manola.rate = 1.2;
 			
 	    	manola.addEventListener('start', function(){
