@@ -53,16 +53,9 @@ h6,
 }
 
 #content-wrapper {
-	padding-bottom:204px; /* Height of the footer element */
+	padding-bottom:301px; /* Height of the footer element */
 }
 
-footer {
-	height:204px;
-	width: 100%;
-	position:absolute;
-	bottom:0;
-	left:0;
-}
 
 html,
 body {
@@ -484,12 +477,25 @@ body {
 
 
 /*FOOTER*/
+
+
 	#p-footer{
 		background-color:#181818;
 		color:#FFFFFF;
-		display:block;
-		padding-top:74px;
+		display:block;		
 		margin-top: 15px;
+		height:301px;
+		width: 100%;
+		position:absolute;
+		bottom:0;
+		left:0;
+	}
+
+	#p-footer .google-ads-horizontal{
+		margin: 0px 0 80px 0;
+	    border-top: 2px solid #ccc;
+	    padding: 0px;
+	    background: white;
 	}
 	
 

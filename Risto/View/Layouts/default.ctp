@@ -190,13 +190,13 @@
 
 
 
-        <?php echo $this->element('Risto.google_ads/horizontal'); ?>
         
 
         </div> <!-- #content -->
         
 
         <footer id="p-footer" class="hidden-print">
+            <?php echo $this->element('Risto.google_ads/horizontal'); ?>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-4">
@@ -234,7 +234,6 @@
                     </div>
                 </div>    
                 <div class="clearfix"></div>         
-                <br><br><br>   
             </div>
             
         </footer>

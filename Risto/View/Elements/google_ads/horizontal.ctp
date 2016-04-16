@@ -1,4 +1,4 @@
-<div class="center" style=" margin: 10px 0 0 0; border-top: 2px solid #ccc; padding: 0px; background: white;">
+<div class="center google-ads-horizontal">
 	 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- 728x90, creado 31/05/10 -->
 	<ins class="adsbygoogle"
