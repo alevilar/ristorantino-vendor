@@ -368,7 +368,10 @@ function hablarInit() {
 		});
 
 		if ( !primeraVez ) {
-			speechComanderoDetalleComandaPendiente();
+			sonarCampana();
+			setTimeout(function() {
+				speechComanderoDetalleComandaPendiente();
+		    }, 500);
 		} else {
 			primeraVez = false;
 		}
