@@ -26,7 +26,6 @@ if ($this->name == 'Clasificaciones' && $this->action == 'index') {
     $c8 = 'active';
 }
 ?>
-
         <li class="dropdown">
             <?php echo $this->Html->link(__('Usuarios').'<b class="caret"></b>', '#', array(
                  "class"=>"dropdown-toggle" ,
@@ -35,7 +34,7 @@ if ($this->name == 'Clasificaciones' && $this->action == 'index') {
             )) ?>
             <ul class="dropdown-menu">
                 <li class="<?php echo $c1 ?>">
-                    <?php echo $this->Html->link(__('Usuarios'), array('plugin' => 'users', 'controller'=>'users', 'action' => 'index')) ?>
+                    <?php echo $this->Html->link(__('Usuarios'), array('plugin' => 'site_users', 'controller'=>'site_users', 'action' => 'index')) ?>
                 </li>
                 <li class="<?php echo $c2 ?>">
                     <?php echo $this->Html->link(Inflector::pluralize( Configure::read('Mesa.tituloMozo')),array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'index')) ?>
