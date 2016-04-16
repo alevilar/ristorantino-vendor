@@ -1,8 +1,9 @@
 <div id="mesas-index">
-<?php echo $this->Html->link(__('Abrir %s', Configure::read('Mesa.tituloMesa')), array('action' => 'add'), array('class'=>'btn btn-lg btn-success pull-right')); ?>
-<h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa') ) ;?></h1>
+    <?php echo $this->Html->link(__('Abrir %s', Configure::read('Mesa.tituloMesa')), array('action' => 'add'), array('class'=>'btn btn-lg btn-success pull-right')); ?>
+    <h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa') ) ;?></h1>
 
-<div class="row">
+    <!-- fomr search -->
+    <div class="row">
         <?php echo $this->Form->create("Mesa"); ?>        
         <div class=" col-md-1">
             <?php echo $this->Form->input('numero', array('label' => Configure::read('Mesa.tituloMesa'), 'required'=>false)); ?>
@@ -94,58 +95,57 @@
             ?>
         </div>
 
-</div>
-
-
-        <div class="clear"></div>
-
-        <?php
-        $url = array('action'=> $this->action, 'ext'=> 'xls', '?'=> $this->request->query);
-        echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__('Descargar Excel')
-            , $url
-            , array(
-                'escape' => false,
-                'data-ajax' => 'false',
-                'class' => 'btn btn-primary pull-right',
-                'div'=> array(
-                    'class' => 'pull-right'
-                    )
-            ));
-        ?>
-
-
-        <?php 
-
-
-              echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'title' => __('Buscar')));
-              echo $this->Form->end();
-
-              ?>
-        <br />
-        <?php
-        if ($this->Paginator->params['paging']['Mesa']['count'] != 0) {
-            echo $this->element('listado_tabla');
-        } else {
-            ?>
-            </br>
-            <strong>            
-                <?php  echo __( 'No se encontraron %s', Inflector::pluralize(Configure::read('Mesa.tituloMesa') ) ); ?>
-            </strong>
-            <?php
-        }
-        ?>
-
-
     </div>
-<p>
-<?php
-echo $this->Paginator->counter(array(
-    'format' => __('Página {:page} de {:pages}, mostrando {:current} elementos de {:count}')
-));
-?></p>
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'btn btn-default'));?>
+    <!-- END form search -->
+
+
+    <div class="clear"></div>
+
+    <?php
+    $url = array('action'=> $this->action, 'ext'=> 'xls', '?'=> $this->request->query);
+    echo $this->Html->link(' <span class="glyphicon glyphicon-download"></span> '.__('Descargar Excel')
+        , $url
+        , array(
+            'escape' => false,
+            'data-ajax' => 'false',
+            'class' => 'btn btn-primary pull-right',
+            'div'=> array(
+                'class' => 'pull-right'
+                )
+        ));
+
+
+      echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'title' => __('Buscar')));
+      echo $this->Form->end();
+
+      ?>
+    <br />
+    <?php
+    if ($this->Paginator->params['paging']['Mesa']['count'] != 0) {
+        echo $this->element('listado_tabla');
+    } else {
+        ?>
+        </br>
+        <strong>            
+            <?php  echo __( 'No se encontraron %s', Inflector::pluralize(Configure::read('Mesa.tituloMesa') ) ); ?>
+        </strong>
+        <?php
+    }
+    ?>
+
+
 </div>
+
+<div>
+    <p>
+    <?php
+    echo $this->Paginator->counter(array(
+        'format' => __('Página {:page} de {:pages}, mostrando {:current} elementos de {:count}')
+    ));
+    ?></p>
+    <div class="paging">
+    	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
+     | 	<?php echo $this->Paginator->numbers();?>
+    	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'btn btn-default'));?>
+    </div>
 </div>

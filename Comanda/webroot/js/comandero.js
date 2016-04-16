@@ -194,7 +194,7 @@ function hablarInit() {
 		var voices = speechSynthesis.getVoices();
 	    if (voices.length !== 0) {
 	    	var manola = new SpeechSynthesisUtterance(txt);
-			manola.lang = 'es';
+			manola.lang = 'es-LA';
 			manola.rate = 1.2;
 			
 	    	manola.addEventListener('start', function(){
@@ -362,6 +362,8 @@ function hablarInit() {
 
 	var primeraVez = true;
 	var upPromise = $('#comandero-content').on('comandasActualizadas', function(){
+		
+		// plugin para acomodar las comandas sin espacios en blanco entre ellas
 		$('.comandero', '#comandero-content').packery({
 			  // options
 			  itemSelector: '.comanda'

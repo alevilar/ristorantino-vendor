@@ -86,7 +86,7 @@
     <body>
     <div id="body-wrapper">
         <div class="p-main-background"></div>
-        <div id="content">
+        <div id="content-wrapper">
 
 
         <?php echo $this->element('Risto.show_errors_for_config') ?>
@@ -190,9 +190,11 @@
 
 
 
+        <?php echo $this->element('Risto.google_ads/horizontal'); ?>
+        
+
         </div> <!-- #content -->
         
-    <?php echo $this->element('Risto.google_ads/horizontal'); ?>
 
         <footer id="p-footer" class="hidden-print">
             <div class="container">

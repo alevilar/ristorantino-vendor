@@ -52,7 +52,7 @@ h6,
 	position:relative;
 }
 
-#content {
+#content-wrapper {
 	padding-bottom:204px; /* Height of the footer element */
 }
 
