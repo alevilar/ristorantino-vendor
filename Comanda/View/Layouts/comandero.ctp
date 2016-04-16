@@ -86,7 +86,7 @@
     <body>    
     <div id="body-wrapper">
     <div class="p-main-background"></div>
-    <div id="content">
+    <div id="content-wrapper">
         <?php echo $this->element('Risto.show_errors_for_config') ?>
         <a class="sr-only" href="#content">Skip to main content</a>
 
