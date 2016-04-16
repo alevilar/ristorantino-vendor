@@ -6,6 +6,9 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 <div class="row">
 
 	<div class="col-md-4 hidden-sm hidden-xs">
+		<?php echo $this->element('Risto.google_ads/columna_vertical'); ?>
+		
+
 		<h3>Novedades PaxaPos</h3>
 		<a class="twitter-timeline" href="https://twitter.com/PaxaPos" data-widget-id="636390749106511872">Tweets @PaxaPos.</a>
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
@@ -13,9 +16,15 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 
 	<div class="col-md-8">
 
-	<?php echo $this->element('Risto.google_ads/horizontal'); ?>
 
 		<div class="jumbotron">
+			<?php 
+			$isPremium = Configure::read('Site.is_premium');
+			if ( !$isPremium) { ?>
+				<p class="center">
+					¿Quieres tu PaxaPos sin publicidad? <?php echo $this->Html->link('Hazte Premium', array('plugin'=>'paxapos', 'controller'=>'paxapos', 'action'=>'contact'));?>
+				</p>
+			<?php }?>
 		   	<ul class="dashboard-buttons">
 				<li>
 					<?php 
@@ -44,12 +53,23 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 			    
 
 				
-				 <li>   
-					<?php echo $this->Html->link('Admin', array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array('id' => 'bton-admin')); ?>
-				</li>
+				 
 
 			  
 		   </ul>
+
+
+		   <ul class="dashboard-buttons">
+		   		<li><?php echo $this->element('Risto.google_ads/columna_vertical', array('style'=>'display:inline-block;width:165px;height:187px')); ?></li>
+				<li>   
+					<?php echo $this->Html->link('Admin', array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array('id' => 'bton-admin')); ?>
+				</li>
+				<li><?php echo $this->element('Risto.google_ads/columna_vertical', array('style'=>'display:inline-block;width:165px;height:187px')); ?></li>
+			</ul>
+
+
+		   		
+
 		  
 			<ul class="dashboard-buttons">
 

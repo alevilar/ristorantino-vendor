@@ -492,10 +492,13 @@ body {
 	}
 
 	#p-footer .google-ads-horizontal{
-		margin: 0px 0 80px 0;
 	    border-top: 2px solid #ccc;
 	    padding: 0px;
 	    background: white;
+	}
+
+	#p-footer .container{
+		margin: 110px 0 0 0;
 	}
 	
 

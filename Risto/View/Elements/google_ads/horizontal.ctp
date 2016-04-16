@@ -1,3 +1,10 @@
+<?php
+
+$isPremium = Configure::read('Site.is_premium');
+if ( $isPremium ) {
+	return '';
+}
+?>
 <div class="center google-ads-horizontal">
 	 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 	<!-- 728x90, creado 31/05/10 -->
