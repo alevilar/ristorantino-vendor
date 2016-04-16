@@ -32,6 +32,71 @@ class ComandasController extends ComandaAppController {
 	}
 
 
+    public function comandero_index($printer_id = null) {
+        $this->elementMenu = null;
+        $this->layout = "comandero";
+        $conditions = array(
+                'Comanda.comanda_estado_id !=' => COMANDA_ESTADO_LISTO,
+                'Comanda.comanda_estado_id IS NOT NULL',
+                );
+
+        if (!empty($printer_id)) {
+            $conditions['Comanda.printer_id'] = $printer_id;
+        }
+
+        $cantComandas = $this->Comanda->find('count', array(
+            'conditions' => $conditions,
+            ));
+
+        if ( $cantComandas < 100 ) {
+            $comandas = $this->Comanda->find('all', array(
+                'conditions' => $conditions,
+                'order' => array('Comanda.created' => 'ASC'),
+                'contain' => array(
+                    'Printer',
+                    'ComandaEstado',
+                    'Mesa' => 'Mozo',
+                    'DetalleComanda' => array(
+                        'Producto',
+                        'DetalleSabor' => array('Sabor'),
+                        ),
+                    )
+                ));
+        } else {
+            $this->Comanda->updateAll(
+                array(
+                    'Comanda.comanda_estado_id' => COMANDA_ESTADO_LISTO,
+                ),$conditions);
+            
+            $cantComandas = 0;
+            $comandas = array();
+        }
+        
+        $this->autoRender = true;
+        
+        
+        $comandaEstadosInicial = $this->Comanda->ComandaEstado->find('list', array('conditions'=> array('ComandaEstado.id' => COMANDA_ESTADO_PENDIENTE)));
+
+        $comandaEstadosFinal = $this->Comanda->ComandaEstado->find('list', array('conditions'=> array('ComandaEstado.id' => COMANDA_ESTADO_LISTO)));
+
+        $comandaEstados = array();
+        if ( $printer_id ) {
+            $comandaEstados = $this->Comanda->ComandaEstado->find('list', array('conditions'=> array('ComandaEstado.printer_id' => $printer_id)));
+        }
+        array_unshift( $comandaEstados, $comandaEstadosInicial );
+        array_push( $comandaEstados, $comandaEstadosFinal );
+
+        $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id.$printer_id");
+        $comandaLeidaUltima = CakeSession::read("Comandero.ultima_comanda_id.$printer_id");
+
+        $this->set(compact('comandas', 'cantComandas', 'printer_id', 'comandaEstados'));
+
+        if ( $this->request->is('ajax') ) {
+            $this->layout = "ajax";
+        }
+    }
+
+
     /**
      * 
      * Listado de comandas activas para ser utilizado por el comandero
@@ -42,66 +107,121 @@ class ComandasController extends ComandaAppController {
      * 
      **/
     public function comandero( $printer_id = null){
-        $this->elementMenu = null;
-        $this->layout = "comandero";
-        $conditions = array(
-                'comanda_estado_id !=' => COMANDA_ESTADO_LISTO,
-                'comanda_estado_id IS NOT NULL',
-                );
+        $printers = $this->Comanda->Printer->find('list', array('conditions'=>array('driver' => 'Receipt')));
 
-        if (!empty($printer_id)) {
-            $conditions['printer_id'] = $printer_id;
-        }
-        $comandas = $this->Comanda->find('all', array(
-            'conditions' => $conditions,
-            'order' => array('Comanda.created' => 'ASC'),
-            'contain' => array(
-                'Printer',
-                'ComandaEstado',
-                'Mesa' => 'Mozo',
-                'DetalleComanda' => array(
-                    'Producto',
-                    'DetalleSabor' => array('Sabor'),
-                    ),
-                )
-            ));
-        
-        $this->autoRender = true;
-        
-        $cantComandas = $this->Comanda->find('count', array(
-            'conditions' => $conditions,
-            ));
+        $this->comandero_index();
 
-        $printers = $this->Comanda->Printer->find('list', array('conditions'=>array('driver !=' => 'Fiscal')));
-        $comandaEstados = $this->Comanda->ComandaEstado->find('list');
-    
-        $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id.$printer_id");
-        $comandaLeidaUltima = CakeSession::read("Comandero.ultima_comanda_id.$printer_id");
-
-        $this->set(compact('comandas', 'cantComandas', 'printers', 'printer_id', 'comandaEstados'));
+        $this->set(compact('printers', 'printer_id'));
     }
 
 
     public function hayActualizacion( $printer_id = null ){
-        $this->autoRender = false;
-        $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id.$printer_id");
+        if ( $printer_id ) {
+            $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id.$printer_id");
+        } else {
+            $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id");
+        }
         $comandaLeidaUltima = CakeSession::read("Comandero.ultima_comanda_id.$printer_id");
         CakeSession::write("Comandero.ultima_comanda_id.$printer_id", $comandaGuardadaUltima);
 
         $comandasActualizadas = false;
-        
-        if ( empty($comandaLeidaUltima) ) {
-            return false;
-        }
 
         if ( !empty($comandaGuardadaUltima) && $comandaLeidaUltima != $comandaGuardadaUltima 
                     ){
             $comandasActualizadas = $comandaGuardadaUltima;
         }
 
-        return $comandasActualizadas;
+        $this->set('comandasActualizadas', $comandasActualizadas);
+        $this->set('_serialize', array('comandasActualizadas'));
+
+    }
+
+
+
+    public function comandero_estado_change_next($comanda_id) {
+        $this->__buscarEstadoAntoSig($comanda_id, 'next');
+
+        $this->render('comandero_estado_change');
+    }
+
+
+    public function comandero_estado_change_previous($comanda_id) {
+        $this->__buscarEstadoAntoSig($comanda_id, 'prev');
+
+        $this->render('comandero_estado_change');
     }
 	
+
+    /**
+     *
+     *
+     *  @param string $afterObefore puede ser 'next' or 'prev'
+     * 
+     **/
+    private function __buscarEstadoAntoSig($comanda_id, $afterObefore) {
+
+        if ( $afterObefore == 'next' ) {
+            $btn1 = 'before_comanda_estado_id';
+            $btn2 = 'after_comanda_estado_id';
+            $comanda_estado_id = COMANDA_ESTADO_LISTO;
+        } else {
+            $btn1 = 'after_comanda_estado_id';
+            $btn2 = 'before_comanda_estado_id';
+            $comanda_estado_id = COMANDA_ESTADO_PENDIENTE;
+        }
+        
+        $this->Comanda->id = $comanda_id;
+        $this->Comanda->recursive = -1;        
+        $comanda = $this->Comanda->read();
+        $printer_id = $comanda['Comanda']['printer_id'];
+        $comanda_estado_actual_id = $comanda['Comanda']['comanda_estado_id'];
+
+        if (    $comanda_estado_actual_id == COMANDA_ESTADO_PENDIENTE 
+             || $comanda_estado_actual_id == COMANDA_ESTADO_LISTO ) {
+            // si es estado inicial o final, como son generidocos debo buscarlos puntualmente 
+            // dentro de ls estados posibles para esa printer_id
+            $comandaEstado = $this->Comanda->ComandaEstado->find('first', array(
+                'conditions' => array(
+                    'ComandaEstado.printer_id' => $printer_id,
+                    'ComandaEstado.'.$btn1 => $comanda_estado_actual_id
+                    ),
+                'recursive' => -1,
+                ));
+            // colocar el siguiente estado
+            if ( $comandaEstado ) {
+                $comanda_estado_id = $comandaEstado['ComandaEstado']['id'];
+            }
+        } else {
+            $comandaEstado = $this->Comanda->ComandaEstado->find('first', array(
+                'conditions' => array(
+                    'ComandaEstado.id' => $comanda_estado_actual_id
+                    ),
+                'recursive' => -1,
+                ));
+            // colocar el siguiente estado
+            $comanda_estado_id = $comandaEstado['ComandaEstado'][$btn2];
+        }
+
+        $this->__comandero_estado_change( $comanda_id, $comanda_estado_id );
+
+
+        $comanda = $this->Comanda->find('first', array(
+                'conditions' => array(
+                    'Comanda.id' => $comanda_id,
+                    ),
+                'contain' => array(
+                    'Printer',
+                    'ComandaEstado',
+                    'Mesa' => 'Mozo',
+                    'DetalleComanda' => array(
+                        'Producto',
+                        'DetalleSabor' => array('Sabor'),
+                        ),
+                    )
+                ));
+        $this->set('comanda', $comanda);
+
+    }
 
     /**
      *
@@ -111,13 +231,11 @@ class ComandasController extends ComandaAppController {
      *  @param integer $comanda_estado_id ID del estado que quiero modificar
      * 
      **/
-    public function comandero_estado_change( $comanda_id, $comanda_estado_id ){
+    private function __comandero_estado_change( $comanda_id, $comanda_estado_id ){
         $this->Comanda->id = $comanda_id;
         $estadoAnteriorId = $this->Comanda->field('comanda_estado_id');
         $this->Comanda->saveField('comanda_estado_id', $comanda_estado_id);
         $link = '<a href="' . Router::url(array( 'action' => 'comandero_estado_change', $comanda_id, $estadoAnteriorId)) .'" class="btn btn-default">Deshacer Cambios</a>';
-        $this->Session->setFlash("Se ha modificado el estado de la Comanda #$comanda_id. $link");
-        $this->redirect( $this->referer() );
     }
 
 	

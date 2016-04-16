@@ -1,3 +1,15 @@
+body {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none;   /* Chrome/Safari/Opera */
+  -khtml-user-select: none;    /* Konqueror */
+  -moz-user-select: none;      /* Firefox */
+  -ms-user-select: none;       /* IE/Edge */
+  user-select: none;           /* non-prefixed version, currently
+                                  not supported by any browser */
+}
+
+
+
 .comandero{
 
 }
@@ -36,6 +48,7 @@
 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
 	box-shadow: 0 0 5px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
+	border: 1px solid #EEE;
 }
 
 
@@ -48,4 +61,49 @@
 .mesa-numero{
     font-size: 24pt;
     font-weight: bolder;
+}
+
+
+.clockStyle{
+	font-size: 30pt;
+	font-family: 'Chau Philomene One', sans-serif;
+	color: #3c3c3c;
+	padding: 10px;
+	margin: 10px;	
+}
+
+
+
+/* ESTADO SALIENDO */
+.comanda-estado-id-4 { 
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 2s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+    animation-name: blinker;
+    animation-duration: 2s;
+    animation-timing-function: linear; 
+    animation-iteration-count: infinite;
+} 
+
+@-moz-keyframes blinker {
+    0% { opacity: 1.0;  border: 1px solid #929292; }
+    50% { opacity: 0.3;}
+    100% { opacity: 1.0; border: 1px solid #929292;} 
+}
+
+@-webkit-keyframes blinker { 
+    0% { opacity: 1.0; border: 1px solid #929292;  }
+    50% { opacity: 0.3;}
+    100% { opacity: 1.0; border: 1px solid #929292; } 
+} 
+
+@keyframes blinker { 
+    0% { opacity: 1.0;  border: 1px solid #929292; } 
+    50% { opacity: 0.3;} 
+    100% { opacity: 1.0; border: 1px solid #929292; } 
 }

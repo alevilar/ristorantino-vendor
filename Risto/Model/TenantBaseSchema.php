@@ -69,16 +69,20 @@ class TenantBaseSchema extends RistoBaseSchema {
 				array(
 					'id' => COMANDA_ESTADO_PENDIENTE,
 					'name' => 'Pendiente',
-					),
-				array(
-					'id' => COMANDA_ESTADO_MARCHANDO,
-					'name' => 'Marchando',
-					),
+					'class_color' => 'txt-danger bg-danger',
+					'printer_id' => null,
+					'before_comanda_estado_id' => null,
+					'after_comanda_estado_id' => null,
+					),				
 				array(
 					'id' => COMANDA_ESTADO_LISTO,
 					'name' => 'Listo',
+					'class_color' => 'txt-default bg-default',
+					'printer_id' => null,
+					'before_comanda_estado_id' => null,
+					'after_comanda_estado_id' => null,
 					),
-				),
+				),	
 			'clientes' => array(
 				array(
 					'nombre' => "[Example] Google Arg. SRL",
@@ -93,14 +97,6 @@ class TenantBaseSchema extends RistoBaseSchema {
 					'alias' =>  'fiscal',
 					'driver' => 'Fiscal',
 					'driver_model' => 'Hasar441',
-					'output' => 'Database',
-					),
-				array(
-					'name'  => 'comandera',
-					'alias' =>  'comandera',
-					'driver' => 'Receipt',
-					'driver_model' => 'Bematech',
-					'output' => 'Database',
 					),
 			),
 			'compras_pedido_estados' => array(
@@ -717,8 +713,19 @@ class TenantBaseSchema extends RistoBaseSchema {
 	public $comanda_estados = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 60, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'printer_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
+		'before_comanda_estado_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
+
+		'after_comanda_estado_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
+
+		'class_color' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 110, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+
 		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'printer_id' => array('column' => 'printer_id', 'unique' => 0),
+			'printer_before' => array('column' => array('printer_id','before_comanda_estado_id'), 'unique' => 0),
+			'printer_after' => array('column' => array('printer_id','after_comanda_estado_id'), 'unique' => 0),
+			'printer_before_after' => array('column' => array('printer_id','before_comanda_estado_id','after_comanda_estado_id'), 'unique' => 0),
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
@@ -727,7 +734,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'mesa_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 		'printer_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
-		'comanda_estado_id' => array('type' => 'integer', 'null' => false, 'default' => COMANDA_ESTADO_PENDIENTE, 'unsigned' => false, 'key' => 'index'),
+		'comanda_estado_id' => array('type' => 'integer', 'null' => false, 'default'=>COMANDA_ESTADO_PENDIENTE, 'unsigned' => false, 'key' => 'index'),
 		'prioridad' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 4, 'unsigned' => false),
 		'impresa' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),

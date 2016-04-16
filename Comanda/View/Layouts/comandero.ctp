@@ -98,7 +98,10 @@
             ?>
         <div class="fluid-container hidden-print">
             <div class="row">
-                <div id="mesajes" class="col-md-12" role="alert">
+                <div id="mesajes" class="col-md-12 alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
                     <?php
                     echo $flashMes;
                     echo $authMes;       
@@ -110,30 +113,30 @@
 
         <header>
             <div class="fluid-container">
-                 
-                <div class="navbar-header col-md-3 col-sm-12">
-                    <?php 
-                    echo $this->fetch("navbar-brand");
+                <div class="row">
+                    <div class="navbar-header col-md-3 col-sm-12">
+                        <?php 
+                        echo $this->fetch("navbar-brand");
 
-                    $logeadoClassForLogo = '';
-                    if ( $this->Session->read('Auth.User.id') ) {
-                        $logeadoClassForLogo = 'logo-logueado';
-                    }
+                        $logeadoClassForLogo = '';
+                        if ( $this->Session->read('Auth.User.id') ) {
+                            $logeadoClassForLogo = 'logo-logueado';
+                        }
 
-                     // link a HOME
-                    $imgLogo = $this->Html->image('/paxapos/img/logotypo_azul.png', array());
-                    echo $this->Html->link($imgLogo, 
-                        array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), 
-                        array('class' => 'navbar-brand navbar-brand-logo '.$logeadoClassForLogo, 'escape'=>false)); 
+                         // link a HOME
+                        $imgLogo = $this->Html->image('/paxapos/img/logotypo_azul.png', array());
+                        echo $this->Html->link($imgLogo, 
+                            array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), 
+                            array('class' => 'navbar-brand navbar-brand-logo '.$logeadoClassForLogo, 'escape'=>false)); 
+                        
+                        ?>
+                    </div>
+
                     
-                    ?>
+                    <div aria-expanded="false" class=" col-md-9 col-sm-12 center">
+                        <?php echo $this->fetch("comandero-title");?>
+                    </div>              
                 </div>
-
-                
-                <div aria-expanded="false" class=" col-md-9 col-sm-12 center">
-                    <?php echo $this->fetch("comandero-title");?>
-                </div>              
-
 
             </div>
         </header>

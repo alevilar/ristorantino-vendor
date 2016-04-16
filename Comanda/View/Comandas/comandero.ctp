@@ -1,21 +1,13 @@
-<div class="center">
 
+<link href='https://fonts.googleapis.com/css?family=Chau+Philomene+One' rel='stylesheet' type='text/css'>
 
-<?php echo $this->Html->script('/comanda/js/packery.pkgd.min.js');?>
+<?php $this->start('comandero-title'); ?>
 
-<?php 
+<div class="row">
+	<div class="col-md-6">
+			<h1 style="margin-top: 10px;">
 
-if ( $cantComandas > 1) {
-	$txtCom = "Comandas";
-} else {
-	$txtCom = "Comanda";
-}
-$txtCom = "<b>$cantComandas</b> $txtCom";
- ?>
-
-	<h1><?php echo $txtCom ?> del
-
-		<?php echo $this->Form->input('printer_id', array(
+				<?php echo $this->Form->input('printer_id', array(
 						'options'=>$printers, 
 						'label' => 'Sector',
 						'empty'=>'Todos',
@@ -26,30 +18,41 @@ $txtCom = "<b>$cantComandas</b> $txtCom";
 						));
 						?>
 
-	</h1>
+			</h1>
+	</div>
 
-	<hr>
 
-<div class="small">Última Actualización: <?php echo $this->Time->format(strtotime('now'),"%H:%M");?></div>
-	<br>
+	<div class="col-md-6">
+		<div id="time">
+			<span id="clockDisplay" class="clockStyle"></span>
+
+			<div class="small">Última Actualización: <span id="comandero-updated-time"><?php echo $this->Time->format(strtotime('now'),"%H:%M");?></span>
+			</div>
+		</div>
+	</div>
+	
 </div>
+	
 
 
+
+	
+
+<?php $this->end();?>
+
+
+<hr>
+
+<div id="comandero-content"></div>
+
+<div class="clearfix"></div>
+
+<hr>
 
 <?php echo $this->Html->css('/comanda/css/comandero_comanda');?>
 
 
 
-
-<div class="comandero" data-packery='{"itemSelector": ".comanda"}'>
-	<div class="comandero-comanda-list">
-		<?php
-		foreach ($comandas as $comanda) {
-			echo $this->element('comandero_comanda', array('comanda'=>$comanda));
-		}
-		?>
-	</div>
-</div>
 
 
 <audio id="sound-alert">
@@ -57,27 +60,18 @@ $txtCom = "<b>$cantComandas</b> $txtCom";
 Your browser does not support the audio element.
 </audio>
 
-<script>
-	
-	$("#printer-id-select").on('change', function(e){
-		location.href = $(this).data('href') + "/" + $(this).val();
-	});
+<script>	
+	URL_HAY_ACTUALIZACION = '<?php echo Router::url(array("action"=>"hayActualizacion", $printer_id))?>';
+
+	URL_COMANDERO_INDEX = '<?php echo Router::url(array("action"=>"comandero_index", $printer_id))?>';
 
 
-
-// actualizacion de pagina cuando hay una comanda nueva
-
-	setInterval(function(){ 
-		$.post('<?php echo Router::url(array("action"=>"hayActualizacion", $printer_id))?>', function( data ){
-			if ( data ) {
-				vid = document.getElementById("sound-alert");		
-				vid.play();
-				location.href =  window.location.href;
-			}
-		});
-
-
-	 }, 8000);
-
-
+	COMANDA_ESTADO_PENDIENTE = <?php echo COMANDA_ESTADO_PENDIENTE?>;
+	COMANDA_ESTADO_LISTO 	 = <?php echo COMANDA_ESTADO_LISTO?>;
+	COMANDA_ESTADO_MARCHANDO = <?php echo COMANDA_ESTADO_MARCHANDO?>;
+	COMANDA_ESTADO_SALIENDO  = <?php echo COMANDA_ESTADO_SALIENDO?>;
 </script>
+
+
+<?php echo $this->Html->script('/comanda/js/packery.pkgd.min.js');?>
+<?php echo $this->Html->script('/comanda/js/comandero'); ?>

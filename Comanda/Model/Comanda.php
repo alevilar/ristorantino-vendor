@@ -192,5 +192,62 @@ class Comanda extends ComandaAppModel {
 			);
 	}
 
+
+
+
+
+
+	/**
+	 * 
+	 * 	Guarda 1 comanda por printer_id
+	 * 
+	 **/
+	public function saveComanda ( $fullData ) {
+		$imprimir = !empty($fullData['Comanda']['imprimir']) ? true : false;
+		$fullData['Comanda']['impresa'] = $imprimir;
+		
+		// este array contine la prioridad y la mesa_id ---> todos datos de Modelo Comanda
+		$comanda = $fullData['Comanda'];		
+
+		//cuento la cantidad de comanderas involucradas en este pedido para genrar la cantidad de comandas correspondientes
+		$v_comanderas = array();
+		foreach( $fullData['DetalleComanda'] as $dc ) {
+
+			if ( array_key_exists('cant_eliminada', $dc)) {
+				$dc['cant'] = $dc['cant'] - $dc['cant_eliminada'];	
+				$dc['cant_eliminada'] = 0;
+			}
+
+			if ( !array_key_exists('printer_id', $dc)) {
+				// buscar a que comendara se debe imprimir este producto
+				$this->DetalleComanda->Producto->id = $dc['producto_id'];
+				$dc['printer_id'] = $this->DetalleComanda->Producto->field('printer_id');
+			}
+
+
+			// convertir [DetalleSabor] en sabores, porque viene asi del JS
+			if ( !empty($dc['DetalleSabor']) ) {
+				$detalleSabores = array();
+				foreach ( $dc['DetalleSabor'] as $ds ) {
+					$detalleSabores[] = array('Sabor'=>$ds);
+				}
+				unset( $dc['DetalleSabor'] );
+				$dc['DetalleSabor'] = $detalleSabores;
+			}
+
+			$v_comanderas[ $dc['printer_id'] ]['DetalleComanda'][] = $dc;
+		}
+		$comandas = array();
+		foreach ( $v_comanderas as $printer_id => $dcDc) {
+			$comanda['printer_id'] = $printer_id;
+			$comandas[] = array(
+				'Comanda' => $comanda,
+				'DetalleComanda' => $dcDc['DetalleComanda']
+				);
+		}
+
+		return $this->saveAll($comandas, array('deep' => true) );  
+	}
+
 	
 }

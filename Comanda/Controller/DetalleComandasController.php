@@ -102,7 +102,7 @@ class DetalleComandasController extends ComandaAppController {
 	public function add ( $mesa_id = null ) {
         
         if ( $this->request->is(array('post', 'put') ) ) {
-    		if ( $this->DetalleComanda->saveComanda( $this->request->data ) ) {
+    		if ( $this->DetalleComanda->Comanda->saveComanda( $this->request->data ) ) {
                 $this->Session->setFlash('Se guardó correctamente', 'Risto.flash_success');
             } else {
                 $this->Session->setFlash('No se guardó correctamente', 'Risto.flash_error');

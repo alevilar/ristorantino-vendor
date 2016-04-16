@@ -6,8 +6,8 @@
 		echo $this->Form->input('name',array('label'=>__('Nombre')));
 		echo $this->Form->input('alias',array('label'=>__('Alias')));
 		echo $this->Form->input('driver',array('label'=>__('Driver')));
-		echo $this->Form->input('driver_model', array('label'=>__('Modelo de Driver')));
-		echo $this->Form->input('output',array('label'=>__('Output')));
+		echo $this->Form->input('driver_model', array('label'=>__('Modelo de Driver'), 'empty'=>'Ninguno'));
+		echo $this->Form->input('output',array('label'=>__('Output'), 'empty'=>'Ninguno',))
 	?>
 	</fieldset>
 <?php   echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left'));

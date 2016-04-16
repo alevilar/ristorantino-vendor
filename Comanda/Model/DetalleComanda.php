@@ -76,34 +76,7 @@ class DetalleComanda extends ComandaAppModel {
             'field' => 'DetalleComanda.created <='
             ),
         );
-
-
-
-	public function __construct($id = false, $table = null, $ds = null) {
-		parent::__construct( $id, $table, $ds );
-
-		App::uses('ComandasEventHandler','Comanda.Event');
-		App::uses('ClassRegistry','Utility');
-
-		$this->getEventManager()->attach( new ComandasEventHandler );
-	}
 	
-
-	public function afterSave(  $created, $options = array() ) 
-	{
-		$ds = $this->find('first', array(
-				'contain'=> array('Comanda'),
-				'conditions' => array(
-					'DetalleComanda.id' => $this->id,
-				)
-			)
-		);
-		if ( !empty($ds['Comanda']['mesa_id']) ) {
-			$this->Comanda->Mesa->id = $ds['Comanda']['mesa_id'];
-			return $this->Comanda->Mesa->saveField('modified', date('Y-m-d H:i:s'));
-		}
-		return true;
-	}
 
        
    public function __searchSubqueryProductTags($data = array()) {
@@ -130,52 +103,5 @@ class DetalleComanda extends ComandaAppModel {
 	}
 
 
-
-	public function saveComanda ( $fullData ) {
-		$imprimir = !empty($fullData['Comanda']['imprimir']) ? true : false;
-		$fullData['Comanda']['impresa'] = $imprimir;
-		
-		// este array contine la prioridad y la mesa_id ---> todos datos de Modelo Comanda
-		$comanda = $fullData['Comanda'];		
-
-		//cuento la cantidad de comanderas involucradas en este pedido para genrar la cantidad de comandas correspondientes
-		$v_comanderas = array();
-		foreach( $fullData['DetalleComanda'] as $dc ) {
-
-			if ( array_key_exists('cant_eliminada', $dc)) {
-				$dc['cant'] = $dc['cant'] - $dc['cant_eliminada'];	
-				$dc['cant_eliminada'] = 0;
-			}
-
-			if ( !array_key_exists('printer_id', $dc)) {
-				// buscar a que comendara se debe imprimir este producto
-				$this->Producto->id = $dc['producto_id'];
-				$dc['printer_id'] = $this->Producto->field('printer_id');
-			}
-
-
-			// convertir [DetalleSabor] en sabores, porque viene asi del JS
-			if ( !empty($dc['DetalleSabor']) ) {
-				$detalleSabores = array();
-				foreach ( $dc['DetalleSabor'] as $ds ) {
-					$detalleSabores[] = array('Sabor'=>$ds);
-				}
-				unset( $dc['DetalleSabor'] );
-				$dc['DetalleSabor'] = $detalleSabores;
-			}
-
-			$v_comanderas[ $dc['printer_id'] ]['DetalleComanda'][] = $dc;
-		}
-		$comandas = array();
-		foreach ( $v_comanderas as $printer_id => $dcDc) {
-			$comanda['printer_id'] = $printer_id;
-			$comandas[] = array(
-				'Comanda' => $comanda,
-				'DetalleComanda' => $dcDc['DetalleComanda']
-				);
-		}
-
-		return $this->Comanda->saveAll($comandas, array('deep' => true) );  
-	}
 
 }

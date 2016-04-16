@@ -23,7 +23,7 @@ class PrintersController extends PrintersAppController {
 	public $drivers = array(
 		'Afip'=> 'Afip Web Services',
 		'Fiscal'=> 'Fiscal', 
-		'Receipt'=> 'Comandera'
+		'Receipt'=> 'Comandera',		
 		);
 
 	public $driver_models = array(
@@ -38,7 +38,8 @@ class PrintersController extends PrintersAppController {
 			'Receipt' => array(
 				'Bematech' => 'Bematech',
 				'EscP' => 'EscP',
-				)
+				'Display'=> 'Display',
+				),
 			);
 
 	public $outputs = array(

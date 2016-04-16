@@ -53,6 +53,40 @@ class RestaurantTenantSchema extends TenantBaseSchema {
 					'media_id' 		=> null,
 				),
 			),
+			'comanda_estados' => array(				
+				array(
+					'id' => 3,
+					'name' => 'Marchando',
+					'class_color' => 'txt-warning bg-warning',
+					'printer_id' => 2,
+					'before_comanda_estado_id' => COMANDA_ESTADO_PENDIENTE,
+					'after_comanda_estado_id' => 4,
+					),
+				array(
+					'id' => 4,
+					'name' => 'Saliendo',
+					'class_color' => 'txt-success bg-success',
+					'printer_id' => 2,
+					'before_comanda_estado_id' => 3,
+					'after_comanda_estado_id' => COMANDA_ESTADO_LISTO,
+					),			
+				),
+			'printers' => array(
+				array(
+					'id' => 2,
+					'name'  => 'cocina',
+					'alias' =>  'cocina',
+					'driver' => 'Receipt',
+					'driver_model' => 'Display',
+					),
+				array(
+					'id' => 3,
+					'name'  => 'barra',
+					'alias' =>  'barra',
+					'driver' => 'Receipt',
+					'driver_model' => 'Display',
+					),
+			),
 			'productos' => array(
 				array(
 					'name' => 'Paella',

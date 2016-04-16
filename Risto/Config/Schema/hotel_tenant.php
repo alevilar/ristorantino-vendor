@@ -50,6 +50,15 @@ class HotelTenantSchema extends TenantBaseSchema {
 					'media_id' 		=> null,
 				),
 			),
+			'printers' => array(
+				array(
+					'id' => 3,
+					'name'  => 'comandera',
+					'alias' =>  'comandera',
+					'driver' => 'Receipt',
+					'driver_model' => 'Display',
+					),
+			),
 			'productos' => array(
 				array(
 					'name' => 'Simple y al patio',

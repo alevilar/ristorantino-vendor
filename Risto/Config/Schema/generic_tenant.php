@@ -46,6 +46,15 @@ class GenericTenantSchema extends TenantBaseSchema {
 				'media_id' 		=> null,
 			),
 		),
+		'printers' => array(
+				array(
+					'id' => 2,
+					'name'  => 'comandera',
+					'alias' =>  'comandera',
+					'driver' => 'Receipt',
+					'driver_model' => 'Display',
+					),
+			),
 		'productos' => array(
 			array(
 				'name' => 'producto 1',

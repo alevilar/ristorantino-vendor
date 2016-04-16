@@ -104,7 +104,10 @@ class Printaitor
         App::uses('PrintaitorViewObj', 'Printers.Utility');
 
         // instanctia %this->Output
-        self::__createOutput( $printer_id ); 
+        $hayOuput = self::__createOutput( $printer_id ); 
+        if (!$hayOuput) {
+            return -1;
+        }
 
         // inicializa PrintaitorViewObj
         $printViewObj = new  PrintaitorViewObj( $Model, $printer_id, $viewName );        
@@ -137,17 +140,29 @@ class Printaitor
     }    
 
 
+
+    /**
+     * Gets the name of the printer engine
+     * 
+     * @return boolean true si hay outut false si no la hay
+     **/    
+
     public static function __createOutput ( $printerId  ) {
         // cargar datos de la impresora
         $Printer = ClassRegistry::init("Printers.Printer");
         $Printer->recursive = -1;
         $printer = $Printer->read(null, $printerId);
+
+        if ( empty($printer['Printer']['output']) ) {
+            return false;
+        }
         $outputName = $printer['Printer']['output'] . 'PrinterOutput';
 
 
         // cargar la Salida correspondiente segun la configuracion de la impresora
         App::uses($outputName, 'Printers.Lib/PrinterOutput');
         self::$Output = new $outputName;
+        return true;
     }
     
 
