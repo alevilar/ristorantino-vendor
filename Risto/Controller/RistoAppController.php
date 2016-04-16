@@ -45,6 +45,7 @@ class RistoAppController extends Controller {
         'Cookie',
         'RequestHandler',
         'Auth' => array(
+            'className' => 'Risto.RistoAuth',
             'loginAction' => array('plugin'=>'users', 'controller' => 'users', 'action' => 'login', 'admin' => false ),
             'logoutRedirect' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
             'loginError' => 'Usuario o Contraseña Incorrectos',
@@ -105,7 +106,7 @@ class RistoAppController extends Controller {
 
 
       public function isAuthorized () {
-        return false;
+        return true;
       }
 
 
