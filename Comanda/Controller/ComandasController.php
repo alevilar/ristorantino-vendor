@@ -49,29 +49,19 @@ class ComandasController extends ComandaAppController {
             'conditions' => $conditions,
             ));
 
-        if ( $cantComandas < 100 ) {
-            $comandas = $this->Comanda->find('all', array(
-                'conditions' => $conditions,
-                'order' => array('Comanda.created' => 'ASC'),
-                'contain' => array(
-                    'Printer',
-                    'ComandaEstado',
-                    'Mesa' => 'Mozo',
-                    'DetalleComanda' => array(
-                        'Producto',
-                        'DetalleSabor' => array('Sabor'),
-                        ),
-                    )
-                ));
-        } else {
-            $this->Comanda->updateAll(
-                array(
-                    'Comanda.comanda_estado_id' => COMANDA_ESTADO_LISTO,
-                ),$conditions);
-            
-            $cantComandas = 0;
-            $comandas = array();
-        }
+        $comandas = $this->Comanda->find('all', array(
+            'conditions' => $conditions,
+            'order' => array('Comanda.created' => 'ASC'),
+            'contain' => array(
+                'Printer',
+                'ComandaEstado',
+                'Mesa' => 'Mozo',
+                'DetalleComanda' => array(
+                    'Producto',
+                    'DetalleSabor' => array('Sabor'),
+                    ),
+                )
+            ));
         
         $this->autoRender = true;
         
