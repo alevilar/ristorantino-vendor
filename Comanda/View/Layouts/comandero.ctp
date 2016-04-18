@@ -111,8 +111,8 @@
         </div>
         <?php }?>
 
-        <header>
-            <div class="fluid-container">
+        <div class="fluid-container">
+            <header>
                 <div class="row">
                     <div class="navbar-header col-md-3 col-sm-12">
                         <?php 
@@ -138,8 +138,8 @@
                     </div>              
                 </div>
 
-            </div>
-        </header>
+            </header>
+        </div>
 
 
         <?php 

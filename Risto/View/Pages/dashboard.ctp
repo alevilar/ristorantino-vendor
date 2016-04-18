@@ -60,11 +60,11 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 
 
 		   <ul class="dashboard-buttons">
-		   		<li><?php echo $this->element('Risto.google_ads/columna_vertical', array('style'=>'display:inline-block;width:165px;height:187px')); ?></li>
+		   		<li class="hidden-sm hidden-xs"><?php echo $this->element('Risto.google_ads/columna_vertical', array('style'=>'display:inline-block;width:165px;height:187px')); ?></li>
 				<li>   
 					<?php echo $this->Html->link('Admin', array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array('id' => 'bton-admin')); ?>
 				</li>
-				<li><?php echo $this->element('Risto.google_ads/columna_vertical', array('style'=>'display:inline-block;width:165px;height:187px')); ?></li>
+				<li class="hidden-sm hidden-xs"><?php echo $this->element('Risto.google_ads/columna_vertical', array('style'=>'display:inline-block;width:165px;height:187px')); ?></li>
 			</ul>
 
 

@@ -38,6 +38,7 @@ class ComandasController extends ComandaAppController {
         $conditions = array(
                 'Comanda.comanda_estado_id !=' => COMANDA_ESTADO_LISTO,
                 'Comanda.comanda_estado_id IS NOT NULL',
+                'Mesa.estado_id' => MESA_ABIERTA,
                 );
 
         if (!empty($printer_id)) {
