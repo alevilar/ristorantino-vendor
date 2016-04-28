@@ -113,10 +113,10 @@ body {
 
 						
 		
-			#p-header form input:first-child {
+			.p-login form input:first-child {
 				margin-right: 3px;
 			}
-			#p-header form input {
+			.p-login form input {
 				height:45px;
 				background-color:#284D97;
 				font-weigth:300;
@@ -124,11 +124,11 @@ body {
 				border:0;
 			}
 		
-			#p-header .navbar-toggle{
+			.p-login .navbar-toggle{
 				background-image:url(img/login-chevron-dw.png);
 			}
 			
-			#p-header button, #p-header .navbar-toggle, #p-header .btn, .btn-oauth{
+			.p-login .btn, .p-login .navbar-toggle, .p-login .btn, .btn-oauth{
 				min-width:45px;
 				height:45px;
 				background-color:#4b73c3;
@@ -137,12 +137,12 @@ body {
 				background-repeat:no-repeat;
 			}
 			
-			#p-header button:hover,  #p-header .btn:hover, #p-header .navbar-toggle:hover{
+			.p-login .btn:hover,  #p-header .btn:hover, .p-login .navbar-toggle:hover{
 				background-color:#869CCD;
 			}
 		
 		
-			#p-header form button{
+			.p-login form .btn{
 				background-image:url(img/login-chevron.png);
 			}
 		
@@ -248,7 +248,7 @@ body {
 			z-index:9000;
 			position:relative;
 			padding:auto;
-			margin:-20px auto 100px auto;
+			margin:-20px auto 0px auto;
 		}
 		
 

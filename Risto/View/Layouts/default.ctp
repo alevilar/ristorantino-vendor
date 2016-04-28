@@ -85,7 +85,8 @@
     </head>
     <body>
     <div id="body-wrapper">
-        <div class="p-main-background"></div>
+    <?php echo $this->fetch("first-body-content");?>
+        <div class="p-main-background" id="player"></div>
         <div id="content-wrapper">
 
 
