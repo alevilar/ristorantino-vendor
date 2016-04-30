@@ -60,11 +60,18 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 
 
 		   <ul class="dashboard-buttons">
-		   		<li class="hidden-sm hidden-xs"><?php echo $this->element('Risto.google_ads/columna_vertical', array('style'=>'display:inline-block;width:165px;height:187px')); ?></li>
+
+		   		<li>
+					<?php 
+
+					  echo $this->Html->link(__('Cajero'), array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar','#listado-mesas-cerradas'), array('id' => 'bton-adicion')); 
+					?>
+				</li>
+
+
 				<li>   
 					<?php echo $this->Html->link('Admin', array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array('id' => 'bton-admin')); ?>
 				</li>
-				<li class="hidden-sm hidden-xs"><?php echo $this->element('Risto.google_ads/columna_vertical', array('style'=>'display:inline-block;width:165px;height:187px')); ?></li>
 			</ul>
 
 

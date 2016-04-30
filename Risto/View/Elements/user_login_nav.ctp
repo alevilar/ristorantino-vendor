@@ -42,60 +42,6 @@
 		</div>
     </div>
 <?php 
-elseif ( ! ( $this->request->params['plugin'] == 'users' && $this->request->params['controller'] == 'users' && $this->request->params['action'] == 'login' ) ) : ?>
 
-	<div class="p-login">
-	    
-	        <div class="form-group">
-
-	        <?php
-
-	        echo $this->Form->create('User', array( 'url' => array('plugin'=>'users','controller'=>'users','action'=>'login'), 'role'=>'form', 'class' => 'navbar-form'));
-
-	        echo $this->Form->input('email',array(
-	        	'placeholder'=>'Email', 
-	        	'label'=>false, 
-	        	'div' => false,
-				'style' => 'margin-right: 3px;')
-	        );
-
-			echo $this->Form->input('password', array('type'=>'password','placeholder'=>'Contraseña', 'label'=>false, 'div' => false,));
-
-			echo $this->Form->button('<span class="p-hide">Ingresar</span>', array('type'=>'submit','class'=>'btn btn-default', 'escape'=>false));
-
-			echo $this->Form->end();
-
-	        ?>	        
-	        </div>
-	    
-	    <p class="p-new-user">
-	    <?php
-	    echo $this->Html->link('Olvidaste tu contraseña?',
-			array('plugin'=>'users', 'controller'=>'users', 'action'=>'reset_password'),
-			array(
-				'class'=>'small')
-			);
-	    echo "&nbsp;&nbsp;";
-	     echo $this->Html->link('Registrate acá.',
-			array('plugin'=>'users', 'controller'=>'users', 'action'=>'register'),
-			array(
-				'class'=>'small')
-			);
-		?>
-	    </p>
-	</div>
-	<div class="p-login-media" role="group">
-	    <p class="navbar-text pull-left">O ingresá con</p>
-	    <span class="p-facebook">
-	    	<?php echo $this->Html->link('<span class="p-hide">Facebook</span>', array('plugin'=>'users', 'controller'=>'users', 'action'=>'auth_login', 'facebook'), array('class'=>'btn btn-default navbar-btn', 'escape'=>false)); ?>
-    	</span>
-	    <span class="p-google">
-	    	<?php echo $this->Html->link('<span class="p-hide">Google</span>'
-						, array('plugin'=>'users', 'controller'=>'users', 'action'=>'auth_login', 'google'), array('class'=>'btn btn-default navbar-btn', 'escape'=>false)); ?>	    	
-	    		    	
-    	</span>
-	</div>
-
-<?php
 endif;
 ?>

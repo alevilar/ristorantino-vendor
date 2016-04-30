@@ -4,19 +4,15 @@ MIN-WIDTH 767
 
 */
 
-.p-main-background{
-		display: block;
+header.navbar{
+		padding-top: 10px;
 		background-image:url(img/bg-pic-1_1700x647.jpg);
-		height: 456px;
-		background-size: cover;
-		position: absolute;
-	  	width: 100%;
-	  	background-position: left;
-	}	
+		background-position: center center;
+}	
 
 
 #p-header.navbar{
-	padding-top: 2%;
+	padding-top: 2	%;
 }
 
 

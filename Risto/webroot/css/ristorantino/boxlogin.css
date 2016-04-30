@@ -1,0 +1,24 @@
+
+.p-login form input{
+	height:45px;
+	background-color:rgba(36, 66, 137,0.2);
+	font-weigth:300;
+	color:#244289;
+	border:0;
+	 -webkit-transition: width 2s; /* Safari */
+    transition: width 2s;
+}
+
+.p-login form input:hover{
+background-color:rgba(36, 66, 137,0.5);
+	}
+
+
+.p-login form input:focus{
+background-color:rgba(36, 66, 137,1);
+	color:#fff;
+
+	}
+
+
+

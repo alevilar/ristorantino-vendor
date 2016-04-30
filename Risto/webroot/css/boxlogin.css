@@ -1,0 +1,43 @@
+
+.p-login form input {
+	height:45px;
+	font-weight: 300;
+	color:#869CCD;
+	border:0;
+}
+
+.p-login button[type="submit"] {
+	text-indent: -1000px;
+	overflow: hidden;
+}
+
+.p-login .navbar-toggle{
+	background-image:url(img/login-chevron-dw.png);
+}
+
+.p-login .btn-icon{
+	min-width:45px;
+	height:45px;
+	border:0;
+	background-position:center;
+	background-repeat:no-repeat;
+}
+
+.p-login .btn-icon:hover{
+		background-color:#284D97;
+
+}
+
+
+.p-login form .btn{
+	background-image:url(img/login-chevron.png);
+}
+
+
+.p-facebook .btn{
+	background-image:url(img/login-facebook.png);
+}
+.p-google .btn{
+	background-image:url(img/login-google.png);
+
+}
