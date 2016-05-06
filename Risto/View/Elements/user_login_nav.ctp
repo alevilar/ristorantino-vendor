@@ -11,8 +11,34 @@
 		  </button>
 		  <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 		    <li role="presentation">
-		    	<?php echo $this->Html->link( __('Mis Comercios'), '/', array('escape'=>false)); ?>
+		    	<?php echo $this->Html->link( __('Mi Cuenta'), '/', array('escape'=>false)); ?>
 	    	</li>
+
+
+		    <li role="presentation" class="divider"></li>
+
+
+	    	<?php if ( $this->Session->check('Auth.User.Site') ): ?>
+	    	<li role="presentation" class="dropdown-header">
+		    	Mis Comercios
+	    	</li>
+	    	
+
+					<?php foreach ( $this->Session->read('Auth.User.Site') as $s ):
+					?>
+						<li role="menu">
+							
+							<?php echo  $this->Html->link( $s['name'] , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'' ));?>	                       
+						</li>
+					<?php endforeach; ?>
+			<?php else: ?>
+        	<li role="menu">
+	    		<?php echo $this->Html->link(__('Crear Nuevo Comercio'), array('plugin'=>'mt_sites', 'controller'=>'sites', 'action'=>'install'), array('class'=>'text-success bg-success menuitem')); ?>
+	    	</li>
+        	<?php endif; ?>
+
+
+            	<li role="separator" class="divider"></li>
 
 
 	    	<li role="menu">

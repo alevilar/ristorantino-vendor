@@ -6,22 +6,35 @@
 }
 
 .dashboard-buttons li{
-    display: inline-block;
-    width: 32%;
+    list-style: none;
+}
+
+.dashboard{
+    background: rgba(36, 66, 137, 0.2);    
+    -webkit-border-bottom-right-radius: 30px;
+    -webkit-border-bottom-left-radius: 30px;
+    -moz-border-radius-bottomright: 30px;
+    -moz-border-radius-bottomleft: 30px;
+    border-bottom-right-radius: 30px;
+    border-bottom-left-radius: 30px;
+    margin-bottom: 15px;
+    text-align: center;
 }
 
 
 .dashboard-buttons a{
       display: block;
         width: 100%;
-        height: 187px;
+        min-width: 150px;
+        height: 160px;
         text-decoration: none;
         vertical-align: middle;
         overflow: hidden;
-        color: #000;
+        color: rgba(0,0,0, 0.8);
         background-position: center top;
         background-repeat: no-repeat;
         padding-top: 141px;
+        margin-bottom: 50px;
 
 }
 
@@ -51,44 +64,44 @@
 }
 
 
-#bton-reservations{
+#bton-reservations a{
     background-image: url("reservations.png");
 }
 
 
-#bton-comandero{
+#bton-comandero a{
     background-image: url("comandero.png");
 }
 
-#bton-estadisticas{
+#bton-estadisticas a{
 	background-image: url("stats.png");
 }
 
-#bton-adicion{
+#bton-adicion a{
 	background-image: url("adicion.png");
 }
 
-#bton-caja{
+#bton-caja a{
 	background-image: url("caja.png");
 }
 
-#bton-admin{
+#bton-admin a{
 	background-image: url("admin.png");
 }
 
-#bton-arqueo{
-	background-image: url("botonarqueo.png");
+#bton-arqueo a{
+	background-image: url("arqueo.png");
 }
 
-#bton-contabilidad{
+#bton-contabilidad a{
 	background-image: url("contabilidad.png");       
 }
 
-#bton-inven {
+#bton-inven  a{
 	background-image: url("../img/inventario.png");
 }
 
-#bton-pedidos{
+#bton-pedidos a{
     background-image: url("pedidos.png");
 }
 

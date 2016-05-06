@@ -3,13 +3,22 @@ $isPremium = Configure::read('Site.is_premium');
 if ( $isPremium ) {
 	return '';
 }
+
+if ( empty($width) ) {
+	$width = "100%"; 
+}
+
+if ( empty($height) ) {
+	$height = "100px"; 
+}
+
 if ( empty($style) ) {
-	$style = 'display:inline-block;width:300px;height:100px';
+	$style = "display:inline-block;width:$width;height:$height";
 }
 
 
 ?>
-<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
 <!-- Menu Small 178x100 -->
 <ins class="adsbygoogle"
      style="<?php echo $style?>"

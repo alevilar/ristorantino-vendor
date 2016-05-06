@@ -10,11 +10,11 @@
             <?php echo $this->Form->input('codigo', array('placeholder'=>'Código')); ?>
             <?php echo $this->Form->input('nombre', array('required' => false, 'placeholder'=>'Nombre')); ?>
             <?php echo $this->Form->input('mail', array('placeholder'=>'Mail')); ?>
-            <?php echo $this->Form->input('tipo_documento_id', array('required' => false, 'options'=>$tipoDocumentos, 'empty'=>'Seleccione')); ?>
+            <?php echo $this->Form->input('tipo_documento_id', array('required' => false, 'options'=>$tipoDocumentos, 'empty'=>'Seleccione Tipo Doc.')); ?>
             <?php echo $this->Form->input('nrodocumento', array('placeholder'=>'Nº Documento')); ?>
             <?php echo $this->Form->input('telefono', array('placeholder'=>'Teléfono')); ?>
-            <?php echo $this->Form->input('iva_responsabilidad_id', array('required' => false, 'options'=>$ivaResponsabilidades, 'empty'=>'Seleccione')); ?>
-            <?php echo $this->Form->input('descuento_id', array('options' =>$descuentos,'placeholder'=>'Descuentos', 'empty'=>'Seleccione')); ?>
+            <?php echo $this->Form->input('iva_responsabilidad_id', array('required' => false, 'options'=>$ivaResponsabilidades, 'empty'=>'Seleccione Resp. IVA')); ?>
+            <?php echo $this->Form->input('descuento_id', array('options' =>$descuentos,'placeholder'=>'Descuentos', 'empty'=>'Seleccione Descuento')); ?>
             <?php echo $this->Form->input('domicilio', array('placeholder'=>'Domicilio')); ?>
             <?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary')); ?>
               <?php echo $this->Form->end() ?>

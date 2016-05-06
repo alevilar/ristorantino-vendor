@@ -1,3 +1,1 @@
-<p class="alert alert-warning text-center">
-  <?php echo $message; ?>
-</p>
+<div id="flashMessage" class="message alert alert-warning text-center"><?php echo $message; ?></div>

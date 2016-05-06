@@ -82,6 +82,8 @@
           <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
           <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
+        
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </head>
     <body>
     <div id="body-wrapper">
@@ -99,20 +101,18 @@
         $authMes  = $this->Session->flash('auth');          
         if ( $flashMes || $authMes ) {
             ?>
-        <div class="fluid-container hidden-print">
-            <div class="row">
-                <div id="mesajes" class="col-md-12" role="alert">
-                    <?php
-                    echo $flashMes;
-                    echo $authMes;       
-                    ?>
-                </div>
+        <div class="hidden-print">
+            <div id="mesajes" role="alert">
+                <?php
+                echo $flashMes;
+                echo $authMes;       
+                ?>
             </div>
         </div>
         <?php }?>
 
         <header class="navbar navbar-default bs-docs-nav hidden-print" role="banner" id="p-header">
-            <div class="fluid-container">
+            <div class="container-fluid">
                  
                 <div class="navbar-header col-md-3 col-sm-12">
                             <?php 
@@ -180,7 +180,7 @@
 
         <?php echo $this->fetch('pre-content'); ?>
 
-        <div class="container bs-docs-container" id="content">       
+        <div class="container-fluid bs-docs-container" id="content">       
             
             <div class="row">
                 <?php echo $this->fetch('content'); ?>
@@ -243,5 +243,6 @@
         <?php echo $this->element('Paxapos.google_analitycs') ?>    
 
     </div>
+        
     </body>
 </html>
