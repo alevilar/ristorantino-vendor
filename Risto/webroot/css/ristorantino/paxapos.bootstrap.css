@@ -193,7 +193,7 @@ body {
 			margin:20px auto;
 		}
 		
-		.p-slide-btn .btn-xlg{
+		.btn-xlg{
 			text-transform:uppercase;
 			font-size:25px;
 			font-weight:700;
@@ -550,7 +550,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#244289', end
 	    background: white;
 	}
 
-	#p-footer .container{
+	#p-footer .container-fluid{
 		margin: 110px 0 0 0;
 	}
 	
