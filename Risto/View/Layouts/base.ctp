@@ -146,20 +146,6 @@
 		        </header>
 
 
-		        <?php 
-		        if ( !empty($elementMenu) && $this->elementExists($elementMenu)) {
-		            ?>
-		            <nav class="hidden-print" role="navigation">
-		                <div class="container">
-		                    <ul class="nav nav-tabs nav-justified">
-		                    <?php echo $this->element($elementMenu); ?>
-		                    </ul>
-		                </div>
-		            </nav>
-		            <?php
-		        }
-		        echo $this->fetch("navbar-main-menu");
-		        ?>
 
 
 		        <?php echo $this->fetch('pre-content'); ?>
@@ -167,15 +153,45 @@
 		        <div id="content" class="container-fluid bs-docs-container">
 		        	<?php if ($this->fetch('sidebar')) { ?>
 		        		<div class="row">
-
 		        			<div class="col-sm-3">
 		        				<?php echo $this->fetch('sidebar'); ?>
 		        			</div>	
 		        			<div class="col-sm-9">
+
+
+						        <?php 
+						        if ( !empty($elementMenu) && $this->elementExists($elementMenu)) {
+						            ?>
+						            <nav class="hidden-print" role="navigation">
+					                    <ul class="nav nav-tabs nav-justified">
+					                    <?php echo $this->element($elementMenu); ?>
+					                    </ul>
+						            </nav>
+						            <?php
+						        }
+						        echo $this->fetch("navbar-main-menu");
+						        ?>
+						        
 		        				<?php echo $this->fetch('content'); ?>
 		        			</div>
 		        		</div>
 		        	<?php } else { ?>
+
+				        <?php 
+				        if ( !empty($elementMenu) && $this->elementExists($elementMenu)) {
+				            ?>
+				            <nav class="hidden-print" role="navigation">
+				                <div class="container">
+				                    <ul class="nav nav-tabs nav-justified">
+				                    <?php echo $this->element($elementMenu); ?>
+				                    </ul>
+				                </div>
+				            </nav>
+				            <?php
+				        }
+				        echo $this->fetch("navbar-main-menu");
+				        ?>
+
 		            	<?php echo $this->fetch('content'); ?>
 	            	<?php } ?>
 		        </div>

@@ -55,7 +55,6 @@ class DescuentosController extends FidelizationAppController {
         if (empty($this->request->data)) {
             $this->request->data = $this->Descuento->read(null, $id);
         }
-        $this->render('form');
     }
 
     public function delete($id = null) {

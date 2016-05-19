@@ -1,4 +1,4 @@
-
+<?php $this->assign('title', 'Mi Cuenta');?>
 
 
 <?php $this->start('header-nav'); ?>

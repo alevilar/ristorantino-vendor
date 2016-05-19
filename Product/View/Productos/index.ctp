@@ -1,10 +1,44 @@
-<?php    
+<?php $this->start('modals');?>        
+	<div id="nuevoProducto" class="modal fade" tabindex="-1" role="dialog">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Crear Producto</h4>
+	      </div>
+	      <div class="modal-body">
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
+	<script>
+		
+	$('.modal-body',"#nuevoProducto").load("<?php echo $this->Html->url(array('plugin'=>'product', 'controller'=>'productos', 'action'=>'add'))?>");
+	</script>
+<?php $this->end();?>
+
+
+
+<?php    
 echo $this->Html->script('/risto/js/jquery/jquery.jeditable.mini', array('inline'=>false));
 echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 
 
+$img = $this->Html->image('/product/img/explicacion_producto_categoria_variantes.png', array('width'=>'100px', "class"=>"img-thumbnail"));
+
+$linkImg = $this->Html->link( $img, 
+						'/product/img/explicacion_producto_categoria_variantes.png',
+						array('target'=>'_blank', 'escape' => false, 'class'=>'pull-left')
+					);
 ?>
+
+<p class="alert alert-info">
+<?php echo $linkImg?>
+ En esta imagen podrás ver el Menú de un restaurante y entender lo que es un Producto, una Categoria y una Variante. <br> <br>
+</p>
+
+
 
 <script type="text/javascript">
     new Afups("<?php echo $this->Html->url(array('action'=>'update'))?>");
@@ -21,8 +55,15 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 </style>
 <div class="productos index">
 	<div class="btn-group pull-right">
+
+
 	<?php
-	    echo $this->Html->link(__('Nuevo Producto'), array('action'=>'add'), array('class'=>'btn btn-lg btn-success'));
+	    echo $this->Html->link(__('Crear Nuevo Producto'), '#nuevoProducto', 	array(
+	    	'class'=>'btn btn-lg btn-success',
+	    	'data-toggle' => 'modal',
+	    	'data-target' => '#nuevoProducto'
+	    		));
+
 	    echo $this->Html->link('<span class="glyphicon glyphicon-usd"></span>Aplicar Precios Futuros'
 	    	, array('action' => 'actualizarPreciosFuturos')
 	    	, array('class' => 'btn btn-default btn-lg', 'escape' => false )
@@ -43,8 +84,8 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 		echo $this->Form->create("Producto"); 
 		echo $this->Form->input("id") 
 		?>
-		<th><?php echo $this->Form->input('name',array('placeholder'=>'Nombre del producto', 'label'=>false, 'required'=>false));?></th>
-		<th><?php echo $this->Form->input('abrev',array('placeholder'=>'Abreviatura', 'label'=>false, 'required'=>false));?></th>
+		<th><?php echo $this->Form->input('name',array('placeholder'=>'Interno', 'label'=>false, 'required'=>false));?></th>
+		<th><?php echo $this->Form->input('abrev',array('placeholder'=>'Ticket', 'label'=>false, 'required'=>false));?></th>
 
 	        <th><?php echo $this->Form->input('printer_id',array(
 	        					'placeholder'=>'Printer',
@@ -67,14 +108,13 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 	        </tr>
 
 	<tr>
-		<th><?php echo $this->Paginator->sort('name', 'Nombre');?></th>
-		<th><?php echo $this->Paginator->sort('abrev', 'Ticket');?></th>
+		<th><?php echo $this->Paginator->sort('name', 'Nombre Interno');?></th>
+		<th><?php echo $this->Paginator->sort('abrev', 'Nombre Ticket');?></th>
 		<th><?php echo $this->Paginator->sort('Printer.name', 'Printer');?></th>
 		<th><?php echo $this->Paginator->sort('Categoria.name', 'Categoria');?></th>
 		<th><?php echo $this->Paginator->sort('precio');?></th>
 		<th><?php echo $this->Paginator->sort('ProductosPreciosFuturo.precio', 'Precio Futuro');?></th>
 	    <th><?php echo $this->Paginator->sort('order', 'Orden');?></th>
-		<th><?php echo $this->Paginator->sort('created', 'Creado');?></th>
 		<th class="actions"><?php __('Acciones');?></th>
 	</tr>
 	<?php
@@ -128,12 +168,22 @@ echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 	                <td  class='edit' field='order' product_id='<?php echo $prodId ?>'><?php 
 	                    echo $producto['Producto']['order']; 
 	                ?></td>
-			<td>
-				<?php echo date('d D, M Y',strtotime($producto['Producto']['created'])); ?>
-			</td>
-			<td class="actions">
-				<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $producto['Producto']['id']), array('class'=>'btn btn-default')); ?>
-				<?php echo $this->Form->postLink( __('Borrar'), array('action'=>'delete', $producto['Producto']['id']), array('class'=>'btn btn-default'), __('¿Esta seguro que desea borrar el producto: %s?', $producto['Producto']['name']) ); ?>
+			<td class="actions" style="min-width: 112px;">
+				<!-- Split button -->
+				<div class="btn-group">
+				  <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $producto['Producto']['id']), array('class'=>'btn btn-default  btn-sm')); ?>
+
+				  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <span class="caret"></span>
+				    <span class="sr-only">Toggle Dropdown</span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li class="">
+				    	<?php echo $this->Form->postLink( __('Borrar'), array('action'=>'delete', $producto['Producto']['id']), array('class'=>' btn-sm'), __('¿Esta seguro que desea borrar el producto: %s?', $producto['Producto']['name']) ); ?>
+			    	</li>
+				  </ul>
+				</div>
+				
 			</td>
 		</tr>
 	<?php

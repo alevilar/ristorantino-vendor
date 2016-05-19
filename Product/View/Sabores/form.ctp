@@ -1,17 +1,19 @@
+<h2></h2>
+<?php
+     if (empty($this->request->data['Sabor']['id'])):?>
+		<h2><?php echo __d('users', 'Agregar Variante'); ?></h2>
+<?php else: ?>
+		<h2><?php echo __d('users', 'Editar Variante'); ?></h2>
+<?php endif; ?>
+
 
 <div class="sabores form">
 <?php echo $this->Form->create('Sabor');?>
 <fieldset>
-<?php
-     if (empty($this->request->data['Sabor']['id'])):?>
-		<legend><?php echo __d('users', 'Agregar Adicional'); ?></legend>
-<?php else: ?>
-		<legend><?php echo __d('users', 'Editar Adicional'); ?></legend>
-<?php endif; ?>
 	<?php
 		echo $this->Form->input('id',__('Id'));
 		echo $this->Form->input('name',__('Nombre'));
-		echo $this->Form->input('categoria_id',__('Categoria'));
+		echo $this->Form->input('categoria_id', array('after'=>'<span class="text-info">'.__('Todos los productos de esta Categoria tendrán incluida esta variante como opción seleccionable'.'</span>')));
 		echo $this->Form->input('precio',__('Precio'));
 	?>
 <?php

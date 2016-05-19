@@ -31,7 +31,7 @@
 
                 <?php 
                 $img = '<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>';
-                echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array(
+                echo $this->Html->link($img, array('plugin'=>'install', 'controller'=>'configurations', 'action'=>'edit'), array(
                                     'class' => 'btn btn-default btn-lg  navbar-btn  dropdown-toggle',
                                     'escape' => false,
                                     'data-toggle' => "tooltip",

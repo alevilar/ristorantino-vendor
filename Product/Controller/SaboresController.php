@@ -6,6 +6,12 @@ App::uses('ProductAppController', 'Product.Controller');
 class SaboresController extends ProductAppController {
 
 	public $name = 'Sabores';
+
+	public $viewVars = array(
+		'title_for_layout' => 'Variantes del Producto',
+		);
+
+	public $layout = 'Risto.administracion';
         
    
         

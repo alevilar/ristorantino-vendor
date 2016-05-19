@@ -1,11 +1,11 @@
 
 <div class="sabores index">
 	<div class="btn-group pull-right">
-	<?php echo $this->Html->link(__('Crear Adicional'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+	<?php echo $this->Html->link(__('Crear Variante'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
 	</div>
 
 	
-	<h2><?php echo __('Adicionales');?></h2>
+	<h2><?php echo __('Variantes del Producto');?></h2>
 	
 	<table class="table">
 
@@ -56,8 +56,22 @@
 				<?php echo date('d-m-y H:i:s',strtotime($sabor['Sabor']['created'])); ?>
 			</td>
 			<td class="actions">
-				<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $sabor['Sabor']['id']), array('class'=>'btn btn-default')); ?>
-				<?php echo $this->Html->link(__('Borrar'), array('action'=>'delete', $sabor['Sabor']['id']), array('class'=>'btn btn-default'), __('¿Esta seguro que desea borrar el sabor: %s?', $sabor['Sabor']['name']) ); ?>
+				<!-- Split button -->
+				<div class="btn-group">
+				  <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $sabor['Sabor']['id']), array('class'=>'btn btn-default  btn-sm')); ?>
+
+				  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    <span class="caret"></span>
+				    <span class="sr-only">Toggle Dropdown</span>
+				  </button>
+				  <ul class="dropdown-menu">
+				    <li class="">
+				    	<?php echo $this->Form->postLink( __('Borrar'), array('action'=>'delete', $sabor['Sabor']['id']), array('class'=>' btn-sm'), __('¿Esta seguro que desea borrar el producto: %s?', $sabor['Sabor']['name']) ); ?>
+			    	</li>
+				  </ul>
+				</div>
+
+				
 			</td>
 		</tr>
 	<?php endforeach; 

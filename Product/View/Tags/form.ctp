@@ -1,19 +1,22 @@
 
 <div class="sabores form">
-<?php echo $this->Form->create('Tag');?>
-<fieldset>
 <?php
      if (empty($this->request->data['Tag']['id'])):?>
-		<legend><?php echo __d('users', 'Agregar Etiqueta'); ?></legend>
+		<h2><?php echo __d('users', 'Agregar Tag'); ?></h2>
 <?php else: ?>
-		<legend><?php echo __d('users', 'Editar Etiqueta'); ?></legend>
+		<h2><?php echo __d('users', 'Editar Tag'); ?></h2>
 <?php endif; ?>
+
+
+<?php echo $this->Form->create('Tag');?>
+<fieldset>
 	<?php
 		echo $this->Form->input('id','Id');
 		echo $this->Form->input('name',array('label'=>__('Nombre')));
 	?>
 
 	<div class="productos-checkbox">
+		<label>Seleccionar los productos que usan este Tag</label>
 		<?php echo $this->Form->input('Producto', array('multiple'=>'checkbox', 'label'=>false));	?>
 	</div>
 

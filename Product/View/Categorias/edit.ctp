@@ -1,3 +1,11 @@
+<?php
+     if (empty($this->request->data['Categoria']['id'])):?>
+        <h2><?php echo __d('users', 'Agregar Categoria'); ?></h2>
+<?php else: ?>
+        <h2><?php echo __d('users', 'Editar Categoria'); ?></h2>
+<?php endif; ?>
+
+
         <?php    
         
         if ( !empty($this->request->data['Media']) && !empty($this->request->data['Media']['id'] )) {
@@ -7,13 +15,7 @@
 
 <div class="categorias form">
 <?php echo $this->Form->create('Categoria', array('type' => 'file'));?>
-	<fieldset>
-<?php
-     if (empty($this->request->data['Categoria']['id'])):?>
-		<legend><?php echo __d('users', 'Agregar Categoria'); ?></legend>
-<?php else: ?>
-		<legend><?php echo __d('users', 'Editar Categoria'); ?></legend>
-<?php endif; ?>
+	<div class="col-md-6">
 
                 
 	<?php
@@ -23,16 +25,25 @@
 		echo $this->Form->input('parent_id',array('type'=>'select', 'options'=> $categorias, 'default'=>1,'label'=>'Categoria Padre'));
 		echo $this->Form->input('name',array('label'=>'Nombre'));
                 
+    ?>
+    <br><br>
+     <?php
+    if (empty($this->request->data['Categoria']['id'])):?>
+     <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg btn-block')); ?>
+     <?php else: ?>
+     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg btn-block')); ?>
+    <?php endif; ?>
+
+
+    </div>
+    
+    <div class="col-md-6">
+<?php
         echo $this->Form->input('media_file',array('label'=>'Foto/Imagen', 'type'=>'file'));
 		echo $this->Form->input('description',array('label'=>'Descripción'));
-	?>
-<?php
-  if (empty($this->request->data['Categoria']['id'])):?>
-     <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg')); ?>
-     <?php else: ?>
-     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg')); ?>
-<?php endif; ?>
-
+        ?>
+    </div>
+   
      <?php echo $this->Form->end() ?>
 
 </fieldset>

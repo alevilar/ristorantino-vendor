@@ -9,11 +9,13 @@ class ProductosController extends ProductAppController {
 
 	public $name = 'Productos';
 
+    public $layout = 'Risto.administracion';
         
 	public function index() {
 		$this->Prg->commonProcess();
         $conds = $this->Producto->parseCriteria( $this->Prg->parsedParams() );
 		$this->Paginator->settings['conditions'] = $conds; 
+        $this->Paginator->settings['limit'] = 50; 
 
         $printers = $this->Producto->Printer->listarComanderas();
 		$categorias = $this->Producto->Categoria->generateTreeList();

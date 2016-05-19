@@ -7,7 +7,6 @@ class TagsController extends ProductAppController {
     public $name = 'Tags';
 
 
-
     public $paginate = array(
         'order' => array('Tag.created' => 'asc'),
     );
