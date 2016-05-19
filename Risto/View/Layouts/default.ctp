@@ -1,248 +1,62 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <?php App::uses('MtSites', 'MtSites.Utility'); ?>
-        <script>
-        var TENANT = "<?php echo MtSites::getSiteName()?>";
-        var URL_DOMAIN = "<?php echo $this->Html->url('/', true); ?>";
-        </script>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charset="utf-8">
+<?php $this->extend('Risto.base'); ?>
 
+
+<?php $this->start('header-nav'); ?>
+    <div class="navbar-left">
         
-        <meta name="apple-mobile-web-app-capable" content="yes">
-        <meta name="mobile-web-app-capable" content="yes">
-
-        <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
-        <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">
-        <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">
-        <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
-        <link rel="manifest" href="/manifest.json">
-        <meta name="msapplication-TileColor" content="#666666">
-        <meta name="msapplication-TileImage" content="/mstile-144x144.png">
-        <meta name="theme-color" content="#ffffff">
-
-
-
-        <!--google  font Lato-->
-        <link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:700,400,300' rel='stylesheet' type='text/css'>
-        
-
-
-        <?php echo $this->Html->charset(); ?>
-        <title><?php echo $title_for_layout; ?></title>
         <?php
-
-
-
-        //echo $this->Html->meta('icon');
-
-        echo $this->Html->css(array(
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css',
-           // '/risto/lib/bootstrap/css/bootstrap-theme.min',
-          //  '/risto/lib/bootstrap/css/dataTables.bootstrap',
-            '/paxapos/css/paxapos-bootstrap-supernice',
-            '/risto/css/ristorantino/style',
-            '/risto/css/ristorantino/paxapos.bootstrap',
-            '/risto/css/ristorantino/p-carousel-fade',
-            '/risto/lib/bootstrap_datetimepicker/css/bootstrap-datetimepicker.min',
-        ));
-
-        echo $this->Html->css(array('/risto/css/ristorantino/print'), 'stylesheet', array('media' => 'print'));
-
-
-
-        echo $this->element('Risto.per_role_style');
-        
-        echo $this->Html->script(array(
-            '/risto/js/jquery.min',
-            'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js',
-         //   '/risto/lib/bootstrap/js/jquery.dataTables.min',
-            '/risto/lib/bootstrap_datetimepicker/js/bootstrap-datetimepicker.min',
-        ));
-
-        //echo $this->Html->script->link('Controls'); // PAD numerico
-        
-        echo $this->fetch('meta');
-        echo $this->fetch('css');
-        echo $this->fetch('script');
-        ?>
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-          <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-        <![endif]-->
-        
-        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-    </head>
-    <body>
-    <div id="body-wrapper">
-    <?php echo $this->fetch("first-body-content");?>
-        <div class="p-main-background" id="player"></div>
-        <div id="content-wrapper">
-
-
-        <?php echo $this->element('Risto.show_errors_for_config') ?>
-        <a class="sr-only" href="#content">Skip to main content</a>
-
-
-        <?php
-        $flashMes = $this->Session->flash();
-        $authMes  = $this->Session->flash('auth');          
-        if ( $flashMes || $authMes ) {
+        if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
             ?>
-        <div class="hidden-print">
-            <div id="mesajes" role="alert">
-                <?php
-                echo $flashMes;
-                echo $authMes;       
-                ?>
-            </div>
-        </div>
-        <?php }?>
 
-        <header class="navbar navbar-default bs-docs-nav hidden-print" role="banner" id="p-header">
-            <div class="container-fluid">
-                 
-                <div class="navbar-header col-md-3 col-sm-12">
-                            <?php 
-                            echo $this->fetch("navbar-brand");
 
-                            $logeadoClassForLogo = '';
-                            if ( $this->Session->read('Auth.User.id') ) {
-                                $logeadoClassForLogo = 'logo-logueado';
-                            }
+            <div class="btn-group">
 
-                             // link a HOME
-                            if ( Configure::check('Site.logo_path') ) {
-                                $imgLogo = $this->Html->image(Configure::read('Site.logo_path'), array());
-                                echo $this->Html->link($imgLogo, '/', array('class' => 'navbar-brand navbar-brand-logo '.$logeadoClassForLogo, 'escape'=>false)); 
-                            } else {
-                                echo $this->Html->link(Configure::read('Site.name'), '/', array('class' => 'navbar-brand tenant-name '.$logeadoClassForLogo)) ;
-                            }
-                            ?>
-                        <p class="text-nowrap eslogan">Innovando, gestionando, creciendo.</p>
-                </div>
-
-                
-                <div aria-expanded="false" class=" col-md-6 col-sm-12 center">
-                    
-                    <?php
-                    if ( array_key_exists('tenant', $this->request->params) && !empty( $this->request->params['tenant']) ) {
-                        ?>
-                        <h1 class="tenant-name text-info">
-                        <?php
-                        echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'));
-                        ?>
-                        </h1>
-                        <?php
-                    }
+                 <?php
+                    echo $this->Html->link(Configure::read('Site.name'), array('plugin'=>'risto', 'controller' => 'pages', 'action' => 'display', 'dashboard'), array('class'=>'btn btn-default btn-lg navbar-btn'));
                     ?>
 
-                </div>
-
-                <div aria-expanded="false" class=" col-md-3 col-sm-12">
-                    <div class="pull-right">
-                    <?php echo $this->element('Risto.user_login_nav'); ?>
-                    </div>
-                </div>
 
 
-            </div>
-        </header>
+                <?php 
+                $img = '<span class="glyphicon glyphicon-stats" aria-hidden="true"></span>';
+                echo $this->Html->link($img, array('plugin' => 'stats', 'controller' => 'stats', 'action' => 'mesas_total'), array(
+                                    'class' => 'btn btn-default btn-lg  navbar-btn',
+                                    'escape' => false,
+                                    'data-toggle' => "tooltip",
+                                    'aria-haspopup' => "true",
+                                    'data-placement'=>"bottom",
+                                    'title'=>"Estadísticas: Visualizar el histórico de ventas, productos más vendidos y muchas cosas más.",
+                                    )); ?>
 
 
-        <?php 
-        if ( !empty($elementMenu) && $this->elementExists($elementMenu)) {
-            ?>
-            <nav class="hidden-print" role="navigation">
-                <div class="container">
-                    <ul class="nav nav-tabs nav-justified">
-                    <?php echo $this->element($elementMenu); ?>
-                    </ul>
-                </div>
-            </nav>
+                <?php 
+                $img = '<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>';
+                echo $this->Html->link($img, array('plugin'=>'risto', 'controller'=>'pages', 'action'=>'display', 'administracion'), array(
+                                    'class' => 'btn btn-default btn-lg  navbar-btn  dropdown-toggle',
+                                    'escape' => false,
+                                    'data-toggle' => "tooltip",
+                                    'aria-haspopup' => "true",
+                                    'data-placement'=>"bottom",
+                                    'title'=>"Configuración: Igresar aqui para dar de alta a los usuarios, mozos, productos, clientes, descuentos, etc.",
+                                    )); ?>
+
+             
+              </div>
+
+
             <?php
         }
-        echo $this->fetch("navbar-main-menu");
         ?>
 
-
-        <?php echo $this->fetch('pre-content'); ?>
-
-        <div class="container-fluid bs-docs-container" id="content">       
-            
-            <div class="row">
-                <?php echo $this->fetch('content'); ?>
-            </div>
-        </div>
-
-        <?php echo $this->fetch('post-content'); ?>
-
-
-
-        
-
-        </div> <!-- #content -->
-        
-
-        <footer id="p-footer" class="hidden-print">
-            <?php echo $this->element('Risto.google_ads/horizontal'); ?>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-4">
-                        <div class="p-links text-center">
-                                    <?php
-                                     echo $this->Html->link('Términos y Condiciones', array('plugin'=>false, 'controller'=>'pages', 'action'=>'tos')); 
-                                     ?>                                     
-                                    <br>
-                                    <cite>info@paxapos.com</cite>
-                                    <br>
-                                    <?php
-
-                                    echo $this->Html->link('Contacto',
-                                        array('plugin'=>'paxapos', 'controller'=>'paxapos', 'action'=>'contact')
-                                        );
-                                    ?>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="p-logo-footer">
-                            <span class="p-hide">PaxaPos</span>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="p-social-media">
-                                <ul class="nav list-unstyled">
-                                    <li class="img-circle"><a href="https://facebook.com/paxapos" class="p-sm-facebook"><span class="p-hide">Facebook</span></a></li>
-                                    <li class="img-circle"><a href="https://www.youtube.com/channel/UCa90_rTOMD4qdOhi2WQV6rw" class="p-sm-youtube"><span class="p-hide">Youtube</span></a></li>
-                                    <li class="img-circle"><a href="https://twitter.com/paxapos" class="p-sm-twitter"><span class="p-hide">Twitter</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>    
-                <div class="clearfix"></div>         
-            </div>
-            
-        </footer>
-
-
-        <?php echo $this->element('Paxapos.google_analitycs') ?>    
-
     </div>
-        
-    </body>
-</html>
+
+    <div class="center navbar-left" style="margin-left: 30px;"><h1 class="white-8"><?php echo $this->fetch('title')?></h1></div>
+
+    <div class="navbar-right" aria-expanded="false">
+        <?php echo $this->element('Risto.user_login_nav'); ?>
+    </div>
+<?php $this->end();?>
+
+
+
+<?php echo $this->fetch('content');?>

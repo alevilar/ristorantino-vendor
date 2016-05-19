@@ -1,4 +1,4 @@
-
+<?php $this->layout = 'Risto.administracion'; ?>
 
 <div class="col-md-3">
 
@@ -35,9 +35,7 @@
         
         ?>
     </div>    
-    <?php
-    echo $this->Html->link(__('Afip Facturas'), array('plugin'=>'printers', 'controller'=>'afip_facturas', 'action'=>'index'), array('class' => 'list-group-item'));
-    ?>
+   
 </div>
 <div class="col-md-3">
     <h2>Productos</h2>
@@ -70,25 +68,33 @@
 </div>
 <div class="col-md-3">
 
-    <h2>Configuración</h2>
+    <h2>Datos del Comerciol</h2>
     <div class="list-group">
 
         <?php
-        echo $this->Html->link(__('Configuración del Sitio'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'edit'), array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Configuración Básica'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'edit'), array('class' => 'list-group-item'));
+
+         echo $this->Html->link(__('Activar/Desactivar Módulos'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'modulos'), array('class' => 'list-group-item'));
 
 
-        echo $this->Html->link(__('Tipo de Pagos'), array('plugin'=>'risto', 'controller'=>'TipoDePagos', 'action'=>'index'), array('class' => 'list-group-item'));
-
-        echo $this->Html->link(__('Tipo de Facturas'), array('plugin'=>'risto', 'controller'=>'TipoFacturas', 'action'=>'index'), array('class' => 'list-group-item'));
-
-        
-        echo $this->Html->link(__('Tipos de Documentos'), array('plugin'=>'risto', 'controller'=>'TipoDocumentos', 'action'=>'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link(__('IVA Responsabilidades'), array('plugin'=>'risto', 'controller'=>'iva_responsabilidades', 'action'=>'index'), array('class' => 'list-group-item'));
-       // echo $this->Html->link('Permisos de usuarios', '/admin/acl', array('class' => 'list-group-item'));
+        echo $this->Html->link(__('Afip Facturas'), array('plugin'=>'printers', 'controller'=>'afip_facturas', 'action'=>'index'), array('class' => 'list-group-item'));
 
 
+        if ( CakeSession::read("Auth.User.is_admin") ) {
 
-        echo $this->Html->link(__('Impresoras'), array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array('class' => 'list-group-item'));     
+            echo $this->Html->link(__('Tipo de Pagos'), array('plugin'=>'risto', 'controller'=>'TipoDePagos', 'action'=>'index'), array('class' => 'list-group-item'));
+
+            echo $this->Html->link(__('Tipo de Facturas'), array('plugin'=>'risto', 'controller'=>'TipoFacturas', 'action'=>'index'), array('class' => 'list-group-item'));
+
+            
+            echo $this->Html->link(__('Tipos de Documentos'), array('plugin'=>'risto', 'controller'=>'TipoDocumentos', 'action'=>'index'), array('class' => 'list-group-item'));
+            echo $this->Html->link(__('IVA Responsabilidades'), array('plugin'=>'risto', 'controller'=>'iva_responsabilidades', 'action'=>'index'), array('class' => 'list-group-item'));
+           // echo $this->Html->link('Permisos de usuarios', '/admin/acl', array('class' => 'list-group-item'));
+
+
+
+            echo $this->Html->link(__('Impresoras'), array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array('class' => 'list-group-item'));     
+        } 
 
         ?>
     </div>

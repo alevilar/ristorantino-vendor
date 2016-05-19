@@ -46,6 +46,10 @@ F5F9FB
 	color: #fff;
 }
 
+.white-8{
+	color: rgba(255, 255, 255, 0.8);
+}
+
 .bg-blue{
 	background-color: #244289;
 }
@@ -150,10 +154,6 @@ body {
 			/*fix margin right stuff*/
 			#p-header .navbar-right{margin-right:0;}
 
-			#p-header .navbar-user-logued{
-				margin-top: 15px;
-			}
-			
 			/*align right stuff*/
 			
 			.p-new-user a{
@@ -551,7 +551,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#244289', end
 	}
 
 	#p-footer .container-fluid{
-		margin: 110px 0 0 0;
+		margin: 5% 0 0 0;
 	}
 	
 
@@ -651,21 +651,3 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#244289', end
   border-color: #2969ff;
 }
 
-
-header.navbar .tenant-name{
-    margin-top: 16px;
-    text-align: center;
-    display: inline-block;
-	background: rgba(67, 123, 255,0.4);
-    color: #fff;
-    padding: 14px;
-    -webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-
-
-}
-
-header.navbar .tenant-name a{	
-	color: #fff;
-}

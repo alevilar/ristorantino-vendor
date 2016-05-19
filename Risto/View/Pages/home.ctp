@@ -1,5 +1,22 @@
 
 
+
+<?php $this->start('header-nav'); ?>
+
+    <div id="logotipo-image" class="navbar-text navbar-left">
+        <?php  echo $this->Html->image('/paxapos/img/logotypo_blanco.png', array('height'=>'26px')); ?>
+    </div>
+
+    <div id="logo-slogan" class="navbar-text navbar-left hidden-xs hidden-sm">
+        <h4 class="white-8">Innovando, gestionando, creciendo</h4>
+    </div>
+
+<?php $this->end(); ?>
+
+
+
+<?php $this->start('modals'); ?>
+
 <div id="modal-nuevo-comercio" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -14,6 +31,7 @@
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+<?php $this->end(); ?>
 
 
 
@@ -28,7 +46,7 @@
 	<?php echo $this->Html->link('Registrate', array('plugin'=> 'users','controller'=>'users', 'action'=>'register'), array('class'=>'btn btn-lg btn-success btn-block')) ?>
 	</div>
 	<?php } else { ?>
-	<h1 class="center">Novedades PaxaPos</h1>
+	<h1 class="center">Novedades</h1>
 
 
 	<a class="twitter-timeline" href="https://twitter.com/PaxaPos" data-widget-id="636390749106511872" height="300px">Tweets  @PaxaPos.</a>

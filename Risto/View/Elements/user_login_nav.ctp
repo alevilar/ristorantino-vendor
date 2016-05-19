@@ -5,7 +5,7 @@
     <div class="navbar-user-logued">
 
 	 	<div class="dropdown">
-		  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown">
+		  <button class="btn btn-default btn-sm dropdown-toggle navbar-btn" type="button" id="dropdownMenu1" data-toggle="dropdown">
 	        <?php echo $userName ?>
 		    <span class="caret"></span>
 		  </button>

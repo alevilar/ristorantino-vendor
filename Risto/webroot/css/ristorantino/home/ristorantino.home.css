@@ -1,22 +1,53 @@
 
+ul.dashboard-buttons{
+    padding:15px; 
+}
+
 .dashboard-buttons{
-    text-align: center;
-    margin: 0px;
-    padding: 0px;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-align-content: flex-start;
+    -ms-flex-line-pack: start;
+    align-content: flex-start;
+    -webkit-align-items: flex-start;
+    -ms-flex-align: start;
+    align-items: flex-start;
+
 }
 
 .dashboard-buttons li{
     list-style: none;
+    min-width: 150px;
+
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 0 1 auto;
+    -ms-flex: 0 1 auto;
+    flex: 0 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
 }
 
 .dashboard{
     background: rgba(36, 66, 137, 0.2);    
-    -webkit-border-bottom-right-radius: 30px;
-    -webkit-border-bottom-left-radius: 30px;
-    -moz-border-radius-bottomright: 30px;
-    -moz-border-radius-bottomleft: 30px;
-    border-bottom-right-radius: 30px;
-    border-bottom-left-radius: 30px;
+    -webkit-border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -moz-border-radius: 30px;
+    border-radius: 30px;
+    border-radius: 30px;
     margin-bottom: 15px;
     text-align: center;
 }
