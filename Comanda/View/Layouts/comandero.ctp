@@ -197,15 +197,15 @@
                     </div>
                     <div class="col-sm-4">
                         <div class="p-logo-footer">
-                            <span class="p-hide">PaxaPos</span>
+                            <span class="hide">PaxaPos</span>
                         </div>
                     </div>
                     <div class="col-sm-4">
                         <div class="p-social-media">
                                 <ul class="nav list-unstyled">
-                                    <li class="img-circle"><a href="https://facebook.com/paxapos" class="p-sm-facebook"><span class="p-hide">Facebook</span></a></li>
-                                    <li class="img-circle"><a href="https://www.youtube.com/channel/UCa90_rTOMD4qdOhi2WQV6rw" class="p-sm-youtube"><span class="p-hide">Youtube</span></a></li>
-                                    <li class="img-circle"><a href="https://twitter.com/paxapos" class="p-sm-twitter"><span class="p-hide">Twitter</span></a></li>
+                                    <li class="img-circle"><a href="https://facebook.com/paxapos" class="p-sm-facebook"><span class="hide">Facebook</span></a></li>
+                                    <li class="img-circle"><a href="https://www.youtube.com/channel/UCa90_rTOMD4qdOhi2WQV6rw" class="p-sm-youtube"><span class="hide">Youtube</span></a></li>
+                                    <li class="img-circle"><a href="https://twitter.com/paxapos" class="p-sm-twitter"><span class="hide">Twitter</span></a></li>
                                 </ul>
                             </div>
                         </div>

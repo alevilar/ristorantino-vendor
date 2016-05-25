@@ -1,10 +1,10 @@
 <?php
 echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
+// $this->layout = 'Risto.administracion';
 ?>
 
 <div class="row">
-
-
+<!--
 	<div class="col-md-3 hidden-sm hidden-xs">
 
 		<a class="twitter-timeline" 
@@ -17,10 +17,15 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 		
 	</div>
+-->
 
-	<div class="col-md-7">
+
+<h1 class="blue center"><?php echo Configure::read('Site.name')?></h1>
+	<div class="col-md-12">
 		<div class="dashboard">
+			<h4 class="white-8">APP's Instaladas</h4>
 		   	<ul class="dashboard-buttons row">
+
 					<?php 
 
 					if ( Configure::read('Site.type') != SITE_TYPE_HOTEL ) {
@@ -118,22 +123,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 			</ul>
 		</div><!-- EOF: dashboard -->
 
-
-	</div><!-- col iz del dashboard col-md-->
-		<div class="col-md-2 hidden-sm hidden-xs">
-		<br>
-			<?php
-				$isPremium = Configure::read('Site.is_premium');
-				if ( !$isPremium) { ?>
-					<p class="center">
-						¿Quieres tu PaxaPos sin publicidad? <?php echo $this->Html->link('Hazte Premium', array('plugin'=>'paxapos', 'controller'=>'paxapos', 'action'=>'contact'));?>
-					</p>
-			<?php }?>
-
-
-			<?php echo $this->element('Risto.google_ads/columna_vertical', array('width'=> '100%', 'height' => '350px')); ?>
-			
-		</div>
+	</div>
 
 
 

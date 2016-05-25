@@ -1,6 +1,7 @@
 <?php $this->assign('title', 'Mi Cuenta');?>
 
 
+
 <?php $this->start('header-nav'); ?>
 
     <div id="logotipo-image" class="navbar-text navbar-left">

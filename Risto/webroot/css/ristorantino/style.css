@@ -1,3 +1,138 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+/*
+custom classes starts with p-
+
+colors darker to lighter
+blue paxapos #244289
+0B2D71
+1D4189
+284D97
+4673C3
+
+3C578D
+
+grey paxapos #666666
+101010
+535353
+6d6d6d
+6a6a6a
+
+red paxapos #B71D21
+b71d21
+
+almost white
+F5F9FB
+
+*/
+
+
+
+
+
+.blue{
+  color: #244289;
+}
+
+.red{
+  color: #B71D21;
+}
+
+.grey{
+  color: #666666;
+}
+
+.black{
+  color: #000;
+}
+
+.white{
+  color: #fff;
+}
+
+.white-8{
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.bg-blue{
+  background-color: #244289;
+}
+
+.bg-red{
+  background-color: #B71D21;
+}
+
+.bg-grey{
+  background-color: #666666;
+}
+
+.bg-black{
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.bg-white{
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: 'Merriweather Sans', sans-serif;
+  font-weight: 700;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* hacer que el footer quede siempre abajo aunque la pagina se mas chica*/
+
+#body-wrapper {
+  min-height:100%;
+  position:relative;
+}
+
+#content-wrapper {
+  padding-bottom:320px; /* Height of the footer element */
+}
+
+
+html,
+body {
+  margin:0;
+  padding:0;
+  height:100%;
+}
+/* EOF: hacer que el footer quede siempre abajo */
+
+
+body {
+  font-family: 'Lato';
+  font-style: normal;
+}
+
+
+
+
+
+
+/* mensajes */
+.message{
+	margin-bottom: 0px;
+	text-align: center;
+}
+
+
+
+
 #flashMessage.message {
     margin: 0px;
     padding: 15px; 
@@ -37,16 +172,3 @@
   text-align: center;
 }
 
-
-.tt-menu{
-    background-color: white;
-}
-
-.tt-dataset{
-    padding: 10px 5px;
-}
-
-
-a.px-media-link:hover{
-  opacity: 0.7;
-}
