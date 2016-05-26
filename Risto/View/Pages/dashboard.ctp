@@ -1,26 +1,32 @@
+<?php $this->append('paxapos-main-menu');?>
+
+ 		<?php echo $this->element("Risto.paxapos_main_menu/home_btn");?>
+
+		<br>
+		<h3 class="center blue-8"><?php echo Configure::read("Site.name");?></h3>
+
+
+
+      <?php echo $this->element("Risto.paxapos_main_menu/tenant_config");?>
+
+
+
+<?php $this->end();?>
+
+
+
+
+
 <?php
-echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
+echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 // $this->layout = 'Risto.administracion';
 ?>
 
-<div class="row">
-<!--
-	<div class="col-md-3 hidden-sm hidden-xs">
-
-		<a class="twitter-timeline" 
-			href="https://twitter.com/PaxaPos" 
-			data-widget-id="636390749106511872"
-			data-chrome="noheader nofooter noborders transparent"
-			width="100%" 
-			height="420"
-			 >Tweets @PaxaPos.</a>
-		<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-		
-	</div>
--->
+<div class="row dashboard-container" style="display:none">
 
 
-<h1 class="blue center"><?php echo Configure::read('Site.name')?></h1>
+
+	<h1 class="blue center"><?php echo Configure::read('Site.name')?></h1>
 	<div class="col-md-12">
 		<div class="dashboard">
 			<h4 class="white-8">APP's Instaladas</h4>
@@ -130,5 +136,10 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.home');
 </div>
 
 <script>
-	  $('[data-toggle="tooltip"]').tooltip()
+	  $('[data-toggle="tooltip"]').tooltip();
+
+	  setTimeout(function(){
+
+		  $(".dashboard-container").show('fade');
+	  }, 400);
 </script>

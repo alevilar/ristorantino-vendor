@@ -96,7 +96,7 @@
         $authMes  = $this->Session->flash('auth');          
         if ( $flashMes || $authMes ) {
             ?>
-        <div class="fluid-container hidden-print">
+        <div class="container-fluid hidden-print">
             <div class="row">
                 <div id="mesajes" class="col-md-12 alert-dismissible" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -111,7 +111,7 @@
         </div>
         <?php }?>
 
-        <div class="fluid-container">
+        <div class="container-fluid">
             <header>
                 <div class="row">
                     <div class="navbar-header col-md-3 col-sm-12">

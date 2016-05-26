@@ -11,8 +11,6 @@ class SaboresController extends ProductAppController {
 		'title_for_layout' => 'Variantes del Producto',
 		);
 
-	public $layout = 'Risto.administracion';
-        
    
         
 	public function index() {

@@ -3,6 +3,10 @@ ul.dashboard-buttons{
     padding:15px; 
 }
 
+.dashboard-container{
+    margin-top: 30px;
+}
+
 .dashboard-buttons{
     display: -ms-flexbox;
     display: -webkit-flex;
@@ -49,7 +53,9 @@ ul.dashboard-buttons{
     border-radius: 30px;
     border-radius: 30px;
     margin-bottom: 15px;
+    margin-top: 50px;
     text-align: center;
+    padding-top: 30px;
 }
 
 

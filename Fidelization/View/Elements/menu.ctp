@@ -1,4 +1,4 @@
-<ul class="nav nav-pills  nav-justified">
+<ul class="nav nav-tabs  nav-justified">
 
   <?php $class = $this->request->controller == 'clientes' ? 'active':'';?>
   <li role="presentation" class="<?php echo $class?>">

@@ -1,94 +1,16 @@
+.p-username{
+   color: black;
+   opacity: 0.55;
+   position: absolute;
+   right: 30px;
+   top: 25px;
+   z-index: 0;
+}
+
+
 #body-wrapper{
-	background: url("ristorantino/img/bg-pic-1_1700x647.jpg");
+	background: url("/paxapos/css/img/home/bg-pic-1_1700x647.jpg");
+   background-size: auto 100%;
+   background-repeat: no-repeat;
 }
 
-
-
-
-#isologo img{
-	-webkit-transform: scale(0.9);
-   	-moz-transform: scale(0.9);
-   	-o-transform: scale(0.9);
-   	-ms-transform: scale(0.9);
-   	transform: scale(0.9);
-
-	-webkit-animation: pulse2 1s ease infinite;
-	-moz-animation: pulse2 1s ease infinite;
-	-ms-animation: pulse2 1s ease infinite;
-	animation: pulse2 1s ease infinite;
-
-	margin-top: 30px;
-}
-
-
-
-@keyframes "pulse2" {
- 0% {
-    -webkit-transform: scale(0.9);
-   	-moz-transform: scale(0.9);
-   	-o-transform: scale(0.9);
-   	-ms-transform: scale(0.9);
-   	transform: scale(0.9);
- }
- 50% {
-    -webkit-transform: scale(1);
-   	-moz-transform: scale(1);
-   	-o-transform: scale(1);
-   	-ms-transform: scale(1);
-   	transform: scale(1);
- }
- 100% {
-    -webkit-transform: scale(0.9);
-   	-moz-transform: scale(0.9);
-   	-o-transform: scale(0.9);
-   	-ms-transform: scale(0.9);
-   	transform: scale(0.9);
- }
-
-}
-
-@-moz-keyframes pulse2 {
- 0% {
-   -moz-transform: scale(0.9);
-   transform: scale(0.9);
- }
- 50% {
-   -moz-transform: scale(1);
-   transform: scale(1);
- }
- 100% {
-   -moz-transform: scale(0.9);
-   transform: scale(0.9);
- }
-
-}
-
-@-webkit-keyframes "pulse2" {
- 0% {
-   -webkit-transform: scale(0.9);
-   transform: scale(0.9);
- }
- 50% {
-   -webkit-transform: scale(1);
-   transform: scale(1);
- }
- 100% {
-   -webkit-transform: scale(0.9);
-   transform: scale(0.9);
- }
-
-}
-
-@-ms-keyframes "pulse2" {
- 0% {
-   -ms-transform: scale(0.9);
-   transform: scale(0.9);
- }
- 50% {
-   -ms-transform: scale(1);
-   transform: scale(1);
- }
- 100% {
-   -ms-transform: scale(0.9);
-   transform: scale(0.9);
- }

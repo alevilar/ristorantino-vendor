@@ -1,5 +1,5 @@
 
-<div class="productos form">
+<div class="productos form content-white">
 
 <?php 
 

@@ -1,4 +1,4 @@
-<div class="grupoSabores form">
+<div class="grupoSabores form content-white">
 <?php echo $this->Form->create('GrupoSabor');?>
 	<fieldset>
 		<legend><?php echo __('Grupo de Adicionales'); ?></legend>

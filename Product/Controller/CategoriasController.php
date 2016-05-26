@@ -9,8 +9,6 @@ class CategoriasController extends ProductAppController
     public $name = 'Categorias';
 
 
-    public $layout = 'Risto.administracion';
-  
 
 
     //var $layout;

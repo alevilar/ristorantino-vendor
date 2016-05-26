@@ -1,0 +1,130 @@
+
+#mesajes-container{
+  position: absolute;
+}
+
+
+@media (min-width: 700px) {
+  #mesajes-container {
+    width: 33%;
+    top: 30px;
+    left: 30px;
+  }
+}
+
+@media (max-width: 700px) {
+  #mesajes-container {
+    width: 98%;
+     top: 3px;
+    left: 1%;
+  }
+}
+
+
+
+
+#logo-image-container{
+   height: 106px;
+}
+
+#loader-container{
+   position: relative;
+   bottom: -50px;
+}
+
+#isologo a{
+   outline: none;
+}
+
+#isologo img{
+	
+   
+}
+
+#isologo.late img{
+   -moz-transform: scale(0.9);
+   -o-transform: scale(0.9);
+   -ms-transform: scale(0.9);
+   transform: scale(0.9);
+   -webkit-transform: scale(0.9);
+
+   -webkit-animation: pulse2 1s ease infinite;
+   -moz-animation: pulse2 1s ease infinite;
+   -ms-animation: pulse2 1s ease infinite;
+   animation: pulse2 1s ease infinite;
+
+}
+
+@keyframes "pulse2" {
+ 0% {
+    -webkit-transform: scale(0.9);
+   	-moz-transform: scale(0.9);
+   	-o-transform: scale(0.9);
+   	-ms-transform: scale(0.9);
+   	transform: scale(0.9);
+ }
+ 50% {
+    -webkit-transform: scale(1);
+   	-moz-transform: scale(1);
+   	-o-transform: scale(1);
+   	-ms-transform: scale(1);
+   	transform: scale(1);
+ }
+ 100% {
+    -webkit-transform: scale(0.9);
+   	-moz-transform: scale(0.9);
+   	-o-transform: scale(0.9);
+   	-ms-transform: scale(0.9);
+   	transform: scale(0.9);
+ }
+
+}
+
+@-moz-keyframes pulse2 {
+ 0% {
+   -moz-transform: scale(0.9);
+   transform: scale(0.9);
+ }
+ 50% {
+   -moz-transform: scale(1);
+   transform: scale(1);
+ }
+ 100% {
+   -moz-transform: scale(0.9);
+   transform: scale(0.9);
+ }
+
+}
+
+@-webkit-keyframes "pulse2" {
+ 0% {
+   -webkit-transform: scale(0.9);
+   transform: scale(0.9);
+ }
+ 50% {
+   -webkit-transform: scale(1);
+   transform: scale(1);
+ }
+ 100% {
+   -webkit-transform: scale(0.9);
+   transform: scale(0.9);
+ }
+
+}
+
+@-ms-keyframes "pulse2" {
+ 0% {
+   -ms-transform: scale(0.9);
+   transform: scale(0.9);
+ }
+ 50% {
+   -ms-transform: scale(1);
+   transform: scale(1);
+ }
+ 100% {
+   -ms-transform: scale(0.9);
+   transform: scale(0.9);
+ }
+
+
+

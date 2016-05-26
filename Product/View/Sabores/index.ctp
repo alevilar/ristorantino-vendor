@@ -1,5 +1,5 @@
 
-<div class="sabores index">
+<div class="sabores index content-white">
 	<div class="btn-group pull-right">
 	<?php echo $this->Html->link(__('Crear Variante'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
 	</div>
@@ -83,19 +83,19 @@
 	        
 
 	</table>
+
+		<p>
+		<?php
+		echo $this->Paginator->counter(array(
+		'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+		));
+		?>
+		</p>
+
+	<div class="paging">
+		<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
+	 | 	<?php echo $this->Paginator->numbers();?>
+		<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
+	</div>
 </div>
 
-
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
-	));
-	?>
-	</p>
-
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
-</div>

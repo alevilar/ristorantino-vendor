@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<?php echo $this->element('Paxapos.layout_head');?>
+		<?php echo $this->element('Risto.header_inner_ristorantino') ?>
 		<?php echo $this->Html->css('/risto/css/risto_base_style');?>
+		<?php echo $this->element('Paxapos.layout_head');?>
+		<script src="https://use.fontawesome.com/a785a3f126.js"></script>
+		<?php echo $this->Html->script('Risto.jquery/jquery-ui')?>
+
+
 	</head>
 	<body>
+
+
+		<!-- Modal -->
+		<div class="modal fade" id="paxapos-main-menu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		  <div class="modal-dialog modal-sm" role="document">
+		    <div class="modal-content">
+		      
+		      <div class="modal-body">
+		       		<?php echo $this->fetch('paxapos-main-menu');?>
+		      </div>
+		      <div class="modal-footer center">
+		        <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo __('Cerrar')?></button>
+		      </div>
+		    </div>
+		  </div>
+		</div>
+
+
+
     	<?php echo $this->fetch('modals'); ?>
 	    <div id="body-wrapper">
 
@@ -12,7 +36,6 @@
 			    
 		    <div id="content-wrapper">
 		        
-		        <a class="sr-only" href="#content">Skip to main content</a>
 
 		        <?php echo $this->element('Risto.show_errors_for_config') ?>
 	
@@ -20,31 +43,7 @@
 				<?php echo $this->element('Risto.layout_messages');?>
 
 
-		        <header id="p-header">
-		        	<?php $headerNavbarClass = $this->fetch('header_navbar_class');
-		        	?>
-		            <nav class="navbar <?php echo $headerNavbarClass?>">
-		                <div class="container-fluid">
-		                            
-		                    <div id="logo-image-container" class="center">
-		                        <div id="isologo">
-		                            <?php 
-		                            if ( $this->fetch('navbar-brand') ) {
-		                            	echo $this->fetch('navbar-brand');
-		                            } else {
-		                            	$img = $this->Html->image('/paxapos/img/isologo_rojo.png', array()); 
-		                            	echo $this->Html->link($img, '/', array('escape' => false, 'class'=>'
-		                            	'));
-		                            }
-		                            ?>
-		                        </div>
-		                    </div>
-
-		                    <?php echo $this->fetch('header-nav');?>   
-		                </div>
-		            </nav>
-		            <?php echo $this->fetch('post-header');?>
-		        </header>
+				<?php echo $this->element('Risto.layout_header_late');?>		        
 
 		        <?php echo $this->fetch('pre-content'); ?>
 
@@ -85,5 +84,15 @@
 	        	<?php echo $this->element('Paxapos.google_analitycs') ?> 
 	        </div>  <!-- EOF content wrapper -->
         </div><!-- EOF body wrapper -->
+
+
+        
+		
+		<!-- ESTILOS RECOLECTADOS -->
+		<?php
+        echo $this->fetch('meta');
+		echo $this->fetch('css');
+		echo $this->fetch('script');
+        ?>
     </body>
 </html>

@@ -1,4 +1,4 @@
-<div class="tipoDePagos index">
+<div class="tipoDePagos index content-white">
 
 	<div class="users index">
 		<h2><?php echo __('Tipo de Pagos');?></h2>

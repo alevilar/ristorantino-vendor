@@ -34,6 +34,20 @@ F5F9FB
   color: #244289;
 }
 
+.blue-9{
+  color: rgba(36, 66, 137, 0.9);
+}
+.blue-8{
+  color: rgba(36, 66, 137, 0.8);
+}
+
+.blue-5{
+  color: rgba(36, 66, 137, 0.5);
+}
+.blue-3{
+  color: rgba(36, 66, 137, 0.3);
+}
+
 .red{
   color: #B71D21;
 }
@@ -57,6 +71,9 @@ F5F9FB
 .bg-blue{
   background-color: #244289;
 }
+.bg-blue-5{
+  background-color: rgba(36, 66, 137, 0.5);;
+}
 
 .bg-red{
   background-color: #B71D21;
@@ -71,9 +88,27 @@ F5F9FB
 }
 
 .bg-white{
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.bg-white-8{
   background-color: rgba(255, 255, 255, 0.85);
 }
 
+.bg-white-5{
+  background-color: rgba(255, 255, 255, 0.85);
+}
+.bg-white-3{
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+
+.content-white{
+    background-color: rgba(255, 255, 255, 1);
+    padding: 15px;
+    border: 1px solid #dddddd;
+    border-top: 1px solid #fff;
+}
 
 h1,
 h2,
@@ -100,9 +135,7 @@ h6,
   position:relative;
 }
 
-#content-wrapper {
-  padding-bottom:320px; /* Height of the footer element */
-}
+
 
 
 html,

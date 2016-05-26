@@ -4,35 +4,55 @@ App::uses('MesaAppModel', 'Mesa.Model');
 
 class Mozo extends MesaAppModel {
 
-	var $name = 'Mozo';
+	public $name = 'Mozo';
 
     public $useDbconfig = 'tenant';
 
-    var $actsAs = array(
+    public $actsAs = array(
         'Utils.SoftDelete', 
         'Containable',
         'Risto.MediaUploadable',
+        'Search.Searchable',
         );
     
 
     public $displayField = 'numero_y_nombre';
     
-    var $order = array(
+    public $order = array(
         'Mozo.activo DESC', 
         'Mozo.numero'
     );
+
+
+
+    public $filterArgs = array(
+        'search' => array(
+            'type' => 'like',
+            'field' => array('Mozo.numero','Mozo.nombre','Mozo.apellido'),
+            ),
+    );
+
     
     public $virtualFields = array(
       'numero_y_nombre' => "CONCAT(Mozo.numero,' (', Mozo.nombre, ' ', Mozo.apellido, ')')",
     );
     
-	var $validate = array(
-            'numero' => 'notBlank',
-	);
 
+    public $validate = array(
+        'numero' => array(
+            'notBlank' => array(
+                'rule' => 'notBlank',
+                'required' => true,
+                'allowEmpty' => false,
+                'message' => 'Debe ingresar un alias'
+            ),
+        ),
+        );
+
+	
         
 
-	var $hasMany = array(
+	public $hasMany = array(
 			'Mesa' => array('className' => 'Mesa.Mesa',
                             'foreignKey' => 'mozo_id',
                             'dependent' => true,

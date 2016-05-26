@@ -19,15 +19,21 @@ class MozosController extends MesaAppController {
     }
         
 	function index() {
-		$this->layout = 'Risto.administracion';
-		$this->Mozo->recursive = 0;
-		$this->Mozo->order = array(
-								'Mozo.activo'=> 'DESC', 
-								'Mozo.alias'=> 'ASC', 
-								'Mozo.name' => 'ASC'
-							);
+		$this->Prg->commonProcess();
+        $conds = $this->Mozo->parseCriteria( $this->Prg->parsedParams() );
 
-		$this->set('mozos', $this->paginate());
+        $this->Paginator->settings = array(
+        		'recursive' => 0,
+        		'order' => array(
+					'Mozo.activo'=> 'DESC', 
+					'Mozo.alias'=> 'ASC', 
+					'Mozo.name' => 'ASC'
+				),
+        		'conditions' => $conds,
+        	);
+	
+
+		$this->set('mozos', $this->Paginator->paginate());
 	}
 
 	public function view($id = null) {
@@ -35,13 +41,33 @@ class MozosController extends MesaAppController {
 	}
 
 
-        
-                
-	public function edit($id = null) {
-		$this->layout = 'Risto.administracion';
+
+
+	public function edit_activo($id = null) {		
 		$this->Mozo->id = $id;
 		if (!$this->Mozo->exists()) {
 			throw new NotFoundException(__('Invalid mozo'));
+		}
+
+		if ($this->request->is( array('put', 'post')) && isset($this->request->data['Mozo']['activo']) ) {
+			if ( $this->Mozo->saveField('activo', $this->request->data['Mozo']['activo']) ) {
+				$this->Session->setFlash(__("Se ha modificado el estado correctamente"));
+			} else {
+				$this->Session->setFlash(__("Error al modificar el estado"), 'Risto.flash_error');
+			}
+		}
+		$this->redirect(array('controller'=>'mozos','action' => 'index'));
+
+	}
+
+        
+                
+	public function edit($id = null) {
+		if ( !is_null($id) ) {
+			$this->Mozo->id = $id;
+			if (!$this->Mozo->exists()) {
+				throw new NotFoundException(__('Invalid mozo'));
+			}
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Mozo->save($this->request->data)) {

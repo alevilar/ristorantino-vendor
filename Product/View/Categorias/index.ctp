@@ -1,5 +1,5 @@
 
-<div class="categorias index">
+<div class="categorias index content-white">
     <?php echo $this->Html->link(__('Crear %s', __('Categoria')), array('admin'=>true,'plugin'>'productos', 'controller'=> 'categorias', 'action'=>'edit'), array('class'=>'btn btn-success btn-lg pull-right')); ?>
 
 

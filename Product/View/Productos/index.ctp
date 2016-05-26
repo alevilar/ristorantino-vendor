@@ -18,42 +18,37 @@
 	</script>
 <?php $this->end();?>
 
+<div class="productos index content-white">
 
 
-<?php    
-echo $this->Html->script('/risto/js/jquery/jquery.jeditable.mini', array('inline'=>false));
-echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
+	<?php    
+	echo $this->Html->script('/risto/js/jquery/jquery.jeditable.mini', array('inline'=>false));
+	echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
 
 
-$img = $this->Html->image('/product/img/explicacion_producto_categoria_variantes.png', array('width'=>'100px', "class"=>"img-thumbnail"));
+	$img = $this->Html->image('/product/img/explicacion_producto_categoria_variantes.png', array('width'=>'100px', "class"=>"img-thumbnail"));
 
-$linkImg = $this->Html->link( $img, 
-						'/product/img/explicacion_producto_categoria_variantes.png',
-						array('target'=>'_blank', 'escape' => false, 'class'=>'pull-left')
-					);
-?>
-
-<p class="alert alert-info">
-<?php echo $linkImg?>
- En esta imagen podrás ver el Menú de un restaurante y entender lo que es un Producto, una Categoria y una Variante. <br> <br>
-</p>
+	$linkImg = $this->Html->link( $img, 
+							'/product/img/explicacion_producto_categoria_variantes.png',
+							array('target'=>'_blank', 'escape' => false, 'class'=>'pull-left')
+						);
+	?>
 
 
+	<script type="text/javascript">
+	    new Afups("<?php echo $this->Html->url(array('action'=>'update'))?>");
+	</script>
+	<style type="text/css">
+		.abrev{
+			font-size: 8pt;
+			opacity: 0.9;
+			font-weight: bolder;
+		}
+		.edit input[type="text"]{
+			text-align: left;
+		}
+	</style>
 
-<script type="text/javascript">
-    new Afups("<?php echo $this->Html->url(array('action'=>'update'))?>");
-</script>
-<style type="text/css">
-	.abrev{
-		font-size: 8pt;
-		opacity: 0.9;
-		font-weight: bolder;
-	}
-	.edit input[type="text"]{
-		text-align: left;
-	}
-</style>
-<div class="productos index">
 	<div class="btn-group pull-right">
 
 
@@ -198,18 +193,26 @@ $linkImg = $this->Html->link( $img,
 	</table>
 
 
-</div>
+		<p>
+		<?php
+		echo $this->Paginator->counter(array(
+		'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
+		));
+		?>
+		</p>
 
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Página {:page} de {:pages}, mostrando {:current} registros de  {:count} registros totales, iniciando en el registro {:start}, y terminando en el registro {:end}')
-	));
-	?>
+	<div class="paging">
+		<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
+	 | 	<?php echo $this->Paginator->numbers();?>
+		<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
+	</div>
+
+	<div class="clearfix"></div><br><br>
+
+	<p class="alert alert-info">
+	<?php echo $linkImg?>
+	 En esta imagen podrás ver el Menú de un restaurante y entender lo que es un Producto, una Categoria y una Variante. <br> <br>
 	</p>
 
-<div class="paging">
-	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
- | 	<?php echo $this->Paginator->numbers();?>
-	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
 </div>
+

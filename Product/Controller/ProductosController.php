@@ -9,7 +9,6 @@ class ProductosController extends ProductAppController {
 
 	public $name = 'Productos';
 
-    public $layout = 'Risto.administracion';
         
 	public function index() {
 		$this->Prg->commonProcess();

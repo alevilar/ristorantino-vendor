@@ -1,4 +1,4 @@
-<div class="clientes form">
+<div class="clientes form content-white">
 <?php echo $this->Form->create('Cliente'); ?>
 	<fieldset>
 	<?php

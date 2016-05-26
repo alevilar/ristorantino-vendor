@@ -1,19 +1,20 @@
 <?php $this->assign('title', 'Mi Cuenta');?>
 
 
+<?php $this->append('paxapos-main-menu');?>
 
-<?php $this->start('header-nav'); ?>
+	<h3 class="center blue-8">Mis Comercios</h3>
 
-    <div id="logotipo-image" class="navbar-text navbar-left">
-        <?php  echo $this->Html->image('/paxapos/img/logotypo_blanco.png', array('height'=>'26px')); ?>
-    </div>
+	<!-- Button trigger modal -->
+		<button type="button" class="btn btn-success btn-lg btn-block center" data-toggle="modal" data-target="#modal-nuevo-comercio">
+			<i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;
+		    <?php echo __('Crear Nuevo Comercio')?>
+		</button>
 
-    <div id="logo-slogan" class="navbar-text navbar-left hidden-xs hidden-sm">
-        <h4 class="white-8">Innovando, gestionando, creciendo</h4>
-    </div>
 
-<?php $this->end(); ?>
-
+		<br>
+		<?php echo $this->element("Risto.paxapos_main_menu/mi_cuenta");?>
+<?php $this->end();?>
 
 
 <?php $this->start('modals'); ?>
@@ -36,98 +37,80 @@
 
 
 
+<style>
+	.nuevo-comercio{
+		opacity: 0.6;
+	}
 
-<div class="col-md-4  hidden-xs">
-	<?php if ( !$this->Session->check('Auth.User')){ ?>
-	<h3>Registrese para ingresar al sistema</h3>
-	<h1>¡Punto de Venta Web, y GRATUITO!</h1>
+	.nuevo-comercio:hover{
+		opacity: 1;
+	}
 
-	<div class="col-md-4 col-md-offset-4">
-		<hr />
-	<?php echo $this->Html->link('Registrate', array('plugin'=> 'users','controller'=>'users', 'action'=>'register'), array('class'=>'btn btn-lg btn-success btn-block')) ?>
-	</div>
-	<?php } else { ?>
-	<h1 class="center">Novedades</h1>
-
-
-	<a class="twitter-timeline" href="https://twitter.com/PaxaPos" data-widget-id="636390749106511872" height="300px">Tweets  @PaxaPos.</a>
-<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	#p-comercios-list{
+		display: none;
+	}
+</style>
 
 
-	<?php } ?>
+<div id="loading" class="center blue blue-9">
+	<i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+	<span class="sr-only">Cargando...</span>
+</div>
+
+<div id="p-comercios-list" class="col-sm-4 col-sm-offset-4">
+		<?php 
+		if ( !$this->Session->check('Auth.User')){
+			echo $this->element('Users.boxlogin');			
+		} else {		
+	 	?>
+		<h1 class="center">Mis Comercios</h1>
+
+		<div class="list-group center">
+			<?php App::uses('MtSites', 'MtSites.MtSites'); ?>
+			<?php if ( $this->Session->check('Auth.User.Site') ): ?>
+				<?php foreach ( $this->Session->read('Auth.User.Site') as $s ):
+				?>
+						
+						<?php echo  $this->Html->link( "<h4>".$s['name']."</h4>" , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'list-group-item', 'escape'=>false ));?>
+
+	                    <?php 
+	                    /*
+	                    if ( $this->Session->read('Auth.User.is_admin') ) {
+	                    
+	                    	echo $this->Form->postLink("X", array( 'tenant' => false, 'plugin'=>'mt_sites' ,'controller' => 'sites', 'action' => 'delete', $s['id']), array(
+	                    		'confirm' => 'Are you sure want to delete site named '.$s['name'].'?',
+	                    		'class'=>'btn btn-danger btn-xs pull-right',
+	                    		'title' => __("Eliminar")
+	                    		));
+						
+	                    	}
+	                    	*/
+	                    		 ?>
+				<?php endforeach; ?>
+	    	<?php endif; ?>
+	    </div>
+
+	 	
+
+		<?php } // fin IF usuario logeado ?>
 </div>
 
 
-<div class="col-md-4 login">
-	<?php 
-	if ( !$this->Session->check('Auth.User')){
-		echo $this->element('Users.boxlogin');			
-	} else {		
- 	?>
-	<h1 class="center">Mis Comercios</h1>
-
-	<div class="list-group">
-		<?php App::uses('MtSites', 'MtSites.MtSites'); ?>
-		<?php if ( $this->Session->check('Auth.User.Site') ): ?>
-			<?php foreach ( $this->Session->read('Auth.User.Site') as $s ):
-			?>
-				<div class="list-group-item" style="font-size: 15pt;">
-					
-					<?php echo  $this->Html->link( $s['name'] , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'' ));?>
-
-                    <?php 
-                    /*
-                    if ( $this->Session->read('Auth.User.is_admin') ) {
-                    
-                    	echo $this->Form->postLink("X", array( 'tenant' => false, 'plugin'=>'mt_sites' ,'controller' => 'sites', 'action' => 'delete', $s['id']), array(
-                    		'confirm' => 'Are you sure want to delete site named '.$s['name'].'?',
-                    		'class'=>'btn btn-danger btn-xs pull-right',
-                    		'title' => __("Eliminar")
-                    		));
-					
-                    	}
-                    	*/
-                    		 ?>
-				</div>
-			<?php endforeach; ?>
-    	<?php endif; ?>
-    </div>
 
 
+<?php $this->append('script');?>
+	<script type="text/javascript">
+		$(function() {
+			var $el = $("#p-comercios-list");
+			var topos = ( $(window).height() - $el.height() ) / 2  - 100 + "px";
+		    $el.css({
+		       // 'position' : 'absolute',
+		       // 'top' : '50%',
+		        'margin-top' : topos
+		    });
 
-	<div class="well well-lg">
-		¡Podés crear todos los Comercios que quieras!, agregá tantas sucursales o puntos de ventas como necesites.<br> ¡En PaxaPos no hay límites!
-		<br><br>
-		<!-- Button trigger modal -->
-		<button type="button" class="btn btn-success btn-lg btn-block center" data-toggle="modal" data-target="#modal-nuevo-comercio">
-		  <?php echo __('Crear Nuevo Comercio')?>
-		</button>
-
-	</div>
-
-	<?php } // fin IF usuario logeado ?>
-		
-</div>
-
-
-<div class="col-md-4 login">
-	<h1 class="center">Mi Perfil</h1>
-
-	<div class="center">
-	<?php echo $this->Html->link( __('Editar mi Perfil'), array(
-		'tenant' => false,
-		'plugin'=>'users', 'controller'=>'users','action'=>'my_edit'), array('class'=>'btn btn-link center')); ?>
-	</div>
-	<dl class="dl-horizontal">
-		<dt>Username:</dt>
-		<dd><?php echo  $this->Session->read('Auth.User.username')?></dd>
-		
-		<dt>E-mail:</dt>
-		<dd><?php echo  $this->Session->read('Auth.User.email')?></dd>
-	</dl>
-
-	<div class="center">
-		<BR>
-	<?php echo $this->Html->link(__d('users', 'Change your password'), array('plugin'=>'users', 'controller'=>'users','action' => 'change_password'), array('class'=>'text-danger')); ?>
-	</div>
-</div>
+		    $("#loading").hide();
+		    $el.show('fade');
+		});
+	</script>
+<?php $this->end();?>

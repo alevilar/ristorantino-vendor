@@ -1,4 +1,4 @@
-<div class="clientes index">
+<div class="clientes index content-white">
 	<?php echo $this->Html->link(__('Crear Nuevo %s', Configure::read('Mesa.tituloCliente')), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')) ?>
 	<h2><?php echo Inflector::pluralize( Configure::read('Mesa.tituloCliente')) ?></h2>
 

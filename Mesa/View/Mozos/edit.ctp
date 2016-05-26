@@ -1,11 +1,11 @@
 <div class="mozos form">
-<?php echo $this->Form->create('Mozo', array('type'=>'file'));?>
+<?php echo $this->Form->create('Mozo', array('type'=>'file', 'url'=>array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'edit')));?>
 	<fieldset>
 <?php
      if (empty($this->request->data['Mozo']['id'])):?>
             <legend><?php echo 'Agregar '.Configure::read('Mesa.tituloMozo'); ?></legend>
 <?php else: ?>
-            <legend><?php echo 'Editar '.Configure::read('Mesa.tituloMozo'); ?></legend>
+            <legend><?php echo 'Editar a '.$this->request->data['Mozo']['numero']; ?></legend>
 <?php endif; ?>
 	<?php
 		if (!empty( $this->request->data['Mozo']['media_id'] )) {

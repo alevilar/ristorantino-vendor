@@ -113,6 +113,9 @@ define('MESA_CERRADA', 2);
 define('MESA_COBRADA', 3);
 define('MESA_CHECKOUT', 4);
 
+define('MOZO_ACTIVO', 1);
+define('MOZO_INACTIVO', 0);
+
 define('TIPO_DE_PAGO_EFECTIVO', 1);
 
 

@@ -1,6 +1,6 @@
-<div class="descuentos form">
-<h2><?php echo __('Editar Descuento');?></h2>
-<?php echo $this->Form->create('Descuento');?>
+<div class="descuentos form content-white">
+	<h2><?php echo __('Editar Descuento');?></h2>
+	<?php echo $this->Form->create('Descuento');?>
 	<fieldset>
 	<?php
 		echo $this->Form->input('id');		

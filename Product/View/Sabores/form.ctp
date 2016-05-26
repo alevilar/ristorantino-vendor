@@ -1,13 +1,12 @@
-<h2></h2>
+
+
+<div class="sabores form content-white">
 <?php
      if (empty($this->request->data['Sabor']['id'])):?>
 		<h2><?php echo __d('users', 'Agregar Variante'); ?></h2>
 <?php else: ?>
 		<h2><?php echo __d('users', 'Editar Variante'); ?></h2>
 <?php endif; ?>
-
-
-<div class="sabores form">
 <?php echo $this->Form->create('Sabor');?>
 <fieldset>
 	<?php

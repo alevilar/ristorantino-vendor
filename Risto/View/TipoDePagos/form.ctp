@@ -1,10 +1,10 @@
+
+<div class="tipoDePagos form content-white">
 <?php    
 if ( !empty($this->request->data['TipoDePago']['media_id']) ) {
 	echo $this->Html->imageMedia($this->request->data['TipoDePago']['media_id'], array('width'=>100));
 }
 ?>
-
-<div class="tipoDePagos form">
     
 <?php echo $this->Form->create('TipoDePago', array('type' => 'file'));?>
 	<fieldset>
