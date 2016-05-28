@@ -1,6 +1,10 @@
+<?php $this->element("Risto.layout_modal_edit", array('title'=>'Tag'));?>
+
+
+
 <div class="tag index content-white">
 	<div class="btn-group pull-right">
-	<?php echo $this->Html->link(__('Crear Tag', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+	<?php echo $this->Html->link(__('Crear Tag', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg btn-add')); ?>
 	</div>
 	<h2><?php echo __('Tags');?></h2>
 
@@ -41,8 +45,7 @@
 					<?php echo date('d-m-y H:i:s',strtotime($tags['Tag']['created'])); ?>
 				</td>
 				<td class="actions">
-					<?php echo $this->Html->link(__('View'), array('action'=>'view', $tags['Tag']['id']), array('class'=>'btn btn-default')); ?>
-					<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $tags['Tag']['id']), array('class'=>'btn btn-default')); ?>
+					<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $tags['Tag']['id']), array('class'=>'btn btn-default btn-edit')); ?>
 					<?php echo $this->Html->link(__('Borrar'), array('action'=>'delete', $tags['Tag']['id']), array('class'=>'btn btn-danger'), null, sprintf(__('¿Esta seguro que desea borrar el sabor: %s?', true), $tags['Tag']['name'])); ?>
 				</td>
 			</tr>

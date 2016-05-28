@@ -1,5 +1,8 @@
+<?php $this->element("Risto.layout_modal_edit", array('title'=>'Cliente'));?>
+
+
 <div class="clientes index content-white">
-	<?php echo $this->Html->link(__('Crear Nuevo %s', Configure::read('Mesa.tituloCliente')), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')) ?>
+	<?php echo $this->Html->link(__('Crear Nuevo %s', Configure::read('Mesa.tituloCliente')), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right btn-add')) ?>
 	<h2><?php echo Inflector::pluralize( Configure::read('Mesa.tituloCliente')) ?></h2>
 
 
@@ -78,7 +81,7 @@
 
 		
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $cliente['Cliente']['id']), array('class'=>'btn btn-default')); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $cliente['Cliente']['id']), array('class'=>'btn btn-default btn-edit')); ?>
 			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $cliente['Cliente']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $cliente['Cliente']['id'])); ?>
 		</td>
 	</tr>

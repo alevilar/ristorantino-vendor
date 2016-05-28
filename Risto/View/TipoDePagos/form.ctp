@@ -10,9 +10,9 @@ if ( !empty($this->request->data['TipoDePago']['media_id']) ) {
 	<fieldset>
 	<?php
          if (empty($this->request->data['TipoDePago']['id'])):?>
-    		<legend><?php echo 'Agregar '.Configure::read('Mesa.tituloCliente'); ?></legend>
+    		<legend><?php echo 'Agregar Tipo de Pago' ?></legend>
     <?php else: ?>
-    		<legend><?php echo 'Editar '.Configure::read('Mesa.tituloCliente'); ?></legend>
+    		<legend><?php echo 'Editando "'.$this->request->data['TipoDePago']['name']; ?>"</legend>
     <?php endif; ?>
 	<?php
         echo $this->Form->input('id');

@@ -12,13 +12,15 @@
 
     <br>
 
-    <div class="col-sm-2">
-        <?php    
+    <?php    
         if ( !empty($this->request->data['Media']) && !empty($this->request->data['Media']['id'] )) {
+    ?>
+    <div class="col-sm-2">
+        <?php
             echo $this->Html->imageMedia( $this->request->data['Media'], array('width'=>200, 'class'=>'img-thumbnail img-responsive'));   
-        }
         ?>
     </div>
+    <?php } ?>
 
     <?php echo $this->Form->create('Categoria', array('type' => 'file'));?>
     	<div class="col-sm-5">

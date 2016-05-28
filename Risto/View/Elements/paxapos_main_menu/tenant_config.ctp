@@ -34,6 +34,13 @@
          
         ?>
 
+        
+        <?php
+         echo $this->Html->link('<i class="fa fa-money" aria-hidden="true"></i>
+&nbsp;'.__('Tipo de Pagos'), array('plugin'=>'risto', 'controller'=>'TipoDePagos', 'action'=>'index'), array('class' => 'list-group-item', 'escape'=>false));
+
+        ?>
+
         <br>
 
         <!-- configuracion general -->
@@ -49,6 +56,9 @@
         echo $this->Html->link('<i class="fa fa-plug" aria-hidden="true"></i>
 &nbsp;'.__('Instalar Apps'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'modulos'), array('class' => 'list-group-item '.$class, 'escape'=>false));
         ?>
+
+
+
 
          <?php
 
@@ -66,7 +76,6 @@
         if ( CakeSession::read("Auth.User.is_admin") ) {
 
             echo "<div class='list-group-item separator text-danger'>A partir de Aquí solo vista ADMIN</div>";
-            echo $this->Html->link(__('Tipo de Pagos'), array('plugin'=>'risto', 'controller'=>'TipoDePagos', 'action'=>'index'), array('class' => 'list-group-item'));
 
             echo $this->Html->link(__('Tipo de Facturas'), array('plugin'=>'risto', 'controller'=>'TipoFacturas', 'action'=>'index'), array('class' => 'list-group-item'));
 

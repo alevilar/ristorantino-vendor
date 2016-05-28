@@ -1,6 +1,7 @@
+<?php $this->element("Risto.layout_modal_edit", array('title'=>'Categoria'));?>
 
 <div class="categorias index content-white">
-    <?php echo $this->Html->link(__('Crear %s', __('Categoria')), array('admin'=>true,'plugin'>'productos', 'controller'=> 'categorias', 'action'=>'edit'), array('class'=>'btn btn-success btn-lg pull-right')); ?>
+    <?php echo $this->Html->link(__('Crear %s', __('Categoria')), array('admin'=>true,'plugin'>'productos', 'controller'=> 'categorias', 'action'=>'edit'), array('class'=>'btn btn-success btn-lg pull-right btn-add')); ?>
 
 
     <h2><?php echo __('Categorias');?></h2>
@@ -31,7 +32,7 @@
             </td>
             <td><?php echo "$catName";?></td>
             <td class="actions" align="left">
-                <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $catId), array('class'=>'btn btn-default')); ?>
+                <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $catId), array('class'=>'btn btn-default btn-edit')); ?>
                 <?php echo $this->Html->link(__('Borrar'), array('action'=>'delete', $catId), array('class'=>'btn btn-danger'), null, sprintf(__('Seguro que querés borrar la categoria # %s?'), $catName)); ?>
             </td>
         </tr>

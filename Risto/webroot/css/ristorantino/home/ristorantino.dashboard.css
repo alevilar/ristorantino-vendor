@@ -30,9 +30,9 @@ ul.dashboard-buttons{
 }
 
 .dashboard-buttons li{
+    text-align: center;
     list-style: none;
-    min-width: 150px;
-
+    display: inline-block;
     -webkit-order: 0;
     -ms-flex-order: 0;
     order: 0;
@@ -42,6 +42,9 @@ ul.dashboard-buttons{
     -webkit-align-self: auto;
     -ms-flex-item-align: auto;
     align-self: auto;
+    padding: 15px;
+    min-width: 42px;
+    max-width: 100px;
 }
 
 .dashboard{
@@ -60,20 +63,18 @@ ul.dashboard-buttons{
 
 
 .dashboard-buttons a{
-      display: block;
-        width: 100%;
-        min-width: 150px;
-        height: 160px;
+        font-family: 'Merriweather Sans', sans-serif;
+        font-size: 12px;
+        overflow: visible;
+        
         text-decoration: none;
         vertical-align: middle;
-        overflow: hidden;
-        color: rgba(0,0,0, 0.8);
-        background-position: center top;
-        background-repeat: no-repeat;
-        padding-top: 141px;
-        margin-bottom: 50px;
-
+        color: rgba(0,0,0, 0.6);
 }
+
+.dashboard-buttons a img{
+    width: 100%;
+    }
 
 .dashboard-buttons a:hover{
         opacity:0.7;
@@ -101,46 +102,6 @@ ul.dashboard-buttons{
 }
 
 
-#bton-reservations a{
-    background-image: url("reservations.png");
-}
-
-
-#bton-comandero a{
-    background-image: url("comandero.png");
-}
-
-#bton-estadisticas a{
-	background-image: url("stats.png");
-}
-
-#bton-adicion a{
-	background-image: url("adicion.png");
-}
-
-#bton-caja a{
-	background-image: url("caja.png");
-}
-
-#bton-admin a{
-	background-image: url("admin.png");
-}
-
-#bton-arqueo a{
-	background-image: url("arqueo.png");
-}
-
-#bton-contabilidad a{
-	background-image: url("contabilidad.png");       
-}
-
-#bton-inven  a{
-	background-image: url("../img/inventario.png");
-}
-
-#bton-pedidos a{
-    background-image: url("pedidos.png");
-}
 
 
 .timeline{

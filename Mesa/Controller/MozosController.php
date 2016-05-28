@@ -71,7 +71,7 @@ class MozosController extends MesaAppController {
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Mozo->save($this->request->data)) {
-				$this->Session->setFlash(__('The %s has been saved',  Configure::read('Mesa.tituloMozo')), 'Risto.flash_success');
+				$this->Session->setFlash(__('%s guardado correctamente',  Configure::read('Mesa.tituloMozo')), 'Risto.flash_success');
 				$this->redirect(array('controller'=>'mozos','action' => 'index'));
 			} else {
 				$this->Session->setFlash(__('The %s could not be saved. Please, try again.',  Configure::read('Mesa.tituloMozo') ),'Risto.flash_error');

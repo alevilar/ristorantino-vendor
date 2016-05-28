@@ -1,7 +1,9 @@
+<?php $this->element("Risto.layout_modal_edit", array('title'=>'Variante'));?>
+
 
 <div class="sabores index content-white">
 	<div class="btn-group pull-right">
-	<?php echo $this->Html->link(__('Crear Variante'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+	<?php echo $this->Html->link(__('Crear Variante'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg btn-add')); ?>
 	</div>
 
 	
@@ -58,7 +60,7 @@
 			<td class="actions">
 				<!-- Split button -->
 				<div class="btn-group">
-				  <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $sabor['Sabor']['id']), array('class'=>'btn btn-default  btn-sm')); ?>
+				  <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $sabor['Sabor']['id']), array('class'=>'btn btn-default  btn-sm btn-edit')); ?>
 
 				  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    <span class="caret"></span>

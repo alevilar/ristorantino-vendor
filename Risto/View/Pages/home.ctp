@@ -110,7 +110,9 @@
 		    });
 
 		    $("#loading").hide();
-		    $el.show('fade');
+		    setTimeout(function(){
+		    	$el.show('fade');
+		    }, 500);
 		});
 	</script>
 <?php $this->end();?>

@@ -59,6 +59,18 @@ F5F9FB
 .black{
   color: #000;
 }
+.black-9{
+  color: rgba(0,0,0,0.9);
+}
+.black-8{
+  color: rgba(0,0,0,0.8);
+}
+.black-5{
+  color: rgba(0,0,0,0.5);
+}
+.black-3{
+  color: rgba(0,0,0,0.3);
+}
 
 .white{
   color: #fff;

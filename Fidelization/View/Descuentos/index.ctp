@@ -1,7 +1,9 @@
+<?php $this->element("Risto.layout_modal_edit", array('title'=>'Descuento'));?>
+
 <div class="users index content-white">
 
 	<div class="btn-group pull-right">
-	<?php echo $this->Html->link(__('Crear Descuento', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
+	<?php echo $this->Html->link(__('Crear Descuento', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg btn-add')); ?>
 	</div>
 	<h2><?php echo __('Descuentos');?></h2>
 
@@ -40,7 +42,7 @@
 					<?php echo $descuento['Descuento']['created']; ?>
 				</td>
 				<td class="actions">
-					<?php echo $this->Html->link(__('Editar', true), array('plugin'=>'fidelization','controller'=>'descuentos','action'=>'edit', $descuento['Descuento']['id']), array('class'=>'btn btn-default')); ?>
+					<?php echo $this->Html->link(__('Editar', true), array('plugin'=>'fidelization','controller'=>'descuentos','action'=>'edit', $descuento['Descuento']['id']), array('class'=>'btn btn-default btn-edit')); ?>
 					<?php echo $this->Html->link(__('Borrar', true), array('action'=>'delete', $descuento['Descuento']['id']), array('class'=>'btn btn-danger'), sprintf(__('¿Está seguro que desea borrar el descuento: %s?', true), $descuento['Descuento']['name'])); ?>
 				</td>
 			</tr>

@@ -1,22 +1,5 @@
-<?php $this->start('modals');?>        
-	<div id="nuevoProducto" class="modal fade" tabindex="-1" role="dialog">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title">Crear Producto</h4>
-	      </div>
-	      <div class="modal-body">
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
+<?php $this->element("Risto.layout_modal_edit", array('title'=>'Producto'));?>
 
-	<script>
-		
-	$('.modal-body',"#nuevoProducto").load("<?php echo $this->Html->url(array('plugin'=>'product', 'controller'=>'productos', 'action'=>'add'))?>");
-	</script>
-<?php $this->end();?>
 
 <div class="productos index content-white">
 
@@ -53,11 +36,15 @@
 
 
 	<?php
-	    echo $this->Html->link(__('Crear Nuevo Producto'), '#nuevoProducto', 	array(
-	    	'class'=>'btn btn-lg btn-success',
-	    	'data-toggle' => 'modal',
-	    	'data-target' => '#nuevoProducto'
-	    		));
+	    echo $this->Html->link(__('Crear Nuevo Producto'), 
+	    					array(
+	    						'plugin' => 'product',
+	    						'controller' => 'productos',
+	    						'action' => 'add'
+	    					),
+	    					array(
+	    						'class'=>'btn btn-lg btn-success btn-add',
+    						));
 
 	    echo $this->Html->link('<span class="glyphicon glyphicon-usd"></span>Aplicar Precios Futuros'
 	    	, array('action' => 'actualizarPreciosFuturos')
@@ -166,7 +153,7 @@
 			<td class="actions" style="min-width: 112px;">
 				<!-- Split button -->
 				<div class="btn-group">
-				  <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $producto['Producto']['id']), array('class'=>'btn btn-default  btn-sm')); ?>
+				  <?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $producto['Producto']['id']), array('class'=>'btn btn-default  btn-sm btn-edit')); ?>
 
 				  <button type="button" class="btn btn-default  btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				    <span class="caret"></span>

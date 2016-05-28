@@ -42,14 +42,19 @@ class TipoDePagosController extends RistoAppController {
 	}
 
 	public function delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for TipoDePago'),'Risto.flash_error');
-			$this->redirect(array('action'=>'index'));
+
+		$this->TipoDePago->id = $id;
+		if (!$this->TipoDePago->exists()) {
+			throw new NotFoundException(__('Tipo de Pago Inválido'));
 		}
-		if ($this->TipoDePago->delete($id)) {
+
+
+		if ( $this->request->is(array('put', 'post')) && $this->TipoDePago->delete($id) ) {
 			$this->Session->setFlash(__('TipoDePago deleted'));
-			$this->redirect(array('action'=>'index'));
+		} elseif ($this->TipoDePago->id == TIPO_DE_PAGO_EFECTIVO ) {
+			$this->Session->setFlash(__('No se puede eliminar el Tipo de Pago: Efectivo'),'Risto.flash_error');
 		}
+		$this->redirect($this->referer());
 	}
 
 }

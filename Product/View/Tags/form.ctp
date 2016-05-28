@@ -1,12 +1,5 @@
 
 <div class="sabores form content-white">
-<?php
-     if (empty($this->request->data['Tag']['id'])):?>
-		<h2><?php echo __d('users', 'Agregar Tag'); ?></h2>
-<?php else: ?>
-		<h2><?php echo __d('users', 'Editando Tag "%s"', $this->request->data['Tag']['name']); ?></h2>
-<?php endif; ?>
-
 
 <?php echo $this->Form->create('Tag');?>
 <fieldset>
