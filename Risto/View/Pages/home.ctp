@@ -68,7 +68,9 @@
 		<div class="list-group center">
 			<?php App::uses('MtSites', 'MtSites.MtSites'); ?>
 			<?php if ( $this->Session->check('Auth.User.Site') ): ?>
-				<?php foreach ( $this->Session->read('Auth.User.Site') as $s ):
+				<?php 
+				$sites = $this->Session->read('Auth.User.Site');
+				foreach ( $sites as $s ):
 				?>
 						
 						<?php echo  $this->Html->link( "<h4>".$s['name']."</h4>" , array( 'tenant' => $s['alias'], 'plugin'=>'risto' ,'controller' => 'pages', 'action' => 'display', 'dashboard' ), array('class'=>'list-group-item', 'escape'=>false ));?>
@@ -102,11 +104,15 @@
 	<script type="text/javascript">
 		$(function() {
 			var $el = $("#p-comercios-list");
-			var topos = ( $(window).height() - $el.height() ) / 2  - 100 + "px";
+			var topos = ( $(window).height() - $el.height() ) / 2  - 100;
+
+			if (topos < 0) {
+				topos = 0;
+			}
 		    $el.css({
 		       // 'position' : 'absolute',
 		       // 'top' : '50%',
-		        'margin-top' : topos
+		        'margin-top' : topos + "px"
 		    });
 
 		    $("#loading").hide();
