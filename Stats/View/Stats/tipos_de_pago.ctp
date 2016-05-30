@@ -1,4 +1,4 @@
-
+<div class="content-white">
 
 <div class="well pull-right">
     <?php echo $this->element('formufecha'); ?>
@@ -10,6 +10,15 @@
 <div class="clearfix"></div>
 
 <div class="row">
+    <div class="col-sm-12">
+
+
+    <?php if (!$totales) { ?>
+    <p class="alert alert-info col-sm-8 col-sm-offset-2 center">
+        No existen datos para el rango de fechas indicado.
+    </p>
+    <?php } else { ?>
+
     <table class="table table-bordered table-condensed table-responsive table-striped ">
         <thead>
             <tr>
@@ -45,5 +54,8 @@
         </tbody>
         
     </table>
+    <?php } ?>
+    </div>
 </div>
 
+</div>

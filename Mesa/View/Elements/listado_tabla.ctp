@@ -102,7 +102,7 @@ foreach ($mesas as $mozo):
 
 			<!-- Split button -->
 			<div class="btn-group">
-			  <button type="button" class="btn btn-default"><?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $mozo['Mesa']['id'])); ?></button>
+			  <button type="button" class="btn btn-default"><?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $mozo['Mesa']['id']), array('class'=>'btn-edit')); ?></button>
 			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 			    <span class="caret"></span>
 			    <span class="sr-only">Toggle Dropdown</span>

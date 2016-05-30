@@ -1,15 +1,18 @@
+<div class="content-white">
 
-<div class="well pull-right">
-    <?php echo $this->element('formufecha'); ?>
-</div>
+    <div class="well pull-right">
+        <?php echo $this->element('formufecha'); ?>
+    </div>
 
-<h1>Ventas Por Mozo</h1>
+    <h1>Ventas Por Mozo</h1>
 
 
-<div class="clearfix"></div>
+<?php if (!$mozosTotales) { ?>
+    <p class="alert alert-info col-sm-8 col-sm-offset-2 center">
+        No existen datos para el rango de fechas indicado.
+    </p>
+<?php } else { ?>
 
-<div class="row">
-    <div class="col-sm-12">
     <table class="table table-bordered table-condensed table-responsive table-striped ">
         <thead>
             <tr>
@@ -51,6 +54,9 @@
         </tbody>
         
     </table>
-    </div>
-</div>
 
+<?php } ?>
+
+<div class="clearfix"></div>
+
+</div>

@@ -10,6 +10,9 @@ class PagosController extends MesaAppController
 	
 
    public function index() {
+    $this->layout = 'Cash.default';
+    $this->elementMenu = 'Cash.menu';
+
     $this->Prg->commonProcess();
     $conds = $this->Pago->parseCriteria( $this->Prg->parsedParams() );
 

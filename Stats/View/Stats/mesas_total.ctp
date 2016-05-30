@@ -1,3 +1,4 @@
+<div class="content-white">
 <?php
 
 
@@ -83,7 +84,7 @@ echo $this->Html->script("https://www.google.com/jsapi?autoload={
         <legend>Rango de Fechas</legend>
         <div class="row">
             <div class="col-md-4">
-                <?php echo $this->Form->input('desde', array('type' => 'date'));?>
+                <?php echo $this->Form->input('desde', array('type' => 'date', 'placeholder'=>'Desde'));?>
             </div>
 
             <div class="col-md-4">
@@ -161,4 +162,5 @@ echo $this->Html->css('/stats/css/stats', false);
 
 
 echo $this->Html->script('/stats/js/mesas_total', false); //plugin estadisticas
-
+?>
+</div>

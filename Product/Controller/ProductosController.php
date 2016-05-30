@@ -9,6 +9,12 @@ class ProductosController extends ProductAppController {
 
 	public $name = 'Productos';
 
+
+    public function producto_first_time () {
+        $this->elementMenu = false;
+        $this->layout = 'Install.default';
+        $this->index();
+    }
         
 	public function index() {
 		$this->Prg->commonProcess();
@@ -64,7 +70,7 @@ class ProductosController extends ProductAppController {
 			$this->Producto->create();
 			if ($this->Producto->save($this->request->data)) {
 				$this->Session->setFlash(__('The Producto has been saved', true));
-				$this->redirect(array('action'=>'index'));
+				$this->redirect($this->referer());
 			} else {
 				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.', true));
 			}
@@ -80,13 +86,13 @@ class ProductosController extends ProductAppController {
 
 		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid Producto', true));
-			$this->redirect(array('action'=>'index'));
+			$this->redirect($this->referer());
 		}
 
 		if (!empty($this->request->data)) {
 			if ($this->Producto->save($this->request->data)) {
                 $this->Session->setFlash('El producto fue guardado correctamente');                
-                $this->redirect(array('action'=>'index'));
+                $this->redirect($this->referer());
 			} else {
 				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.'), 'Risto.flash_error');
 			}
@@ -106,7 +112,7 @@ class ProductosController extends ProductAppController {
 		} else {
 		  $this->Producto->delete($id);
         }
-        $this->redirect(array('action'=>'index'));
+        $this->redirect($this->referer());
 	}
 	
 	

@@ -1,4 +1,4 @@
-
+<div class="content-white">
 
 
 <h1>Pedidos</h1>
@@ -35,3 +35,6 @@
 	?>
 	</tbody>
 </table>
+
+
+</div>

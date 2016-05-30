@@ -16,7 +16,7 @@ class RubrosController extends ComprasAppController {
  * @return void
  */
 	public function index() {
-		$this->Rubro->recursive = 0;
+		$this->Rubro->recursive = 1;
 		$this->set('rubros', $this->Paginator->paginate());
 	}
 

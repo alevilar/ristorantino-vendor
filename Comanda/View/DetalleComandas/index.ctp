@@ -1,4 +1,4 @@
-
+<div class="content-white">
 
 <div class="comandas index">
     <h2><?php __('Comandas'); ?></h2>
@@ -100,4 +100,5 @@
     </div>
 
 
+</div>
 </div>

@@ -48,13 +48,22 @@
 
 	    echo $this->Html->link('<span class="glyphicon glyphicon-usd"></span>Aplicar Precios Futuros'
 	    	, array('action' => 'actualizarPreciosFuturos')
-	    	, array('class' => 'btn btn-default btn-lg', 'escape' => false )
+	    	, array('class' => 'btn btn-default btn-lg btn-precio-futuro', 'escape' => false )
 	    	, 'Está por modificar todos los precios, por su valor futuro. ¿Seguro?');
 	    ?>
 	</div>
 	<h2><?php echo __('Productos');?></h2>
 
 	<br>
+
+	<?php if ( empty($productos) ) { ?>
+
+		<p class="alert alert-info center">
+			Deberá crear Productos. Le recomendamos comenzar con algunos, sólo para comenzar, luego podrá agregar el resto.
+		</p>
+
+
+	<?php } else { ?>
 	<p>
 	    <?php
 	//echo $this->Paginator->options(array('url'=>$this->params['PaginateConditions']));
@@ -200,6 +209,8 @@
 	<?php echo $linkImg?>
 	 En esta imagen podrás ver el Menú de un restaurante y entender lo que es un Producto, una Categoria y una Variante. <br> <br>
 	</p>
+
+	<?php } // end if si no hay productos?>
 
 </div>
 

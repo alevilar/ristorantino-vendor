@@ -1,3 +1,5 @@
+<div class="content-white">
+
 <?php if (!empty($this->request->data['Pedido']['id'])) { ?>
     <h1>Agregando Mercaderias al Pedido <?php echo $this->Html->link("#".$this->request->data['Pedido']['id'], array('action'=>'view', $this->request->data['Pedido']['id']))?></h1>
 <?php } else { ?>
@@ -101,6 +103,8 @@
 	<div class="col-md-4 col-xs-3"><?php echo $this->Form->input('PedidoMercaderia.{X}.observacion', array('type'=>'text', 'placeholder'=>'Obervación', 'label'=>false)); ?></div>
 </div>
 
+<div class="clearfix"></div>
+
 <script type="text/javascript">
 	
 	var mercaUnidades = <?php echo json_encode($mercaUnidades);?>;
@@ -113,4 +117,6 @@ echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', t
 // echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead', true);
 //echo $this->Html->script('/risto/js/typeahead.bundle', true);
 echo $this->Html->script('/compras/js/pedidos/add', true);
+?>
 
+</div>

@@ -21,7 +21,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 	<h1 class="blue center"><?php echo Configure::read('Site.name')?></h1>
 	<div class="col-md-12">
 		<div class="dashboard">
-			<h4 class="white-8">APP's Instaladas</h4>
+			<h5 class="white-5">APP's Instaladas</h5>
 		   	<ul class="dashboard-buttons row">
 
 					<?php 
@@ -41,12 +41,17 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 					} else {
 						?>
 						<li class="" id="bton-reservations">
-							<?
+							<?php
 						$img = $this->Html->image('/risto/css/ristorantino/home/reservations.png');
-					  echo $this->Html->link($img.__('Reservas'), array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar'), array(
+					  echo $this->Html->link($img.__('Reservas'), array(
+					  			'plugin' =>'aditions', 
+					  			'controller'=>'aditions', 
+					  			'action'=>'adicionar'
+				  			), array(
 					  			'data-toggle' => "tooltip",
 								'data-placement'=>"bottom",
 					  			'title'=>"Reservar habitaciones o para facturar.",
+					  			'escape' => false,
 					  			)); 
   			  			?></li><?php
 
@@ -139,7 +144,11 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 					<li id="bton-stats" class="">  
 						<?php 
 						$img = $this->Html->image('/risto/css/ristorantino/home/stats.png');
-						echo $this->Html->link($img.__('Estadísticas'), array('plugin' => 'stats', 'controller' => 'stats', 'action'=>'mesas_totales'), array(
+						echo $this->Html->link($img.__('Estadísticas'), array(
+									'plugin' => 'stats', 
+									'controller' => 'stats', 'action'=>'mesas_total'
+								), 
+								array(
 						  			'escape' => false,
 						  			'data-toggle' => "tooltip",
 									'data-placement'=>"bottom",

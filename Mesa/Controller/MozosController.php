@@ -60,6 +60,13 @@ class MozosController extends MesaAppController {
 
 	}
 
+
+
+	public function add_first_time() {
+		$this->layout = 'Install.default';
+		$this->index();		
+	}
+
         
                 
 	public function edit($id = null) {
@@ -72,7 +79,7 @@ class MozosController extends MesaAppController {
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->Mozo->save($this->request->data)) {
 				$this->Session->setFlash(__('%s guardado correctamente',  Configure::read('Mesa.tituloMozo')), 'Risto.flash_success');
-				$this->redirect(array('controller'=>'mozos','action' => 'index'));
+				$this->redirect($this->referer());
 			} else {
 				$this->Session->setFlash(__('The %s could not be saved. Please, try again.',  Configure::read('Mesa.tituloMozo') ),'Risto.flash_error');
 			}
@@ -87,7 +94,7 @@ class MozosController extends MesaAppController {
 			$this->redirect(array('action'=>'index'),'Risto.flash_error');
 		}
 		$this->Mozo->delete($id);
-		$this->redirect(array('action'=>'index'));
+		$this->redirect($this->referer());
 	}
 
         /**

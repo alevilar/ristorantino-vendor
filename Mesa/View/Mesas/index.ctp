@@ -1,5 +1,8 @@
+<?php $this->element("Risto.layout_modal_edit", array('title'=>'Mesa', 'size'=>'modal-lg'));?>
+
+<div class="content-white">
 <div id="mesas-index">
-    <?php echo $this->Html->link(__('Abrir %s', Configure::read('Mesa.tituloMesa')), array('action' => 'add'), array('class'=>'btn btn-lg btn-success pull-right')); ?>
+    <?php echo $this->Html->link(__('Abrir %s', Configure::read('Mesa.tituloMesa')), array('action' => 'add'), array('class'=>'btn btn-lg btn-success pull-right btn-add')); ?>
     <h1><?php echo Inflector::pluralize(   Configure::read('Mesa.tituloMesa') ) ;?></h1>
 
     <!-- fomr search -->
@@ -148,4 +151,5 @@
      | 	<?php echo $this->Paginator->numbers();?>
     	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'btn btn-default'));?>
     </div>
+</div>
 </div>

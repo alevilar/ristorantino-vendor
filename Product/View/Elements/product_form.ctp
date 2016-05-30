@@ -38,7 +38,7 @@
 			}
 
 
-			echo $this->Form->input('printer_id',array('empty'=>'Seleccionar','after'=>'Impresora donde saldrá el pedido de este producto'));
+			echo $this->Form->input('printer_id',array('empty'=>'Seleccionar','after'=>'Impresora donde saldrá la Orden de Pedido para este producto'));
 
 	        echo $this->Form->input('order', array(
 	        	'label'=>__('Orden'),

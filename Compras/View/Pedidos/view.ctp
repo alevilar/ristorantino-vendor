@@ -1,3 +1,4 @@
+<div class="content-white">
 <h1>Viendo el pedido #<?php echo $pedido['Pedido']['id']?></h1>
 
 <?php echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-lg btn-default pull-right')); ?>
@@ -42,4 +43,5 @@
 		</tr>
 	<?php }?>
 	</table>
+</div>
 </div>

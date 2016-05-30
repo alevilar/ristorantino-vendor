@@ -98,6 +98,8 @@ class ComandasController extends ComandaAppController {
      * 
      **/
     public function comandero( $printer_id = null){
+
+        $this->menuElement = 'Risto.menu_comandero';
         $printers = $this->Comanda->Printer->find('list', array('conditions'=>array('driver' => 'Receipt')));
 
         $this->comandero_index();

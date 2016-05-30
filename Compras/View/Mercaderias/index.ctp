@@ -1,6 +1,10 @@
+<?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Mercaderia'));?>
+
+
+<div class="content-white">
 <h1>Mercaderias</h1>
 
-<?php echo $this->Html->link('Agregar Mercadería', array('action'=>'add'), array('class'=>'btn btn-success pull-right')); ?>
+<?php echo $this->Html->link('Agregar Mercadería', array('action'=>'add'), array('class'=>'btn btn-success pull-right btn-add')); ?>
 
 <table class="table">
 
@@ -22,7 +26,7 @@
 		<td><?php echo $m['Proveedor']['name']?></td>
 		<td><?php echo $m['Rubro']['name']?></td>
 		<td>
-			<?php echo $this->Html->link('editar', array('action'=>'edit', $m['Mercaderia']['id']), array('class'=>'btn btn-default'));?>
+			<?php echo $this->Html->link('editar', array('action'=>'edit', $m['Mercaderia']['id']), array('class'=>'btn btn-default btn-edit'));?>
 
             <?php echo $this->Html->link(__('Borrar'), array('action'=>'delete',  $m['Mercaderia']['id']), array('class'=>'btn btn-link'), sprintf(__('Seguro que querés borrar # %s?'), $m['Mercaderia']['name'])); ?>
 
@@ -33,3 +37,4 @@
 </table>
 
 <?php echo $this->element('Users.pagination') ?>
+</div>

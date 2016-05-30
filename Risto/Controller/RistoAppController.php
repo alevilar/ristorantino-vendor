@@ -42,6 +42,7 @@ class RistoAppController extends Controller {
 
     public $components = array(
         'Session',
+        'Flash',
         'Cookie',
         'RequestHandler',
         'Auth' => array(

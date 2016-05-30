@@ -7,6 +7,9 @@
 	 	<br>
 	 	<b>"<?php echo Configure::read('Site.name');?>"</b>
  	<?php } ?>
+
+
+ 	<?php echo $this->fetch('pos-tenant');?>
 </div>
 
 <?php } ?>

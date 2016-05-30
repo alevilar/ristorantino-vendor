@@ -16,6 +16,9 @@ class MesasController extends MesaAppController {
     
     
     public function index() {
+        $this->layout = 'Stats.default';
+        $this->elementMenu = 'Stats.menu';
+        
         $this->Prg->commonProcess();
         $conds = $this->Mesa->parseCriteria( $this->Prg->parsedParams() );
         $conds['Mesa.deleted'] = 0;
@@ -201,14 +204,12 @@ class MesasController extends MesaAppController {
             }
         }
               
-        if ( !$this->request->is('ajax') ) {
-            $mozos = $this->Mesa->Mozo->listFullName();
-            $tipo_pagos = $this->Mesa->Pago->TipoDePago->find('list');
-            $descuentos = $this->Mesa->Descuento->find('list');
-            $clientes = $this->Mesa->Cliente->find('list');
+        $mozos = $this->Mesa->Mozo->listFullName();
+        $tipo_pagos = $this->Mesa->Pago->TipoDePago->find('list');
+        $descuentos = $this->Mesa->Descuento->find('list');
+        $clientes = $this->Mesa->Cliente->find('list');
 
-            $this->set(compact('mozos', 'descuentos', 'tipo_pagos', 'clientes'));
-        }
+        $this->set(compact('mozos', 'descuentos', 'tipo_pagos', 'clientes'));
         
         $this->set('clientes', $this->Mesa->Cliente->find('list'));
         $this->set('estados', $this->Mesa->Estado->find('list'));

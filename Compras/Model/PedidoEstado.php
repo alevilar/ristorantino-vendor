@@ -50,4 +50,27 @@ class PedidoEstado extends ComprasAppModel {
 		)
 	);
 
+
+
+
+
+    /**
+	 * Called before every deletion operation.
+	 *
+	 * @param bool $cascade If true records that depend on this record will also be deleted
+	 * @return bool True if the operation should continue, false if it should abort
+	 * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#beforedelete
+	 */
+	public function beforeDelete($cascade = true) {
+		$idInborrables = array(
+				COMPRAS_PEDIDO_ESTADO_PENDIENTE,
+				COMPRAS_PEDIDO_ESTADO_COMPLETADO,
+				COMPRAS_PEDIDO_ESTADO_PEDIDO,
+			);
+		if ( in_array($this->id, $idInborrables)) {
+			return false;
+		}
+
+		return true;
+	}
 }

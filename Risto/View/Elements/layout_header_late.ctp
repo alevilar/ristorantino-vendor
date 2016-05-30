@@ -6,6 +6,7 @@
 
 <header id="p-header">
 
+    <?php echo $this->fetch('pre-header') ?>
 	<?php echo $this->element('Risto.paxapos_header_userdata');?>
 	
 

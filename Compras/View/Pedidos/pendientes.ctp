@@ -1,3 +1,4 @@
+<div class="content-white">
 <h2>Índice por Estado del Pedido</h2>
 
 
@@ -70,7 +71,13 @@ foreach ($pedidos as $estId => $pedidosRub) {
 
 		?>
 		<table class="table table-condensed table-responsive">
-		    <caption class="center"><h4><?php echo !empty($rub['Rubro']['name']) ? $rub['Rubro']['name']: 'Sin Rubro Definido'?></h4>
+		    <caption class="center">
+
+		    <?php 
+		    $clasH4 = empty($rub['Rubro']['name']) ? 'text-danger': '';
+		    $faIcon = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>';
+		    ?>
+		    	<h4 class="<?php echo $clasH4?>"><?php echo !empty($rub['Rubro']['name']) ? $rub['Rubro']['name']: $faIcon.'Sin Rubro Definido'?></h4>
 
 		    	<?php 
 		    		if ( !empty($rub['Rubro']['Proveedor']) ) {
@@ -142,3 +149,4 @@ foreach ($pedidos as $estId => $pedidosRub) {
 
 <?php echo $this->Html->script('/compras/js/pedidos/pendientes'); ?>
 
+</div>

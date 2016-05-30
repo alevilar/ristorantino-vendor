@@ -1,3 +1,5 @@
+<div class="content-white">
+
 <?php 
 if ( empty($this->request->data['Mercaderia'])) {
 ?>
@@ -27,3 +29,5 @@ if ( empty($this->request->data['Mercaderia'])) {
 	<?php echo $this->element('Users.pagination') ?>
 
 <?php } ?>
+
+</div>
