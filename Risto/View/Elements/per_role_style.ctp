@@ -9,10 +9,10 @@
             	$rcss = "acl-" . $r['machin_name'];
     	        $ppath = App::pluginPath('Risto');
     	        if ( file_exists( $ppath . DS . 'webroot' . DS . 'css' . DS . $rcss . '.css') ) {
-    	            echo $this->Html->css('/risto/css/'.$rcss, 'stylesheet', array('media' => 'screen'));
+    	            echo $this->Html->css('/risto/css/'.$rcss);
     	        } else {
-                           CakeLog::write('error','No existe la hoja de estilos para el rol: '. $r['machin_name']. ' en path: '.$ppath . DS . 'webroot' . DS . 'css' . $rcss . '.css');
-                    }
+                   CakeLog::write('error','No existe la hoja de estilos para el rol: '. $r['machin_name']. ' en path: '.$ppath . DS . 'webroot' . DS . 'css' . $rcss . '.css');
+                }
             }
         }
 ?>

@@ -182,21 +182,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 			),
 			'cash_cajas' => array(
 				array('name' => 'Caja Ventas'),
-			),
-			'roles' => array(
-					array(
-						'name' => 'Administrador',
-						'machin_name' => 'administrador',
-						),
-					array(
-						'name' => 'Mozo',
-						'machin_name' => 'mozo',
-						),
-					array(
-						'name' => 'Adicionista',
-						'machin_name' => 'adicionista',
-						),
-			),
+			),			
 			'estados' => array(
 				array(
 					'name' => 'Abierta',
@@ -1194,6 +1180,20 @@ class TenantBaseSchema extends RistoBaseSchema {
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
+
+	public $generic_users = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'pin' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128),
+		'rol_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'pin' => array('column' => 'pin', 'unique' => 1),
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+
 
 	public $tipo_de_pagos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),

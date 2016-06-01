@@ -23,7 +23,23 @@ class HotelTenantSchema extends TenantBaseSchema {
 					'driver_model' => 'Display',
 					),
 			),
-			
+			'roles' => array(
+					array(
+						'id' => ROL_ID_MOZO,
+						'name' => 'Maestranza',
+						'machin_name' => 'mozo',
+						),
+					array(
+						'id' => ROL_ID_CAJERO,
+						'name' => 'Recepcionista',
+						'machin_name' => 'adicionista',
+						),
+					array(
+						'id' => ROL_ID_ENCARGADO,
+						'name' => 'Administrador',
+						'machin_name' => 'administrador',
+						),
+			),
 			
 		);
 }

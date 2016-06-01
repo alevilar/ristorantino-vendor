@@ -4,13 +4,7 @@
 		
 
 	  	<?php
-	  	/*
-        echo $this->Html->link('Usuarios'
-                , array('plugin' => 'site_users', 'controller'=>'site_users', 'action' => 'index')
-                , array('class' => 'list-group-item'));
-        //echo $this->Html->link('Roles',  array('plugin' => 'users', 'controller'=>'roles', 'action' => 'index'), array('class' => 'list-group-item'));
-        echo $this->Html->link( Inflector::pluralize( Configure::read('Mesa.tituloMozo') ) , array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'index'), array('class' => 'list-group-item'));
-        */
+
         $class = $this->request->plugin == 'mesa' ? 'active':'';
         echo $this->Html->link( Inflector::pluralize('<i class="fa fa-user-plus" aria-hidden="true"></i>
 &nbsp;'.Configure::read('Mesa.tituloMozo') ) , array('plugin'=>'mesa', 'controller'=>'mozos', 'action'=>'index'), array('class' => 'list-group-item '.$class, 'escape'=>false));
@@ -45,6 +39,18 @@
 
         <!-- configuracion general -->
         <?php
+
+        echo $this->Html->link('<i class="fa fa-key" aria-hidden="true"></i> '.'Usuarios'
+                , array('plugin' => 'users', 'controller'=>'generic_users', 'action' => 'index')
+                , array(
+                'class' => 'list-group-item',
+                'escape' => false,
+            ));
+       
+       
+
+
+
         $class = $this->request->plugin == 'install' ? 'active':'';
         echo $this->Html->link('<i class="fa fa-gears" aria-hidden="true"></i>
 &nbsp;'.__('Configuración del Comercio'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'edit'), array('class' => 'list-group-item '.$class, 'escape'=>false));
@@ -59,6 +65,7 @@
 
 
 
+        <br>
 
          <?php
 

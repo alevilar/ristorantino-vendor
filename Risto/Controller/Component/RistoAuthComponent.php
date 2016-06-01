@@ -32,6 +32,44 @@ App::uses('AuthComponent', 'Controller/Component');
 class RistoAuthComponent extends AuthComponent {
 
 
+	/**
+ * A URL (defined as a string or array) to the controller action that handles
+ * logins. Defaults to `/users/login`.
+ *
+ * @var mixed
+ */
+	public $loginAction = array(
+		'plugin' => 'users',
+		'controller' => 'users',
+		'action' => 'login',
+	);
+
+
+
+
+
+/**
+ * Initializes AuthComponent for use in the controller.
+ *
+ * @param Controller $controller A reference to the instantiating controller object
+ * @return void
+ */
+	public function initialize(Controller $controller) {
+
+		parent::initialize($controller);
+
+		$loginUrl = array(
+                'plugin' => 'users',
+                'controller' => 'users',
+                'action' => 'login', 
+                'admin' => false, 
+                );
+        if ( !empty( $controller->request->params['tenant'] ) ) {
+            $loginUrl['action'] = 'tenant_login';
+        }
+        $this->loginAction = $loginUrl;
+        $this->logoutRedirect = $loginUrl;
+	}
 
 
 /**
@@ -65,4 +103,8 @@ class RistoAuthComponent extends AuthComponent {
 		}
 		return true;
 	}
+
+
+
+
 }

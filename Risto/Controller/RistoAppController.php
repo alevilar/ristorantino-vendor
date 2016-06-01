@@ -47,16 +47,23 @@ class RistoAppController extends Controller {
         'RequestHandler',
         'Auth' => array(
             'className' => 'Risto.RistoAuth',
-            'loginAction' => array('plugin'=>'users', 'controller' => 'users', 'action' => 'login', 'admin' => false ),
-            'logoutRedirect' => array('plugin'=>'users','controller' => 'users', 'action' => 'login'),
             'loginError' => 'Usuario o Contraseña Incorrectos',
             'authError' => 'Usted no tiene permisos para acceder a esta página.', 
             'authorize' => array('Controller','MtSites.MtSites'),
             'authenticate' => array(
+                'Risto.Pin',
                 'Form' => array(
+                    'contain' => array('Site'),
                     'recursive' => 1,
-                    'contain' => array('Site')
-                )
+                    'fields' => array(
+                        'username' => 'email',
+                        'password' => 'password'),
+                    'userModel' => 'Users.User',
+                    'scope' => array(
+                        'User.active' => 1,
+                        // $this->modelClass . '.email_verified' => 1
+                    )
+                ),
             ),        
             'flash' => array('element'=>'Risto.flash_error'),
         ),
@@ -88,18 +95,15 @@ class RistoAppController extends Controller {
 
     public function beforeFilter()
      {            
+
+        App::uses('MtSites', 'MtSites./Utility/MtSites');
+
+
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
 
 
-        $this->Auth->allow(array('auth_callback', 'auth_login'));
-
-        $this->Auth->loginAction = array(
-                'plugin' => 'users',
-                'controller' => 'users',
-                'action' => 'login', 
-                'admin' => false, 
-                );
+     
 
         return parent::beforeFilter();
         

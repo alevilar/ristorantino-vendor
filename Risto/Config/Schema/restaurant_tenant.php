@@ -33,7 +33,29 @@ class RestaurantTenantSchema extends TenantBaseSchema {
 					'before_comanda_estado_id' => 3,
 					'after_comanda_estado_id' => COMANDA_ESTADO_LISTO,
 					),			
-				),			
+				),
+			'roles' => array(
+					array(
+						'id' => ROL_ID_MOZO,
+						'name' => 'Mozo',
+						'machin_name' => 'mozo',
+						),
+					array(
+						'id' => ROL_ID_CAJERO,
+						'name' => 'Cajero',
+						'machin_name' => 'adicionista',
+						),
+					array(
+						'id' => ROL_ID_ENCARGADO,
+						'name' => 'Encargado',
+						'machin_name' => 'administrador',
+						),
+					array(
+						'id' => ROL_ID_COCINERO,
+						'name' => 'Cocinero',
+						'machin_name' => 'mozo',
+						),
+			),
 		);
 }
 

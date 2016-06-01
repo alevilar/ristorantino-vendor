@@ -8,8 +8,7 @@
 *		Paginas del CORE o App Global (no tenant)
 */
 	Router::connect('/', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'home'));	
-	Router::connect('/login', array('plugin'=>'users','controller' => 'users', 'action' => 'login'));	
-	Router::connect('/bye', array('plugin'=>'users','controller' => 'users', 'action' => 'logout'));
+	Router::connect('/login', array('plugin'=>'users','controller' => 'users', 'action' => 'login'));
 	Router::connect('/pages/tos', array('plugin'=>'risto','controller' => 'pages', 'action' => 'display', 'tos'));
 	
 
@@ -39,6 +38,13 @@
 
 
 	Router::connect('/:tenant', array('plugin' => 'risto','controller' => 'pages', 'action' => 'display', 'dashboard'), $tenantRoutConfig);	
+
+	Router::connect('/:tenant/login', array('plugin'=>'users','controller' => 'users', 'action' => 'tenant_login'), $tenantRoutConfig);
+
+	Router::connect('/:tenant/bye', array('plugin'=>'users','controller' => 'users', 'action' => 'logout'), $tenantRoutConfig);
+	Router::connect('/bye', array('plugin'=>'users','controller' => 'users', 'action' => 'logout'));
+
+
 	Router::connect('/:tenant/pages/administracion', array('plugin' => 'risto', 'controller' => 'pages', 'action' => 'display', 'administracion'), $tenantRoutConfig);
 
 /**

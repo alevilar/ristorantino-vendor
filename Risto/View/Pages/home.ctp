@@ -1,21 +1,8 @@
 <?php $this->assign('title', 'Mi Cuenta');?>
 
 
-<?php $this->append('paxapos-main-menu');?>
 
-	<h3 class="center blue-8">Mis Comercios</h3>
-
-	<!-- Button trigger modal -->
-		<button type="button" class="btn btn-success btn-lg btn-block center" data-toggle="modal" data-target="#modal-nuevo-comercio">
-			<i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp;
-		    <?php echo __('Crear Nuevo Comercio')?>
-		</button>
-
-
-		<br>
-		<?php echo $this->element("Risto.paxapos_main_menu/mi_cuenta");?>
-<?php $this->end();?>
-
+<?php echo $this->element('Risto.paxapos_main_menu/home_context_menu');?>
 
 <?php $this->start('modals'); ?>
 

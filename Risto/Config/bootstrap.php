@@ -30,6 +30,7 @@ Inflector::rules('singular', array(
         'fiscal_printers' => 'fiscal_printer',
         'printers' => 'printer',
         'config_categories' => 'config_category',
+        'generic_users' => 'generic_user',
     ),
         )
 );
@@ -37,6 +38,7 @@ Inflector::rules('singular', array(
 Inflector::rules('plural', array(
     'rules' => array('/([r|d|j|n|l|m|y|z])$/i' => '\1es', '/a$/i' => '\1as'),
     'irregular' => array(
+        'generic_user' => 'generic_users',
         'user' => 'users',
         'group' => 'groups',
         'adicion' => 'adicion',
@@ -97,6 +99,10 @@ define("IVA_RESPONSABILIDAD_RESPONSABLE_INSCRIPTO", 1); // Responsable Inscripto
 define("TIPO_DOCUMENTO_CUIT", 1); // Tipo Documento CUIT
 
 
+define('ROL_ID_MOZO', 1);
+define('ROL_ID_CAJERO', 2);
+define('ROL_ID_ENCARGADO', 3);
+define('ROL_ID_COCINERO', 4);
 
 define('SITE_TYPE_RESTAURANTE', 'restaurante');
 define('SITE_TYPE_HOTEL', 'hotel');
