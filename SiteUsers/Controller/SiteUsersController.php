@@ -90,7 +90,31 @@ class SiteUsersController extends UsersAppController {
 
 		if ( $this->request->is('post')) {
 			unset ( $this->request->data[$this->modelClass]['last_login'] );
-			if ( $this->{$this->modelClass}->edit($userId, $this->request->data) ) {
+
+			
+			$this->{$this->modelClass}->bindModel(array(
+		        'hasMany' => array(
+		            'RolUser' => array(
+		                'classname' => 'Users.RolUser',
+		            ) 
+		        ) 
+		    ));
+
+			$rolUser = array();
+			debug($this->request->data);
+			if (!empty($this->request->data['Rol']['Rol'])) {
+			    foreach ($this->request->data['Rol']['Rol'] as $rolId )  {
+			    	$rolUser[] = array(
+			    		'rol_id' => $rolId,
+			    		'user_id' => $userId,
+			    		);
+			    }
+
+			}
+
+			$this->{$this->modelClass}->RolUser->deleteAll(array('RolUser.user_id' => $userId ));
+
+			if ( $this->{$this->modelClass}->RolUser->saveMany( $rolUser ) ) {
 				$this->Session->setFlash(__d('users', 'User saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
