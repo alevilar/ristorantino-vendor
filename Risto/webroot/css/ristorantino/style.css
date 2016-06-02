@@ -55,6 +55,18 @@ F5F9FB
 .grey{
   color: #666666;
 }
+.grey-9{
+  color: rgba(102, 102, 102, 0.9);
+}
+.grey-8{
+  color: rgba(102, 102, 102, 0.8);
+}
+.grey-5{
+  color: rgba(102, 102, 102, 0.5);
+}
+.grey-3{
+  color: rgba(102, 102, 102, 0.3);
+}
 
 .black{
   color: #000;
@@ -112,6 +124,19 @@ F5F9FB
 .bg-grey{
   background-color: #666666;
 }
+.bg-grey-9{
+  background-color: rgba(102, 102, 102, 0.9);
+}
+.bg-grey-8{
+  background-color: rgba(102, 102, 102, 0.8);
+}
+.bg-grey-5{
+  background-color: rgba(102, 102, 102, 0.5);
+}
+.bg-grey-3{
+  background-color: rgba(102, 102, 102, 0.3);
+}
+
 
 .bg-black{
   background-color: rgba(0, 0, 0, 0.7);

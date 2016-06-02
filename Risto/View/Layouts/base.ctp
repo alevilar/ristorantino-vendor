@@ -32,7 +32,9 @@
     	<?php echo $this->fetch('modals'); ?>
 	    <div id="body-wrapper">
 
-	        <div class="p-main-background"></div>
+	        <div id="p-main-background">
+	        	<?php echo $this->Html->image('/paxapos/img/logotip_azul_con_isologo_rojo.png');?>
+	        </div>
 			    
 		    <div id="content-wrapper">
 		        
