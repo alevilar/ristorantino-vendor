@@ -68,15 +68,17 @@ class MediaUploadableBehavior extends ModelBehavior {
 	      $data = array('Media' => $Model->data[$Model->alias][$this->_form_field_name]);
 	      $data['Media']['file'] = file_get_contents($Model->data[$Model->alias][$this->_form_field_name]['tmp_name']);
 	      $data['Media']['model'] = $Model->name;
+	      $Model->Media->create();
 	      if ( !$Model->Media->save($data)) {
-	      	// error
-	      	$Model->validationErrors[$_form_field_name] = $this->Media->validationErrors;
-	      	return false;
+	      		// error
+	      		$Model->validationErrors[$this->_form_field_name] = $Model->Media->validationErrors;
+	      		return false;
 	      }
-	      $Model->data[$Model->alias][$this->_form_fk] = $Model->Media->id;
+      	  $Model->data[$Model->alias][$this->_form_fk] = $Model->Media->id;
+      	  
 	    }
-	    
-	    return $Model->beforeSave();
+
+	    return true;
 	  }
 }
   

@@ -19,10 +19,17 @@ class PxHtmlHelper extends Bs3HtmlHelper {
 
         $img = $this->imageMedia( $media, $options );
 
+        $imgModalClass = '';
+        if ( !empty($options['img-modal']) ) {
+            $imgModalClass = ' img-modal';
+        }
 
         $route = array('plugin' => 'risto', 'controller'=>'medias', 'action'=>'view', $id );       
         $url = $this->url( $route );
-        return $this->link($img, $url, array('escape'=>false, 'class'=>'px-media-link'));
+        return $this->link($img, $url, array(
+                    'escape'=>false, 
+                    'class'=>'px-media-link'.$imgModalClass,
+                    ));
     }
 
     /**

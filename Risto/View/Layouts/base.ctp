@@ -4,7 +4,11 @@
 		<?php echo $this->element('Risto.header_inner_ristorantino') ?>
 		<?php echo $this->Html->css('/risto/css/risto_base_style');?>
 		<?php echo $this->element('Paxapos.layout_head');?>
-		<script src="https://use.fontawesome.com/a785a3f126.js"></script>
+		<!-- <script src="https://use.fontawesome.com/a785a3f126.js"></script> -->
+
+		<?php echo $this->Html->css('/risto/font-awesome-4.6.3/css/font-awesome.min');?>
+
+
 		<?php echo $this->Html->script('Risto.jquery/jquery-ui')?>
 
 
@@ -95,6 +99,6 @@
         echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
-        ?>
+        ?>        
     </body>
 </html>
