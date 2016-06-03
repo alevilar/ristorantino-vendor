@@ -17,15 +17,17 @@ class MediasController extends AppController {
         }
         $media = $this->Media->read(null, $id);
 
-        $body = $media['Media']['file'];
-        $type = $media['Media']['type'];
 
         list( $type, $ext ) = explode("/", $media['Media']['type']);
         $ext = strtolower($ext);
-        if ( !empty( $forceImage ) && $ext == "pdf") {
+        if ( $ext == "pdf" && $forceImage) {
             return $this->__pdfToImg($media);
         }
 
+
+        $body = $media['Media']['file'];
+        $type = $media['Media']['type'];
+        
         $this->response->body( $body );
         $this->response->type( $type );
 
@@ -68,12 +70,13 @@ class MediasController extends AppController {
             $im->setIteratorIndex(0);
         }
         $im->setImageFormat('jpg');
-        return $this->__response( $im, $media );
+        $type = 'image/jpg';
+        return $this->__response( $im, $media, $type );
     }
 
 
 
-    private function __response( $im, $media ) {
+    private function __response( $im, $media, $type ) {
         $body = $im->getImageBlob();
 
         $this->response->header( 'Content-disposition', "filename=" . $media['Media']['name'] );
@@ -81,7 +84,7 @@ class MediasController extends AppController {
         $this->response->body( $body );
         $this->response->type($type);
 
-        $type = 'image/jpg';
+        
         // Return response object to prevent controller from trying to render
         // a view
         return $this->response;
@@ -127,7 +130,7 @@ class MediasController extends AppController {
             $type = 'image/png';
         }
         
-        return $this->__response( $im, $media );
+        return $this->__response( $im, $media, $type );
 
     }
 	
