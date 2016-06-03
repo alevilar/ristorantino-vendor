@@ -1,7 +1,6 @@
 (function($){
 	
 	var $imgModals = $('a.img-modal');
-console.info($imgModals);
 
 	var $modal = $("#modal-for-images");
 
@@ -9,6 +8,10 @@ console.info($imgModals);
 
 	$imgModals.on('click', function(e){
 
+		if ( e.which == 2 || e.which == 3) { 
+            return true;
+        }
+        
 		e.preventDefault();
 		
 		// copiar la imagen para meterla en el modal
@@ -16,7 +19,7 @@ console.info($imgModals);
 		
 
 		var tmpImg = new Image();
-		tmpImg.src=this.href; //or  document.images[i].src;
+		tmpImg.src=this.href+"/force-img"; //or  document.images[i].src;
 
 		var $imgs = $(tmpImg).one('load',function(){
 		  var orgWidth = tmpImg.width;

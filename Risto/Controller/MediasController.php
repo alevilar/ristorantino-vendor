@@ -9,7 +9,7 @@ class MediasController extends AppController {
 
     public $uses = array('Risto.Media');
 
-    public function view ($id) {
+    public function view ($id, $forceImage = false) {
         $this->Media->recursive = -1;
 
         if ( !$this->Media->exists($id) ) {
@@ -19,6 +19,12 @@ class MediasController extends AppController {
 
         $body = $media['Media']['file'];
         $type = $media['Media']['type'];
+
+        list( $type, $ext ) = explode("/", $media['Media']['type']);
+        $ext = strtolower($ext);
+        if ( !empty( $forceImage ) && $ext == "pdf") {
+            return $this->__pdfToImg($media);
+        }
 
         $this->response->body( $body );
         $this->response->type( $type );
@@ -52,6 +58,36 @@ class MediasController extends AppController {
     }
 
 
+    private function __pdfToImg( $media ) {
+        // pdf thumb
+        $im = new imagick();
+        $im->readImageBlob($media['Media']['file']);
+
+        $num_pages = $im->getNumberImages();
+        if ( $num_pages > 0) {
+            $im->setIteratorIndex(0);
+        }
+        $im->setImageFormat('jpg');
+        return $this->__response( $im, $media );
+    }
+
+
+
+    private function __response( $im, $media ) {
+        $body = $im->getImageBlob();
+
+        $this->response->header( 'Content-disposition', "filename=" . $media['Media']['name'] );
+
+        $this->response->body( $body );
+        $this->response->type($type);
+
+        $type = 'image/jpg';
+        // Return response object to prevent controller from trying to render
+        // a view
+        return $this->response;
+    }
+
+
     /**
     *
     *   Muestra un thumbnain y se pueden enviar los anchos y los altos para generar un thumbail
@@ -67,16 +103,9 @@ class MediasController extends AppController {
         list( $type, $ext ) = explode("/", $media['Media']['type']);
         $ext = strtolower($ext);
         if ( $ext == "pdf") {
-            // pdf thumb
-            $im = new imagick();
-            $im->readImageBlob($media['Media']['file']);
+            // si es PDF mandar 1er pagina
+            return $this->__pdfToImg( $media );
 
-            $num_pages = $im->getNumberImages();
-            if ( $num_pages > 0) {
-                $im->setIteratorIndex(0);
-            }
-            $im->setImageFormat('jpg');
-            $type = 'image/jpg';
         } elseif ( $ext == "jpg" || $ext == "jpeg" || $ext == "png" || $ext == "gif" || $ext == "tiff" ) {
             $type = $media['Media']['type'];
             $im = new imagick();
@@ -98,16 +127,8 @@ class MediasController extends AppController {
             $type = 'image/png';
         }
         
-        $body = $im->getImageBlob();
+        return $this->__response( $im, $media );
 
-        $this->response->header( 'Content-disposition', "filename=" . $media['Media']['name'] );
-
-        $this->response->body( $body );
-        $this->response->type($type);
-
-        // Return response object to prevent controller from trying to render
-        // a view
-        return $this->response;
     }
 	
 }
