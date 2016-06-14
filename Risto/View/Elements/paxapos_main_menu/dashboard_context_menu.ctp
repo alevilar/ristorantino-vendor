@@ -7,7 +7,7 @@ if ( empty( $rol ) )  {
 	$roles = Hash::extract($rol, "{n}.id");
 }
 
-if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
+if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) || in_array( ROL_ID_CAJERO, $roles ) ) {
 
  	$this->append('paxapos-main-menu');
 	 	echo $this->element("Risto.paxapos_main_menu/home_btn");

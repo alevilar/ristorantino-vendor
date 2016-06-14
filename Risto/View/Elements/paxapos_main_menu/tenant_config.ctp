@@ -35,6 +35,18 @@
 
         ?>
 
+
+<?php 
+$roles = array();
+$rol = $this->Session->read('Auth.User.Rol');
+if ( empty( $rol ) )  {  
+    $roles = null;
+} else {
+    $roles = Hash::extract($rol, "{n}.id");
+}
+
+if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
+?>
         <br>
 
         <!-- configuracion general -->
@@ -101,4 +113,6 @@
         } 
 
         ?>
+
+    <?php } ?>
 </div>
