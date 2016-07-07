@@ -83,15 +83,15 @@ class PedidosController extends ComprasAppController {
 				} else {
 					debug($pedidoLimpio);
 					debug($this->Pedido->validationErrors);
-					$this->Session->setFlash('Error al guardar el pedido', 'Risto.flash_error');
+					$this->Session->setFlash('Error al guardar la Órden de Compra', 'Risto.flash_error');
 				}
 			} else {
-				$this->Session->setFlash('Error, el pedido quedo vacio, o sea, no se seleccionaron cantidades', 'Risto.flash_error');
+				$this->Session->setFlash('Error, La Órden de Compra quedó vacía, o sea, no se seleccionaron cantidades', 'Risto.flash_error');
 			}
 		} else {
 			if ( !empty($id) ) {
 				if ( !$this->Pedido->exists($id) ) {
-					throw new NotFoundException("El ID de pedido #$id no pudo ser encontrado");
+					throw new NotFoundException("El ID de Órden de Compra #$id no pudo ser encontrado");
 				}
 				$this->request->data['Pedido']['id'] = $id;
 			}
@@ -109,7 +109,7 @@ class PedidosController extends ComprasAppController {
 	public function imprimir ( $id ) {
 		$this->Pedido->id = $id;
 		ReceiptPrint::imprimirPedidoCompra($this->Pedido);
-		$this->Session->setFlash( __( "Se envio a imprimir un pedido de compra" ));
+		$this->Session->setFlash( __( "Se envió a imprimir la Órden de Compra #", $id ));
 		$this->redirect($this->referer() );
 	}
 
@@ -133,16 +133,16 @@ class PedidosController extends ComprasAppController {
 	public function delete($id = null)
     {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid id for Pedido', true));
+            $this->Session->setFlash(__('Invalid id for Órden de Compra', true));
             $this->redirect( $this->referer() );
         }
         if ($this->Pedido->delete($id)) {
-            $this->Session->setFlash(__('Pedido deleted', true));
+            $this->Session->setFlash(__('Órden de Compra eliminada correctamente', true));
             if ( !$this->request->is('ajax') ) {
                 $this->redirect($this->referer() );
             }
         }
-        $this->Session->setFlash(__('The Pedido could not be deleted. Please, try again.', true));
+        $this->Session->setFlash(__('La Órden de Compra no se puede eliminar. Reintente.', true));
         $this->redirect($this->referer() );
     }
 

@@ -179,7 +179,9 @@ class Mesa extends MesaAppModel {
 			// en caso de pasar de estado abierta a cerrada, aplicar cierre ejecutando cerrar_mesa()
 			$this->__cerrarMesaSiEstabaAbiertaYAhoraEstadoEsCerrada();
 
-			$this->__completeWithTotals();
+			if ( empty($this->data['Mesa']['total']) && empty($this->data['Mesa']['subtotal'])) {
+				$this->__completeWithTotals();
+			}
 		}
 
 		return true;

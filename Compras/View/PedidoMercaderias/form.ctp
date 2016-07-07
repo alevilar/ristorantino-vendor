@@ -1,4 +1,4 @@
-<h1>Mercaderia del Pedido <?php echo $this->Html->link("#".$this->request->data['PedidoMercaderia']['pedido_id'], array('controller'=>'pedidos', 'action'=>'view', $this->request->data['PedidoMercaderia']['pedido_id']));?></h1>
+<h1>Mercaderia de la Órden de Compra <?php echo $this->Html->link("#".$this->request->data['PedidoMercaderia']['pedido_id'], array('controller'=>'pedidos', 'action'=>'view', $this->request->data['PedidoMercaderia']['pedido_id']));?></h1>
 
 
 <?php echo $this->Form->create('PedidoMercaderia');?>

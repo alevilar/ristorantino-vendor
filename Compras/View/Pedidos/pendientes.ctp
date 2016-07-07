@@ -1,5 +1,5 @@
 <div class="content-white">
-<h2>Índice por Estado del Pedido</h2>
+<h2>Índice por Estado de la Órden de Compra</h2>
 
 
 <?php echo $this->Form->create('Pedido', array('id'=>'PedidoForm', 'url'=>array('controller'=>'PedidoMercaderias', 'action'=>'cambiarEstado'))); ?>
@@ -94,8 +94,7 @@ foreach ($pedidos as $estId => $pedidosRub) {
 			<thead>
 				<tr>
 					<th>&nbsp;</th>
-					<th>#Pedido</th>
-					<th>Fecha</th>
+					<th>#Órden de Compra</th>
 					<th>Usuario</th>
 					<th>Estado</th>
 					<th>Cantidad</th>
@@ -122,8 +121,10 @@ foreach ($pedidos as $estId => $pedidosRub) {
 				?>
 				<td><?php echo $this->Form->checkbox('id', array('value'=>$merca['PedidoMercaderia']['id'], 'name'=>'data[Pedido][id][]', 'class'=>'checkbox'))?></td>
 
-				<td><?php echo $this->Html->link("#".$merca['Pedido']['id'], array('controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']));?></td>
-				<td class="small"><?php echo $this->Time->nice($merca['Pedido']['created']);?></td>
+				<td><?php echo $this->Html->link("#".$merca['Pedido']['id'], array('controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']));?>
+					<span class="small">(<?php echo $this->Time->niceShort($merca['Pedido']['created']);?>)</span>
+
+				</td>
 				<td><?php echo $merca['Pedido']['User']['username'];?></td>
 				<td><?php echo $estado;?></td>
 				<td><?php echo $cant;?></td>

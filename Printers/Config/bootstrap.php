@@ -15,3 +15,9 @@ CakeEventManager::instance()->attach( new MesasEventListener );
 
 define("RISTORANTINO_DEFAULT_IVA", 0.21);
 define("PRINTERS_AFIP", 'Afip');
+
+
+
+define("PRINTER_FISCAL", 'Fiscal');
+define("PRINTER_RECEIPT", 'Receipt');
+define("PRINTER_AFIP", 'Afip');

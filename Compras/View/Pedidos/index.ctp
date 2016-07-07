@@ -4,7 +4,7 @@
 <h1>Pedidos</h1>
 
 
-<?php echo $this->Html->link(__('Crear Nuevo Pedido'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')); ?>
+<?php echo $this->Html->link(__('Crear Nueva Órden de Compra'), array('action'=>'add'), array('class'=>'btn btn-success btn-lg pull-right')); ?>
 
 <div class="clearfix"></div>
 <table class="table">

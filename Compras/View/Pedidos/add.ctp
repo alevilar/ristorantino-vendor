@@ -1,7 +1,7 @@
 <div class="content-white">
 
 <?php if (!empty($this->request->data['Pedido']['id'])) { ?>
-    <h1>Agregando Mercaderias al Pedido <?php echo $this->Html->link("#".$this->request->data['Pedido']['id'], array('action'=>'view', $this->request->data['Pedido']['id']))?></h1>
+    <h1>Agregando Mercaderias a la Órden de Compra <?php echo $this->Html->link("#".$this->request->data['Pedido']['id'], array('action'=>'view', $this->request->data['Pedido']['id']))?></h1>
 <?php } else { ?>
     <h1>Nuevo Pedido</h1>
 <?php }?>
@@ -11,7 +11,7 @@
 
     <?php echo $this->Form->input('id'); ?>
 
-    <?php echo $this->Form->submit('Guardar Pedido', array('class'=>'pull-right btn-lg btn btn-success')); ?>
+    <?php echo $this->Form->submit('Guardar Órden de Compra', array('class'=>'pull-right btn-lg btn btn-success')); ?>
     <div class="clearfix"></div>
 	<?php echo $this->Form->end(''); ?>
 </div>

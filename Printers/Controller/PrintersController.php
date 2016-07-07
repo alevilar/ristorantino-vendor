@@ -3,6 +3,7 @@ App::uses('PrintersAppController', 'Printers.Controller');
 App::uses('ReceiptPrint', 'Printers.Utility');
 App::uses('FiscalPrint', 'Printers.Utility');
 
+
 /**
  * Printers Controller
  *
@@ -21,9 +22,9 @@ class PrintersController extends PrintersAppController {
 
 
 	public $drivers = array(
-		'Afip'=> 'Afip Web Services',
-		'Fiscal'=> 'Fiscal', 
-		'Receipt'=> 'Comandera',		
+		PRINTER_AFIP    => 'Afip Web Services',
+		PRINTER_FISCAL  => 'Fiscal', 
+		PRINTER_RECEIPT => 'Comandera',		
 		);
 
 	public $driver_models = array(

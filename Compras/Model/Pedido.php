@@ -62,7 +62,7 @@ class Pedido extends ComprasAppModel {
 			$pedidoId = $this->id;
 		}
 		if (empty($pedidoId )) {
-        	throw new NotFoundException("No se encontro pedido con el ID $pedidoId");
+        	throw new NotFoundException("No se encontro una Órden de Copmra con el ID $pedidoId");
         }
 
         $this->contain(array(

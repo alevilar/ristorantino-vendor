@@ -75,7 +75,9 @@ class ProductosController extends ProductAppController {
 				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.', true));
 			}
 		}
-		$printers = $this->Producto->Printer->find('list');
+		$printers = $this->Producto->Printer->find('list', array('conditions'=> array(
+                                                            'Printer.driver' => PRINTER_RECEIPT
+                                                            )));
         $tags = $this->Producto->Tag->find('list');
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
 		$this->set(compact('categorias','printers', 'tags'));
@@ -99,7 +101,9 @@ class ProductosController extends ProductAppController {
 		}
                 
         $this->request->data = $this->Producto->read(null, $id);
-		$printers = $this->Producto->Printer->find('list');
+		$printers = $this->Producto->Printer->find('list', array('conditions'=> array(
+                                                            'Printer.driver' => PRINTER_RECEIPT
+                                                            )));
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
         $tags = $this->Producto->Tag->find('list');
 		$this->set(compact('categorias','printers', 'tags'));

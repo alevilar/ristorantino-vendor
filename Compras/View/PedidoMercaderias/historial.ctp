@@ -7,7 +7,7 @@
 
 <p class="center">
 	<?php echo $this->Form->create('PedidoMercaderia', array('class'=>'form-inline')); ?>
-	<?php echo $this->Form->input('pedido_id', array('type'=>'text', 'label'=>false, 'div'=>false, 'placeholder'=>'Nº Pedido', 'required'=>false)); ?>
+	<?php echo $this->Form->input('pedido_id', array('type'=>'text', 'label'=>false, 'div'=>false, 'placeholder'=>'Nº Órden de Compra', 'required'=>false)); ?>
 	<?php echo $this->Form->input('pedido_estado_id', array('empty'=>'Todos', 'label'=>false, 'div'=>false, 'required'=>false)); ?>
 	<?php echo $this->Form->input('proveedor_id', array('empty'=>'Todos', 'label'=>false, 'div'=>false, 'required'=>false)); ?>
 	<?php echo $this->Form->submit('Filtrar', array('class'=>'btn btn-success', 'div'=>false)) ?>
