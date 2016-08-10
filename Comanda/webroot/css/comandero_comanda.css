@@ -76,8 +76,8 @@ body {
     }
     #time{
         position: absolute;
-        right: 190px;
-        top: 10px;
+        left: 10px;
+        top: 20px;
         text-align: center;
     }
 

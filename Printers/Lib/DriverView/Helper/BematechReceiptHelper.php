@@ -11,7 +11,7 @@ class BematechReceiptHelper extends PrinterHelperSkel
         'INICIAR'           => "\x1B@",
         'RETORNO_DE_CARRO'  => "\r",
         'CORTAR_PAPEL'      => "\x1Bw",
-        'CORTAR_PAPEL_PARCIAL'      => "\x1Bm",
+        'CORTAR_PAPEL_PARCIAL' => "\x1Bm",
         'ENFATIZADO'        => "\x1BE",
         'SACA_ENFATIZADO'   => "\x1BF",
         'TEXT_STRONG'       => "\x1BN4",

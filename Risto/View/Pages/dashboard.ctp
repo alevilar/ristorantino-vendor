@@ -1,9 +1,9 @@
 <?php echo $this->element('Risto.paxapos_main_menu/dashboard_context_menu');?>
 
 
-<?php $this->append('script');?>
-<?php echo $this->element('Risto.smartsupp_chat_soporte_tecnico');?>
-<?php $this->end();?>
+<?php //$this->append('script');?>
+<?php // echo $this->element('Risto.smartsupp_chat_soporte_tecnico');?>
+<?php //$this->end();?>
 
 
 

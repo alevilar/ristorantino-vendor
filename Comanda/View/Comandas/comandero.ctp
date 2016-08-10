@@ -8,6 +8,8 @@
 			if ( isset($printer_id) ) {
 				$printer = isset($printer_id) ? $printers[$printer_id] : '';
 				echo "<h3>$printer</h3>";
+			} else {
+				echo "<h3>&nbsp;</h3>";
 			}
 		?>
 		<span id="clockDisplay" class="clockStyle"></span>
