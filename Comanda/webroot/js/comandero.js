@@ -82,7 +82,7 @@ function ComandasUpdateHandler() {
 	**/
 	function initIntervalParaActualizarComandas () {
 
-		setInterval(handleActualizacion, 8000);
+		setInterval(handleActualizacion, 3000);
 	}
 
 
@@ -116,7 +116,7 @@ function ComandasStateManager () {
 	});
 
 	// doble click, vuelve al estado anterior
-	$('#comandero-content').on('contextmenu', '.comanda', function(ev) {
+	$('#comandero-content').on('contextmenu dblclick', '.comanda', function(ev) {
 		ev.preventDefault();
 		var prev = $(this).data('href-prev');
 		var el = $(this);
@@ -190,17 +190,19 @@ function Relojito () {
 function hablarInit() {
 	var timer;
 
+	var manolas = [];
 	function hablar(txt) {		
 		var voices = speechSynthesis.getVoices();
 	    if (voices.length !== 0) {
 	    	var manola = new SpeechSynthesisUtterance(txt);
+	    	manolas.push(manola);
+
 			manola.lang = 'es-LA';
 			manola.rate = 1.2;
 			
 	    	manola.addEventListener('start', function(){
 				$(document).trigger('comandero-sound-start');
 			});
-
 			manola.addEventListener('end', function(){
 				$(document).trigger('comandero-sound-end');
 			});
@@ -247,6 +249,7 @@ function hablarInit() {
 		}
 		
 		hablar( textoFinal );
+
 	}
 
 
@@ -306,19 +309,36 @@ function hablarInit() {
 	}
 
 
+	var cantadasVino = [], 
+		comandaId=null;
 	function speechComanderoDetalleComandaSaliendo() {
 	    $('.comanda-estado-id-'+COMANDA_ESTADO_SALIENDO,'#comandero-content').each( function ( index, el ){	    	
 	    	speechDetalleComandaX$Comanda( el , "Vamos Saliendo con la");
+			    var i = cantadasVino.indexOf( $(el).parent().data("comandaId") );
+			    if ( i > -1 ) {
+			    	cantadasVino.splice(i, 1);
+			    }
 	    });
+
+	    	
 	}
 
-
 	function speechComanderoDetalleComandaPendiente() {
-	    $('.comanda-estado-id-'+COMANDA_ESTADO_PENDIENTE,'#comandero-content').each( function ( index, el ){	    	
-	    	txt = "Vino la";
-			speechDetalleComandaX$Comanda($(el), txt);
+		$comandasPendientes = $('.comanda-estado-id-'+COMANDA_ESTADO_PENDIENTE,'#comandero-content');
+		if ( $comandasPendientes.length ) {
+			sonarCampana();
+			setTimeout(function() {
+			    $comandasPendientes.each( function ( index, el ){	    	
+			    	txt = "Vino la";
+			    	comandaId = $(el).parent().data("comandaId");
+			    	if ( cantadasVino.indexOf(comandaId) === -1 ) {
+						speechDetalleComandaX$Comanda($(el), txt);
+						cantadasVino.push($(el).parent().data("comandaId"));
+			    	}
+			    });
+		    }, 500);
 
-	    });
+		}
 	}
 
 
@@ -369,27 +389,27 @@ function hablarInit() {
 			  itemSelector: '.comanda'
 		});
 
-		if ( !primeraVez ) {
-			sonarCampana();
-			setTimeout(function() {
-				speechComanderoDetalleComandaPendiente();
-		    }, 500);
-		} else {
+		if ( primeraVez ) {			
 			primeraVez = false;
 		}
+		speechComanderoDetalleComandaPendiente();
 	});
 
 
 
 	function hacerResumenSiEstaCalladoUnRato () {
-		var calladoCuanto = 60000; // 1 minuto
+		var calladoCuanto = localStorage.getItem("ComanderoPaxapos.calladoCuanto");
+		if (!calladoCuanto){
+			calladoCuanto = 120000;
+			localStorage.setItem("ComanderoPaxapos.calladoCuanto", calladoCuanto); // 2 moinutos
+		}
 
 		$(document).on('comandero-sound-start', function(){
 			clearInterval(timer);
 		});
 
-		$(document).trigger('comandero-sound-end', function(){
-
+		$(document).on('comandero-sound-end', function(){
+			manolas = [];
 			timer = setInterval(function(){
 				    	speechResumenGeneral();
 				    	speechComanderoDetalleComandaSaliendo();
@@ -408,7 +428,6 @@ function hablarInit() {
 		    sonarCampana();
 		    setTimeout(function() {
 		    	speechResumenGeneral();
-		    	speechComanderoDetalleComandaSaliendo();
 		    }, 500);
 		});
 
@@ -425,8 +444,6 @@ function hablarInit() {
 **/
 function init() {
 	if ('speechSynthesis' in window) {
-
-
 		hablarInit();
 	}
 	cambioDeImpresoraHandler();
