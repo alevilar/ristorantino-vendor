@@ -39,6 +39,13 @@ class Pedido extends ComprasAppModel {
 
 
 	public $belongsTo = array(
+		'Proveedor' => array(
+			'className' => 'Account.Proveedor',
+			'foreignKey' => 'proveedor_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'User' => array(
 			'className' => 'Users.User',
 			'foreignKey' => 'created_by',

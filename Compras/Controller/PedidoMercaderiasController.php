@@ -7,8 +7,34 @@ App::uses('ComprasAppController', 'Compras.Controller');
 class PedidoMercaderiasController extends ComprasAppController {
 
 
-	public function cambiarEstado ($estadoId = null, $id = null) {
+    public function add () {
+        if ($this->request->is(array('put','post'))) {
 
+
+            $pedidoLimpio = $this->PedidoMercaderia->limpiarPedidosSinCant($this->request->data['PedidoMercaderia'] );
+            
+            if ( $pedidoLimpio ) {              
+                if ( $this->PedidoMercaderia->saveAll($pedidoLimpio, array('deep'=>true)) ) {
+                    $this->Session->setFlash('Se ha guardado correctamente un nuevo pedido');
+                    // ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+                } else {
+                    debug($pedidoLimpio);
+                    debug($this->PedidoMercaderia->validationErrors);
+                    debug($this->PedidoMercaderia->Mercaderia->validationErrors);
+                    $this->Session->setFlash('Error al guardar la Órden de Compra', 'Risto.flash_error');
+                }
+            } else {
+                $this->Session->setFlash('Error, La Órden de Compra quedó vacía, o sea, no se seleccionaron cantidades', 'Risto.flash_error');
+            }
+        }
+        $unidadDeMedidas = $this->PedidoMercaderia->UnidadDeMedida->find('list');
+        $mercaderias = $this->PedidoMercaderia->Mercaderia->find('list');
+        $mercaUnidades = $this->PedidoMercaderia->Mercaderia->find('list', array('fields'=> array('id', 'unidad_de_medida_id')));
+        $this->set(compact('mercaderias', 'unidadDeMedidas', 'mercaUnidades'));
+    }
+
+	public function cambiarEstado ($estadoId = null, $id = null) {
+        debug($this->request->data);die;
         if ( $this->request->is( 'post') && !empty($this->request->data['Pedido']['id'])) {
             
             // filtrar solo los que vinieron un valor

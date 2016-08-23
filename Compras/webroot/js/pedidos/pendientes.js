@@ -2,21 +2,15 @@
 var $pedAcciones = $('#px-pedidos-acciones');
 var $PedidoForm = $('#PedidoForm');
 
-$('a', $pedAcciones).on('click', function( ev ) {
-	ev.preventDefault();
-	$PedidoForm.attr('action', this.href );
-	$PedidoForm.submit();
-	return false;
-});
 
 function mostrarAccionesSiHayChequeados( ev ) {
 	var cant = $('.checkbox:checked', $PedidoForm).length;
 	$('.checkbox').parents('tr').removeClass('active');
 	if ( cant ) {
-		$pedAcciones.show();
+		$pedAcciones.removeClass("disabled");
 		$('.checkbox:checked').parents('tr').addClass('active');
 	} else {
-		$pedAcciones.hide();
+		$pedAcciones.addClass("disabled");
 	}
 }
 

@@ -1,6 +1,6 @@
 
 <br>
-<?php echo $this->Html->link('Nueva Órden de Compra', array('plugin'=>'compras', 'controller'=>'pedidos', 'action'=>'add'), array('class'=>'btn btn-success btn-block')) ?>
+<?php echo $this->Html->link('Generar Solicitud de Compra', array('plugin'=>'compras', 'controller'=>'pedido_mercaderias', 'action'=>'add'), array('class'=>'btn btn-success btn-block')) ?>
 <br>
 
 <h4 class="blue center">Opciones de Configuración</h4>

@@ -12,6 +12,7 @@
 		<?php
 		echo $this->Html->tableHeaders(array(
 			'id',
+			'proveedor',
 			'creado',
 			));
 		?>
@@ -27,6 +28,7 @@
 			$links .=  $this->Html->link("imprimir", array('action'=>'imprimir', $p['Pedido']['id'] ) );
 			$rows[] = array(
 				$p['Pedido']['id'],
+				$p['Proveedor']['name'],
 				$this->Time->nice($p['Pedido']['created']),
 				$links,
 				);

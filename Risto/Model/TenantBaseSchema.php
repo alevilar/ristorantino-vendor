@@ -497,6 +497,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 
 	public $compras_pedidos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
+		'proveedor_id' => array('type' => 'integer', 'null' => true),
 		'observacionescion' => array('type' => 'text', 'null' => true, 'default' => null),
 		'created_by' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'index', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
@@ -510,7 +511,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 
 	public $compras_pedido_mercaderias = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
-		'pedido_id' => array('type' => 'integer', 'null' => false),
+		'pedido_id' => array('type' => 'integer', 'null' => true),
 		'mercaderia_id' => array('type' => 'integer', 'null' => false),
 		'proveedor_id' => array('type' => 'integer', 'null' => true),
 		'pedido_estado_id' => array('type' => 'integer', 'null' => false, 'default'=>1), // COMPRAS_PEDIDO_ESTADO_PENDIENTE

@@ -50,8 +50,8 @@ class PedidoMercaderia extends ComprasAppModel {
 			'numeric' => array(
 				'rule' => array('numeric'),
 				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'allowEmpty' => true,
+				'required' => false,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
@@ -132,4 +132,60 @@ class PedidoMercaderia extends ComprasAppModel {
 			'order' => ''
 		)
 	);
+
+
+	/**
+	 * filtrar los proveedores involucrados retornando un listado de ID's
+	 * 
+	 * 
+	 * @param array $pedidoMercaderias array del find de PedidoMercaderia
+	 * @return array con un list de id's de proveedores
+	 * 
+	 **/
+	public function getProveedoresInvolucrados( $pedidoMercaderias ) {
+		$provs = [];
+		foreach ($pedidoMercaderias as $pm) {
+			if ( !empty($pm['Mercaderia']['Proveedor']['id']) ) {
+				$provs[] = $pm['Mercaderia']['Proveedor']['id'];
+
+			}
+			if ( !empty($pm['Mercaderia']['Rubro']['Proveedor']) ) {
+				foreach ($pm['Mercaderia']['Rubro']['Proveedor'] as $rubro) {
+					$provs[] = $rubro['id'];
+				}
+			}
+		}
+		return $provs;
+	}
+
+
+	/**
+	 * 
+	 * 
+	 * 	Limpiar los pedidos recibidos con formulario
+	 * 
+	 * 
+	 * 
+	 **/
+	public function limpiarPedidosSinCant ( $pedidoMercaderias ) {
+		$pedidoLimpio = array();
+		foreach ( $pedidoMercaderias as $pedido ) {
+            if ( $pedido['cantidad'] ) {
+                $mercaderia = array(
+                    'id'   => empty($pedido['mercaderia_id']) ? null : $pedido['mercaderia_id'],
+                    'name' => $pedido['mercaderia'],
+                    'unidad_de_medida_id' => $pedido['unidad_de_medida_id'],
+                    );
+
+                if ($pedido) {
+                    $pedido['Mercaderia'] = $mercaderia;
+                }
+                $pedidoLimpio[] = array(
+                    'PedidoMercaderia' => $pedido,
+                    );
+            }
+        }
+
+        return $pedidoLimpio;
+	}
 }

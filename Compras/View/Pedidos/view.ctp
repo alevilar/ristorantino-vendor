@@ -3,7 +3,7 @@
 
 <?php echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-lg btn-default pull-right')); ?>
 
-<?php echo $this->Html->link('Agregar Mercaderias a Este Pedido', array('action'=>'add', $pedido['Pedido']['id']), array('class'=>'btn btn btn-primary')); ?>
+<?php echo $this->Html->link('Agregar Mercaderias a Este Pedido', array('action'=>'form', $pedido['Pedido']['id']), array('class'=>'btn btn btn-primary')); ?>
 
 <div>
 	<table class="table">

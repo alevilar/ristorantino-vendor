@@ -15,6 +15,9 @@ class UnidadDeMedida extends ComprasAppModel {
 	public $displayField = 'name';
 
 
+	public $order = array("UnidadDeMedida.name");
+
+
 	public $actsAs = array(
 		'Search.Searchable',
 		);
