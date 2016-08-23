@@ -72,7 +72,7 @@ class MercaderiasController extends ComprasAppController {
 		if ($this->request->is(array('put','post'))){
 			if ( $this->Mercaderia->save($this->request->data) ) {
 				$this->Session->setFlash('Se ha guardado correctamente');
-				$this->redirect(array('action'=>'index'));
+				$this->redirect($this->referer());
 			} else {
 				$this->Session->setFlash('Error al guardar', 'error');
 			}

@@ -8,6 +8,15 @@
 
 <?php
 $prv = array();
+$proveedor = $pedido['Proveedor']['name'];
+echo $proveedor."\n";
+if ( !empty($pedido['Proveedor']['telefono']) ) {
+	echo "Tel: ".$pedido['Proveedor']['telefono']."\n";
+}
+
+
+
+
 foreach ($pedido['PedidoMercaderia'] as $merca ) {  
 
 		$cant = (float)$merca['cantidad'];
@@ -15,7 +24,6 @@ foreach ($pedido['PedidoMercaderia'] as $merca ) {
 		$mercaderia = $merca['Mercaderia']['name'];
 		$estado = $merca['PedidoEstado']['name'];
 		$observacion = $merca['observacion'];
-		$proveedor = !empty($merca['Proveedor']['name'])? $merca['Proveedor']['name'] : '';
 
 		$umedidaTxt = ($cant>1)? Inflector::pluralize($uMedida) : $uMedida;
 
@@ -24,33 +32,8 @@ foreach ($pedido['PedidoMercaderia'] as $merca ) {
 		}
 		$detalle = "$cant $umedidaTxt de $mercaderia$observacion";
 
-    	$descoProve = array(    		
-    			'id' => 0,
-    			'name' => '',
-    		);
-
-    	if ( empty($merca['Proveedor']) ) {
-    		$merca['Proveedor'] = $descoProve;
-    	}
-    	
-    	$prv[ $merca['Proveedor']['id'] ]['Proveedor'] = $merca['Proveedor'];
-    	$prv[ $merca['Proveedor']['id'] ]['Merca'][] = $detalle;
+    	echo $detalle."\n";
  }
-
-
-foreach ($prv as $p) {
-	echo $p['Proveedor']['name']."\n";
-	if ( !empty($p['Proveedor']['telefono']) ) {
-		echo "Tel: ".$p['Proveedor']['telefono']."\n";
-	}
-	echo "\n";
-	foreach ($p['Merca'] as $m) {
-		echo $m."\n";
-	}
-
-	echo "- - - - - - - - - - - - - - - -";
-	echo "\n\n";
-}
 
 
     echo "\n";

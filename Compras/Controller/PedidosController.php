@@ -1,5 +1,6 @@
 <?php
 App::uses('ComprasAppController', 'Compras.Controller');
+
 /**
  * Pedidos Controller
  *
@@ -43,22 +44,24 @@ class PedidosController extends ComprasAppController {
 
 	public function form ( $id = null ) {
 		if ( $this->request->is(array('post', 'put'))) {
-
+			$enviarXMail = !empty($this->request->data['Pedido']['sendmail']);
 			$pedidoLimpio = $this->Pedido->PedidoMercaderia->limpiarPedidosSinCant($this->request->data['PedidoMercaderia'] );
 	 
 	        if ( $pedidoLimpio ) {              
 	       		$pedido = $this->request->data['Pedido'];
-	       		$pedido['PedidoMercaderia'] = $pedidoLimpio;
+   				$pedido['PedidoMercaderia'] = $this->Pedido->agregarRubroSegunProveedorSeleccionado($this->request->data['Pedido']['proveedor_id'], $pedidoLimpio );
+	       		if ( $this->Pedido->saveAll($pedido, array('deep'=>true)) ) {
 
-	       		if ( $this->Pedido->saveAll($pedido) ) {
-
+	       				if ( $enviarXMail && empty($this->request->data['Pedido']['id']) ) {
+	       					// enviar por mail solo al crear un pedido, no cada vez que se edita
+	       					$this->Pedido->sendMail($this->Pedido->id);
+	       					
+	       				}
 		                $this->Session->setFlash('Se ha guardado correctamente un nuevo pedido');
-		                //ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+		                ReceiptPrint::imprimirPedidoCompra($this->Pedido);
 	            } else {
-	                debug($pedidoLimpio);
+	                debug($pedido);
 	                debug($this->Pedido->validationErrors);
-	                debug($this->Pedido->PedidoMercaderia->validationErrors);
-	                debug($this->Pedido->PedidoMercaderia->Mercaderia->validationErrors);
 
 	       			$this->Session->setFlash('Error, no se puedo guardar la Órden de Compra', 'Risto.flash_error');
 	       		}
@@ -83,12 +86,21 @@ class PedidosController extends ComprasAppController {
 		}
 
 
-
         $unidadDeMedidas = $this->Pedido->PedidoMercaderia->UnidadDeMedida->find('list');
         $mercaderias = $this->Pedido->PedidoMercaderia->Mercaderia->find('list');
         $proveedores = $this->Pedido->Proveedor->find('list');
         $mercaUnidades = $this->Pedido->PedidoMercaderia->Mercaderia->find('list', array('fields'=> array('id', 'unidad_de_medida_id')));
         $this->set(compact('mercaderias', 'unidadDeMedidas', 'mercaUnidades', 'proveedores', 'pedidoMercaderias'));
+	}
+
+
+	public function proveedor_info ( $id ) {
+		$this->Pedido->Proveedor->contain(array(
+			'Rubro'
+			));
+		$proveedor = $this->Pedido->Proveedor->read(null, $id);
+
+		$this->set(compact("proveedor"));
 	}
 
 
@@ -160,6 +172,7 @@ class PedidosController extends ComprasAppController {
 		$pedido = $this->Pedido->find('first', array(
 			'conditions'=>array('Pedido.id'=>$id),
 			'contain' => array(
+				'Proveedor',
 				'PedidoMercaderia'=> array(
 					'Mercaderia'=>array('Proveedor'),
 					'UnidadDeMedida',
@@ -176,16 +189,16 @@ class PedidosController extends ComprasAppController {
 	public function delete($id = null)
     {
         if (!$id) {
-            $this->Session->setFlash(__('Invalid id for Órden de Compra', true));
+            $this->Session->setFlash(__('Invalid id for Órden de Compra'));
             $this->redirect( $this->referer() );
         }
         if ($this->Pedido->delete($id)) {
-            $this->Session->setFlash(__('Órden de Compra eliminada correctamente', true));
+            $this->Session->setFlash(__('Órden de Compra eliminada correctamente'));
             if ( !$this->request->is('ajax') ) {
                 $this->redirect($this->referer() );
             }
         }
-        $this->Session->setFlash(__('La Órden de Compra no se puede eliminar. Reintente.', true));
+        $this->Session->setFlash(__('La Órden de Compra no se puede eliminar. Reintente.'));
         $this->redirect($this->referer() );
     }
 

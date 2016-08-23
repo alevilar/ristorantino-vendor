@@ -1,3 +1,6 @@
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+
 
 <div class="content-white center">
 
@@ -8,13 +11,18 @@
                                         'url' => array('action' => 'form')
                                         )); ?>
 <div>
-    <?php echo $this->Form->submit('Guardar Órden de Compra', array('class'=>'btn-lg btn btn-success')); ?>
+    <?php echo $this->Form->submit('Guardar Órden de Compra', array('class'=>'btn-lg btn btn-primary', 'id' => 'btn-submit')); ?>
 
 
     <br>
     <?php echo $this->Form->input('id'); ?>
 
-    <?php echo $this->Form->input('proveedor_id'); ?>
+    <div class="col-xs-6">
+        <?php echo $this->Form->input('proveedor_id'); ?>
+    </div>
+    <div class="col-xs-6">
+        <div id="proveedor-data"></div>
+    </div>
 
     <div class="clearfix"></div>
 
@@ -47,12 +55,8 @@ if ( !empty($pedidoMercaderias) ) {
 }
 
 
-
-
-
+echo $this->Form->end(''); 
 ?>
-
-<?php echo $this->Form->end(''); ?>
 
 
 <script type="risto/tmp" id="pedido-skeleton">
@@ -63,11 +67,11 @@ if ( !empty($pedidoMercaderias) ) {
 <script type="text/javascript">
     
     var mercaUnidades = <?php echo json_encode($mercaUnidades);?>;
+    var urlProveedorPedidoInfo = "<?php echo $this->Html->url(array('controller'=>'pedidos', 'action' => 'proveedor_info'));?>";
 </script>
 <?php 
 echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', true);
-// echo $this->Html->script('/risto/lib/bootstrap/plugins/bootstrap3-typeahead', true);
-//echo $this->Html->script('/risto/js/typeahead.bundle', true);
 
+echo $this->Html->script('/compras/js/pedidos/form_proveedor');
 ?>
 </div>

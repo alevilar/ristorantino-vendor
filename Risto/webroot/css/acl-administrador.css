@@ -1,1 +1,24 @@
+.acl{
+	visibility: hidden;
+}
+
+.acl-turismo{
+	visibility: hidden;
+}
+
+.acl-adicionista{
+	visibility: hidden;
+}
+
+.acl-mozo{
+	visibility: hidden;
+}
+
+.acl-administrador{
+	visibility: visible !important;
+}
+
+
+
+
 body{}

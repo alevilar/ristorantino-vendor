@@ -1,6 +1,5 @@
 <h1>Mercaderia</h1>
 
-
 <?php echo $this->Form->create('Mercaderia'); ?>
 
 <?php echo $this->Form->input('id'); ?>

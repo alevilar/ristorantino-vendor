@@ -16,7 +16,7 @@ class PedidoMercaderiasController extends ComprasAppController {
             if ( $pedidoLimpio ) {              
                 if ( $this->PedidoMercaderia->saveAll($pedidoLimpio, array('deep'=>true)) ) {
                     $this->Session->setFlash('Se ha guardado correctamente un nuevo pedido');
-                    // ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+                    $this->redirect(array('controller'=>'pedidos', 'action'=>'pendientes'));
                 } else {
                     debug($pedidoLimpio);
                     debug($this->PedidoMercaderia->validationErrors);
@@ -91,21 +91,8 @@ class PedidoMercaderiasController extends ComprasAppController {
         if ( $this->request->is(array('post', 'put')) ) {
             if ( $this->PedidoMercaderia->save( $this->request->data ) ) {
                 $this->Session->setFlash('la mercaderia del pedido ha sido guardada');
-
-                $pedido_id = $this->request->data['PedidoMercaderia']['pedido_id'];
-                $pedidoMerca = $this->PedidoMercaderia->find('first', array(
-                    'recursive' => -1,
-                    'conditions' => array(
-                        'PedidoMercaderia.pedido_id' => $pedido_id,
-                        'PedidoMercaderia.proveedor_id IS NULL'
-                        )
-                    ));
-
-                if (!empty($pedidoMerca)) {
-                    $this->redirect(array('action'=>'form', $pedidoMerca['PedidoMercaderia']['id']));
-                } else {
-                    $this->redirect(array('controller' => 'pedidos', 'action'=>'view', $pedido_id));
-                }
+                $this->redirect($this->referer());
+                
             } else {
                 debug($this->PedidoMercaderia->validationErrors);
                 $this->Session->setFlash('Error al guardar la mercaderia del pedido', 'Risto.flash_error');

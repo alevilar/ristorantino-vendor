@@ -1,47 +1,66 @@
+<?php $this->element("Risto.layout_modal_edit");?>
+
+
 <div class="content-white">
-<h1>Viendo el pedido #<?php echo $pedido['Pedido']['id']?></h1>
+<div class="btn-group-vertical pull-right" role="group" aria-label="...">
 
-<?php echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-lg btn-default pull-right')); ?>
+<?php echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-default')); ?>
 
-<?php echo $this->Html->link('Agregar Mercaderias a Este Pedido', array('action'=>'form', $pedido['Pedido']['id']), array('class'=>'btn btn btn-primary')); ?>
+<?php echo $this->Html->link('Editar Órden de Compra', array('action'=>'form', $pedido['Pedido']['id']), array('class'=>'btn btn btn-primary')); ?>
+</div>
 
+
+<h1>Órden de Compra #<?php echo $pedido['Pedido']['id']?></h1>
+
+
+
+
+<h3 class="center">Proveedor: <?php echo $pedido['Proveedor']['name']?></h3>
+<br>
 <div>
 	<table class="table">
 		<thead>
 			<tr>
-				<th>Estado</th>
 				<th>Cantidad</th>
 				<th>Mercaderia</th>
-				<th>Proveedor</th>
+				<th>Observación</th>
 				<th>Acciones</th>
 			</tr>	
 		</thead>
 		
-	<?php foreach ($pedido['PedidoMercaderia'] as $merca ) { ?>
-		<tr>
-			<?php 
+	<?php 
 
-			$cant = (float)$merca['cantidad'];
-			$uMedida = $merca['UnidadDeMedida']['name'];
-			$mercaderia = $merca['Mercaderia']['name'];
-			$estado = $merca['PedidoEstado']['name'];
-			$proveedor = !empty($merca['Proveedor']['name'])? $merca['Proveedor']['name'] : '';
+	foreach ($pedido['PedidoMercaderia'] as $merca ) {
 
-			$detalle =  Inflector::pluralize($uMedida)." de " .$mercaderia;
+		$cant = (float)$merca['cantidad'];
+		$uMedida = $merca['UnidadDeMedida']['name'];
+		$uMedida = ($cant > 1) ? Inflector::pluralize($uMedida) : $uMedida;
+		$mercaderia = $merca['Mercaderia']['name'];
+		$obs = $merca['observacion'];
 
-			?>
 
-			<td><?php echo $estado;?></td>
-			<td><?php echo $cant;?></td>
-			<td><?php echo $detalle;?></td>
-			<td><?php echo $proveedor;?></td>
+		$mercaderia = $this->Html->link($mercaderia, array(
+				'controller' => 'mercaderias',
+				'action' => 'edit',
+				$merca['Mercaderia']['id']
+			), array(
+				'class'=> 'btn-edit'
+			));
+
 			
-			<td>
-				<?php echo $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['id'] ) );?>
+		$linkEdit = $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['id'] ), array('class'=>'btn-edit') );
 
-					</td>
-		</tr>
-	<?php }?>
+
+
+		echo $this->Html->tableCells(array(
+			$cant." ".$uMedida,
+			$mercaderia,
+			$obs,
+			$linkEdit
+		));
+
+	}
+	?>
 	</table>
 </div>
 </div>

@@ -1,4 +1,4 @@
-<?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Rubro'));?>
+<?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Mercaderia de la Órden de Compra'));?>
 
 
 <div class="content-white">
@@ -33,7 +33,6 @@
 				<th><?php echo $this->Paginator->sort('pedido_id', "#Orden")?></th>
 				<th><?php echo $this->Paginator->sort('created', "Fecha")?></th>
 				<th><?php echo $this->Paginator->sort('created_by', "Usuario")?></th>
-				<th><?php echo $this->Paginator->sort('estado_id', "Estado")?></th>
 				<th><?php echo $this->Paginator->sort('cantidad', "Cantidad")?></th>
 				<th><?php echo $this->Paginator->sort('unidad_de_medida_id', "U/Medida")?></th>
 				<th><?php echo $this->Paginator->sort('name', "Mercaderia")?></th>
@@ -50,7 +49,6 @@
 			$cant = (float)$merca['PedidoMercaderia']['cantidad'];
 			$uMedida = $merca['UnidadDeMedida']['name'];
 			$mercaderia = $merca['Mercaderia']['name'];
-			$estado = $merca['PedidoEstado']['name'];
 			$observacion = $merca['PedidoMercaderia']['observacion'];
 			$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
 
@@ -61,7 +59,6 @@
 			<td><?php echo $this->Html->link("#".$merca['Pedido']['id'], array('controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']));?></td>
 			<td class="small"><?php echo $this->Time->nice($merca['Pedido']['created']);?></td>
 			<td><?php echo !empty($merca['Pedido']['User']['username']) ? $merca['Pedido']['User']['username']:'';?></td>
-			<td><?php echo $estado;?></td>
 			<td><?php echo $cant;?></td>
 			<td><?php echo ($cant == 1) ? $uMedida : Inflector::pluralize($uMedida);?></td>
 			<td><?php echo $detalle;?></td>
@@ -73,34 +70,7 @@
 
 				<?php echo $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['PedidoMercaderia']['id'] ), array('class'=>'btn-edit btn btn-default') );?>
 
-				<div class="btn-group" role="group">
 
-
-				<button type="button" class="btn btn-primary">Cambiar Estado</button>
-				<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				    <span class="caret"></span>
-				    <span class="sr-only">Toggle Dropdown</span>
-				  </button>
-				  <ul class="dropdown-menu">
-						<?php 
-						foreach ($pedidoEstados as $esId => $est) {
-							if ( $merca['PedidoEstado']['id'] != $esId ) {
-								echo "<li>";
-								echo $this->Html->link($est, array('controller'=>'PedidoMercaderias', 'action'=>'cambiarEstado', $merca['PedidoMercaderia']['id'], $esId ), array(
-									'class' => 'btn-group btn-default btn-sm',
-									 'role' => "group",
-									) );
-								echo "</li>";
-							}
-
-						}
-						?>
-
-				  </ul>
-				</div>
-		
-
-				</div>
 			</td>
 		</tr>
 	<?php }?>

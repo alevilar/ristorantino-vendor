@@ -1,31 +1,33 @@
+<?php $this->element("Risto.layout_modal_edit");?>
+
+
 <div class="content-white">
-<h2>Solicitudes de Compra Pendientes</h2>
-
-
 <?php echo $this->Form->create('Pedido', array('id'=>'PedidoForm', 'url'=>array('controller'=>'Pedidos', 'action'=>'create'))); ?>
 
 <!-- Controles de accion para los elementos seleccionados-->
 <div class="hidden-print">
+<br>
 		<?php echo $this->Form->button('[OC] Generar Orden de Compra', array(
 											'type' => 'submit',
-											'class'=>'btn btn-info btn-lg center hidden-print pull-right disabled',
+											'class'=>'btn btn-info btn-lg center hidden-print pull-right acl-adicionista acl-administrador',
 											'id' => 'px-pedidos-acciones',
 											)); ?>
 
 		<?php
-			echo $this->Html->link("[SC] Generar Solicitud de Compra", array(
+			echo $this->Html->link("Agregar Mercaderia", array(
 				'controller'=> 'pedido_mercaderias','action' => 'add'
 			),array(
 				'class' => 'btn btn-success btn-lg center hidden-print'
 			));
 		?>
+	<br><br>
 </div>
 
 
 
 <div class="tab-content" style="background-color: white; border-right: 1px solid #dddddd; border-left: 1px solid #dddddd; border-bottom: 1px solid #dddddd">
 
-
+<h4 class="center grey">Listado de Mercadería con Solicitud de Compra Pendiente</h4>
 <?php
 
 	foreach ($pedidos as $rub) {
@@ -38,7 +40,15 @@
 		    $clasH4 = empty($rub['Rubro']['name']) ? 'text-danger': '';
 		    $faIcon = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i>';
 		    ?>
-		    	<h4 class="<?php echo $clasH4?>"><?php echo !empty($rub['Rubro']['name']) ? $rub['Rubro']['name']: $faIcon.'Sin Rubro Definido'?></h4>
+		    	<h4 class="<?php echo $clasH4?>">
+		    		<?php 
+		    		$checkbox = $this->Form->checkbox('mercaderia_x_rubro',
+		    			array('class'=>'checkbox-x-rubro'));
+
+		    		echo $checkbox;
+		    		echo !empty($rub['Rubro']['name']) ? $rub['Rubro']['name']: $faIcon.'Sin Rubro Definido'?>
+	    			
+		    	</h4>
 
 		    	<?php 
 		    		if ( !empty($rub['Rubro']['Proveedor']) ) {
@@ -53,19 +63,21 @@
 		    </caption>
 
 			<thead>
-				<tr>
-					<th>&nbsp;</th>
-					<th>Fecha</th>
-					<th>Cantidad</th>
-					<th>Mercaderia</th>
-					<th>Observación</th>					
-				</tr>	
+				<?php
+				echo $this->Html->tableHeaders(array(
+					'&nbsp;',
+					'Fecha',
+					'Cantidad',
+					'Mercaderia',
+					'Proveedor',
+					'Observación',
+					));
+				?>
 			</thead>
 			
 		<?php 
 			$cont = -1;
 			foreach ($rub['PedidoMercaderia'] as $merca ) { ?>
-			<tr>
 				<?php 
 				$cant = (float)$merca['PedidoMercaderia']['cantidad'];
 				$uMedida = $merca['UnidadDeMedida']['name'];
@@ -73,19 +85,35 @@
 				$observacion = $merca['PedidoMercaderia']['observacion'];
 				$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
 
-				$detalle = $mercaderia;
+				$detalle = $this->Html->link($mercaderia, array(
+					'controller' => 'mercaderias',
+					'action' => 'edit',
+					$merca['Mercaderia']['id']
+				), array(
+					'class'=> 'btn-edit'
+				));
 
+
+				$checkbox = $this->Form->checkbox('mercaderia_id', 	array('value'=>$merca['PedidoMercaderia']['id'], 'name'=>'data[Pedido][mercaderia_id][]', 'class'=>'checkbox'));
+
+
+				$timeNice = $this->Time->niceShort($merca['Pedido']['created']);
+
+				$uMedida = ($cant == 1) ? $uMedida : Inflector::pluralize($uMedida);
+				$canYMedida = $cant." ".$uMedida ;
+
+				$rows = array(
+					$checkbox ,
+					$timeNice,
+					$canYMedida,
+					$detalle,
+					$proveedor,
+					$observacion,
+
+				);
+
+				echo $this->Html->tableCells($rows);
 				?>
-				<td><?php echo $this->Form->checkbox('mercaderia_id', array('value'=>$merca['PedidoMercaderia']['id'], 'name'=>'data[Pedido][mercaderia_id][]', 'class'=>'checkbox'))?></td>
-
-				<td>
-					<?php echo $this->Time->niceShort($merca['Pedido']['created']);?>
-				</td>
-				<td><?php echo $cant;?> <?php echo ($cant == 1) ? $uMedida : Inflector::pluralize($uMedida);?></td>
-				<td><?php echo $detalle;?></td>
-				<td><?php echo $observacion;?></td>
-								
-			</tr>
 		<?php }?>
 		</table>		
 	<?php } ?>

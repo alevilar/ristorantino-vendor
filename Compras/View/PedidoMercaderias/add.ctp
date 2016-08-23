@@ -1,20 +1,23 @@
 <div class="content-white">
 
 
-<h1>SC - Nueva Solicitud de Compra</h1>
 
-<div>
+<div class="center">
+	<h1>Agregar Mercaderia Pendiente</h1>
 	<?php echo $this->Form->create('PedidoMercaderia', array('id'=> "PedidoAddForm")); ?>
 
-    <?php echo $this->Form->submit('Guardar Solicitud de Compra', array('class'=>'pull-right btn-lg btn btn-success')); ?>
+	<br/>
+    <?php echo $this->Form->submit('Guardar Solicitud de Compra', array('class'=>' btn-lg btn btn-success')); ?>
+    <br/><br/>	
     <div class="clearfix"></div>
 	<?php echo $this->Form->end(''); ?>
 </div>
 
 
-<div id="pedido-skeleton">
+
+<script type="risto/tmp" id="pedido-skeleton">
     <?php echo $this->element("Compras.pedido-skeleton", array('pmId'=>'{X}'));?>
-</div>
+</script>
 
 <div class="clearfix"></div>
 
