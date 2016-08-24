@@ -27,7 +27,7 @@ class Pedido extends ComprasAppModel {
 		'PedidoMercaderia' => array(
 			'className' => 'Compras.PedidoMercaderia',
 			'foreignKey' => 'pedido_id',
-			'dependent' => true,
+			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
 			'order' => '',

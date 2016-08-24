@@ -32,7 +32,6 @@ if ( $pmId  != '{X}') {
                             'value' => !empty($mercaderia_id) ? $mercaderia_id : null,
         ));
 
-
     echo $this->Form->input('PedidoMercaderia.'.$pmId.'.mercaderia', array(
         'value' => !empty($mercaderia) ? $mercaderia : null,
         'label' => false,
@@ -83,13 +82,24 @@ if ( $pmId  != '{X}') {
 
 
 	
-	<div class="col-md-4 col-xs-3">
-        <?php echo $this->Form->input('PedidoMercaderia.'.$pmId.'.observacion', array(
+	<div class="col-md-3 col-xs-2">
+        <?php
+
+        echo $this->Form->input('PedidoMercaderia.'.$pmId.'.observacion', array(
                                             'value' => !empty($observacion) ? $observacion : null,
                                             'type'=>'text', 
                                             'placeholder'=>'Obervación', 
                                             'label'=>false)); ?>
                         
+    </div>
+
+    <div class="col-md-1 col-xs-1">
+        <?php
+
+         echo $this->Form->button('<span class="glyphicon glyphicon-remove text-danger" aria-hidden="true"></span>', array('type'=>'button','class'=>'remove btn btn-link', 'escape'=> false));
+
+
+         ?>
     </div>
 </div>
 
@@ -97,7 +107,7 @@ if ( $pmId  != '{X}') {
 <?php   
 if ( $pmId  == '{X}') {
 	$this->start('script');
-		echo $this->Html->script('/compras/js/pedidos/add');
+		echo $this->Html->script('/compras/js/pedidos/pedido_skeleton');
 	$this->end();
 }
 ?>

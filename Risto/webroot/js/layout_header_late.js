@@ -11,9 +11,13 @@
 	function mostrarLogo() {
 		$logo.show('fade');
 	}
+	$( function() {
+		mostrarLogo();
+	} );
 
 	//$( window ).on("load", mostrarLoader);
 	$( window ).on("unload",mostrarLoader);
+	$( window ).on("beforeunload",mostrarLoader);
 
 	mostrarLogo();
 

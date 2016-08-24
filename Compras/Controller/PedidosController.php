@@ -51,14 +51,16 @@ class PedidosController extends ComprasAppController {
 	       		$pedido = $this->request->data['Pedido'];
    				$pedido['PedidoMercaderia'] = $this->Pedido->agregarRubroSegunProveedorSeleccionado($this->request->data['Pedido']['proveedor_id'], $pedidoLimpio );
 	       		if ( $this->Pedido->saveAll($pedido, array('deep'=>true)) ) {
-
+	       				$this->Session->setFlash('Se ha guardado correctamente la Órden de Compra');
 	       				if ( $enviarXMail && empty($this->request->data['Pedido']['id']) ) {
 	       					// enviar por mail solo al crear un pedido, no cada vez que se edita
 	       					$this->Pedido->sendMail($this->Pedido->id);
-	       					
+	       					$this->Session->setFlash('Se ha enviado por mail la Órden de Compra');
 	       				}
-		                $this->Session->setFlash('Se ha guardado correctamente un nuevo pedido');
+		                
 		                ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+
+		                $this->redirect(array('action'=>'pendientes'));
 	            } else {
 	                debug($pedido);
 	                debug($this->Pedido->validationErrors);
@@ -164,7 +166,7 @@ class PedidosController extends ComprasAppController {
 	public function imprimir ( $id ) {
 		$this->Pedido->id = $id;
 		ReceiptPrint::imprimirPedidoCompra($this->Pedido);
-		$this->Session->setFlash( __( "Se envió a imprimir la Órden de Compra #", $id ));
+		$this->Session->setFlash( __( "Se envió a imprimir la Órden de Compra #%s", $id ));
 		$this->redirect($this->referer() );
 	}
 

@@ -16,7 +16,7 @@ class FilePrinterOutput extends PrinterOutput
  * default is /tmp/files_to_print
  * @var string
  */    
-    public $folder = 'files_to_print';
+    public $folder = 'paxapos_files_to_print';
     
  
     
@@ -40,13 +40,12 @@ class FilePrinterOutput extends PrinterOutput
  */
         public  function send( $printaitorViewObj ) {
             $texto = $printaitorViewObj->viewTextRender;
-            $nombreImpresoraFiscal = $printaitorViewObj->printerId;
+            $nombreImpresoraFiscal = $printaitorViewObj->printer['Printer']['alias'];
             $hostname = $printaitorViewObj->hostName;
-            
             $nombreImpresoraFiscal = Inflector::slug($nombreImpresoraFiscal);
             
             // crear carpeta
-            $printerFolderPath = "/tmp/$nombreImpresoraFiscal";
+            $printerFolderPath = "/tmp/$this->folder/$nombreImpresoraFiscal";
             $folder = new Folder();
             $folder->create($printerFolderPath, 0777);
             

@@ -4,8 +4,11 @@
 
 <div class="content-white center">
 
+<?php if ( empty($this->request->data['Pedido']['id'] )) {?>
     <h1>Generar Órden de Compra</h1>
-
+<?php } else { ?>
+    <h1>Editar Órden de Compra #<?php echo $this->request->data['Pedido']['id'] ?></h1>
+<?php } ?>
     <?php echo $this->Form->create('Pedido', array(
                                         'id'=> "PedidoAddForm",
                                         'url' => array('action' => 'form')

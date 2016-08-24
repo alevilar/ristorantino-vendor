@@ -44,6 +44,27 @@ class Mercaderia extends ComprasAppModel {
 	);
 
 
+	/**
+ * hasMany associations
+ *
+ * @var array
+ */
+	public $hasMany = array(		
+		'PedidoMercaderia' => array(
+			'className' => 'Compras.PedidoMercaderia',
+			'foreignKey' => 'mercaderia_id',
+			'dependent' => false,
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'exclusive' => '',
+			'finderQuery' => '',
+			'counterQuery' => ''
+		)
+	);
+
 	public $belongsTo = array(
 		'Compras.UnidadDeMedida', 
 		'Proveedor' => array(

@@ -9,7 +9,7 @@
 <br>
 		<?php echo $this->Form->button('[OC] Generar Orden de Compra', array(
 											'type' => 'submit',
-											'class'=>'btn btn-info btn-lg center hidden-print pull-right acl-adicionista acl-administrador',
+											'class'=>'btn btn-info btn-lg center hidden-print pull-right acl acl-adicionista acl-administrador',
 											'id' => 'px-pedidos-acciones',
 											)); ?>
 
@@ -43,7 +43,7 @@
 		    	<h4 class="<?php echo $clasH4?>">
 		    		<?php 
 		    		$checkbox = $this->Form->checkbox('mercaderia_x_rubro',
-		    			array('class'=>'checkbox-x-rubro'));
+		    			array('class'=>'checkbox-x-rubro acl acl-adicionista acl-administrador'));
 
 		    		echo $checkbox;
 		    		echo !empty($rub['Rubro']['name']) ? $rub['Rubro']['name']: $faIcon.'Sin Rubro Definido'?>
@@ -94,7 +94,7 @@
 				));
 
 
-				$checkbox = $this->Form->checkbox('mercaderia_id', 	array('value'=>$merca['PedidoMercaderia']['id'], 'name'=>'data[Pedido][mercaderia_id][]', 'class'=>'checkbox'));
+				$checkbox = $this->Form->checkbox('mercaderia_id', 	array('value'=>$merca['PedidoMercaderia']['id'], 'name'=>'data[Pedido][mercaderia_id][]', 'class'=>'checkbox acl acl-adicionista acl-administrador'));
 
 
 				$timeNice = $this->Time->niceShort($merca['Pedido']['created']);

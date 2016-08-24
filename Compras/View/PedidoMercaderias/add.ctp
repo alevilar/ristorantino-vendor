@@ -22,11 +22,14 @@
 <div class="clearfix"></div>
 
 <script type="text/javascript">
-	
 	var mercaUnidades = <?php echo json_encode($mercaUnidades);?>;
+	var mercaIndexURL = "<?php echo $this->Html->url(array('controller'=>'mercaderias', 'action'=>'index'));?>";
 </script>
 <?php 
-echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', true);
+//echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', true);
+
+echo $this->Html->script('/risto/js/typeahead.bundle');
+echo $this->Html->script('/compras/js/pedido_mercaderias/add');
 
 ?>
 

@@ -102,10 +102,11 @@ class Printaitor
     public static function send( Model $Model = null, $printer_id, $viewName) {
         $outRes = false;
         App::uses('PrintaitorViewObj', 'Printers.Utility');
-
         // instanctia %this->Output
         $hayOuput = self::__createOutput( $printer_id ); 
+
         if (!$hayOuput) {
+            // la impresora no tiene configurada un "Output", por lo tanto no hay nada mas que hacer
             return -1;
         }
 
@@ -152,7 +153,6 @@ class Printaitor
         $Printer = ClassRegistry::init("Printers.Printer");
         $Printer->recursive = -1;
         $printer = $Printer->read(null, $printerId);
-
         if ( empty($printer['Printer']['output']) ) {
             return false;
         }

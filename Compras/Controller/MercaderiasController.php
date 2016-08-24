@@ -11,11 +11,31 @@ class MercaderiasController extends ComprasAppController {
 	public function index() {
 		$this->Prg->commonProcess();
         $conds = $this->Mercaderia->parseCriteria( $this->Prg->parsedParams() );
-
+        $this->Mercaderia->recursive = 0;
         $this->Paginator->settings['conditions'] = $conds; 
 
-
         $mercaderias = $this->Paginator->paginate();
+        foreach ($mercaderias as &$m ) {
+
+            $pendiente = $this->Mercaderia->PedidoMercaderia->find("first", array(
+                    'recursive' => -1,
+                    'conditions' => array(
+                        'PedidoMercaderia.pedido_id IS NULL',
+                        'PedidoMercaderia.mercaderia_id' => $m['Mercaderia']['id'],
+                    ),
+                    'group' => array(
+                        'PedidoMercaderia.mercaderia_id',
+                        ),
+                    'fields' => array(
+                        'PedidoMercaderia.mercaderia_id',
+                        'count(PedidoMercaderia.mercaderia_id) as cant',
+                        'sum(PedidoMercaderia.cantidad) as sum',
+                        ),
+                ));
+            if ($pendiente) {
+                $m['Pendiente'] = $pendiente[0];
+            }
+        }
         $defaultProveedor = $this->Mercaderia->Proveedor->find('list');
         $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');
         $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas'));

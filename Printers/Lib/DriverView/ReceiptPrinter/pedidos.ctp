@@ -1,28 +1,33 @@
-    PEDIDO DE COMPRA Nº<?php echo $pedido['Pedido']['id']?>
+    PEDIDO DE COMPRA #<?php echo $pedido['Pedido']['id']?>
 
 
   - <?php echo $this->Time->format( $pedido['Pedido']['created'], "%A %d/%m/%y %H:%M" )?> -
 
 
 
-
+PROVEEDOR:
 <?php
 $prv = array();
 $proveedor = $pedido['Proveedor']['name'];
-echo $proveedor."\n";
+echo $proveedor."\n\n";
+if ( !empty($pedido['Proveedor']['cuit']) ) {
+	echo "CUIT: ".$pedido['Proveedor']['cuit']."\n";
+}
+if ( !empty($pedido['Proveedor']['domicilio']) ) {
+	echo "Dirección: ".$pedido['Proveedor']['domicilio']."\n";
+}
 if ( !empty($pedido['Proveedor']['telefono']) ) {
-	echo "Tel: ".$pedido['Proveedor']['telefono']."\n";
+	echo "Tel: ".$pedido['Proveedor']['cuit']."\n";
 }
 
 
-
-
+echo "- - - - - - - - - - - - -\n\n\n";
+echo "NOTA DE PEDIDO:\n\n";
 foreach ($pedido['PedidoMercaderia'] as $merca ) {  
 
 		$cant = (float)$merca['cantidad'];
 		$uMedida = $merca['UnidadDeMedida']['name'];
 		$mercaderia = $merca['Mercaderia']['name'];
-		$estado = $merca['PedidoEstado']['name'];
 		$observacion = $merca['observacion'];
 
 		$umedidaTxt = ($cant>1)? Inflector::pluralize($uMedida) : $uMedida;
