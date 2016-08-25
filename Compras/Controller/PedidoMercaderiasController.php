@@ -120,10 +120,12 @@ class PedidoMercaderiasController extends ComprasAppController {
     public function delete($id = null)
     {
         if (!$this->PedidoMercaderia->exists( $id) ) {
-            $this->Session->setFlash(__('Invalid id for PedidoMercaderia', 'Risto.flash_error'));
+            throw new NotFoundException("No existe ese PedidoMercaderia");
         }
-        if ($this->PedidoMercaderia->delete($id)) {
-            $this->Session->setFlash(__('PedidoMercaderia deleted', true));
+        if ( $this->PedidoMercaderia->delete($id)) {
+            $this->Session->setFlash(__('PedidoMercaderia deleted'));
+        } else {
+            $this->Session->setFlash(__('Error al eliminar PedidoMercaderia', 'Risto.flash_error'));
         }
         $this->redirect( $this->referer() );
     }

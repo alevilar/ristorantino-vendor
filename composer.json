@@ -24,12 +24,6 @@
 		"codaxis/cakephp-bootstrap3-helpers": "1.1",
 		"ristorantino/ext-auth": "master@dev",
 		"ristorantino/aditions": "master@dev",
-		"twitter/typeahead.js": "0.11.1",
 		"composer/installers": "~1.0"
-	},
-	"extra": {
-        "installer-paths": {
-            "webroot/js/{$name}": ["twitter/typeahead.js"]
-        }
-    }
+	}
 }

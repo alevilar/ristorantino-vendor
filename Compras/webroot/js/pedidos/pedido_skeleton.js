@@ -6,7 +6,24 @@
         var htmlForm = $('#pedido-skeleton').html();
         var $pedidoAddForm = $('#PedidoAddForm');
 
-        var rowInputClassName = "row-mercaderia";
+        var hiddenInputMercaderiaIdClassName = '.hidden-mercaderia-id';
+
+
+        // constructs the suggestion engine
+        var mercaderiasBloodhound = new Bloodhound({
+          datumTokenizer: Bloodhound.tokenizers.whitespace,
+          queryTokenizer: Bloodhound.tokenizers.whitespace,
+          // `states` is an array of state names defined in "The Basics"
+          prefetch: mercaIndexURL+'.json',
+          remote: {
+            url: mercaIndexURL+'.json?search=%QUERY',
+            wildcard: '%QUERY'
+          }
+        });
+
+
+
+        var rowInputClassName = ".row-mercaderia";
 
 
         $pedidoAddForm.on('focus', '.addmore:last' , function () {
@@ -15,9 +32,73 @@
         });
 
 
+        $pedidoAddForm.on('keypress', 'input.typeahead', function(ev, suggestion) {
+            if (ev.which == 13) {
+                // al apretar enter no submitear sino que solo seleccionar item
+                ev.preventDefault();                
+                return false;
+            }
+
+            // elimino el ID del input hidden
+            $el = $(ev.target);
+            $el.parents(rowInputClassName)
+                    .find(hiddenInputMercaderiaIdClassName)
+                    .val( "" );
+
+            // pongo como que la mercadera no existe y sera creada
+            $el.parents('.form-group').addClass('has-warning');
+            $el.parents('.form-group').removeClass('has-success');
+            $el.parents('.form-group').find('.glyphicon-ok').hide();
+            $el.parents('.form-group').find('.glyphicon-warning-sign').show();
+        });
+
+        $pedidoAddForm.on('typeahead:select', 'input.typeahead', function(ev, suggestion) {
+            $el = $(ev.target);
+
+            $row = $el.parents(rowInputClassName);
+            // coloco el ID en el input hidden
+            
+            $row.find(hiddenInputMercaderiaIdClassName)
+                .val( suggestion.id );
+
+    
+            // selecciono la unidad de medida    
+            var uMedida = suggestion.unidad_de_medida_id;
+            $row.find("select.pedido-mercaderia-umedida").val(uMedida);
+
+
+            // muestro el OK checkbox verde de que la mercaderia existe
+            var $fromGroup = $el.parents('.form-group');
+            $fromGroup
+                    .addClass('has-success')
+                    .removeClass('has-warning');
+
+            $fromGroup.find('.glyphicon-ok').show();
+            $fromGroup.find('.glyphicon-warning-sign').hide();
+
+
+            // hacer focus en el proximo input
+            var inputs = $(ev.target).closest('form').find(':input');
+            inputs.eq( inputs.index(this)+ 1 ).focus();
+
+            
+        });
+
+
+
+         $pedidoAddForm.on('click', '.remove', function(ev, suggestion) {
+            $el = $(ev.target);
+            $row = $el.parents(rowInputClassName).parent();
+            if ( !$row.is(':last-child')) {
+                $row.remove();
+            }
+         });
+
+
+
         var agregarUnaLineaDeInputs = function () {
 
-            var contadorDeInputs = $("."+rowInputClassName).length;
+            var contadorDeInputs = $(rowInputClassName).length;
             var htmlNuevosInputs = htmlForm.replace( charDeRecambio, contadorDeInputs);
             var $htmlNuevosInputs = $( "<div></div>")
                                             .html(htmlNuevosInputs);
@@ -26,101 +107,34 @@
             $pedidoAddForm.append( $htmlNuevosInputs );
             
             $('input.typeahead', $htmlNuevosInputs).typeahead({
-                hint: true,
-                  highlight: true,
-                  minLength: 2,
+                  name: 'mercaderias'
               },{
+                display: "value",
                 templates: {
-                    suggestion: function( context ) {
+                    suggestion: function( context ){
+                        var domtxt = '';
 
-                        console.info("asasas1; %o", context);
-                        return "<div>aps aspoa s</div>";
-
+                        domtxt += '<div class="tt-suggestion tt-selectable">';
+                        domtxt += context.value;
+                        if ( context.description ) {
+                            domtxt += '<p class="tt-description text-danger">';
+                            domtxt += context.description;
+                            domtxt += '</p>';
+                        }
+                        domtxt += '</div>';
+                        return domtxt;
                     }
-                  },
+                },
+                source: mercaderiasBloodhound
+            });
 
 
-                source: function(text, syn, async ){
-                        // busca un texto y si no encuentra nada muestra el tooltip
-                        var obj = {
-                            'search': text
-                        };
-                        console.debug("el a %o y el b %o y c %o y this es %o", text, syn, async, this);
-                        var url = mercaIndexURL;
-                        var $el = this.$element;
-                        return $.get(url, obj, async);
-                    }
-                });
                 
-                //$('input.typeahead', $htmlNuevosInputs).tooltip({trigger: 'manual'})
-                
-                $('input.typeahead', $htmlNuevosInputs).on('typeahead:change', function(evt,el){
-                    console.info("cambio el cosl this %o args %o", this, arguments);
-                    //debugger;
-                    // trigger para hacer al seleccionar una mercaderia
-                    var domIdClass = $(evt.currentTarget).attr('data-dom-id');
-                    var $hiddenIdInput = $(domIdClass);
-
-                    var $uMedidaInput = $( $(evt.currentTarget).attr('data-unidad-medida-id') );
-
-                    var id = $(el).attr('data-id');
-
-                    if (id) {
-                        $hiddenIdInput.val(id);
-                        var unidadDeMedidaId = mercaUnidades[id];
-                        $uMedidaInput.val(unidadDeMedidaId);
-                    }
-                    
-                });
-
-                $('input.typeahead', $htmlNuevosInputs).on('typeahead:asyncreceive', function(evt,el){
-                    $el = $(evt.target);
-                    console.info("asuyb receiveeeee %o", $el);
-                    if (!data.length) {
-                        // la mercaderias es nueva, o sea, no estaba en la BD
-                        $el.on('focusout', function(){
-                            $el.off('focusout');
-                            $el.tooltip('hide');
-                        });
-
-                        $el.tooltip('show');
-                        $el.parents('.form-group').addClass('has-warning');
-                        $el.parents('.form-group').removeClass('has-success');
-                        $el.parents('.form-group').find('.glyphicon-ok').hide();
-                        $el.parents('.form-group').find('.glyphicon-warning-sign').show();
-                        
-                    } else {
-                        // encontro a esa mercaderia, por lo tanto usarla
-                        $el.tooltip('hide');
-                        $el.parents('.form-group').addClass('has-success');
-                        $el.parents('.form-group').removeClass('has-warning');
-                        $el.parents('.form-group').find('.glyphicon-ok').show();
-                        $el.parents('.form-group').find('.glyphicon-warning-sign').hide();
-                    }
-                });
-
-
-                $('input.typeahead', $htmlNuevosInputs).on('typeahead:change', function(evt,valuetext){
-                    console.info("cambio el cosl this %o args %o", this, arguments);
-                    var el = evt.target;
-                    //debugger;
-                    // trigger para hacer al seleccionar una mercaderia
-                    var domIdClass = $(evt.currentTarget).attr('data-dom-id');
-                    var $hiddenIdInput = $(domIdClass);
-
-                    var $uMedidaInput = $( $(evt.currentTarget).attr('data-unidad-medida-id') );
-
-                    var id = $(el).attr('data-id');
-
-                    if (id) {
-                        $hiddenIdInput.val(id);
-                        var unidadDeMedidaId = mercaUnidades[id];
-                        $uMedidaInput.val(unidadDeMedidaId);
-                    }
-                    
-                });
 
         }
+
+
+
 
         agregarUnaLineaDeInputs();
     });

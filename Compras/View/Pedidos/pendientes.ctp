@@ -71,6 +71,7 @@
 					'Mercaderia',
 					'Proveedor',
 					'Observación',
+					'',
 					));
 				?>
 			</thead>
@@ -83,6 +84,16 @@
 				$uMedida = $merca['UnidadDeMedida']['name'];
 				$mercaderia = $merca['Mercaderia']['name'];
 				$observacion = $merca['PedidoMercaderia']['observacion'];
+				$deleteLink = $this->Html->link("<span class='glyphicon glyphicon-remove'></span>", array(
+					'controller' => 'pedido_mercaderias',
+					'action' => 'delete',
+					$merca['PedidoMercaderia']['id']
+				), array(
+					'escape' => false,
+					'class' => 'text-danger acl acl-adicionista acl-administrador',
+				), 
+					__("¿Desea eliminar el pedido de %s?", $merca['Mercaderia']['name'])
+				);
 				$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
 
 				$detalle = $this->Html->link($mercaderia, array(
@@ -109,7 +120,7 @@
 					$detalle,
 					$proveedor,
 					$observacion,
-
+					$deleteLink,
 				);
 
 				echo $this->Html->tableCells($rows);

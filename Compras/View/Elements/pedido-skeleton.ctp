@@ -24,11 +24,13 @@ if ( $pmId  != '{X}') {
     if ( isset( $id ) ) {
         echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.id', array(
                                 'value' => $id,
+                                'class' => 'hidden-mercaderia-id',
             ));
     }
 
 	echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.mercaderia_id', array(
                             'id' => 'pedido-mercaderia-id-'.$pmId,
+                            'class' => 'hidden-mercaderia-id',
                             'value' => !empty($mercaderia_id) ? $mercaderia_id : null,
         ));
 
@@ -64,7 +66,7 @@ if ( $pmId  != '{X}') {
         <?php echo $this->Form->input('PedidoMercaderia.'.$pmId.'.cantidad', array(
                             'value' => !empty($cantidad) ? $cantidad : null,
                             'required' => false,
-                            'class' => 'form-control',
+                            'class' => 'form-control pedido-mercaderia-cantidad',
                             'label' => false,
                             'placeholder' => 'Cantidad'
         )); ?>
@@ -75,6 +77,7 @@ if ( $pmId  != '{X}') {
     echo $this->Form->input('PedidoMercaderia.'.$pmId.'.unidad_de_medida_id', array(
         'value' => !empty($unidad_de_medida_id) ? $unidad_de_medida_id : null,
         'label' => false,
+        'class' => 'form-control pedido-mercaderia-umedida'
     ));
 
     ?>
