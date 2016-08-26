@@ -54,7 +54,11 @@ class PedidosController extends ComprasAppController {
 	       				$this->Session->setFlash('Se ha guardado correctamente la Órden de Compra');
 	       				if ( $enviarXMail && empty($this->request->data['Pedido']['id']) ) {
 	       					// enviar por mail solo al crear un pedido, no cada vez que se edita
-	       					$this->Pedido->sendMail($this->Pedido->id);
+	       					$mensajeMail = '';
+	       					if (!empty($this->request->data['Pedido']['mensaje_mail'])) {
+	       						$mensajeMail = $this->request->data['Pedido']['mensaje_mail'];
+	       					}
+	       					$this->Pedido->sendMail($this->Pedido->id, $mensajeMail);
 	       					$this->Session->setFlash('Se ha enviado por mail la Órden de Compra');
 	       				}
 		                

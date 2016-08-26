@@ -138,9 +138,10 @@ class Pedido extends ComprasAppModel {
 
 
 
-	function sendMail($pid, $mensaje = null) {
+	function sendMail($pid, $mensaje = '') {
 
-		$str = '';
+		$str = $mensajeMail;
+		$str .= "\n\n\n";
 		$this->id = $pid;
 		$this->contain(array(
 			'User',
@@ -151,6 +152,7 @@ class Pedido extends ComprasAppModel {
 				)
 			));
 		$pedido = $this->read();
+
 
 		$str .= __("Solicitud de compra para: %s\n",Configure::read('Site.name') );
 		$str .= __("Dirección de Entrega: %s\n\n",Configure::read('Restaurante.domicilio') );

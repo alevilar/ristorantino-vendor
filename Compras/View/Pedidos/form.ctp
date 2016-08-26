@@ -20,10 +20,10 @@
     <br>
     <?php echo $this->Form->input('id'); ?>
 
-    <div class="col-xs-6">
+    <div class="col-xs-5">
         <?php echo $this->Form->input('proveedor_id'); ?>
     </div>
-    <div class="col-xs-6">
+    <div class="col-xs-7">
         <div id="proveedor-data"></div>
     </div>
 
