@@ -55,7 +55,7 @@ class PedidosController extends ComprasAppController {
 	       				if ( $enviarXMail ) {
 	       					$mensajeMail = '';
 	       					if (!empty($this->request->data['Pedido']['mensaje_mail'])) {
-	       						$mensajeMail = $this->request->data['Pedido']['mensaje_mail'];
+	       						$mensajeMail = trim($this->request->data['Pedido']['mensaje_mail']);
 	       					}
 	       					$this->Pedido->sendMail($this->Pedido->id, $mensajeMail);
 	       					$this->Session->setFlash('Se ha enviado por mail la Órden de Compra');

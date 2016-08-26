@@ -140,7 +140,7 @@ class Pedido extends ComprasAppModel {
 
 	function sendMail($pid, $mensaje = '') {
 
-		$str = $mensajeMail;
+		$str = $mensaje;
 		$str .= "\n\n\n";
 		$this->id = $pid;
 		$this->contain(array(
