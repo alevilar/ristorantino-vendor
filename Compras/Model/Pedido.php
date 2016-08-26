@@ -182,8 +182,7 @@ class Pedido extends ComprasAppModel {
   		$str .= "Responda directamente a este mail si tiene dudas o consultas";
 
 
-
-	    $Email = new CakeEmail("debug");
+	    $Email = new CakeEmail();
 		$siteMail = Configure::read("Restaurante.mail");
 		$siteName = Configure::read("Site.name");
 		$proveedorMail = $pedido['Proveedor']['mail'];
