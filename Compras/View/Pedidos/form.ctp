@@ -67,13 +67,17 @@ echo $this->Form->end();
 </script>
 
 <div class="clearfix"></div>
+
+
+
 <script type="text/javascript">
     
+    var mercaIndexURL = "<?php echo $this->Html->url(array('controller'=>'mercaderias', 'action'=>'index'));?>";
     var mercaUnidades = <?php echo json_encode($mercaUnidades);?>;
     var urlProveedorPedidoInfo = "<?php echo $this->Html->url(array('controller'=>'pedidos', 'action' => 'proveedor_info'));?>";
 </script>
 <?php 
-echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', true);
+
 
 echo $this->Html->script('/compras/js/pedidos/form_proveedor');
 ?>

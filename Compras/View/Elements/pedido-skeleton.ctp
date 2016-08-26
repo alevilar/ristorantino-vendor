@@ -107,9 +107,17 @@ if ( $pmId  != '{X}') {
 </div>
 
 
-<?php   
-if ( $pmId  == '{X}') {
-	$this->start('script');
+
+
+<?php if ( $pmId  == '{X}') { ?>
+
+
+
+<?php
+    $this->start('script');
+        echo $this->Html->css('/risto/css/typeahead');
+        echo $this->Html->script('/risto/js/typeahead.js/dist/bloodhound.min');
+        echo $this->Html->script('/risto/js/typeahead.js/dist/typeahead.jquery.min');
 		echo $this->Html->script('/compras/js/pedidos/pedido_skeleton');
 	$this->end();
 }
