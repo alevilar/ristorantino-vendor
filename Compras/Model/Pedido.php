@@ -138,7 +138,7 @@ class Pedido extends ComprasAppModel {
 
 
 
-	function sendMail($pid) {
+	function sendMail($pid, $mensaje = null) {
 
 		$str = '';
 		$this->id = $pid;
@@ -152,6 +152,17 @@ class Pedido extends ComprasAppModel {
 			));
 		$pedido = $this->read();
 
+		$str .= __("Solicitud de compra para: %s\n",Configure::read('Site.name') );
+		$str .= __("Dirección de Entrega: %s\n\n",Configure::read('Restaurante.domicilio') );
+		$str .= __("Órden de Compra #%s\n", $pid );
+
+		$str .= __("Datos de Facturación\n");
+		$str .= __("Razon Social: %s\n",Configure::read('Restaurante.razon_social') );
+		$str .= __("CUIT: %s\n",Configure::read('Restaurante.cuit') );
+		$str .= __("Domicilio Fiscal: %s\n",Configure::read('Restaurante.domicilio_fiscal') );
+
+
+		$str .= "\n\n";
   		$str .= "ÍTEMS:\n";
 
 		foreach ($pedido['PedidoMercaderia'] as $merca ) {  
@@ -189,7 +200,7 @@ class Pedido extends ComprasAppModel {
 		$Email->from(array($siteMail => $siteName));
 		$Email->to($proveedorMail);
 		$Email->cc($siteMail);
-		$Email->subject('Orden de Compra #'. $this->id);
+		$Email->subject('Pedido de '.Configure::read('Site.name').' Orden de Compra #'. $this->id);
 		$ret = $Email->send($str);
 	}
 }
