@@ -67,7 +67,7 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 						<?php 
 						$img = $this->Html->image('/risto/css/ristorantino/home/caja.png');
 						$mesasTitle = Inflector::pluralize( Configure::read('Mesa.tituloMesa') );
-						  echo $this->Html->link($img.__('Cajero'), array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar','#listado-mesas-cerradas'), array(
+						  echo $this->Html->link($img.__('Cajero'), array('plugin' =>'aditions', 'controller'=>'aditions', 'action'=>'adicionar','#'=>'listado-mesas-cerradas'), array(
 						  			'escape' => false,
 						  			'data-toggle' => "tooltip",
 									'data-placement'=>"bottom",
