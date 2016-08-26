@@ -52,8 +52,7 @@ class PedidosController extends ComprasAppController {
    				$pedido['PedidoMercaderia'] = $this->Pedido->agregarRubroSegunProveedorSeleccionado($this->request->data['Pedido']['proveedor_id'], $pedidoLimpio );
 	       		if ( $this->Pedido->saveAll($pedido, array('deep'=>true)) ) {
 	       				$this->Session->setFlash('Se ha guardado correctamente la Órden de Compra');
-	       				if ( $enviarXMail && empty($this->request->data['Pedido']['id']) ) {
-	       					// enviar por mail solo al crear un pedido, no cada vez que se edita
+	       				if ( $enviarXMail ) {
 	       					$mensajeMail = '';
 	       					if (!empty($this->request->data['Pedido']['mensaje_mail'])) {
 	       						$mensajeMail = $this->request->data['Pedido']['mensaje_mail'];
