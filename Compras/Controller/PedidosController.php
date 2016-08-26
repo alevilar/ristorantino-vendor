@@ -135,11 +135,19 @@ class PedidosController extends ComprasAppController {
 
 			$this->request->data = null;
 			if (!empty($provs)) {
+				// agarra el primero y lo pone como sugerido
 				$this->request->data['Pedido']['proveedor_id'] = $provs[0];
 			}
 		}
 
-		$proveedoresList = $this->Pedido->PedidoMercaderia->Mercaderia->Proveedor->find('list');
+		$provConds = array();
+		if ( $provs ) {
+			$provConds = array( 'Proveedor.id NOT IN' => array_values($provs) );
+		}
+
+		$proveedoresList = $this->Pedido->PedidoMercaderia->Mercaderia->Proveedor->find('list', array(
+			'conditions' => $provConds,
+			));
 		if (empty($provs)) {
 			$proveedores = $proveedoresList;
 		} else {
@@ -150,7 +158,7 @@ class PedidosController extends ComprasAppController {
 				));
 			$proveedores = array(
 				'Recomendados' => $recomendados,
-				'Todos' => $proveedoresList
+				'Otros' => $proveedoresList
 				);
 		}
 		$unidadDeMedidas = $this->Pedido->PedidoMercaderia->UnidadDeMedida->find('list');
