@@ -56,7 +56,11 @@
 
 			?>
 
-			<td><?php echo $this->Html->link("#".$merca['Pedido']['id'], array('controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']));?></td>
+			<td><?php 
+			if ($merca['Pedido']['id']){
+				echo $this->Html->link("#".$merca['Pedido']['id'], array('controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']));
+			}
+				?></td>
 			<td class="small"><?php echo $this->Time->nice($merca['Pedido']['created']);?></td>
 			<td><?php echo !empty($merca['Pedido']['User']['username']) ? $merca['Pedido']['User']['username']:'';?></td>
 			<td><?php echo $cant;?></td>

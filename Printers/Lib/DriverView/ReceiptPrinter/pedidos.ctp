@@ -1,3 +1,5 @@
+    <?php echo Configure::read("Site.name")?>
+
     PEDIDO DE COMPRA #<?php echo $pedido['Pedido']['id']?>
 
 

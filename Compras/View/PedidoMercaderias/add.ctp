@@ -10,7 +10,7 @@
     <?php echo $this->Form->submit('Guardar Solicitud de Compra', array('class'=>' btn-lg btn btn-success')); ?>
     <br/><br/>	
     <div class="clearfix"></div>
-	<?php echo $this->Form->end(''); ?>
+	<?php echo $this->Form->end(); ?>
 </div>
 
 

@@ -58,7 +58,7 @@ if ( !empty($pedidoMercaderias) ) {
 }
 
 
-echo $this->Form->end(''); 
+echo $this->Form->end(); 
 ?>
 
 

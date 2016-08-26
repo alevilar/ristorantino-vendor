@@ -3,7 +3,7 @@
 
 <div class="center">
 	<br>
-	<?php echo $this->Html->link(__('Crear Nueva Órden de Compra'), array('action'=>'add'), array('class'=>'btn btn-primary btn-lg acl acl-adicionista acl-administrador')); ?>
+	<?php echo $this->Html->link(__('Crear Nueva Órden de Compra'), array('action'=>'form'), array('class'=>'btn btn-primary btn-lg acl acl-adicionista acl-administrador')); ?>
 	<br>
 	<br>
 </div>
