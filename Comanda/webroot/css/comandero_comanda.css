@@ -86,7 +86,16 @@ body {
     }
 }
 
+.tipo-plato{
+    font-size: 13px;
+    text-align: center;
+    opacity: 0.8;
+}
 
+.tipo-plato-principal{
+    border-top: 1px solid #dcd1d1;
+    padding-top: 8px;
+}
 
 .clockStyle{
 	font-size: 30pt;
@@ -94,6 +103,13 @@ body {
 	color: #3c3c3c;
 	padding: 10px;
 	margin: 10px;	
+}
+
+.comanda-observacion{
+    text-align: justify;
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 
@@ -114,6 +130,15 @@ body {
     animation-iteration-count: infinite;
 } 
 
+.comanda:hover .comanda-actions{
+    visibility: visible;
+}
+.comanda-actions{
+    visibility: hidden;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
 @-moz-keyframes blinker {
     0% { opacity: 1.0;  border: 1px solid #929292; }
     50% { opacity: 0.3;}

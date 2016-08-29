@@ -281,31 +281,44 @@ function hablarInit() {
 		$mesaNumero = $(el).find('.mesa-numero').text();
     	hablar(txtAnteponer + " Mesa " +$mesaNumero);
 
+    	var observacionGeneral = $(el).find('.comanda-observacion .hablar').text();
+    	if (observacionGeneral) {
+    		hablar(observacionGeneral);
+    	}
+
     	mesaDetalle = sabor = '';
-    	$(el).find('.detalle-comanda').each(function(i, detaComa ){
-    		$detaComa = $(detaComa);
-    		sabor = '';
 
-    		var txtdet = $detaComa
-			    .clone()    //clone the element
-			    .children() //select all the children
-			    .remove()   //remove all the children
-			    .end()  //again go back to selected element
-			    .text();
+    	var tipoPlatos = $(el).find('.tipo-plato');
 
-			var cant = $('.detalle-comanda-cant', $detaComa).text();
+    	$(el).find('.listado-detalle-comanda').each(function(j, el){
+    		hablar( $(tipoPlatos[j]).text() );
+	    	$(el).find('.detalle-comanda').each(function(i, detaComa ){
+	    		$detaComa = $(detaComa);
+	    		sabor = '';
 
-			cant = cambiarUNOxUnaoUn(cant, txtdet);
-    		mesaDetalle = cant + " " + txtdet;
-    		$detaComa.find('.detalle-sabor').each( function( i, detaSab ) {
-    			$detaSab = $(detaSab);
-    			sabor = sabor + ", "+$detaSab.text();
-    		});
-    		if ( sabor ) {
-    			mesaDetalle = mesaDetalle + ": " +sabor;
-    		}
-    		hablar(mesaDetalle);
-    	});	   
+	    		var txtdet = $detaComa
+				    .clone()    //clone the element
+				    .children() //select all the children
+				    .remove()   //remove all the children
+				    .end()  //again go back to selected element
+				    .text();
+
+				var cant = $('.detalle-comanda-cant', $detaComa).text();
+
+				cant = cambiarUNOxUnaoUn(cant, txtdet);
+	    		mesaDetalle = cant + " " + txtdet;
+	    		$detaComa.find('.detalle-sabor').each( function( i, detaSab ) {
+	    			$detaSab = $(detaSab);
+	    			sabor = sabor + ", "+$detaSab.text();
+	    		});
+	    		if ( sabor ) {
+	    			mesaDetalle = mesaDetalle + ": " +sabor;
+	    		}
+	    		hablar(mesaDetalle);
+	    	});
+
+    	});
+
 	}
 
 
@@ -454,6 +467,13 @@ function init() {
 
 	// susable right click context menu
 	document.oncontextmenu = new Function("return false;");
+
+
+	$("#comandero-content").on('click', ".comanda-actions a", function(event){
+		event.stopPropagation();
+	});
+	
+
 }
 
 

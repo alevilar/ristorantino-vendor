@@ -1,3 +1,4 @@
+
 <?php
 
 App::uses('ComandaAppModel', 'Comanda.Model');
@@ -77,18 +78,67 @@ class Comanda extends ComandaAppModel {
         
 
 
+	/**
+	 * 
+	 * 
+	 * 	Realiza un find all basado en las $conditions
+	 * y devuelve el resutlado pero separando los platos principales
+	 * de las entradas
+	 * 
+	 **/
+	public function buscarSeparandoEntradasYPrincipales( $type = 'all', $conditions = array(), $contain =array()) {
+
+		if (empty($contain)){
+			$contain = array(
+                'Printer',
+                'ComandaEstado',
+                'Mesa' => 'Mozo',                
+                );
+		}
+		$comandas = $this->find( $type, array(
+            'conditions' => $conditions,
+            'order' => array('Comanda.created' => 'ASC'),
+            'contain' => $contain
+            ));
+
+		if ( $type == 'first' ) {
+			$comandas = array($comandas);
+		}
+        foreach ($comandas as &$comanda) {
+            # code...
+            $contain = array(
+                'Producto'=>array('Printer'),
+                'DetalleSabor'=>array('Sabor')
+            );
+
+            $principales = $this->listado_de_productos_con_sabores($comanda['Comanda']['id'], DETALLE_COMANDA_TRAER_PLATOS_PRINCIPALES, $contain);
+
+            $entradas = $this->listado_de_productos_con_sabores($comanda['Comanda']['id'], DETALLE_COMANDA_TRAER_ENTRADAS, $contain);
+
+            $comanda['Principal'] = $principales;
+            $comanda['Entrada'] = $entradas;
+        }
+
+        if ( $type == 'first' && !empty($comandas) ) {
+        	// retornar solo 1 comanda,
+			return $comandas[0];
+		} else {
+        	return $comandas;
+		}
+	}
+
 
 	
 	
 	
 	/**
 	 * @param comanda_id
-	 * @param con_entrada 	0 si quiero todos los productos
-	 * 						1 si quiero solo platos principales
-	 * 						2 si quiero solo las entradas
+	 * @param con_entrada 	0 DETALLE_COMANDA_TRAER_TODOS si quiero todos los productos
+	 * 						1 DETALLE_COMANDA_TRAER_PLATOS_PRINCIPALES si quiero solo platos principales
+	 * 						2 DETALLE_COMANDA_TRAER_ENTRADAS si quiero solo las entradas
 	 *
 	 */
-	public function listado_de_productos_con_sabores($id, $con_entrada = DETALLE_COMANDA_TRAER_TODOS){
+	public function listado_de_productos_con_sabores($id, $con_entrada = DETALLE_COMANDA_TRAER_TODOS, $contain = null){
 		//inicialiozo variable return
 		$items = array();
 
@@ -120,14 +170,17 @@ class Comanda extends ComandaAppModel {
 			default: // si quiero todo = DETALLE_COMANDA_TRAER_TODoS
 				break;
 		}
+
+		if (empty($contain) ) {
+			$contain = array(
+				'Producto'=>array('Printer'),
+				'Comanda'=> array('Mesa'=>array('Mozo')),
+				'DetalleSabor'=>array('Sabor')
+			);
+		}
 		
 		$items = $this->DetalleComanda->find('all',array('conditions'=>$condiciones,
-														'contain'=>array(
-															'Producto'=>array('Printer'),
-															'Comanda'=> array('Mesa'=>array('Mozo')),
-															'DetalleSabor'=>array('Sabor')
-			)
-											));
+														'contain'=>$contain));
 		return $items;
 	}
 	

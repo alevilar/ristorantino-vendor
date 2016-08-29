@@ -29,17 +29,51 @@
 
 		<?php if ( $comanda['Comanda']['observacion'] ) { ?>
 		<div class="comanda-observacion text-info">
-			<b>Observación:</b> <?php echo $comanda['Comanda']['observacion']?>
+		<br/>
+			<b>Observación de la Comanda:</b><br/><span class="hablar"><?php echo $comanda['Comanda']['observacion']?></span>
+			<br/>
 		</div>
 		<?php } ?>
-		
 
+
+		<?php if (!empty($comanda['Entrada'])) { ?>
+			<h4 class="tipo-plato tipo-plato-entrada">Entradas</h4>
+			<ul class="listado-detalle-comanda">
+			<?php foreach ( $comanda['Entrada'] as $dc ) {?>
+				<?php 
+				$cant =  $dc['DetalleComanda']['cant'] - $dc['DetalleComanda']['cant_eliminada'];
+				$prodName = $dc['Producto']['name'];
+				$obs = $dc['DetalleComanda']['observacion'];
+				if ( $obs ) {
+					$prodName .= " (Observación: $obs)";
+				}
+
+				if ( $cant > 0 ) {
+					$adicionales = '';
+					if ( count($dc['DetalleSabor']) ) {
+						// si hay adicionales armo el listado
+						$adicionales = '<ul>';
+						foreach ( $dc['DetalleSabor'] as $ds ) {
+							$adicionales .= "<li class='detalle-sabor'>".$ds['Sabor']['name']."</li>";
+						}
+						$adicionales .= '</ul>';
+					}
+					echo "<li class='detalle-comanda'><b class='detalle-comanda-cant'>$cant</b> $prodName$adicionales</li>";
+				}
+				?>
+			<?php }?>
+			</ul>
+		<?php }?>
+
+		<?php if (!empty($comanda['Entrada']) && !empty($comanda['Principal'])) { ?>
+			<h4 class="tipo-plato tipo-plato-principal">Principal</h4>
+		<?php } ?>
 		<ul class="listado-detalle-comanda">
-		<?php foreach ( $comanda['DetalleComanda'] as $dc ) {?>
+		<?php foreach ( $comanda['Principal'] as $dc ) {?>
 			<?php 
-			$cant =  $dc['cant'] - $dc['cant_eliminada'];
+			$cant =  $dc['DetalleComanda']['cant'] - $dc['DetalleComanda']['cant_eliminada'];
 			$prodName = $dc['Producto']['name'];
-			$obs = $dc['observacion'];
+			$obs = $dc['DetalleComanda']['observacion'];
 			if ( $obs ) {
 				$prodName .= " (Observación: $obs)";
 			}
@@ -64,12 +98,14 @@
 
 	</div>
 	
-	<div class="comanda-actions btn-group center"  role="group">
-	<?php 
+	<div class="comanda-actions">
+		<div class="btn-group center"  role="group">
+		<?php 
 
-		echo $this->Html->link('Mover a otra Mesa', array('action'=>'edit', $comanda['Comanda']['id']), array('class'=>'btn btn-default'));
+			echo $this->Html->link('<span class="glyphicon glyphicon-pencil"></span>', array('action'=>'edit', $comanda['Comanda']['id']), array('class'=>'btn btn-default', 'escape'=>false));
 
-		echo $this->Html->link('Borrar Comanda', array('action'=>'delete', $comanda['Comanda']['id']), array('class'=>'btn btn-danger'), __('Seguro desea eliminar la Comanda #%s ?', $comanda['Comanda']['id']));
+			echo $this->Html->link('<span class="glyphicon glyphicon-remove"></span>', array('action'=>'delete', $comanda['Comanda']['id']), array('class'=>'btn btn-danger', 'escape'=>false), __('Seguro desea eliminar la Comanda #%s ?', $comanda['Comanda']['id']));
 
-	?>
+		?>
+		</div>
 	</div>

@@ -49,20 +49,7 @@ class ComandasController extends ComandaAppController {
             'conditions' => $conditions,
             ));
 
-        $comandas = $this->Comanda->find('all', array(
-            'conditions' => $conditions,
-            'order' => array('Comanda.created' => 'ASC'),
-            'contain' => array(
-                'Printer',
-                'ComandaEstado',
-                'Mesa' => 'Mozo',
-                'DetalleComanda' => array(
-                    'Producto',
-                    'DetalleSabor' => array('Sabor'),
-                    ),
-                )
-            ));
-        
+        $comandas = $this->Comanda->buscarSeparandoEntradasYPrincipales('all', $conditions);
         $this->autoRender = true;
         
         
@@ -198,11 +185,10 @@ class ComandasController extends ComandaAppController {
         $this->__comandero_estado_change( $comanda_id, $comanda_estado_id );
 
 
-        $comanda = $this->Comanda->find('first', array(
-                'conditions' => array(
+        $conds = array(
                     'Comanda.id' => $comanda_id,
-                    ),
-                'contain' => array(
+                    );
+        $contain = array(
                     'Printer',
                     'ComandaEstado',
                     'Mesa' => 'Mozo',
@@ -210,8 +196,9 @@ class ComandasController extends ComandaAppController {
                         'Producto',
                         'DetalleSabor' => array('Sabor'),
                         ),
-                    )
-                ));
+                    );
+        $comanda = $this->Comanda->buscarSeparandoEntradasYPrincipales('first', $conds, $contain );
+
         $this->set('comanda', $comanda);
 
     }
