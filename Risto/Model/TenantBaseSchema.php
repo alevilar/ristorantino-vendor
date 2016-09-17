@@ -172,13 +172,19 @@ class TenantBaseSchema extends RistoBaseSchema {
 				array('name' => 'Tarjeta Maestro', 'media_id' => 6 ),
 			),
 			'tipo_facturas' => array(
-				array('name' => '"A"'),
-				array('name' => '"B"'),
-				array('name' => '"X"'),
-				array('name' => '"M"'),
-				array('name' => '"C"'),
-				array('name' => 'Vale'),
-				array('name' => 'Otros'),
+				array('id'=> RISTO_TIPO_FACTURA_A_ID, 'name' => '"A"'),
+				array('id'=> RISTO_TIPO_FACTURA_B_ID, 'name' => '"B"'),
+				array('id'=> RISTO_TIPO_FACTURA_X_ID, 'name' => '"X"'),
+				array('id'=> RISTO_TIPO_FACTURA_M_ID, 'name' => '"M"'),
+				array('id'=> RISTO_TIPO_FACTURA_C_ID, 'name' => '"C"'),
+				array('id'=> RISTO_TIPO_FACTURA_VALE_ID, 'name' => 'Vale'),
+				array('id'=> RISTO_TIPO_FACTURA_OTRO_ID, 'name' => 'Otros'),
+				array('id'=> RISTO_TIPO_FACTURA_NCB_ID, 'name' => '"NCB"'), // nota de credito
+				array('id'=> RISTO_TIPO_FACTURA_NCC_ID, 'name' => '"NCC"'), // nota de credito
+				array('id'=> RISTO_TIPO_FACTURA_NCA_ID, 'name' => '"NCA"'), // nota de credito
+				array('id'=> RISTO_TIPO_FACTURA_NDB_ID, 'name' => '"NDB"'), // nota de debito
+				array('id'=> RISTO_TIPO_FACTURA_NDC_ID, 'name' => '"NDC"'), // nota de debito
+				array('id'=> RISTO_TIPO_FACTURA_NDA_ID, 'name' => '"NDA"'), // nota de debito
 			),
 			'cash_cajas' => array(
 				array('name' => 'Caja Ventas'),
