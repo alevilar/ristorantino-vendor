@@ -84,6 +84,9 @@ CakePlugin::load('SiteUsers');
 CakePlugin::load('Barcodes');
 CakePlugin::load('Utils');
 
+define('OAUTH_PROVIDER_FACEBOOK', "Facebook");
+define('OAUTH_PROVIDER_GOOGLE', "Google");
+
 
 define('RISTO_TIPO_FACTURA_A_ID', 1);
 define('RISTO_TIPO_FACTURA_B_ID', 2);

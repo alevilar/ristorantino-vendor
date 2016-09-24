@@ -76,12 +76,17 @@ class RistoShell extends Shell {
 
 
 	public function update_default_schema () {
-		$this->out(sprintf('Comporbando tenant %s', $sAlias));
-		$this->dispatchShell('Risto.risto_schema update -y --plugin Risto -c default');
+		// eliminar archivos de la cache
+		array_map('unlink', glob(CACHE."models".DS."*"));
+		array_map('unlink', glob(CACHE."persistent".DS."*"));
+		$this->out("Actualizando SCHEMA general del sitio (archivo llamado risto)");
+		$this->dispatchShell('Risto.risto_schema update -y --plugin Risto -c default --name risto');
 		$this->out("", 2);
 	}
 
 	public function update_tenant_schemas () {
+		// eliminar archivos de la cache
+		array_map('unlink', glob(CACHE."models".DS."*"));
 		if ( !empty($this->args[0])) {
 			$tenant = $this->args[0];
 			$sites = array( $tenant=>$tenant);

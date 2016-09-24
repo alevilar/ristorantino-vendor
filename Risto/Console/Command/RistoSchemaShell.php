@@ -28,6 +28,7 @@ class RistoSchemaShell extends SchemaShell {
 
 		$this->out(__d('cake_console', 'Comparing Database to Schema...'));
 		$options = array();
+		$this->params['force'] = false;
 		if (isset($this->params['force'])) {
 			$options['models'] = false;
 		}
@@ -35,7 +36,9 @@ class RistoSchemaShell extends SchemaShell {
 		$compare = $this->Schema->compare($Old, $Schema);
 
 		$contents = array();
-
+		if (!empty($compare['media'])) {
+			unset($compare['media']);
+		}
 		if (empty($table)) {
 			foreach ($compare as $table => $changes) {
 				if (isset($compare[$table]['create'])) {
