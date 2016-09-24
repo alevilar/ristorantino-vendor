@@ -17,7 +17,7 @@ class MesasController extends MesaAppController {
     
     public function index() {
         $this->layout = 'Stats.default';
-        $this->elementMenu = 'Stats.menu';
+        $this->elementMenu = 'Cash.menu';
         
         $this->Prg->commonProcess();
         $conds = $this->Mesa->parseCriteria( $this->Prg->parsedParams() );

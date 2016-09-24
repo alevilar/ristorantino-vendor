@@ -15,9 +15,7 @@ if( $this->name == 'DetalleComandas' && $this->action == 'index') {
     $c4 = 'active';
 }
 
-if( $this->name == 'Mesas' && $this->action == 'index') {
-    $c5 = 'active';
-}
+
 
 
 ?>
@@ -32,6 +30,5 @@ if( $this->name == 'Mesas' && $this->action == 'index') {
         <li class="<?php echo $c4?>"><?php echo $this->Html->link('Productos Pedidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'),array('class'=>'ventas'));?></li>
 
 
-        <li class="<?php echo $c5?>"><?php echo $this->Html->link('Listado de '.Inflector::pluralize( Configure::read('Mesa.tituloMesa') ), array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'index'),array('class'=>'ventas'));?></li>
 
 </ul>
