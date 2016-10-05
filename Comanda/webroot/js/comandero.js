@@ -1,16 +1,17 @@
 
-
-/**
-*
-*	Cambio de impresora es un href que rrefresca la pagina
-*
-**/
-function cambioDeImpresoraHandler() {
-
-	$("#printer-id-select").on('change', function(e){
-		location.href = $(this).data('href') + "/" + $(this).val();
-	});
+function packeryUpdate() {
+	// plugin para acomodar las comandas sin espacios en blanco entre ellas
+		$('.comandero', '#comandero-content').packery();
 }
+
+function packeryInit() {
+		// plugin para acomodar las comandas sin espacios en blanco entre ellas
+		$('.comandero', '#comandero-content').packery({
+			  // options
+			  itemSelector: '.comanda'
+		});
+	}
+
 
 
 
@@ -111,6 +112,12 @@ function ComandasStateManager () {
 		if ( next ) {
 			$(this).load(next , function(){
 				el.trigger('comandaActualizadaNext', ['ComandaActualizadaNext', el]);
+				if ( $('.comanda-estado-id-2', el).length ) {
+					el.hide("fade", function(){
+						packeryUpdate();
+						
+					});
+				}
 			});
 		}
 	});
@@ -396,11 +403,7 @@ function hablarInit() {
 	var primeraVez = true;
 	var upPromise = $('#comandero-content').on('comandasActualizadas', function(){
 		
-		// plugin para acomodar las comandas sin espacios en blanco entre ellas
-		$('.comandero', '#comandero-content').packery({
-			  // options
-			  itemSelector: '.comanda'
-		});
+		packeryInit();
 
 		if ( primeraVez ) {			
 			primeraVez = false;
@@ -408,6 +411,8 @@ function hablarInit() {
 		speechComanderoDetalleComandaPendiente();
 	});
 
+
+	
 
 
 	function hacerResumenSiEstaCalladoUnRato () {
@@ -459,7 +464,6 @@ function init() {
 	if ('speechSynthesis' in window) {
 		hablarInit();
 	}
-	cambioDeImpresoraHandler();
 	Relojito();
 	ComandasStateManager();
 	ComandasUpdateHandler();

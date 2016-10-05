@@ -1,22 +1,19 @@
 
 
 <link href='https://fonts.googleapis.com/css?family=Chau+Philomene+One' rel='stylesheet' type='text/css'>
-
+<style>
+.comanda-estado-saliendo
+</style>
 <?php $this->start('comandero-title'); ?>
-	<div id="time">
-		<?php 
-			if ( isset($printer_id) ) {
-				$printer = isset($printer_id) ? $printers[$printer_id] : '';
-				echo "<h3>$printer</h3>";
-			} else {
-				echo "<h3>&nbsp;</h3>";
-			}
-		?>
+<div id="comandero-left-header">
+	<?php echo $this->element("Comanda.printer_selection"); ?>
+	<div id="time">		
 		<span id="clockDisplay" class="clockStyle"></span>
 
 		<div class="small">Última Actualización: <span id="comandero-updated-time"><?php echo $this->Time->format(strtotime('now'),"%H:%M");?></span>
 		</div>
 	</div>
+</div>
 <?php $this->end();?>
 
 

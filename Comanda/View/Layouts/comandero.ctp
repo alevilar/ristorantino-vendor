@@ -5,7 +5,7 @@
     <?php echo $this->element("Risto.paxapos_main_menu/tenant_home_btn");?>
     <br>
    
-    <?php echo $this->element("Compras.paxapos_context_comandero");?>
+    <?php echo $this->element("Comanda.paxapos_context_comandero");?>
 <?php $this->end();?>
 
 
@@ -19,8 +19,6 @@
         echo $this->Html->image('/risto/css/ristorantino/home/comandero.png', array('class'=>'paxapos-app-header-icon')); 
     $this->end(); 
 ?>
-
-
 
 
 

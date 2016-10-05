@@ -86,7 +86,11 @@ class Comanda extends ComandaAppModel {
 	 * de las entradas
 	 * 
 	 **/
-	public function buscarSeparandoEntradasYPrincipales( $type = 'all', $conditions = array(), $contain =array()) {
+	public function buscarSeparandoEntradasYPrincipales( 
+		$type = 'all', 
+		$conditions = array(), 
+		$contain =array(), 
+		$order = array('Comanda.created' => 'ASC')) {
 
 		if (empty($contain)){
 			$contain = array(
@@ -97,7 +101,7 @@ class Comanda extends ComandaAppModel {
 		}
 		$comandas = $this->find( $type, array(
             'conditions' => $conditions,
-            'order' => array('Comanda.created' => 'ASC'),
+            'order' => $order,
             'contain' => $contain
             ));
 

@@ -31,6 +31,33 @@ class ComandasController extends ComandaAppController {
             $this->set('mesa_id', $mesa_id);                 
 	}
 
+    public function terminadas($printer_id = null) {
+        $conditions = array(
+                'Comanda.comanda_estado_id' => COMANDA_ESTADO_LISTO,
+                'Mesa.estado_id' => MESA_ABIERTA,
+                );
+
+        $contain = array(
+                'Printer',
+                'ComandaEstado',
+                'Mesa' => 'Mozo',                
+                );
+
+        if (!empty($printer_id)) {
+            $conditions['Comanda.printer_id'] = $printer_id;
+        }
+
+        $comandas = $this->Comanda->buscarSeparandoEntradasYPrincipales("all", $conditions);
+
+        $this->elementMenu = null;
+        $this->layout = "comandero";
+
+        $printers = $this->Comanda->Printer->find('list', array('conditions'=>array('driver' => 'Receipt')));
+
+
+        $this->set(compact('comandas', 'printers', 'printer_id'));
+
+    }
 
     public function comandero_index($printer_id = null) {
         $this->elementMenu = null;
@@ -236,7 +263,16 @@ class ComandasController extends ComandaAppController {
         $mesas = $this->Comanda->Mesa->find('list', array('conditions'=>array('Mesa.estado_id'=>MESA_ABIERTA)));
         $mesa = $this->request->data['Mesa'];
         $mesas[$mesa['id']] = $mesa['numero'];
+
+        $comandaEstados = $this->Comanda->ComandaEstado->find('list', array(
+                'conditions'=>array(
+                     'OR' => array( 
+                        'ComandaEstado.printer_id' => $this->request->data['Comanda']['printer_id'],
+                        'ComandaEstado.printer_id IS NULL',
+                    ))));
+
         $this->set('mesas', $mesas);
+        $this->set('comandaEstados', $comandaEstados);
         
     }
 
