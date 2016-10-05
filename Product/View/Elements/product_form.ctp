@@ -12,6 +12,13 @@
 				'placeholder' => __('Ej: "gaseosa"')
 				));
 
+			if ( Configure::read("Site.type") == SITE_TYPE_RESTAURANTE){
+				echo $this->Form->input('sin_stock',array(
+						'label'=>'Sin Stock (no mostrar en menú)',
+						'type' => 'checkbox',
+						));
+			}
+
 			echo $this->Form->input('categoria_id',array('label'=>'Categoria a la que pertenece este producto'));
 
 			if ($tags) {

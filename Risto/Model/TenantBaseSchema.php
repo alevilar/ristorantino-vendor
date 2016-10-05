@@ -1088,6 +1088,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'precio' => array('type' => 'float', 'null' => false, 'default' => null, 'length' => '10,2', 'unsigned' => false),
 		'printer_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'order' => array('type' => 'integer', 'null' => true, 'default' => '0', 'unsigned' => false),
+		'sin_stock' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),

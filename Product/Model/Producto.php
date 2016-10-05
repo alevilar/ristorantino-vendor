@@ -205,6 +205,9 @@ class Producto extends ProductAppModel {
         'printer_id' => array(
             'type' => 'value',
             ),
+        'sin_stock' => array(
+            'type' => 'value',
+            ),
         'categoria_id' => array(
             'type' => 'value',
             ),  

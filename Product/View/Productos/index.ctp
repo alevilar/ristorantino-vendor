@@ -5,9 +5,15 @@
 
 
 	<?php    
-	echo $this->Html->script('/risto/js/jquery/jquery.jeditable.mini', array('inline'=>false));
-	echo $this->Html->script('/risto/js/ale_fieldupdates', array('inline'=>false));
-
+	$this->append("script");
+		echo $this->Html->script('/risto/js/jquery/jquery.jeditable.mini');
+		echo $this->Html->script('/risto/js/ale_fieldupdates');
+		?>
+		<script type="text/javascript">
+		    new Afups("<?php echo $this->Html->url(array('action'=>'update'))?>");
+		</script>
+		<?php
+	$this->end();
 
 	$img = $this->Html->image('/product/img/explicacion_producto_categoria_variantes.png', array('width'=>'100px', "class"=>"img-thumbnail"));
 
@@ -18,9 +24,6 @@
 	?>
 
 
-	<script type="text/javascript">
-	    new Afups("<?php echo $this->Html->url(array('action'=>'update'))?>");
-	</script>
 	<style type="text/css">
 		.abrev{
 			font-size: 8pt;
@@ -75,6 +78,16 @@
 		echo $this->Form->create("Producto"); 
 		echo $this->Form->input("id") 
 		?>
+		<th><?php echo $this->Form->input('sin_stock',array(
+			'placeholder'=>'Sin Stock', 
+			'label'=>false, 
+			'required'=>false, 
+			'type'=>'select', 
+			'empty' => 'Con o Sin Stock',
+			'options'=> array(
+				1 => "Sin Stock (no se muestra en menú)",
+				0 => "Con Stock"
+		)));?></th>
 		<th><?php echo $this->Form->input('name',array('placeholder'=>'Interno', 'label'=>false, 'required'=>false));?></th>
 		<th><?php echo $this->Form->input('abrev',array('placeholder'=>'Ticket', 'label'=>false, 'required'=>false));?></th>
 
@@ -99,6 +112,7 @@
 	        </tr>
 
 	<tr>
+		<th><?php echo $this->Paginator->sort('sin_stock', 'Stock');?></th>
 		<th><?php echo $this->Paginator->sort('name', 'Nombre Interno');?></th>
 		<th><?php echo $this->Paginator->sort('abrev', 'Nombre Ticket');?></th>
 		<th><?php echo $this->Paginator->sort('Printer.name', 'Printer');?></th>
@@ -131,12 +145,23 @@
 	        ?>
 
 
+	        <td class='edit' field='sin_stock' options_types='<?php echo json_encode($sinStocks) ?>' product_id='<?php echo $prodId ?>'>
+	        	<?php 
+	        		if ( $producto['Producto']['sin_stock']) {
+	        			echo "<span class='grey'>Sin Stock</span>";
+	        		} else {
+	        			echo "✔";
+	        		}
+        		?>
+	        </td>
+
+
 			<td class='edit' field='name' product_id='<?php echo $prodId ?>'><?php echo $name; ?></td>
 				
 	                
 	        <td class='edit abrev' field='abrev' product_id='<?php echo $prodId ?>'><?php echo $abrev; ?></td>
 
-			<td class="edit_field_types" options_types='<?php print json_encode($printers) ?>' field="printer_id" product_id="<?php echo $prodId; ?>"><?php 
+			<td class="edit_field_types" options_types='<?php echo json_encode($printers) ?>' field="printer_id" product_id="<?php echo $prodId; ?>"><?php 
 				echo $producto['Printer']['name']; 
 			?></td>
 

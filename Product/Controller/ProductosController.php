@@ -25,7 +25,12 @@ class ProductosController extends ProductAppController {
         $printers = $this->Producto->Printer->listarComanderas();
 		$categorias = $this->Producto->Categoria->generateTreeList();
         $this->set(compact('categorias','printers'));
+        $sinStocks = array(
+            0 => 'Con Stock',
+            1 => 'Sin Stock',
+            );
 		$this->set('productos', $this->Paginator->paginate());
+        $this->set('sinStocks', $sinStocks);
 	}
 
 	public function view($id = null) {
