@@ -261,7 +261,11 @@ class ComandasController extends ComandaAppController {
             $this->request->data['Comanda']['redirect'] = $this->referer();
         }
         
-        $mesas = $this->Comanda->Mesa->find('list', array('conditions'=>array('Mesa.estado_id'=>MESA_ABIERTA)));
+        $mesas = $this->Comanda->Mesa->find('list', array(
+                    'conditions'=>array(
+                        'Mesa.estado_id'=>MESA_ABIERTA,
+                        'Mesa.deleted'=>0
+                        )));
         $mesa = $this->request->data['Mesa'];
         $mesas[$mesa['id']] = $mesa['numero'];
 
