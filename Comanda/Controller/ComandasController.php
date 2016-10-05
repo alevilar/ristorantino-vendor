@@ -35,6 +35,7 @@ class ComandasController extends ComandaAppController {
         $conditions = array(
                 'Comanda.comanda_estado_id' => COMANDA_ESTADO_LISTO,
                 'Mesa.estado_id' => MESA_ABIERTA,
+                'Mesa.deleted' => 0,
                 );
 
         $contain = array(
