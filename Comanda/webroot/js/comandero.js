@@ -203,8 +203,10 @@ function hablarInit() {
 	    if (voices.length !== 0) {
 	    	var manola = new SpeechSynthesisUtterance(txt);
 	    	manolas.push(manola);
-
-			manola.lang = 'es-LA';
+	    	var lang = localStorage.getItem("Comandero.lang");
+	    	if ( lang ) {
+				manola.lang = lang;
+	    	}
 			manola.rate = 1.2;
 			
 	    	manola.addEventListener('start', function(){
@@ -461,7 +463,12 @@ function hablarInit() {
 *
 **/
 function init() {
-	if ('speechSynthesis' in window) {
+	var muted = JSON.parse( localStorage.getItem("Comandero.muted") );
+	if (typeof muted == 'undefined') {
+		muted = false;
+		localStorage.setItem("Comandero.muted", muted);
+	}
+	if ('speechSynthesis' in window && !muted) {
 		hablarInit();
 	}
 	Relojito();

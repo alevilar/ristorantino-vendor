@@ -42,8 +42,8 @@ body {
 
 .comanda
 {
-	width: 23%;
-	margin: 0px 1% 1% 1%;
+	width: 220px;
+	margin: 0px 10px 10px 10px;
 	background-color: #fff;
 	-webkit-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
 	-moz-box-shadow: 0 0 4px rgba(0, 0, 0, 0.2), inset 0 0 50px rgba(0, 0, 0, 0.1);
@@ -52,9 +52,29 @@ body {
 }
 
 
-.listado-detalle-comanda{
-
+ul.listado-detalle-comanda{
+    padding:0;
+    margin:0;
 	font-size: 16pt;
+    margin: 0px;
+    list-style: none;
+}
+
+ul.listado-detalle-comanda ul{
+ list-style: none;
+ margin: 0px;
+ margin-left: -31px;
+}
+
+.listado-detalle-comanda li, .listado-detalle-comanda li li{
+    padding-left: 10px; 
+    text-indent: -.7em;
+}
+
+
+.listado-detalle-comanda li:before, .listado-detalle-comanda li li:before {
+    content: "• ";
+    color: #d4d5d5; /* or whatever color you prefer */
 }
 
 .mesa-numero{

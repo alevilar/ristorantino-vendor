@@ -731,6 +731,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'prioridad' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 4, 'unsigned' => false),
 		'impresa' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
