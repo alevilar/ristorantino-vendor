@@ -200,10 +200,18 @@ function hablarInit() {
 	var manolas = [];
 	function hablar(txt) {		
 		var voices = speechSynthesis.getVoices();
+
 	    if (voices.length !== 0) {
 	    	var manola = new SpeechSynthesisUtterance(txt);
 	    	manolas.push(manola);
 	    	var lang = localStorage.getItem("Comandero.lang");
+
+	    	if (lang) {
+				manola.voice = speechSynthesis.getVoices().filter(function(voice) { 
+									return voice.lang == lang; 
+								})[0];
+			}
+
 	    	if ( lang ) {
 				manola.lang = lang;
 	    	}
