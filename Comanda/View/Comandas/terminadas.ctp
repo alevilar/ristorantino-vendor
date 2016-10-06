@@ -24,3 +24,18 @@
 
 <?php echo $this->Html->css('/comanda/css/comandero_comanda');?>
 
+
+<script>
+// doble click, vuelve al estado anterior
+	$('#comandero-content').on('click', '.comanda', function(ev) {
+		ev.preventDefault();
+		var prev = $(this).data('href-prev');
+		var el = $(this);
+		if ( prev ) {
+			$(this).load(prev, function( ){
+				el.trigger('comandaActualizadaPrev', ['ComandaActualizadaPrev', el]);
+			});
+		}
+		return false;
+	});
+</script>

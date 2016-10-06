@@ -125,21 +125,21 @@ class ComandasController extends ComandaAppController {
 
     public function hayActualizacion( $printer_id = null ){
         if ( $printer_id ) {
-            $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id.$printer_id");
+            $pathText = "Comandero.ultima_comanda_id.$printer_id";
         } else {
-            $comandaGuardadaUltima = Cache::read("Comandero.ultima_comanda_id");
+            $pathText = "Comandero.ultima_comanda_id";
         }
-        $comandaLeidaUltima = CakeSession::read("Comandero.ultima_comanda_id.$printer_id");
-        CakeSession::write("Comandero.ultima_comanda_id.$printer_id", $comandaGuardadaUltima);
+        $comandaGuardadaUltima = Cache::read($pathText);
 
-        $comandasActualizadas = false;
-
-        if ( !empty($comandaGuardadaUltima) && $comandaLeidaUltima != $comandaGuardadaUltima 
-                    ){
-            $comandasActualizadas = $comandaGuardadaUltima;
+        $comandaLeidaUltima = CakeSession::read($pathText);
+        CakeSession::write($pathText, $comandaGuardadaUltima);
+        
+        $coso = false;
+        if ( $comandaLeidaUltima != $comandaGuardadaUltima ) {
+            $coso = true;
         }
 
-        $this->set('comandasActualizadas', $comandasActualizadas);
+        $this->set('comandasActualizadas', $coso);
         $this->set('_serialize', array('comandasActualizadas'));
 
     }

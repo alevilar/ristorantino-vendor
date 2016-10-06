@@ -63,12 +63,12 @@ function ComandasUpdateHandler() {
 		loadComandas();
 		updateTime();
 	}
-
 	function actualizarVistaConComandasActualizadas ( data ) {
 		if ( data.hasOwnProperty('comandasActualizadas') && data["comandasActualizadas"] ) {
 			// update view	
-			updateComandas();
-
+			if ( data["comandasActualizadas"] ) {
+				updateComandas();
+			}
 		}
 	}
 
@@ -450,10 +450,7 @@ function hablarInit() {
 		    	speechResumenGeneral();
 		    }, 500);
 		});
-
 	});
-
-	
 }
 
 

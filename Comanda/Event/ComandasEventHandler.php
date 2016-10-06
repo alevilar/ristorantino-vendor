@@ -28,13 +28,12 @@ class ComandasEventHandler implements CakeEventListener {
 
 
 	private function __cacheUltimaComandaIdXPrinter ( $event ) {
-
-		if ( $event->data[0] == true && !empty( $event->subject->data['Comanda'] )) {			
-	 		Cache::write("Comandero.ultima_comanda_id",$event->subject->id);
-			
-			$printerId = $event->subject->data['Comanda']['printer_id'];
+		if ( !empty( $event->subject->data['Comanda'] )) {	
+			$time = time();		
+	 		Cache::write("Comandero.ultima_comanda_id", $time);
+			$printerId = $event->subject->field('printer_id');
 			if ( $printerId ) {
-	 			Cache::write("Comandero.ultima_comanda_id.$printerId",$event->subject->id);
+	 			Cache::write("Comandero.ultima_comanda_id.$printerId", $time);
 			}
 		}
 	}

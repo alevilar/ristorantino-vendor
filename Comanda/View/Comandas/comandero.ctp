@@ -37,7 +37,6 @@ Your browser does not support the audio element.
 </audio>
 
 
-
 <script>	
 	URL_HAY_ACTUALIZACION = '<?php echo Router::url(array("action"=>"hayActualizacion", $printer_id))?>';
 
@@ -49,7 +48,6 @@ Your browser does not support the audio element.
 	COMANDA_ESTADO_MARCHANDO = <?php echo COMANDA_ESTADO_MARCHANDO?>;
 	COMANDA_ESTADO_SALIENDO  = <?php echo COMANDA_ESTADO_SALIENDO?>;
 </script>
-
 
 <?php echo $this->Html->script('/comanda/js/packery.pkgd.min.js');?>
 <?php echo $this->Html->script('/comanda/js/comandero'); ?>
