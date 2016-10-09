@@ -107,8 +107,7 @@
 
 				$checkbox = $this->Form->checkbox('mercaderia_id', 	array('value'=>$merca['PedidoMercaderia']['id'], 'name'=>'data[Pedido][mercaderia_id][]', 'class'=>'checkbox acl acl-adicionista acl-administrador'));
 
-
-				$timeNice = $this->Time->niceShort($merca['Pedido']['created']);
+				$timeNice = $this->Time->niceShort($merca['PedidoMercaderia']['created']);
 
 				$uMedida = ($cant == 1) ? $uMedida : Inflector::pluralize($uMedida);
 				$canYMedida = $cant." ".$uMedida ;
