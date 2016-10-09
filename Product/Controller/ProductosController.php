@@ -29,7 +29,15 @@ class ProductosController extends ProductAppController {
             0 => 'Con Stock',
             1 => 'Sin Stock',
             );
-		$this->set('productos', $this->Paginator->paginate());
+
+        $productos = $this->Paginator->paginate();
+        if ( empty($productos) ) {
+            if( $this->Producto->find('count') == 0) {
+                $msg_sin_productos = __("Deberá crear Productos. Le recomendamos comenzar con algunos, sólo para comenzar, luego podrá agregar el resto.");
+                $this->set('msgSinProductos', $msg_sin_productos);
+            } 
+        }
+		$this->set('productos', $productos);
         $this->set('sinStocks', $sinStocks);
 	}
 

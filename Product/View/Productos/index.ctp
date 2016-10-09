@@ -59,10 +59,9 @@
 
 	<br>
 
-	<?php if ( empty($productos) ) { ?>
-
+	<?php if ( !empty($msgSinProductos) ) { ?>
 		<p class="alert alert-info center">
-			Deberá crear Productos. Le recomendamos comenzar con algunos, sólo para comenzar, luego podrá agregar el resto.
+			<?php echo $msgSinProductos; ?>
 		</p>
 
 
