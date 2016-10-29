@@ -39,13 +39,17 @@ $mesasXY   = toJsXY($mesas, 'total');
 $googleChartData = array();
 $tableData = array();
 foreach ($pagos as $fecha=>$ingreso) {
-    $googleChartData[] = array( $fecha, (float) @$ingreso['valor'], (float) @$egresos[$fecha]['total'], (float) @$zetas[$fecha]['monto_iva'] + @$zetas[$fecha]['monto_neto']);
+    $googleChartData[] = array( $fecha
+                                , (float) @$mesas[$fecha]['total']
+                                , (float) @$gastos[$fecha]['importe_total']
+                                , (float) @$zetas[$fecha]['monto_iva'] + @$zetas[$fecha]['monto_neto']);
 
     $tableData[] = array( $fecha
                         , $mesas[$fecha]['cant'] 
                         , (float)$mesas[$fecha]['cubiertos']
                         , $this->Number->currency( $mesas[$fecha]['promedio_cubiertos'] )
                         , $this->Number->currency( $mesas[$fecha]['total']/ (!empty($ingreso['cant_dias'])?$ingreso['cant_dias']:1 ) )
+                        , $this->Number->currency( @$gastos[$fecha]['importe_total'] )
                         , $this->Number->currency( @$ingreso['valor'] )
                         , $this->Number->currency( @$egresos[$fecha]['total'] )
                         , $this->Number->currency( @$zetas[$fecha]['monto_iva'] + @$zetas[$fecha]['monto_neto'] )
@@ -100,12 +104,19 @@ echo $this->Html->script("https://www.google.com/jsapi?autoload={
     <div class="col-md-7 col-md-push-1">
         <div class="row">            
             <div class="col-md-6">
-                
-                <h3>Sumatorias</h3>
-                Ingresos: <b><?php echo $this->Number->currency($pagos_total) ?></b><br />
-                Egresos: <b><?php echo $this->Number->currency($egresos_total) ?></b>
-               
+                <h3>Resúmen</h3>
                 <p>Cantidad de <?php echo Inflector::pluralize( Configure::read('Mesa.tituloCubierto') ) ?>: <b><?php echo $mesa_cubiertos ?></b></p>
+                <div class="row">
+                    <div class="col-md-6">
+                        Ventas: <b><?php echo $this->Number->currency($mesa_total) ?></b><br />
+                        Cobros: <b><?php echo $this->Number->currency($pagos_total) ?></b><br />
+                    </div>
+                    <div class="col-md-6">
+                        Gastos: <b><?php echo $this->Number->currency($gastos_total) ?></b><br />
+                        Pagos: <b><?php echo $this->Number->currency($egresos_total) ?></b>
+                    </div>
+                </div>
+                <br>
             </div>
 
             <div class="col-md-6">
@@ -138,8 +149,9 @@ echo $this->Html->script("https://www.google.com/jsapi?autoload={
                             Inflector::pluralize(Configure::read('Mesa.tituloCubierto')),
                             __('Promedio x %s', Configure::read('Mesa.tituloCubierto')),
                             __('Ventas'),
-                            __('Ingresos'),
-                            __('Egresos'),
+                            __('Gastos'),
+                            __('Cobros'),
+                            __('Pagos'),
                             __('Zetas')
                         ), null, array('class'=>'center') ); 
 

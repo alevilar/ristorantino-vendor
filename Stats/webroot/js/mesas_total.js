@@ -7,8 +7,8 @@
 
 
       data.addColumn('string', 'Fecha');
-      data.addColumn('number', 'Ingresos');
-      data.addColumn('number', 'Egresos');
+      data.addColumn('number', 'Ventas');
+      data.addColumn('number', 'Gastos');
       data.addColumn('number', 'Zetas');
 
 

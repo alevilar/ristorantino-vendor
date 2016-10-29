@@ -89,6 +89,13 @@ class StatsController extends StatsAppController
         $pagos = $this->Pago->sumaDelDia($desde, $hasta);
         $this->set('pagos_total', $pagos['valor']);
 
+
+        // sumatorias de gastos
+        $gastos = $this->Gasto->delDia($desde, $hasta);
+        $this->set('gastos', $gastos);
+        $gastos = $this->Gasto->sumaDelDia($desde, $hasta);
+        $this->set('gastos_total', $gastos['importe_total']);
+
         // tipos de pagos
         $res = $this->Pago->porTipoDePagoDesdeHasta($desde, $hasta);            
         $this->set('tipo_de_pagos', $res['tipoPagosList']);
