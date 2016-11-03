@@ -6,13 +6,13 @@
 			<th><?php echo __('CAE'); ?></th>
 			<th><?php echo __('Pto. Venta'); ?></th>
 			<th><?php echo __('Nº Comprobante'); ?></th>
-			<th><?php echo __('Mesa'); ?></th>
-			<th><?php echo __('Mozo'); ?></th>
+			<th><?php echo Configure::read("Mesa.tituloMesa"); ?></th>
+			<th><?php echo Configure::read("Mesa.tituloMozo"); ?></th>
 			<th><?php echo __('Neto'); ?></th>
 			<th><?php echo __('Iva'); ?></th>
 			<th><?php echo __('Total'); ?></th>
 			<th><?php echo __('fecha'); ?></th>
-			<th><?php echo __('Factura'); ?></th>
+			<th></th>
 		</tr>
 	</thead>
 
