@@ -138,6 +138,36 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 				<?php } ?>
 
 
+
+				<?php if (Configure::read('Site.modulo_impresoras')) { ?>
+					<li id="bton-pedidos" class="">   
+						<?php 
+						$img = $this->Html->image('/risto/css/ristorantino/home/impresoras.png');
+						echo $this->Html->link($img.__('Impresoras'), array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array(
+						  			'escape' => false,
+						  			'data-toggle' => "tooltip",
+									'data-placement'=>"bottom",
+						  			'title'=>"Imprime tickets o comandas.",
+						  			)); ?>
+					</li> 
+				<?php } ?>
+
+
+				<?php if (Configure::read('Site.modulo_afip_factura_electronica')) { ?>
+					<li id="bton-pedidos" class="">   
+						<?php 
+						$img = $this->Html->image('/risto/css/ristorantino/home/afip_factura_electronica.png');
+						echo $this->Html->link($img.__('E-Factura'), array('plugin'=>'printers', 'controller'=>'afip_facturas', 'action'=>'index'), array(
+						  			'escape' => false,
+						  			'data-toggle' => "tooltip",
+									'data-placement'=>"bottom",
+						  			'title'=>"Imprimir factura electrónica AFIP.",
+						  			)); ?>
+					</li> 
+
+				<?php } ?>
+
+
 				<?php if (Configure::read('Site.modulo_stats')) { ?>
 					<li id="bton-stats" class="">  
 						<?php 

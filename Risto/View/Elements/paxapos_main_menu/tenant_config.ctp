@@ -36,6 +36,14 @@
         ?>
 
 
+
+        <?php
+
+         echo $this->Html->link(__('IVA Responsabilidades'), array('plugin'=>'risto', 'controller'=>'iva_responsabilidades', 'action'=>'index'), array('class' => 'list-group-item'));
+          
+         ?>
+
+
 <?php 
 $roles = array();
 $rol = $this->Session->read('Auth.User.Rol');
@@ -71,8 +79,8 @@ if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
 
         <?php
         $class = $this->request->plugin == 'install' ? 'active':'';
-        echo $this->Html->link('<i class="fa fa-plug" aria-hidden="true"></i>
-&nbsp;'.__('Instalar Apps'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'modulos'), array('class' => 'list-group-item '.$class, 'escape'=>false));
+        echo $this->Html->link('<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+&nbsp;'.__('App Store'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'modulos'), array('class' => 'list-group-item '.$class, 'escape'=>false));
         ?>
 
 
@@ -80,17 +88,6 @@ if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
         <br>
 
          <?php
-
-
-        $fiscalDriver = Classregistry::init('Printers.Printer')->field('driver', array(
-                array(
-                        'Printer.id' => Configure::read('Printers.fiscal_id')
-                )));
-        if ( $fiscalDriver == PRINTERS_AFIP ) {
-            echo $this->Html->link(__('Afip Facturas'), array('plugin'=>'printers', 'controller'=>'afip_facturas', 'action'=>'index'), array('class' => 'list-group-item', 'escape'=>false));
-        }
-        unset($fiscalDriver);
-
 
         if ( CakeSession::read("Auth.User.is_admin") ) {
 
@@ -100,12 +97,9 @@ if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
 
             
             echo $this->Html->link(__('Tipos de Documentos'), array('plugin'=>'risto', 'controller'=>'TipoDocumentos', 'action'=>'index'), array('class' => 'list-group-item'));
-            echo $this->Html->link(__('IVA Responsabilidades'), array('plugin'=>'risto', 'controller'=>'iva_responsabilidades', 'action'=>'index'), array('class' => 'list-group-item'));
+           
+
            // echo $this->Html->link('Permisos de usuarios', '/admin/acl', array('class' => 'list-group-item'));
-
-
-
-            echo $this->Html->link(__('Impresoras'), array('plugin'=>'printers', 'controller'=>'printers', 'action'=>'index'), array('class' => 'list-group-item'));  
 
 
             echo $this->Html->link(__('Usuarios PaxaPos'), array('plugin'=>'site_users', 'controller'=>'site_users', 'action'=>'index'), array('class' => 'list-group-item'));  

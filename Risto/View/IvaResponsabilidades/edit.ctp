@@ -4,8 +4,18 @@
 		<legend><?php echo __('Editar Iva Responsabilidad'); ?></legend>
 	<?php
 		echo $this->Form->input('id');
-		echo $this->Form->input('codigo_fiscal',__('Codigo Fiscal'));
-		echo $this->Form->input('name',__('Nombre'));
+
+		if ( CakeSession::read("Auth.User.is_admin") ) {
+			echo $this->Form->input('codigo_fiscal',__('Codigo Fiscal'));
+			echo $this->Form->input('name',__('Nombre'));
+		} else {
+			echo $this->Form->hidden('codigo_fiscal');
+			echo $this->Form->input('name', array(
+				'label' => __('Nombre'),
+				'disabled' => true,
+			));
+		}
+		
 		echo $this->Form->input('tipo_factura_id',__('Tipo de Factura'));
 	?>
 	</fieldset>
