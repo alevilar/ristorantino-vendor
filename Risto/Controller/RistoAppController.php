@@ -102,11 +102,19 @@ class RistoAppController extends Controller {
         // Add header("Access-Control-Allow-Origin: *"); for print client node webkit
         $this->response->header('Access-Control-Allow-Origin', '*');
 
+        $this->__ipBanned();
 
-     
 
         return parent::beforeFilter();
         
+      }
+
+      public function __ipBanned(){
+        $ipBanned = array();
+        
+        if ( in_array( $this->request->clientIp(), $ipBanned ) ) {
+            throw new ForbiddenException(__("La IP fue banneada"));
+        }
       }
 
 
