@@ -123,6 +123,8 @@ define('RISTO_IVA_0', 0);
 define('RISTO_IVA_105', 10.5);
 define('RISTO_IVA_21', 21);
 
+define('CATEGORIA_ROOT_ID', 1);
+
 
 /* TIENEN QUE SER LOS MISMOS ID´s QUE EN LA TABLA !!! */
 define('MESA_ABIERTA', 1);
