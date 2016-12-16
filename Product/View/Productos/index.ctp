@@ -74,7 +74,7 @@
 	<table class="productos table">
 	        <tr>
 		<?php 
-		echo $this->Form->create("Producto"); 
+		echo $this->Form->create("Producto", array('url'=>array('action' => 'index'))); 
 		echo $this->Form->input("id") 
 		?>
 		<th><?php echo $this->Form->input('sin_stock',array(
