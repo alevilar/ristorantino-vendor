@@ -86,10 +86,14 @@ class CategoriasController extends ProductAppController
 
     function delete($id = null)
     {
+
         if (!$id) {
             $this->Session->setFlash(__('Invalid id for Categoria'), 'Risto.flash_error');
         }
-        if ($this->Categoria->delete( $id )) {
+        else if ($id == CATEGORIA_ROOT_ID) {
+            $this->Session->setFlash(__('This Categoria is the main category and cant be deleted'), 'Risto.flash_error');
+        }
+        else if ($this->Categoria->delete( $id )) {
             $this->Session->setFlash(__('Categoria deleted'), 'Risto.flash_success');
         }
         $this->redirect(array('action' => 'index'));
