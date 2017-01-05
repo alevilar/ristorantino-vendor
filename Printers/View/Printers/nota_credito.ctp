@@ -1,8 +1,7 @@
-<div data-role="page">
+<div data-role="dialog" id="adition-nota-credito">
 
     <div data-role="header">
         <h1>Nota de crédito</h1>
-        <a href="#listado-mesas-cerradas">Cancelar</a>
     </div>
 
     <div data-role="content">
@@ -46,11 +45,11 @@
                         <a href="#listado-mesas-cerradas" data-role="button">Volver</a>
                     </div>
                     <div class="ui-block-b">
-                        <button type="submit" data-theme="b">Imprimir Nota de Crédito</button>
+                        <button type="submit" data-theme="b">Imprimir</button>
                     </div>
                 </div>
                 
-       <?php echo $this->Form->end() ?>         
+       <?php echo $this->Form->end() ?>    
 
 
 
@@ -60,3 +59,4 @@
 
 
 </div>
+
