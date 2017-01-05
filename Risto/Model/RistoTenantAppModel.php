@@ -29,6 +29,8 @@ App::uses('MtSites', 'MtSites.Utility');
 class RistoTenantAppModel extends RistoAppModel {
 
 
+	public $actsAs = array( 'Containable', 'Search.Searchable', 'Risto.Auditable');
+
 /**
  * Sets up the configuration for the model, and loads databse from Multi Tenant Site
  *
