@@ -324,6 +324,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 120, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -336,6 +337,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'lft' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false),
 		'rght' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => false),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'parent_id' => array('column' => 'parent_id', 'unique' => 0),
@@ -355,6 +357,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'fecha' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'media_id' => array('column' => 'media_id', 'unique' => 0),
@@ -370,6 +373,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'importe' => array('type' => 'decimal', 'null' => false, 'default' => null, 'length' => '10,2', 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'egreso_id' => array('column' => 'egreso_id', 'unique' => 0),
@@ -394,6 +398,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'media_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'cierre_id' => array('column' => 'cierre_id', 'unique' => 0),
@@ -411,6 +416,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'gasto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'tipo_impuesto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'importe' => array('type' => 'float', 'null' => false, 'default' => '0', 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'gasto_id' => array('column' => 'gasto_id', 'unique' => 0),
@@ -425,6 +431,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'tipo_impuesto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'neto' => array('type' => 'decimal', 'null' => true, 'default' => '0.00', 'length' => '10,2', 'unsigned' => false),
 		'importe' => array('type' => 'decimal', 'null' => true, 'default' => '0.00', 'length' => '10,2', 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'gasto_id' => array('column' => 'gasto_id', 'unique' => 0),
@@ -442,6 +449,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'domicilio' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 100, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => false, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -454,6 +462,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'porcentaje' => array('type' => 'decimal', 'null' => false, 'default' => null, 'length' => '6,2', 'unsigned' => false),
 		'tiene_neto' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
 		'tiene_impuesto' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -467,6 +476,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'proveedor_id' => array('type' => 'integer', 'null' => false),
 		'rubro_id' => array('type' => 'integer', 'null' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -479,6 +489,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -493,6 +504,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -526,6 +538,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'pedido_id' => array('column' => 'pedido_id', 'unique' => 0),
@@ -546,6 +559,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'rubro_id' => array('type' => 'integer', 'null' => true),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'unidad_de_medida_id' => array('column' => 'unidad_de_medida_id', 'unique' => 0),
@@ -559,6 +573,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'proveedor_id' => array('type' => 'integer', 'null' => true),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'mercaderia_id' => array('column' => 'mercaderia_id', 'unique' => 0),
@@ -574,6 +589,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 120, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -593,6 +609,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'json_data' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'mesa_id' => array('column' => 'mesa_id', 'unique' => 0),
@@ -614,6 +631,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'caja_id' => array('column' => 'caja_id', 'unique' => 0),
@@ -624,10 +642,12 @@ class TenantBaseSchema extends RistoBaseSchema {
 	public $cash_cajas = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 124, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'user_id' => array('type' => 'integer', 'null' => true),
 		'computa_ingresos' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
 		'computa_egresos' => array('type' => 'boolean', 'null' => false, 'default' => '1'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -647,6 +667,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'arqueo_id' => array('column' => 'arqueo_id', 'unique' => 0),
@@ -666,6 +687,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'parent' => array('column' => 'parent_id', 'unique' => 0),
@@ -691,6 +713,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'codigo' => array('column' => 'codigo', 'unique' => 0),
@@ -712,7 +735,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'after_comanda_estado_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false, 'key' => 'index'),
 
 		'class_color' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 110, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
-
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'printer_id' => array('column' => 'printer_id', 'unique' => 0),
@@ -735,6 +758,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'mesa_id' => array('column' => 'mesa_id', 'unique' => 0),
@@ -751,6 +775,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'cant_menores' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 4, 'unsigned' => false),
 		'cant_bebes' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 4, 'unsigned' => false),
 		'mesa_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -760,6 +785,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 	public $config_categories = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -774,6 +800,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'description' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -789,6 +816,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -807,6 +835,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'es_entrada' => array('type' => 'integer', 'null' => true, 'default' => '0', 'length' => 4, 'unsigned' => false),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'mesa_id_2' => array('column' => 'comanda_id', 'unique' => 0),
@@ -821,6 +850,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'sabor_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'detalle_comanda_id' => array('column' => 'detalle_comanda_id', 'unique' => 0),
@@ -833,6 +863,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 60, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'color' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 14, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -846,6 +877,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -856,6 +888,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'producto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'grupo_sabor_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'producto_id' => array('column' => 'producto_id', 'unique' => 0),
@@ -869,6 +902,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'precio' => array('type' => 'float', 'null' => false, 'default' => null, 'unsigned' => false),
 		'producto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'producto_id' => array('column' => 'producto_id', 'unique' => 0),
@@ -880,6 +914,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 20, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'path' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -891,6 +926,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 65, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -903,6 +939,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'count' => array('type' => 'float', 'null' => false, 'default' => '0', 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => false, 'default' => '0000-00-00 00:00:00'),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'product_id' => array('column' => 'product_id', 'unique' => 0),
@@ -915,6 +952,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 65, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'category_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 		),
@@ -926,6 +964,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'codigo_fiscal' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'tipo_factura_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'tipo_factura_id' => array('column' => 'tipo_factura_id', 'unique' => 0),
@@ -942,6 +981,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'file' => array('type' => 'longblob', 'null' => false, 'default' => null),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -968,6 +1008,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'time_cobro' => array('type' => 'datetime', 'null' => true, 'default' => null, 'key' => 'index'),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'estado_id' => array('column' => array('estado_id'), 'unique' => 0),
@@ -991,6 +1032,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'activo' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'numero' => array('column' => 'numero', 'unique' => 0)
@@ -1003,6 +1045,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -1014,6 +1057,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -1025,10 +1069,12 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'mesa_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'tipo_de_pago_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'valor' => array('type' => 'float', 'null' => false, 'default' => null, 'unsigned' => false, 'comment' => 'por ahora este campo vale cuando el tipo de pago es mixto, entonces se pone la cantidad de efectivo que pagó. Para poder hacer el arqueo.'),
+		'user_id' => array('type' => 'integer', 'null' => true),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'mesa_id' => array('column' => 'mesa_id', 'unique' => 0),
@@ -1042,6 +1088,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -1058,6 +1105,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'category_id' => array('type' => 'integer', 'null' => false, 'default' => '0', 'unsigned' => false),
 		'expiration_time' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'columns' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
@@ -1074,6 +1122,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'output' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -1094,6 +1143,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'categoria_id' => array('column' => 'categoria_id', 'unique' => 0),
@@ -1106,6 +1156,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'producto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'unique'),
 		'precio' => array('type' => 'float', 'null' => false, 'default' => null, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'producto_id' => array('column' => 'producto_id', 'unique' => 1)
@@ -1117,6 +1168,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'producto_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'tag_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'prod_tags' => array('column' => array('producto_id', 'tag_id'), 'unique' => 0),
@@ -1129,6 +1181,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 	public $restaurantes = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 60, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -1141,6 +1194,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'machin_name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -1153,6 +1207,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'rol_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'user_id' => array('column' => array('user_id', 'rol_id'), 'unique' => 0),
@@ -1171,6 +1226,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted_date' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'deleted' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 4, 'unsigned' => false),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'categoria_id' => array('column' => 'categoria_id', 'unique' => 0),
@@ -1184,6 +1240,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -1196,6 +1253,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'rol_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'pin' => array('column' => 'pin', 'unique' => 1),
@@ -1208,6 +1266,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 110, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'media_id' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 10, 'unsigned' => true),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),			
 		),
@@ -1218,6 +1277,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'codigo_fiscal' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 64, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -1230,6 +1290,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'codename' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 1, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'integer', 'null' => true),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
 			'name' => array('column' => 'name', 'unique' => 1)
