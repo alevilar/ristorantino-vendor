@@ -33,6 +33,31 @@ class PedidoMercaderiasController extends ComprasAppController {
         $this->set(compact('mercaderias', 'unidadDeMedidas', 'mercaUnidades'));
     }
 
+
+
+    public function marcar_como_pendiente ($id = null) {
+
+        if ( !$this->PedidoMercaderia->exists($id) ) {
+            throw new NotFoundException("No existe ese PedidoMercaderia");
+        }
+
+
+        if ( $this->request->is( array('put', 'post')) ) {
+            $this->PedidoMercaderia->id = $id;
+            if ( $this->PedidoMercaderia->save('pedido_id', null) ) {
+                $this->Session->setFlash("Se envió a pendiente la mercaderia seleccionada");
+            } else {
+                $this->Session->setFlash("Error al marcar como pendiente la mercaderia", 'Risto.flash_error');
+            }
+
+        }
+
+       
+        $this->redirect($this->referer());
+    }
+
+
+
 	public function cambiarEstado ($estadoId = null, $id = null) {
         debug($this->request->data);die;
         if ( $this->request->is( 'post') && !empty($this->request->data['Pedido']['id'])) {

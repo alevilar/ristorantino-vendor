@@ -7,6 +7,11 @@
 <?php echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-default')); ?>
 
 <?php echo $this->Html->link('Editar Órden de Compra', array('action'=>'form', $pedido['Pedido']['id']), array('class'=>'btn btn btn-primary')); ?>
+
+
+<?php echo $this->Form->postLink('Eliminar Órden de Compra', array('action'=>'delete', $pedido['Pedido']['id']), array('class'=>'btn btn btn-danger'), array("Seguro desea eliminar?")); ?>
+
+
 </div>
 
 
@@ -49,14 +54,19 @@
 
 			
 		$linkEdit = $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['id'] ), array('class'=>'btn-edit') );
-
+		$linkEnviarComoPendiente = $this->Form->postLink("Enviar a Pendiente", array(
+															'controller'=>'PedidoMercaderias', 
+															'action'	=>'marcar_como_pendiente', 
+															$merca['id'] 
+															) 
+														);
 
 
 		echo $this->Html->tableCells(array(
 			$cant." ".$uMedida,
 			$mercaderia,
 			$obs,
-			$linkEdit
+			$linkEdit." | ".$linkEnviarComoPendiente
 		));
 
 	}

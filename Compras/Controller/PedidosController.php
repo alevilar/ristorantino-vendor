@@ -208,7 +208,7 @@ class PedidosController extends ComprasAppController {
         if ($this->Pedido->delete($id)) {
             $this->Session->setFlash(__('Órden de Compra eliminada correctamente'));
             if ( !$this->request->is('ajax') ) {
-                $this->redirect($this->referer() );
+                $this->redirect(array('action'=>'index') );
             }
         }
         $this->Session->setFlash(__('La Órden de Compra no se puede eliminar. Reintente.'));
