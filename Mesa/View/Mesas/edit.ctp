@@ -62,10 +62,10 @@
 
                     echo "<br>";
 
-                    echo $this->Html->link(__('Borrar %s', Configure::read('Mesa.tituloMesa') )
+                    echo $this->Form->postLink(__('Borrar %s', Configure::read('Mesa.tituloMesa') )
                                     , array('action' => 'delete'
                                     , $this->Form->value('Mesa.id'))
-                                    , array('class' => 'btn btn-default pull-right  btn-lg')
+                                    , array('class' => 'btn btn-danger pull-right  btn-lg')
                                     , sprintf('Seguro que querés borrar la Número # %s?', $this->Form->value('Mesa.numero'))); 
 
                     

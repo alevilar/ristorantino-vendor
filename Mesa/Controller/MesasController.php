@@ -1,9 +1,7 @@
 <?php
 
 App::uses('MesaAppController', 'Mesa.Controller');
-
-
-
+App::uses('WsPaxaposConnect', 'Risto.Utility');
 
 class MesasController extends MesaAppController {
 
@@ -196,7 +194,8 @@ class MesasController extends MesaAppController {
                
                 if ( !$this->request->is('ajax') ) {
                     $this->Session->setFlash(__('La mesa %s fue guardada', $this->request->data['Mesa']['numero'] ));
-                }  
+                }
+                WsPaxaposConnect::sendMesa($this->Mesa->id, "mesa:add");
             } else {
                 if (!$this->request->is('ajax')) {
                     $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'Risto.flash_error'));
@@ -284,12 +283,11 @@ class MesasController extends MesaAppController {
     }
 
     public function delete($id = null) {
-        if (!$id) {
-            if (!$this->request->is('ajax')){
-                $this->Session->setFlash(__('Invalid id for %s', Configure::read('Mesa.tituloMesa')));
-            }
+        if (!$this->Mesa->exists($id) ) {
+            throw new NotFoundException("La mesa no existe");
         }
-        if ( $this->Mesa->delete($id) ) {
+
+        if ( $this->Mesa->delete($id) ) {            
             if (!$this->request->is('ajax')){
                 $this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMesa')));     
             } 

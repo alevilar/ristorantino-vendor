@@ -153,6 +153,22 @@ class Mesa extends MesaAppModel {
 	public $order = array('Mesa.created' => 'desc');
 
 
+	public $modificada = false;
+
+
+
+
+	public function actualizarMesaModified( $mesaId = null) {
+		if (!empty($mesaId)) {
+			$this->id = $mesaId;
+		}
+
+		if ( !$this->modificada ) {
+			$this->modificada = true;
+			return $this->saveField('modified', date('Y-m-d H:i:s'));
+		}
+	}
+
 		
 
 	public function beforeSave($options = array() ) {
@@ -188,10 +204,55 @@ class Mesa extends MesaAppModel {
 	}
 
 
+	public function mesaParaUpdateAjax() {
+		$lastAccess = null;
+        $type = 'created';
+        if ( $microtime != 0 ) {
+        	$type = 'modified';
+            $lastAccess = $this->Session->read('lastAccess');
+
+
+            // setear el nuevo lastAccess
+            $nowTime = date('Y-m-d H:i:s', strtotime('now'));
+            $this->Session->write('lastAccess', $nowTime );
+
+            // ver las borradas o con checkout
+            $borradas = $this->Mozo->mesasBorradas( null, $lastAccess);
+            if ( !empty($borradas) ) {
+	            $mesas['borradas'] = $borradas;
+            }
+        }
+
+        $mesas[$type] = $this->Mozo->mesasAbiertas( null, $lastAccess);
+	}
+
+
+
+	/**
+	 * Called before every deletion operation.
+	 *
+	 * @return void
+	 * @link http://book.cakephp.org/2.0/en/models/callback-methods.html#afterdelete
+	 */
+	public function beforeDelete($cascade = true) {
+		if ($this->id) {
+			WsPaxaposConnect::sendMesa($this->id, "mesa:delete");
+		}
+
+		return parent::beforeDelete($cascade);
+	}
+
 	public function afterSave($created, $options = array()) {
 		if ( !$created && $this->changedState ) {
 			$this->__sendEventStateChange( 'After');			
 		}
+
+		if ( ! (count($options['fieldList']) == 1 && !empty($options['fieldList'][0]['modified']) ) ){
+			App::uses('WsPaxaposConnect', 'Risto.Utility');
+			$event = $created ? 'mesa:add':'mesa:edit';
+			WsPaxaposConnect::sendMesa($this->id, $event);
+		}
+
 
 		return parent::afterSave($created, $options);
 	}

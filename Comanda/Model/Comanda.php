@@ -208,17 +208,6 @@ class Comanda extends ComandaAppModel {
 	}
 
 
-	public function afterSave(  $created, $options = array() ) {
-		$comanda = $this->find('first', array(
-				'contain'=> false,
-				'conditions' => array('Comanda.id' => $this->id),
-		));
-		if ( $comanda ) {
-			$this->Mesa->id = $comanda['Comanda']['mesa_id'];
-			return $this->Mesa->saveField('modified', date('Y-m-d H:i:s'));
-		}
-	}
-
 
 
 	/**
@@ -248,6 +237,7 @@ class Comanda extends ComandaAppModel {
 			'comanda' => $comanda,
 			);
 	}
+
 
 
 
@@ -303,7 +293,17 @@ class Comanda extends ComandaAppModel {
 				);
 		}
 
-		return $this->saveAll($comandas, array('deep' => true) );  
+		$save = $this->saveAll($comandas, array('deep' => true) );  
+
+		if ( !empty($this->data['Comanda']['mesa_id']) ) {
+			$this->Mesa->id = $this->data['Comanda']['mesa_id'];
+		} else {
+			$this->Mesa->id = $this->field('mesa_id');
+		}
+
+		$this->Mesa->actualizarMesaModified();
+
+		return $save;
 	}
 
 	
