@@ -22,25 +22,56 @@ class AuditableBehavior extends ModelBehavior {
                     'conditions' => '',
                     'fields' => '',
                     'order' => ''
+                ),
+				 'CreatorGeneric' => array(
+                    'className' => 'Users.GenericUser',
+                    'foreignKey' => 'created_by',
+                    'conditions' => '',
+                    'fields' => '',
+                    'order' => ''
                 )
 			)));
 	}
 
 
 
+	public function __completarConCreatedBy( $model, $modelName ) {
+		// verifico que NO tenga ID, porque solo debo guardar cuando se esta creando el registro
+		if ( empty($model->data[$modelName]['id'])) {
+			if ( CakeSession::check("Auth.User.id") ) {
+				$userId = CakeSession::read("Auth.User.id");
+				$model->data[$modelName]['created_by'] = $userId;
+			}
+		}
+	}
+
 
 
 	public function beforeSave(Model $model, $options = array()) {
-
-		// verifico que NO tenga ID, porque solo debo guardar cuando se esta creando el registro
-		if ( empty($model->data[$model->name]['id'])) {
-			if ( CakeSession::check("Auth.User.id") ) {
-				$userId = CakeSession::read("Auth.User.id");
-				$model->data[$model->name]['created_by'] = $userId;
+		$asociados = $model->getAssociated();
+		
+		foreach ($asociados as $modelName => $relationType) {
+			if ( $relationType == 'hasMany' || $relationType == 'hasOne') {
+				$this->__completarConCreatedBy( $model->{$modelName}, $modelName );
 			}
 		}
 
+		// verifico que NO tenga ID, porque solo debo guardar cuando se esta creando el registro
+		$this->__completarConCreatedBy( $model, $model->name );
+
+
 		return true;
+	}
+
+
+
+	public function esUsuarioPrivilegiado() {
+		$userId         = CakeSession::check("Auth.User.id");
+        $userIsAdmin    = CakeSession::read("Auth.User.is_admin");
+        $userIsEncargado = CakeSession::read("Auth.User.rol_id")  == ROL_ID_ENCARGADO;
+        $userIsDuenio   = CakeSession::read("Auth.User.rol_id") === null;
+        $puedeVerTodo   = ($userIsAdmin || $userIsEncargado || $userIsDuenio);
+        return $puedeVerTodo;
 	}
 
 }
