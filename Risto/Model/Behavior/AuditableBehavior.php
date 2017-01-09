@@ -37,7 +37,7 @@ class AuditableBehavior extends ModelBehavior {
 
 	public function __completarConCreatedBy( $model, $modelName ) {
 		// verifico que NO tenga ID, porque solo debo guardar cuando se esta creando el registro
-		if ( empty($model->data[$modelName]['id'])) {
+		if ( isset($model->data[$modelName]) && empty($model->data[$modelName]['id'])) {
 			if ( CakeSession::check("Auth.User.id") ) {
 				$userId = CakeSession::read("Auth.User.id");
 				$model->data[$modelName]['created_by'] = $userId;
