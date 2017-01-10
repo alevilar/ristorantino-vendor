@@ -147,4 +147,49 @@ class Pago extends MesaAppModel {
                 );
     }
 
+
+
+
+    /**
+     *
+     *  Busca los cobros realizados entre el rango de fechas indicado
+     * 
+     * @param datetime $desde fecha desde. Tambien puede ser un array, que luego será separado en fecha desde y hasta
+     * @param datetime $hasta fecha hasta
+     * @return array (find all) de cobros (pagos) encontradas
+     * 
+     **/
+    public function  buscaDesdeHastaXFechaCobro( $desde = null, $hasta = null) {
+        // armo las condiciones de busqueda de la mesa
+        $conds = array();
+
+        // si vino un array lo descompongo en 2 variables
+        if ( is_array($desde)) {
+            if ( !empty($desde['hasta']) ) {
+                $hasta = $desde['hasta'];
+            }
+
+            if ( !empty($desde['desde']) ) {
+                $desde = $desde['desde'];
+            }
+        }
+
+
+        if ( !empty($hasta)) {
+            $conds['Pago.created <='] = $hasta;
+        }
+
+        if ( !empty($desde)) {
+            $conds['Pago.created >'] = $desde;
+        }
+        $pagos = $this->find('all', array(
+            'conditions' => $conds,
+            'contain' => array(
+                'Mesa' => array('Mozo'),
+                'TipoDePago',
+                )
+            ));
+        return $pagos;
+    }
+
 }

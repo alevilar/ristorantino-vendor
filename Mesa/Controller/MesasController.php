@@ -195,7 +195,6 @@ class MesasController extends MesaAppController {
                 if ( !$this->request->is('ajax') ) {
                     $this->Session->setFlash(__('La mesa %s fue guardada', $this->request->data['Mesa']['numero'] ));
                 }
-                WsPaxaposConnect::sendMesa($this->Mesa->id, "mesa:add");
             } else {
                 if (!$this->request->is('ajax')) {
                     $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'Risto.flash_error'));
