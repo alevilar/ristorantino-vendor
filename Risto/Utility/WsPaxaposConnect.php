@@ -1,7 +1,7 @@
 <?php
 
 App::uses('CakeSocket', 'Network');
-
+App::uses('CakeLog', 'Log');
 
 
 class WsPaxaposConnect{
@@ -72,9 +72,13 @@ class WsPaxaposConnect{
 			'port' => self::$port,
 			'timeout' => 10,
 		);
-		$skt = new CakeSocket($config);
-		$skt->connect();
-		$skt->write($data);
-		$skt->disconnect();
+		try{
+			$skt = new CakeSocket($config);
+			$skt->connect();
+			$skt->write($data);
+			$skt->disconnect();
+		} catch (Exception $e) {
+	    	CakeLog::write('warning', 'No se pudo conectar con el servidor WS nodejs');
+		}
 	}
 }
