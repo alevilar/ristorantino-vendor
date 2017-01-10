@@ -29,7 +29,7 @@
 
 
 
-                <?php echo $this->Form->create('Mesa'); ?>
+                <?php echo $this->Form->create('Mesa', array('id'=>'MesaForm')); ?>
                     <legend><?php __('Datos Generales'); ?></legend>
                     <?php
                     echo $this->Form->input('id');
@@ -60,22 +60,17 @@
                     echo $this->Form->input('subtotal', array('label'=>'Total "verdadero", o sea, de los productos sumados en caso de haber aplicado un descuento, por ejemplo'));
                     
 
-                    echo "<br>";
 
+                    echo $this->Form->submit('Guardar Cambios', array('class'=>'btn btn-primary btn-lg'));
+
+
+                    echo $this->Form->end();
+                    
                     echo $this->Form->postLink(__('Borrar %s', Configure::read('Mesa.tituloMesa') )
                                     , array('action' => 'delete'
                                     , $this->Form->value('Mesa.id'))
                                     , array('class' => 'btn btn-danger pull-right  btn-lg')
                                     , sprintf('Seguro que querés borrar la Número # %s?', $this->Form->value('Mesa.numero'))); 
-
-                    
-
-                    echo $this->Form->submit('Guardar Cambios', array('class'=>'btn btn-primary btn-lg'));
-
-                    
-
-
-                    echo $this->Form->end();
 
                     ?>
         </div>
