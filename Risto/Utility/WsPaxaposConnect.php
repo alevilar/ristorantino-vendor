@@ -78,7 +78,7 @@ class WsPaxaposConnect{
 			$skt->write($data);
 			$skt->disconnect();
 		} catch (Exception $e) {
-	    	CakeLog::write('warning', 'No se pudo conectar con el servidor WS nodejs: '.$e->getMessage() );
+	    	CakeLog::write('warning', __("No se pudo conectar con el servidor %s:%s WS nodejs: %s", $url, self::$port, $e->getMessage() ) );
 		}
 	}
 }
