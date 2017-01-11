@@ -64,7 +64,7 @@ class WsPaxaposConnect{
 
 
 	static function __write( $data ){
-		$url = str_replace( array("http://","https://"), "", FULL_BASE_URL);
+		$url = env('HTTP_HOST');
 		$config = array(
 				//'persistent' => false,
 			'host' => $url,
