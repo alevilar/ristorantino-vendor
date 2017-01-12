@@ -182,7 +182,7 @@ class SiteUsersController extends UsersAppController {
 				));
 			
 			if ( !empty( $wasFound['Site']) ) {
-				$this->Session->setFlash(__d('users', 'The User %s is already in this site', $this->request->data[$this->modelClass]['username']), 'Risto.flash_warning');
+				$this->Session->setFlash(__d('users', 'The User %s is already in this site', $this->request->data[$this->modelClass]['username']), 'Risto.Flash/flash_warning');
 			} elseif ( $wasFound ) {
 				// assign user Rol & Site
 
