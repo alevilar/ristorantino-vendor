@@ -21,7 +21,10 @@ class Sabor extends ProductAppModel {
       
        public $filterArgs = array(
 			'name' => array('type' => 'like'),
-			'categoria' => array('type' => 'like', 'field' => 'Categoria.name'),
+						        'categoria_id' => array(
+            'type' => 'value',
+            'field' => 'Categoria.id'
+            ),
                         'precio' => array('type' => 'value'),
         );
       
