@@ -47,6 +47,12 @@ class PxHtmlHelper extends Bs3HtmlHelper {
         if ( !empty( $media['id'] ) && !empty($media['id'] ) ) {
             $id = $media['id'];
         }
+        
+        $Media = Classregistry::init("Risto.Media");
+        if ( empty($id) || !$Media->exists($id) ) {
+            return "";
+        }
+
         if (!empty($id)){
             $route = array('plugin' => 'risto', 'controller'=>'medias', 'action'=>'thumb', $id );
             if ( ( !empty($options['width']) && is_numeric($options['width']) ) || ( !empty($options['height'] ) && is_numeric($options['height']) ) ) {

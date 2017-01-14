@@ -78,11 +78,7 @@ public function add() {
     $importeMesa = $this->Pago->Mesa->calcular_total($mesa['id']);
 
     if ( !empty( $this->request->data['Pago'] ) ) {
-      if ( count($this->request->data['Pago']) == 1 && empty($this->request->data['Pago'][0]['valor']) ) {
-            // si vino 1 solo pago y sin valor, le agrego el valor total de la
-            $this->request->data['Pago'][0]['valor'] = $importeMesa;
-      }
-
+      
       $sumaPagos = 0;    
       foreach ( $this->request->data['Pago'] as $key=>$pago ) {
           if ( !array_key_exists('valor', $pago ) || empty($pago['valor']) ) {
@@ -123,8 +119,10 @@ public function add() {
       } else {
           $this->Session->setFlash(__('The Pago could not be saved. Please, try again.'), 'Risto.flash_error');
       }
+      $this->Pago->Mesa->actualizarMesaModified();
     }
   }
+
   if (!$this->request->is('ajax')) {
       $this->redirect($this->referer());
   } else {
@@ -156,15 +154,29 @@ public function add() {
   }
 
   public function delete($id = null) {
-    if (!$id) {
+    if (!$id || !$this->Pago->exists($id)) {
        $this->Session->setFlash(__('Invalid id for Pago'));
        $this->redirect( $this->referer() );
    }
-   if ($this->Pago->delete($id)) {
+
+   $this->Pago->id = $id;
+   $this->Pago->recursive = -1;
+   $mesaId = $this->Pago->field('mesa_id');
+   
+   if ($this->Pago->delete()) {
+    if ( !$this->request->is('ajax', 'delete'))  {
        $this->Session->setFlash(__('Pago deleted'));
-       $this->redirect($this->referer());
+    }
    }
+
+   $this->Pago->Mesa->actualizarMesaModified($mesaId);
+
+
+   if ( !$this->request->is(array('ajax', 'delete')))  {
+       $this->redirect($this->referer());
+    } else {
+      exit;
+    }
   }
 
 }
-?>

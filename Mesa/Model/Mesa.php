@@ -173,7 +173,6 @@ class Mesa extends MesaAppModel {
 
 	public function beforeSave($options = array() ) {
 		parent::beforeSave($options);
-
 		unset( $this->data['modified'] );
 
 		if ( empty($this->data['Mesa']['id']) && empty($this->data['Mesa']['estado_id'])) {
