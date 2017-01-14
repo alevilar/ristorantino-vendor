@@ -21,7 +21,10 @@ class SaboresController extends ProductAppController {
 		$this->Sabor->recursive = 0;
 		
 		$sabores = $this->Paginator->paginate('Sabor');
-		
+
+		$categorias = $this->Sabor->Categoria->generateTreeList();
+        $this->set(compact('categorias'));
+
 		$this->set('sabores',$sabores);
 	}
 
