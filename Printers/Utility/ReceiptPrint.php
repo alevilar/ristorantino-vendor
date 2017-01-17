@@ -67,7 +67,7 @@ class ReceiptPrint
    public static function imprimirPedidoCompra ( Pedido $Pedido ) {
      // $Mesa = ClassRegistry::init('Mesa.Mesa');
       if ( !Configure::check('Printers.compras_id') ) {
-        throw new CakeException("No hay una impresora de compras configurada. Por favor, seleccione una impresora para realizar pedidos desde la sección de configuración.");
+        throw new CakeException("No hay una impresora de compras configurada. Puede seleccionar una impresora en la sección de configuración, si desea imprimir.");
         
       }
       $send = Printaitor::send( $Pedido, 

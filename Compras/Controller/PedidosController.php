@@ -61,7 +61,12 @@ class PedidosController extends ComprasAppController {
 	       					$this->Session->setFlash('Se ha enviado por mail la Órden de Compra');
 	       				}
 		                
-		                ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+		                try{
+							ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+							$this->Session->setFlash( __( "Se envió a imprimir la Órden de Compra #%s", $id ));
+						} catch(Exception $e){
+							$this->Session->setFlash( $e->getMessage(), 'Risto.Flash/flash_warning');	
+						}
 
 		                $this->redirect(array('action'=>'pendientes'));
 	            } else {
@@ -176,8 +181,12 @@ class PedidosController extends ComprasAppController {
 
 	public function imprimir ( $id ) {
 		$this->Pedido->id = $id;
-		ReceiptPrint::imprimirPedidoCompra($this->Pedido);
-		$this->Session->setFlash( __( "Se envió a imprimir la Órden de Compra #%s", $id ));
+		try{
+			ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+			$this->Session->setFlash( __( "Se envió a imprimir la Órden de Compra #%s", $id ));
+		} catch(Exception $e){
+			$this->Session->setFlash( $e->getMessage(), 'Risto.Flash/flash_warning');	
+		}
 		$this->redirect($this->referer() );
 	}
 
