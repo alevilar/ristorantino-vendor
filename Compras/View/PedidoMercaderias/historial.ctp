@@ -36,6 +36,8 @@
 				<th><?php echo $this->Paginator->sort('cantidad', "Cantidad")?></th>
 				<th><?php echo $this->Paginator->sort('unidad_de_medida_id', "U/Medida")?></th>
 				<th><?php echo $this->Paginator->sort('name', "Mercaderia")?></th>
+				<th><?php echo $this->Paginator->sort('precio', "Precio")?></th>
+				<th><?php echo $this->Paginator->sort('time_recibido', "Fecha Recepción	")?></th>
 				<th>Proveedor</th>
 				<th>Observación</th>
 				<th class="hidden-print" style="width: 234px">Acciones</th>
@@ -49,6 +51,8 @@
 			$cant = (float)$merca['PedidoMercaderia']['cantidad'];
 			$uMedida = $merca['UnidadDeMedida']['name'];
 			$mercaderia = $merca['Mercaderia']['name'];
+			$precio = $merca['PedidoMercaderia']['precio']!=0 ? $this->Number->currency( $merca['PedidoMercaderia']['precio'] ) : "";
+			$timeRecibido = empty($merca['PedidoMercaderia']['time_recibido'])? "":$this->Time->nice( $merca['PedidoMercaderia']['time_recibido'] );
 			$observacion = $merca['PedidoMercaderia']['observacion'];
 			$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
 
@@ -66,7 +70,11 @@
 			<td><?php echo $cant;?></td>
 			<td><?php echo ($cant == 1) ? $uMedida : Inflector::pluralize($uMedida);?></td>
 			<td><?php echo $detalle;?></td>
+			<td><?php echo $precio;?></td>
+			<td class="small"><?php echo $timeRecibido;?></td>
 			<td><?php echo !empty($merca['Mercaderia']['Proveedor']['name']) ? $merca['Mercaderia']['Proveedor']['name'] : "";?></td>
+			
+
 			<td><?php echo $observacion;?></td>
 			
 			<td class="hidden-print">

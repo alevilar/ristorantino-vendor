@@ -44,46 +44,78 @@ class PedidosController extends ComprasAppController {
 
 	public function form ( $id = null ) {
 		if ( $this->request->is(array('post', 'put'))) {
-			$enviarXMail = !empty($this->request->data['Pedido']['sendmail']);
-			$pedidoLimpio = $this->Pedido->PedidoMercaderia->limpiarPedidosSinCant($this->request->data['PedidoMercaderia'] );
-	 
-	        if ( $pedidoLimpio ) {              
-	       		$pedido = $this->request->data['Pedido'];
-   				$pedido['PedidoMercaderia'] = $this->Pedido->agregarRubroSegunProveedorSeleccionado($this->request->data['Pedido']['proveedor_id'], $pedidoLimpio );
-	       		if ( $this->Pedido->saveAll($pedido, array('deep'=>true)) ) {
-	       				$this->Session->setFlash('Se ha guardado correctamente la Órden de Compra');
-	       				if ( $enviarXMail ) {
-	       					$mensajeMail = '';
-	       					if (!empty($this->request->data['Pedido']['mensaje_mail'])) {
-	       						$mensajeMail = trim($this->request->data['Pedido']['mensaje_mail']);
-	       					}
-	       					$this->Pedido->sendMail($this->Pedido->id, $mensajeMail);
-	       					$this->Session->setFlash('Se ha enviado por mail la Órden de Compra');
-	       				}
-		                
-		                try{
-							ReceiptPrint::imprimirPedidoCompra($this->Pedido);
-							$this->Session->setFlash( __( "Se envió a imprimir la Órden de Compra #%s", $id ));
-						} catch(Exception $e){
-							$this->Session->setFlash( $e->getMessage(), 'Risto.Flash/flash_warning');	
-						}
+			try{
 
-		                $this->redirect(array('action'=>'pendientes'));
-	            } else {
-	                debug($pedido);
-	                debug($this->Pedido->validationErrors);
+				if ( $this->Pedido->PedidoMercaderia->saveLimpios( $this->request->data ) ) {
+					$this->Session->setFlash("Se guardó el pedido correctamente");
+				} else {
+					$this->Session->setFlash("Error al guardar el pedido", 'Risto./Flash/flash_error');
+				}
+			} catch(Exception $e){
+				$this->Session->setFlash( $e->getMessage(), 'Risto.Flash/flash_warning');	
+			}
 
-	       			$this->Session->setFlash('Error, no se puedo guardar la Órden de Compra', 'Risto.flash_error');
-	       		}
-	        } else {
-	            $this->Session->setFlash('Error, La Órden de Compra quedó vacía, o sea, no se seleccionaron cantidades', 'Risto.flash_error');
-	        }
+
+            $this->redirect(array('action'=>'pendientes'));
+
 		} else if (!empty($id)){
 			$this->Pedido->id = $id;
 			$this->Pedido->contain(array(
 					'Proveedor',
 					'PedidoMercaderia'=>'Mercaderia',
 
+				));
+			$this->request->data = $this->Pedido->read();
+			$pedidoMercaderias = array();
+			foreach($this->request->data['PedidoMercaderia'] as $pm ) {
+				$pedidoMercaderias[] = array(
+					'PedidoMercaderia'=>$pm,
+					'Mercaderia'	  =>$pm['Mercaderia']
+					);
+			}
+		}
+
+
+        $unidadDeMedidas = $this->Pedido->PedidoMercaderia->UnidadDeMedida->find('list');
+        $mercaderias = $this->Pedido->PedidoMercaderia->Mercaderia->find('list');
+        $proveedores = $this->Pedido->Proveedor->find('list');
+        $mercaUnidades = $this->Pedido->PedidoMercaderia->Mercaderia->find('list', array('fields'=> array('id', 'unidad_de_medida_id')));
+        $this->set(compact('mercaderias', 'unidadDeMedidas', 'mercaUnidades', 'proveedores', 'pedidoMercaderias'));
+	}
+
+
+	public function recepcion ( $id = null ) {
+		if ( $this->request->is(array('post', 'put'))) {
+
+			$pdata = array();
+			$todorecepcionado = true;
+			foreach ($this->request->data['PedidoMercaderia'] as $pm ) {
+				$pdata[] = array(
+					'PedidoMercaderia' => $pm
+					);
+				if ( $pm['cantidad'] == 0 ) {
+					$todorecepcionado = false;
+				}
+			}
+			if ( $todorecepcionado ) {
+				$this->Pedido->id = $this->request->data['Pedido']['id'];
+				$this->Pedido->saveField('recepcionado', $todorecepcionado);
+			}
+			if ( $this->Pedido->PedidoMercaderia->saveAll( $pdata ) ) {
+				$this->Session->setFlash("Se guardó la recepción correctamente");
+			} else {
+				debug( $this->Pedido->PedidoMercaderia->validationErrors);
+				debug( $this->Pedido->validationErrors);
+				$this->Session->setFlash("Error al guardar la recepción de mercaderia", 'Risto./Flash/flash_error');
+			}
+
+            $this->redirect(array('action'=>'index'));
+
+		} else if (!empty($id)){
+			$this->Pedido->id = $id;
+			$this->Pedido->contain(array(
+					'Proveedor',
+					'PedidoMercaderia'=>'Mercaderia',
 				));
 			$this->request->data = $this->Pedido->read();
 			$pedidoMercaderias = array();

@@ -1,4 +1,4 @@
-<?php 
+ç<?php 
 App::uses('RistoBaseSchema', 'Risto.Model');
 
 
@@ -517,6 +517,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 	public $compras_pedidos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'proveedor_id' => array('type' => 'integer', 'null' => true),
+		'recepcionado' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
+
 		'observacionescion' => array('type' => 'text', 'null' => true, 'default' => null),
 		'created_by' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'index', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
@@ -537,6 +539,8 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'unidad_de_medida_id' => array('type' => 'integer', 'null' => false),
 		'cantidad' => array('type' => 'decimal', 'null' => false, 'default' => null, 'length' => '10,2', 'unsigned' => false),
 		'observacion' => array('type' => 'text', 'null' => true, 'default' => null),
+		'time_recibido' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'precio' => array('type' => 'decimal', 'null' => true, 'default' => null, 'length' => '10,2', 'unsigned' => false),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
 		'created_by' => array('type' => 'string', 'length' => 36, 'null' => true),

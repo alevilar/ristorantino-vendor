@@ -49,7 +49,6 @@ class AuditableBehavior extends ModelBehavior {
 
 	public function beforeSave(Model $model, $options = array()) {
 		$asociados = $model->getAssociated();
-		
 		foreach ($asociados as $modelName => $relationType) {
 			if ( $relationType == 'hasMany' || $relationType == 'hasOne') {
 				$this->__completarConCreatedBy( $model->{$modelName}, $modelName );

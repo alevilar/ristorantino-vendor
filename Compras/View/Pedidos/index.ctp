@@ -28,8 +28,18 @@
 	<?php
 		$rows = [];
 		foreach ( $pedidos as $p ) {
+			$links = "";
+			if ( !$p['Pedido']['recepcionado'] ) {
+				$links .=  $this->Html->link("recepcionar", array('action'=>'recepcion', $p['Pedido']['id'] ), array('class'=>'text-success') );
+			} else {
+				$links .= '<span class="text-grey">✔ recepcionado</span>';
+			}
+			$links .= " | ";
+			$links .= $this->Html->link('ver',array('action'=>'view', $p['Pedido']['id']));
 
-			$links = $this->Html->link('ver',array('action'=>'view', $p['Pedido']['id']));
+			$links .= " | ";
+			$links .= $this->Html->link('editar',array('action'=>'form', $p['Pedido']['id']));
+
 			$links .= " | ";
 			$links .=  $this->Html->link("imprimir", array('action'=>'imprimir', $p['Pedido']['id'] ) );
 			$links .= " | ";

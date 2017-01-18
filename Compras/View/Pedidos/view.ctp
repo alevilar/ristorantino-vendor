@@ -6,6 +6,9 @@
 
 <?php echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-default')); ?>
 
+
+<?php echo $this->Html->link("Recepcionar", array('controller'=>'Pedidos', 'action'=>'recepcion', $pedido['Pedido']['id'] ), array('class'=>'btn btn-success') );?>
+
 <?php echo $this->Html->link('Editar Órden de Compra', array('action'=>'form', $pedido['Pedido']['id']), array('class'=>'btn btn btn-primary')); ?>
 
 
@@ -54,6 +57,7 @@
 
 			
 		$linkEdit = $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['id'] ), array('class'=>'btn-edit') );
+
 		$linkEnviarComoPendiente = $this->Form->postLink("Enviar a Pendiente", array(
 															'controller'=>'PedidoMercaderias', 
 															'action'	=>'marcar_como_pendiente', 

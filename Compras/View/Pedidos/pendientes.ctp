@@ -81,6 +81,7 @@
 			foreach ($rub['PedidoMercaderia'] as $merca ) { ?>
 				<?php 
 				$cant = (float)$merca['PedidoMercaderia']['cantidad'];
+
 				$uMedida = $merca['UnidadDeMedida']['name'];
 				$mercaderia = $merca['Mercaderia']['name'];
 				$observacion = $merca['PedidoMercaderia']['observacion'];
@@ -111,6 +112,14 @@
 
 				$uMedida = ($cant == 1) ? $uMedida : Inflector::pluralize($uMedida);
 				$canYMedida = $cant." ".$uMedida ;
+
+				$canYMedida = $this->Html->link( $canYMedida, array(
+						'controller' => 'pedido_mercaderias',
+						'action' => 'form',
+						$merca['PedidoMercaderia']['id']
+					),array(
+						'class'=> 'btn-edit'
+					) );
 
 				$rows = array(
 					$checkbox ,

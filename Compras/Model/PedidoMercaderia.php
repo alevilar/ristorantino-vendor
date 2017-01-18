@@ -159,11 +159,41 @@ class PedidoMercaderia extends ComprasAppModel {
 	}
 
 
+	public function saveLimpios( $data ) {
+		$enviarXMail = !empty($data['Pedido']['sendmail']);
+		$pedidoLimpio = $this->limpiarPedidosSinCant($data['PedidoMercaderia'] );
+ 
+ 		$pedido = array();
+        if ( $pedidoLimpio ) {    
+        	if ( !empty($data['Pedido']) ) {
+       			$pedido = $data['Pedido'];
+        	}
+			$pedido['PedidoMercaderia'] = $this->Pedido->agregarRubroSegunProveedorSeleccionado($data['Pedido']['proveedor_id'], $pedidoLimpio );
+       		if ( $this->Pedido->saveAll($pedido, array('deep'=>true)) ) {
+       				if ( $enviarXMail ) {
+       					$mensajeMail = '';
+       					if (!empty($data['Pedido']['mensaje_mail'])) {
+       						$mensajeMail = trim($data['Pedido']['mensaje_mail']);
+       					}
+       					$this->Pedido->sendMail($this->Pedido->id, $mensajeMail);
+       				}
+	                
+					ReceiptPrint::imprimirPedidoCompra($this->Pedido);
+					return true;
+            } else {
+       			return false;
+       		}
+        }
+        
+        return true;
+	}
+
+
 	/**
 	 * 
 	 * 
 	 * 	Limpiar los pedidos recibidos con formulario
-	 * 
+	 * 	elimina los que cuya cantidad es CERO
 	 * 
 	 * 
 	 **/
