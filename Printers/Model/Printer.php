@@ -118,5 +118,34 @@ class Printer extends PrintersAppModel {
 		throw new NotImplementedException("imprimirTexto no implementado");
 	}
 
+	public function checkearImpresoraProductos($id) {
+        
+		if ($this->Producto->find('count', array(
+			'fields' =>array(
+				'printer_id' => $id
+				),
+			'conditions' => array(
+				'printer_id' => $id))) >= 1) {
+
+			return true;
+
+		} else {
+			return false;
+		}
+	}
+
+	public function desvincularImpresoraProductos($id) {
+	    if ($this->Producto->find('count', array(
+			'fields' =>array(
+				'printer_id' => $id
+				),
+			'conditions' => array(
+				'printer_id' => $id))) >= 1) {
+
+	    	$this->Producto->updateAll(array('printer_id' => null),array('printer_id' => $id));
+
+		} 
+	}
+
 
 }

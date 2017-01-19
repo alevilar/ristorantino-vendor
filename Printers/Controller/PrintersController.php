@@ -56,7 +56,21 @@ class PrintersController extends PrintersAppController {
  *
  * @return void
  */
-	public function index() {
+	public function index($id = null) {
+        
+        if (isset($id) && $this->Printer->exists($id) ) {
+
+			if( $this->Printer->checkearImpresoraProductos($id) == true)
+			{
+				$confirmacion = 1;
+				$this->Session->setFlash(__('Esta impresora tiene productos asociados. Si desea borrarla de todas maneras, intentelo nuevamente. Los productos asociados no seran borrados'));
+
+            
+			} else if ($this->Printer->checkearImpresoraProductos($id) == false) {
+              return $this->redirect(array('action' => 'delete',$id));
+			}
+		}
+
 		$this->Printer->recursive = 0;
 		$this->set('printers', $this->Paginator->paginate());
 	}
@@ -142,13 +156,14 @@ class PrintersController extends PrintersAppController {
  */
 	public function delete($id = null) {
 		$this->Printer->id = $id;
-		if (!$this->Printer->exists()) {
+		if (!$this->Printer->exists($id)) {
 			throw new NotFoundException(__('Invalid printer'));
 		}
-		$this->request->allowMethod('post', 'delete');
 		if ($this->Printer->delete()) {
+            $this->Printer->desvincularImpresoraProductos($id);
 			$this->Session->setFlash(__('The printer has been deleted.'));
-		} else {
+		} 
+	   else {
 			$this->Session->setFlash(__('The printer could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));
