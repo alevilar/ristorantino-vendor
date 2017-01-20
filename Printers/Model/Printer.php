@@ -149,7 +149,7 @@ class Printer extends PrintersAppModel {
 	 * 	@return true o false si hizo el update correctamente o -1 si no hay productos que usen la impresora pasada por parametro
 	 **/
 	public function modificaImpresoraProductos($id, $nuevoId = null) {
-	    if ( $this->cantidadDeProductosEnImpresora() ) {
+	    if ( $this->cantidadDeProductosEnImpresora($id) ) {
 	    	return $this->Producto->updateAll(array('printer_id' => $nuevoId),array('printer_id' => $id));
 	    }
 	    return -1;
