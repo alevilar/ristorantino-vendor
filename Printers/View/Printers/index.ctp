@@ -29,17 +29,16 @@
 			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $printer['Printer']['id']), array('class'=>'btn btn-default')); ?>
 			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $printer['Printer']['id']), array('class'=>'btn btn-default')); ?>
 			<?php
-            if (isset($_GET['confirmacion'])) {
-            	$confirmacion = $_GET['confirmacion'];
-            } else {
-            	$confirmacion = 0;
+           
+
+			$printerName = $printer['Printer']['name'];
+			$cantProductos = $printer['Printer']['cantidad_productos'];
+			$mensajeConfirmacion = __('¿Estas seguro que deseas borrar la impresora "%s"?', $printerName);
+            if ( $cantProductos > 0) {
+            	$mensajeConfirmacion = __('La impresora "%s" que desea borrar, tiene %s productos relacionados ¿Estas seguro que deseas borrarla?', $printerName, $cantProductos);
             }
-            if ($confirmacion == 0) {
-            	$confirmacion = 1;
-            	echo $this->Form->postLink(__('Borrar'), array('action' => 'index', $printer['Printer']['id'], '?' => array( 'confirmacion' => $confirmacion) ), array('class'=>'btn btn-default'));
-            } else {
-            	echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $printer['Printer']['id']), array('class'=>'btn btn-default'), __('¿Estas seguro que deseas borrar la impresora? Los productos asociados a la misma quedaran sin impresora seleccionada para ser imprimidos.', $printer['Printer']['id']));
-            }
+
+        	echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $printer['Printer']['id']), array('class'=>'btn btn-default'), $mensajeConfirmacion);
 			?>
 		</td>
 	</tr>

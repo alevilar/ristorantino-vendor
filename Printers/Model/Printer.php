@@ -118,33 +118,41 @@ class Printer extends PrintersAppModel {
 		throw new NotImplementedException("imprimirTexto no implementado");
 	}
 
-	public function checkearImpresoraProductos($id) {
+	/**
+	 * 
+	 * 	Me devuelve la cantidad de productos relacionados con una impresora
+	 * 
+	 * 
+	 **/
+	public function cantidadDeProductosEnImpresora($id) {
         
-		if ($this->Producto->find('count', array(
-			'fields' =>array(
-				'printer_id' => $id
-				),
+        $cant = $this->Producto->find('count', array(			
 			'conditions' => array(
-				'printer_id' => $id))) >= 1) {
+				'printer_id' => $id
+				)
+			)
+        );
 
-			return true;
+		return $cant;
 
-		} else {
-			return false;
-		}
 	}
 
-	public function desvincularImpresoraProductos($id) {
-	    if ($this->Producto->find('count', array(
-			'fields' =>array(
-				'printer_id' => $id
-				),
-			'conditions' => array(
-				'printer_id' => $id))) >= 1) {
 
-	    	$this->Producto->updateAll(array('printer_id' => null),array('printer_id' => $id));
-
-		} 
+	/**
+	 * 
+	 * 	Actualiza todos los productos relacionados con una impresora, colocandole
+	 * el ID pasado como parametro
+	 * por defecto lo que hace es eliminar la relacion con la impresora (o sea, pone en NULL el printer_id)
+	 * 
+	 * 	@param $id es el ID de la impresora actual a buscar en los productos
+	 *  @param $nuevoId es el ID de la impresora que quiero actualizar en dichos productos. Por defecto es NULL, eliminando la relacion con los producto
+	 * 	@return true o false si hizo el update correctamente o -1 si no hay productos que usen la impresora pasada por parametro
+	 **/
+	public function modificaImpresoraProductos($id, $nuevoId = null) {
+	    if ( $this->cantidadDeProductosEnImpresora() ) {
+	    	return $this->Producto->updateAll(array('printer_id' => $nuevoId),array('printer_id' => $id));
+	    }
+	    return -1;
 	}
 
 
