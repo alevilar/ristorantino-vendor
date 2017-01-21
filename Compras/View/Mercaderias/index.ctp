@@ -6,6 +6,9 @@
 
 <?php echo $this->Html->link('Agregar Mercadería', array('action'=>'add'), array('class'=>'btn btn-success pull-right btn-add')); ?>
 
+
+<br><br>
+
 <table class="table">
 
 <thead>
@@ -15,6 +18,7 @@
 		<th>Unidad de Medida</th>
 		<th>Default Proveedor</th>
 		<th>Rubro</th>
+		<th>Acciones</th>
 	</tr>
 </thead>
 <tbody>
@@ -26,15 +30,22 @@
 		<td><?php echo $m['Proveedor']['name']?></td>
 		<td><?php echo $m['Rubro']['name']?></td>
 		<td>
-			<?php echo $this->Html->link('editar', array('action'=>'edit', $m['Mercaderia']['id']), array('class'=>'btn btn-default btn-edit'));?>
+		    <?php 
+		    echo $this->Html->link('Ver duplicados', 
+		    array('action'=>'verDuplicados',
+		    $m['Mercaderia']['id'],
+		    $m['Mercaderia']['name']), 
+		    array('class'=>'btn btn-info')); ?>
 
-            <?php echo $this->Html->link(__('Borrar'), array('action'=>'delete',  $m['Mercaderia']['id']), array('class'=>'btn btn-link'), sprintf(__('Seguro que querés borrar # %s?'), $m['Mercaderia']['name'])); ?>
+			<?php echo $this->Html->link('editar', array('action'=>'edit', $m['Mercaderia']['id']), array('class'=>'btn btn-warning btn-edit'));?>
+
+            <?php echo $this->Html->link(__('Borrar'), array('action'=>'delete',  $m['Mercaderia']['id']), array('class'=>'btn btn-danger'), sprintf(__('Seguro que querés borrar # %s?'), $m['Mercaderia']['name'])); ?>
 
 		</td>
+
 	</tr>
 <?php } ?>
 </tbody>
 </table>
 
-<?php echo $this->element('Users.pagination') ?>
 </div>

@@ -124,6 +124,54 @@ class MercaderiasController extends ComprasAppController {
         } 
         $this->redirect($this->referer());
     }
+
+    public function comprobarExistenciaMercaderia($id) {
+        if (!$this->Mercaderia->exists($id)) {
+            $this->Session->setFlash(__('Invalid id for Mercaderia'), 'Risto.flash_error');
+            $this->redirect(array('action' => 'index'));            
+        } 
+
+    }
+
+
+    public function verDuplicados($id, $name) {
+
+        $this->comprobarExistenciaMercaderia($id);
+
+        $this->Mercaderia->recursive = 0;
+
+        $datosmercaderia = $this->Mercaderia->buscarMercaderia($id);
+
+        $mercaderias = $this->Mercaderia->buscarMercaderia(null, $name);
+
+        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas','id', 'datosmercaderia'));
+
+    }
+
+    public function unificarMercaderia($id, $name) {
+
+        $this->comprobarExistenciaMercaderia($id);
+
+        $mercaderias = $this->Mercaderia->buscarMercaderia(null, $name);
+        
+        foreach ($mercaderias as $m) {
+
+        if ($m['Mercaderia']['id'] != $id) {  
+
+        $id_mercaderia = $m['Mercaderia']['id'];  
+        if ($this->Mercaderia->unificarMercaderia($id_mercaderia, $name, $id) == true) {
+            $this->Session->setFlash(__('¡Mercadería unificada con exito!'), 'Risto.flash_success');
+        } else {
+            $this->Session->setFlash(__('Problemas al unificar la mercadería, intentelo nuevamente.'), 'Risto.flash_error');
+        }
+
+           }
+       }
+
+
+        $this->redirect(array('action' => 'index'));
+
+    }
 	
 
 
