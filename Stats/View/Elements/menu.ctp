@@ -16,6 +16,11 @@ if( $this->name == 'DetalleComandas' && $this->action == 'index') {
 }
 
 
+if( $this->name == 'PedidoMercaderias' && $this->action == 'calcular_estadistica') {
+    $c5 = 'active';
+}
+
+
 
 
 ?>
@@ -29,6 +34,6 @@ if( $this->name == 'DetalleComandas' && $this->action == 'index') {
 
         <li class="<?php echo $c4?>"><?php echo $this->Html->link('Productos Pedidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'),array('class'=>'ventas'));?></li>
 
-
+        <li class="<?php echo $c5?>"><?php echo $this->Html->link('Mercadería Comprada', array('plugin'=>'compras', 'controller'=>'pedido_mercaderias', 'action'=>'calcular_estadistica'),array('class'=>'ventas'));?></li>
 
 </ul>

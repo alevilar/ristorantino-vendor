@@ -155,4 +155,57 @@ class PedidoMercaderiasController extends ComprasAppController {
         $this->redirect( $this->referer() );
     }
 
+
+    public function calcular_estadistica ( $order = 'precio', $type = "desc") {
+        $this->elementMenu = 'Stats.menu';
+
+        $conditions = array(
+            'PedidoMercaderia.mercaderia_id IS NOT NULL',
+            );
+
+        if ( !empty($this->request->data['PedidoMercaderia']['order']) ) {
+            $order = $this->request->data['PedidoMercaderia']['order'];
+        }
+
+        if ( !empty($this->request->data['PedidoMercaderia']['type']) ) {
+            $type = $this->request->data['PedidoMercaderia']['type'];
+        }
+
+
+        if ( !empty($this->request->data['PedidoMercaderia']['created_from']) ) {
+            $conditions['PedidoMercaderia.created >='] = $this->request->data['PedidoMercaderia']['created_from'];
+        }
+
+        if ( !empty($this->request->data['PedidoMercaderia']['created_to']) ) {
+            $conditions['PedidoMercaderia.created <='] = $this->request->data['PedidoMercaderia']['created_to'];
+        }
+
+
+        $pedidoMercaderias = $this->PedidoMercaderia->find('all', array(
+            'fields' => array(
+                'sum(PedidoMercaderia.cantidad) as cantidad',
+                'sum(PedidoMercaderia.precio) as precio',
+                'PedidoMercaderia.mercaderia_id',
+                ),
+            'group' => array(
+                'PedidoMercaderia.mercaderia_id',
+                ),
+            'contain' => array('Mercaderia(name)'),
+            'order' => array(
+                $order => $type
+                ),
+            'where' => $conditions
+            ));
+
+        $totales = $this->PedidoMercaderia->find('all', array(
+            'fields' => array(
+                'sum(PedidoMercaderia.cantidad) as cantidad',
+                'sum(PedidoMercaderia.precio) as precio',
+                ),
+            'where' => $conditions
+            ));
+
+        $this->set(compact('pedidoMercaderias', 'totales', 'order', 'type'));
+    }
+
 }
