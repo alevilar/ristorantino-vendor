@@ -57,8 +57,20 @@ class PrintersController extends PrintersAppController {
  * @return void
  */
 	public function index() {
+
 		$this->Printer->recursive = 0;
-		$this->set('printers', $this->Paginator->paginate());
+		$impresoras = $this->Paginator->paginate();
+
+		$impresorasModificadas = array();
+		foreach( $impresoras as $imp ) {
+			// por cada impresora, le agrego la cantidad de productos relacionados que tiene
+			$printerId = $imp['Printer']['id'];
+			$cant = $this->Printer->cantidadDeProductosEnImpresora($printerId);
+			$imp['Printer']['cantidad_productos'] = $cant;
+			$impresorasModificadas[] = $imp;
+		}
+
+		$this->set('printers', $impresorasModificadas);
 	}
 
 /**
@@ -142,13 +154,14 @@ class PrintersController extends PrintersAppController {
  */
 	public function delete($id = null) {
 		$this->Printer->id = $id;
-		if (!$this->Printer->exists()) {
+		if (!$this->Printer->exists($id)) {
 			throw new NotFoundException(__('Invalid printer'));
 		}
-		$this->request->allowMethod('post', 'delete');
 		if ($this->Printer->delete()) {
+            $this->Printer->modificaImpresoraProductos($id);
 			$this->Session->setFlash(__('The printer has been deleted.'));
-		} else {
+		} 
+	   else {
 			$this->Session->setFlash(__('The printer could not be deleted. Please, try again.'));
 		}
 		return $this->redirect(array('action' => 'index'));

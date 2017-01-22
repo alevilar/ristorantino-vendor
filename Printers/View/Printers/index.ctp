@@ -28,7 +28,18 @@
 		<td class="actions">
 			<?php echo $this->Html->link(__('Ver'), array('action' => 'view', $printer['Printer']['id']), array('class'=>'btn btn-default')); ?>
 			<?php echo $this->Html->link(__('Editar'), array('action' => 'edit', $printer['Printer']['id']), array('class'=>'btn btn-default')); ?>
-			<?php echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $printer['Printer']['id']), array('class'=>'btn btn-default'), __('Are you sure you want to delete # %s?', $printer['Printer']['id'])); ?>
+			<?php
+           
+
+			$printerName = $printer['Printer']['name'];
+			$cantProductos = $printer['Printer']['cantidad_productos'];
+			$mensajeConfirmacion = __('¿Estas seguro que deseas borrar la impresora "%s"?', $printerName);
+            if ( $cantProductos > 0) {
+            	$mensajeConfirmacion = __('La impresora "%s" que desea borrar, tiene %s productos relacionados ¿Estas seguro que deseas borrarla?', $printerName, $cantProductos);
+            }
+
+        	echo $this->Form->postLink(__('Borrar'), array('action' => 'delete', $printer['Printer']['id']), array('class'=>'btn btn-default'), $mensajeConfirmacion);
+			?>
 		</td>
 	</tr>
 <?php endforeach; ?>

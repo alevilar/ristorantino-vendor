@@ -118,5 +118,42 @@ class Printer extends PrintersAppModel {
 		throw new NotImplementedException("imprimirTexto no implementado");
 	}
 
+	/**
+	 * 
+	 * 	Me devuelve la cantidad de productos relacionados con una impresora
+	 * 
+	 * 
+	 **/
+	public function cantidadDeProductosEnImpresora($id) {
+        
+        $cant = $this->Producto->find('count', array(			
+			'conditions' => array(
+				'printer_id' => $id
+				)
+			)
+        );
+
+		return $cant;
+
+	}
+
+
+	/**
+	 * 
+	 * 	Actualiza todos los productos relacionados con una impresora, colocandole
+	 * el ID pasado como parametro
+	 * por defecto lo que hace es eliminar la relacion con la impresora (o sea, pone en NULL el printer_id)
+	 * 
+	 * 	@param $id es el ID de la impresora actual a buscar en los productos
+	 *  @param $nuevoId es el ID de la impresora que quiero actualizar en dichos productos. Por defecto es NULL, eliminando la relacion con los producto
+	 * 	@return true o false si hizo el update correctamente o -1 si no hay productos que usen la impresora pasada por parametro
+	 **/
+	public function modificaImpresoraProductos($id, $nuevoId = null) {
+	    if ( $this->cantidadDeProductosEnImpresora($id) ) {
+	    	return $this->Producto->updateAll(array('printer_id' => $nuevoId),array('printer_id' => $id));
+	    }
+	    return -1;
+	}
+
 
 }

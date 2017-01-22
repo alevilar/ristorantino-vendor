@@ -84,5 +84,54 @@ class Mercaderia extends ComprasAppModel {
 
 		);
 
+    /**
+     *     Me da los datos de la mercadería según su id, y tambien según su nombre.
+     *
+     *     @param $id = id de la mercadería para buscar el registro con ese id.
+     *     @param $name = nombre de la mercadería para buscar todos los registros con ese nombre.
+     */
+
+	public function buscarMercaderia($id = null, $name = null) {
+        if (!isset($id)) {
+        $merca = $this->find('all', array(			
+			'conditions' => array(
+				'Mercaderia.name' => $name
+				)
+			)
+          );
+
+        } else {
+        $merca = $this->find('all', array(			
+			'conditions' => array(
+				'Mercaderia.id' => $id
+				)
+			)
+          );
+        }
+
+		return $merca;
+	}
+
+	/**
+	 *   Borra todas las mercaderías duplicadas, y despues actualiza la tabla compras_pedidos_mercaderias 
+	 *   con el id del producto que se unifico.
+	 *
+	 *   @param $id_mercaderia = id de la mercadería duplicada usada como condición para borrar.
+	 *   @param $name = nombre de la mercadería duplicada usada como condición para borrar.
+	 *   @param $id = id de la mercadería que tenia las duplicaciones para actualizar 
+	 *          la tabla compras_pedidos_mercaderias
+	 */
+
+	public function unificarMercaderia($id_mercaderia, $name, $id) {
+
+		if ($this->deleteall(array('Mercaderia.name' => $name, 'Mercaderia.id' => $id_mercaderia), false)) {
+			return $this->PedidoMercaderia->updateAll(array('mercaderia_id' => $id));
+
+		}
+
+		return false;
+
+	}
+
 
 }
