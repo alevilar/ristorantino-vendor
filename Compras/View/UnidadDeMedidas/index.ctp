@@ -10,18 +10,24 @@
 <h1>Unidades de Medidas</h1>
 <div>
 <br>
-<ul>
-	<?php foreach ( $unidadDeMedidas as $u ) { ?> 
-		<li>
-			<?php echo $u['UnidadDeMedida']['name']?>
-		
-			<?php echo $this->Html->link('editar', array('action'=>'add', $u['UnidadDeMedida']['id']), array('class'=>'btn btn-default btn-edit'));?>
+<table class="table">
+<thead>
+<th>Nombre</th>
+<th>Acciones</th>
+</thead>
+	<?php foreach ( $unidadDeMedidas as $u ) { ?>
+<tr> 
+<td>
+			<?php echo $u['UnidadDeMedida']['name'];?>
+</td>
+<td>
+			<?php echo $this->Html->link('editar', array('action'=>'add', $u['UnidadDeMedida']['id']), array('class'=>'btn btn-warning btn-edit'));?>
 
-            <?php echo $this->Form->postLink(__('Borrar'), array('action'=>'delete',  $u['UnidadDeMedida']['id']), array('class'=>'btn btn-link'), __('Seguro que querés borrar # %s?', $u['UnidadDeMedida']['name'])); ?>
-
-		</li>
+            <?php echo $this->Form->postLink(__('Borrar'), array('action'=>'delete',  $u['UnidadDeMedida']['id']), array('class'=>'btn btn-danger'), __('Seguro que querés borrar # %s?', $u['UnidadDeMedida']['name'])); ?>
+</td>
 	<?php } ?>
-</ul>
+</tr>
+</table>
 </div>
 
 </div>

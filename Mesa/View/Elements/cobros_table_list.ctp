@@ -82,8 +82,8 @@ foreach ($pagos as $pago):
 			<?php echo $this->Time->format($pago['Pago']['created'], '%a %e de %B %H:%M'); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $pago['Pago']['id']), array('class'=>'btn-edit')); ?>
-			<?php echo $this->Html->link(__('Eliminar'), array('action'=>'delete', $pago['Pago']['id']), array('class'=>'text-danger'), __('Are you sure you want to delete # %s?', $pago['Pago']['id'])); ?>
+			<?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $pago['Pago']['id']), array('class'=>'btn btn-warning btn-edit')); ?>
+			<?php echo $this->Html->link(__('Eliminar'), array('action'=>'delete', $pago['Pago']['id']), array('class'=>'btn btn-danger'), __('Are you sure you want to delete # %s?', $pago['Pago']['id'])); ?>
 		</td>
 	</tr>
 <?php
