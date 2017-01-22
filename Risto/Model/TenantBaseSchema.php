@@ -517,6 +517,7 @@ class TenantBaseSchema extends RistoBaseSchema {
 	public $compras_pedidos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
 		'proveedor_id' => array('type' => 'integer', 'null' => true),
+		'gasto_id' => array('type' => 'integer', 'null' => true),
 		'recepcionado' => array('type' => 'boolean', 'null' => false, 'default' => '0'),
 
 		'observacionescion' => array('type' => 'text', 'null' => true, 'default' => null),

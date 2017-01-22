@@ -17,7 +17,53 @@ if ( $pmId  != '{X}') {
 
 <div class="row row-mercaderia">
 
+    <div class="col-md-4 col-xs-4">
+        <?php 
+        if ( isset( $id ) ) {
+            echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.id', array(
+                                    'value' => $id,
+                                    'class' => 'hidden-mercaderia-id',
+                ));
+        }
 
+
+        if ( !empty($pedido_id )) {
+             echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.pedido_id', array(
+                                'value' => $pedido_id,
+            ));
+        }
+
+        echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.mercaderia_id', array(
+                                'id' => 'pedido-mercaderia-id-'.$pmId,
+                                'class' => 'hidden-mercaderia-id',
+                                'value' => !empty($mercaderia_id) ? $mercaderia_id : null,
+            ));
+
+        echo $this->Form->input('PedidoMercaderia.'.$pmId.'.mercaderia', array(
+            'value' => !empty($mercaderia) ? $mercaderia : null,
+            'label' => false,
+            'type' => 'text',
+            'class' => 'form-control typeahead addmore',
+            'div' => array('class'=>'form-group has-feedback'),
+            'data-options' => json_encode($unidadDeMedidas),
+            'data-dom-id' => '#pedido-mercaderia-id-'.$pmId,
+            'data-unidad-medida-id' => '#PedidoMercaderia'.$pmId.'UnidadDeMedidaId',
+            'data-url' => Router::url(array('controller'=>'Mercaderias','action'=>'index', 'ext' => 'json')),
+            'autocomplete' => 'off',
+            'placeholder' => 'Mercadería',
+            'data-toggle' => "tooltip",
+            'title' => 'Se creará una nueva Mercadería',
+            'data-placement' => "bottom",
+            'after' => '<span style="display:none" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
+                  <span style="display:none" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
+
+            '
+
+        ));
+
+        ?>
+  
+    </div>
 
     <div class="col-md-2 col-xs-2">
 
@@ -42,57 +88,14 @@ if ( $pmId  != '{X}') {
     </div>
 
 
-    <div class="col-md-4 col-xs-4">
-
-
-	<?php 
-    if ( isset( $id ) ) {
-        echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.id', array(
-                                'value' => $id,
-                                'class' => 'hidden-mercaderia-id',
-            ));
-    }
-
-	echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.mercaderia_id', array(
-                            'id' => 'pedido-mercaderia-id-'.$pmId,
-                            'class' => 'hidden-mercaderia-id',
-                            'value' => !empty($mercaderia_id) ? $mercaderia_id : null,
-        ));
-
-    echo $this->Form->input('PedidoMercaderia.'.$pmId.'.mercaderia', array(
-        'value' => !empty($mercaderia) ? $mercaderia : null,
-        'label' => false,
-        'type' => 'text',
-        'class' => 'form-control typeahead addmore',
-        'div' => array('class'=>'form-group has-feedback'),
-        'data-options' => json_encode($unidadDeMedidas),
-        'data-dom-id' => '#pedido-mercaderia-id-'.$pmId,
-        'data-unidad-medida-id' => '#PedidoMercaderia'.$pmId.'UnidadDeMedidaId',
-        'data-url' => Router::url(array('controller'=>'Mercaderias','action'=>'index', 'ext' => 'json')),
-        'autocomplete' => 'off',
-        'placeholder' => 'Mercadería',
-        'data-toggle' => "tooltip",
-        'title' => 'Se creará una nueva Mercadería',
-        'data-placement' => "bottom",
-        'after' => '<span style="display:none" class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true"></span>
-              <span style="display:none" class="glyphicon glyphicon-warning-sign form-control-feedback" aria-hidden="true"></span>
-
-        '
-
-    ));
-
-    ?>
-
-
-  
-    </div>
+    
 
     
 
 	
 	<div class="col-md-3 col-xs-2">
           <?php 
-            if ( isset($precio) ) {
+            if ( isset($muestraPrecio) && $muestraPrecio ) {
                 
                 echo $this->Form->input('PedidoMercaderia.'.$pmId.'.precio', array(
                     'value' => !empty($precio) ? $precio : null,

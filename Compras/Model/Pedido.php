@@ -49,6 +49,13 @@ class Pedido extends ComprasAppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		'Gasto' => array(
+			'className' => 'Account.Gasto',
+			'foreignKey' => 'gasto_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
 		'User' => array(
 			'className' => 'Users.User',
 			'foreignKey' => 'created_by',

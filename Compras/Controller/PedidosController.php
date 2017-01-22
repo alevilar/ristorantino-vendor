@@ -40,6 +40,36 @@ class PedidosController extends ComprasAppController {
 		$this->set(compact('pedidos', 'pedidoEstados'));
 	}
 
+	public function mover_oc($id) {
+		if ( !$this->Pedido->exists($id) ) {
+			throw new NotFoundException(__("El ID de OC no fue encontrado"));
+		}
+		if ( $this->request->is(array("put","post"))) {
+			if ( $this->Pedido->exists( $this->request->data['Pedido']['nuevo_id'] ) ) {
+				$npid = $this->request->data['Pedido']['nuevo_id'];
+
+				if ( $this->Pedido->PedidoMercaderia->updateAll(array(
+						'PedidoMercaderia.pedido_id' => $this->request->data['Pedido']['nuevo_id']
+						), array(
+						'PedidoMercaderia.pedido_id' => $id
+						)) ) {
+					 if ($this->Pedido->delete($id)) {
+			            $this->Session->setFlash(__('Órden de Compra movido correctamente'));
+			            $this->redirect(array('action'=>'index'));
+			        }
+				}
+			} else {
+				$this->Session->setFlash(_("No existe el pedido con ese ID"), 'Risto./Flash/flash_error');
+			}
+
+		}
+		$this->Pedido->id = $id;
+		$this->Pedido->contain(array(
+			'PedidoMercaderia' => array('Mercaderia', 'UnidadDeMedida'),
+			));
+		$this->request->data = $this->Pedido->read();
+	}
+
 
 
 	public function form ( $id = null ) {
@@ -86,14 +116,11 @@ class PedidosController extends ComprasAppController {
 
 	public function recepcion ( $id = null ) {
 		if ( $this->request->is(array('post', 'put'))) {
-
 			$pdata = array();
 			$todorecepcionado = true;
-			foreach ($this->request->data['PedidoMercaderia'] as $pm ) {
-				$pdata[] = array(
-					'PedidoMercaderia' => $pm
-					);
-				if ( $pm['cantidad'] == 0 ) {
+			$pmlimpio = $this->Pedido->PedidoMercaderia->limpiarPedidosSinCant($this->request->data['PedidoMercaderia']);
+			foreach ($pmlimpio as $pm ) {
+				if ( $pm['PedidoMercaderia']['cantidad'] == 0 ) {
 					$todorecepcionado = false;
 				}
 			}
@@ -101,15 +128,20 @@ class PedidosController extends ComprasAppController {
 				$this->Pedido->id = $this->request->data['Pedido']['id'];
 				$this->Pedido->saveField('recepcionado', $todorecepcionado);
 			}
-			if ( $this->Pedido->PedidoMercaderia->saveAll( $pdata ) ) {
+			if ( $this->Pedido->PedidoMercaderia->saveAll( $pmlimpio ) ) {
 				$this->Session->setFlash("Se guardó la recepción correctamente");
 			} else {
 				debug( $this->Pedido->PedidoMercaderia->validationErrors);
 				debug( $this->Pedido->validationErrors);
 				$this->Session->setFlash("Error al guardar la recepción de mercaderia", 'Risto./Flash/flash_error');
+				$this->redirect(array('action'=>'index'));
 			}
 
-            $this->redirect(array('action'=>'index'));
+			if ( !empty($this->request->data['Pedido']['gen_gasto'])) {
+				$this->generar_gasto($id);
+			} else {
+            	$this->redirect(array('action'=>'index'));
+			}
 
 		} else if (!empty($id)){
 			$this->Pedido->id = $id;
@@ -121,12 +153,11 @@ class PedidosController extends ComprasAppController {
 			$pedidoMercaderias = array();
 			foreach($this->request->data['PedidoMercaderia'] as $pm ) {
 				$pedidoMercaderias[] = array(
-					'PedidoMercaderia'=>$pm,
-					'Mercaderia'	  =>$pm['Mercaderia']
+					'PedidoMercaderia'=> $pm,
+					'Mercaderia'	  => $pm['Mercaderia']
 					);
 			}
 		}
-
 
         $unidadDeMedidas = $this->Pedido->PedidoMercaderia->UnidadDeMedida->find('list');
         $mercaderias = $this->Pedido->PedidoMercaderia->Mercaderia->find('list');
@@ -208,6 +239,54 @@ class PedidosController extends ComprasAppController {
 
 
         $this->render('form');
+	}
+
+
+	public function generar_gasto($id) {
+		if (!$this->Pedido->exists($id) ){
+			throw new NotFoundException(__("No existe el Pedido"));
+		}
+		$this->Pedido->id = $id;
+		$this->Pedido->recursive = -1;
+		$pedido = $this->Pedido->read();
+		$proveedorId = $pedido['Pedido']['proveedor_id'];
+
+		$data = array('Gasto' => array(
+				'proveedor_id' => $proveedorId,
+				'fecha' => date('Y-m-d')
+				));
+		$this->Pedido->Gasto->create();
+		
+		$ultimoGasto = $this->Pedido->Gasto->find('first', array(
+			'conditions' => array(
+				'Gasto.proveedor_id' => $proveedorId
+				),
+			'order' => array('Gasto.fecha'=> 'DESC'),
+			'contain' => array(
+				'Proveedor',
+				'TipoFactura'
+				),
+			));
+		if ( $ultimoGasto ) {
+			$data ['Gasto']['tipo_factura_id'] = $ultimoGasto['Gasto']['tipo_factura_id'];
+		}
+		if ( $this->Pedido->Gasto->save($data) ) {
+
+			$this->Pedido->saveField('gasto_id', $this->Pedido->Gasto->id);
+
+			$url = array(
+				'plugin' => 'account',
+				'controller' => 'gastos',
+				'action' => 'edit',
+				$this->Pedido->Gasto->id,
+				);
+			$this->Session->setFlash(__("Se generó un nuevo gasto"));
+		} else {
+			$url = $this->referer();
+			$this->Session->setFlash(__("Error al generar nuevo gasto", 'flash_error'));
+		}
+
+		$this->redirect($url);
 	}
 
 

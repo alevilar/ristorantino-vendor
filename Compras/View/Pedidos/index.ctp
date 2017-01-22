@@ -34,14 +34,31 @@
 			} else {
 				$links .= '<span class="text-grey">✔ recepcionado</span>';
 			}
+			
+			$links .= " | ";
+			if ( $p['Pedido']['gasto_id'] ) {
+				$links .= $this->Html->link('ver gasto',array('plugin'=>'account', 'controller'=>'gastos','action'=>'view', $p['Pedido']['gasto_id']), array('class'=>'text-warning', 'target'=>'_blank'));
+			} else {
+				$links .=  $this->Html->link("generar gasto", array('action'=>'generar_gasto', $p['Pedido']['id'] ));
+			}
+			
 			$links .= " | ";
 			$links .= $this->Html->link('ver',array('action'=>'view', $p['Pedido']['id']));
 
 			$links .= " | ";
 			$links .= $this->Html->link('editar',array('action'=>'form', $p['Pedido']['id']));
 
+
+
+
+
+			$links .= " | ";
+			$links .= $this->Html->link('mover a',array('action'=>'mover_oc', $p['Pedido']['id']));
+
 			$links .= " | ";
 			$links .=  $this->Html->link("imprimir", array('action'=>'imprimir', $p['Pedido']['id'] ) );
+			
+			
 			$links .= " | ";
 			$links .= $this->Html->link('Borrar',array('action'=>'delete', $p['Pedido']['id']), array('class'=>'text-danger acl acl-adicionista acl-administrador'), __('Desea eliminar la OC #%s', $p['Pedido']['id']) );
 

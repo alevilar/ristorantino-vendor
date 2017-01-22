@@ -95,7 +95,7 @@ class PedidoMercaderiasController extends ComprasAppController {
                 ),
             'contain' => array(
                 'Mercaderia'=> array('Proveedor'),
-                'Pedido'=>array('User'),
+                'Pedido'=>array('User', 'Proveedor'),
                 'UnidadDeMedida',
                 'PedidoEstado',
                 ),
@@ -105,9 +105,9 @@ class PedidoMercaderiasController extends ComprasAppController {
         $pedidos = $this->Paginator->paginate();
 
 
-        $pedidoEstados = $this->PedidoMercaderia->PedidoEstado->find('list');
         $proveedores = $this->PedidoMercaderia->Mercaderia->Proveedor->find('list');
-        $this->set(compact('pedidos', 'pedidoEstados', 'proveedores'));
+        $mercaderias = $this->PedidoMercaderia->Mercaderia->find('list');
+        $this->set(compact('pedidos', 'proveedores', 'mercaderias'));
     }
 
 

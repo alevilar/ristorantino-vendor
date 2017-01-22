@@ -9,6 +9,15 @@
 
 <?php echo $this->Html->link("Recepcionar", array('controller'=>'Pedidos', 'action'=>'recepcion', $pedido['Pedido']['id'] ), array('class'=>'btn btn-success') );?>
 
+<?php 
+if ( empty($pedido['Pedido']['gasto_id']) ) {
+	echo $this->Html->link('Generar Gasto', array('action'=>'generar_gasto', $pedido['Pedido']['id']), array('class'=>'btn btn btn-warning'));
+} else {
+	echo $this->Html->link('Ver Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'view', $pedido['Pedido']['gasto_id']), array('class'=>'btn btn btn-warning', 'target'=>'_blank'));
+}
+?>
+
+
 <?php echo $this->Html->link('Editar Órden de Compra', array('action'=>'form', $pedido['Pedido']['id']), array('class'=>'btn btn btn-primary')); ?>
 
 
@@ -31,6 +40,7 @@
 			<tr>
 				<th>Cantidad</th>
 				<th>Mercaderia</th>
+				<th>Precio de Compra</th>
 				<th>Observación</th>
 				<th>Acciones</th>
 			</tr>	
@@ -41,6 +51,7 @@
 	foreach ($pedido['PedidoMercaderia'] as $merca ) {
 
 		$cant = (float)$merca['cantidad'];
+		$precio = $this->Number->currency( $merca['precio'] );
 		$uMedida = $merca['UnidadDeMedida']['name'];
 		$uMedida = ($cant > 1) ? Inflector::pluralize($uMedida) : $uMedida;
 		$mercaderia = $merca['Mercaderia']['name'];
@@ -69,6 +80,7 @@
 		echo $this->Html->tableCells(array(
 			$cant." ".$uMedida,
 			$mercaderia,
+			$precio,
 			$obs,
 			$linkEdit." | ".$linkEnviarComoPendiente
 		));

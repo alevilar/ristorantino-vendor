@@ -32,7 +32,7 @@ class PedidoMercaderia extends ComprasAppModel {
             ),
         'proveedor_id' => array(
             'type' => 'value',
-            'field' => 'Mercaderia.proveedor_id'
+            'field' => 'Pedido.proveedor_id'
             ),
         'created_by' => array(
             'type' => 'value',

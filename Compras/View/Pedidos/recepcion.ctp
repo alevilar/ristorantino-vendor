@@ -1,4 +1,4 @@
-<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+    <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
 
@@ -11,9 +11,17 @@
                                         ));
 		echo $this->Form->hidden('Pedido.id');
 
-                                         ?>
+        echo $this->Form->hidden('Pedido.gen_gasto', array('id'=>'gengasto', 'value'=>false));
+
+     ?>
 <div>
-    <?php echo $this->Form->submit('Recepcionar', array('class'=>'btn-lg btn btn-success', 'id' => 'btn-submit')); ?>
+    <div class="btn-group  btn-group-lg">
+    <?php echo $this->Form->button('Recepcionar', array('class'=>'btn btn-success ', 'id' => 'btn-submit')); ?>
+
+    <?php echo $this->Form->button('Recepcionar y Generar Gasto ❱', array('class'=>'btn btn-warning', 'id' => 'btn-submit-gengasto')); 
+    ?>
+    </div>
+    <div class="clearfix"></div>
     <br>
 </div>
 
@@ -21,6 +29,7 @@
 
 
 <?php
+$pedido_id      = $this->request->data['Pedido']['id'];
 if ( !empty($pedidoMercaderias) ) {
     foreach ( $pedidoMercaderias as $i=>$pm ) {
         $id             = $pm['PedidoMercaderia']['id'];
@@ -42,6 +51,7 @@ if ( !empty($pedidoMercaderias) ) {
                         'recibido'              => $recibido,
                         'precio'              	=> $precio,
                         'unidad_de_medida_id'   => $unidad_de_medida_id,
+                        'muestraPrecio'         => true,
                         ));
     }
 }
@@ -50,7 +60,13 @@ if ( !empty($pedidoMercaderias) ) {
 echo $this->Form->end(); 
 ?>
 
-
+<script type="risto/tmp" id="pedido-skeleton">
+    <?php echo $this->element("Compras.pedido-skeleton", array(
+                        'pmId'          => '{X}', 
+                        'muestraPrecio' => true,
+                        'pedido_id'     => $pedido_id,
+                        ));?>
+</script>
 
 <div class="clearfix"></div>
 
@@ -58,13 +74,14 @@ echo $this->Form->end();
 
 <script type="text/javascript">
     
-    var mercaIndexURL = "<?php echo $this->Html->url(array('controller'=>'mercaderias', 'action'=>'index'));?>";
-    var mercaUnidades = <?php echo json_encode($mercaUnidades);?>;
-    var urlProveedorPedidoInfo = "<?php echo $this->Html->url(array('controller'=>'pedidos', 'action' => 'proveedor_info'));?>";
+   $("#btn-submit-gengasto").bind('click', function(e){
+        e.preventDefault();
+
+        $("#gengasto").val(true);
+
+        $("#PedidoAddForm").submit();
+
+   });
 </script>
-<?php 
 
-
-echo $this->Html->script('/compras/js/pedidos/form_proveedor');
-?>
 </div>

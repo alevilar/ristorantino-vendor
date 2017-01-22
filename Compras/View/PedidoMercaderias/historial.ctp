@@ -1,5 +1,9 @@
 <?php echo $this->element('Risto.layout_modal_edit', array('title'=>'Mercaderia de la Órden de Compra'));?>
 
+<?php 
+echo $this->Html->script('/risto/lib/bootstrap.typehead/bootstrap3-typeahead', true);
+?>
+
 
 <div class="content-white">
 <h1>Historial de Órdenes de Compra</h1>
@@ -8,7 +12,8 @@
 <p class="center">
 	<?php echo $this->Form->create('PedidoMercaderia', array('class'=>'form-inline')); ?>
 	<?php echo $this->Form->input('pedido_id', array('type'=>'text', 'label'=>false, 'div'=>false, 'placeholder'=>'Nº Órden de Compra', 'required'=>false)); ?>
-	<?php echo $this->Form->input('pedido_estado_id', array('empty'=>'Todos', 'label'=>false, 'div'=>false, 'required'=>false)); ?>
+	<?php 
+	echo $this->Form->input('mercaderia_id', array('options'=>$mercaderias, 'label'=>false, 'div'=>false, 'placeholder'=>'Mercaderia', 'required'=>false, 'empty'=>'Seleccione')); ?>
 	<?php echo $this->Form->input('proveedor_id', array('empty'=>'Todos', 'label'=>false, 'div'=>false, 'required'=>false)); ?>
 	<?php echo $this->Form->submit('Filtrar', array('class'=>'btn btn-success', 'div'=>false)) ?>
 	<?php echo $this->Form->end(); ?>
@@ -54,7 +59,7 @@
 			$precio = $merca['PedidoMercaderia']['precio']!=0 ? $this->Number->currency( $merca['PedidoMercaderia']['precio'] ) : "";
 			$timeRecibido = empty($merca['PedidoMercaderia']['time_recibido'])? "":$this->Time->nice( $merca['PedidoMercaderia']['time_recibido'] );
 			$observacion = $merca['PedidoMercaderia']['observacion'];
-			$proveedor = !empty($merca['Mercaderia']['Proveedor']['name'])? $merca['Mercaderia']['Proveedor']['name'] : '';
+			$proveedor = !empty($merca['Pedido']['Proveedor']['name'])? $merca['Pedido']['Proveedor']['name'] : '';
 
 			$detalle = $mercaderia;
 
@@ -72,7 +77,7 @@
 			<td><?php echo $detalle;?></td>
 			<td><?php echo $precio;?></td>
 			<td class="small"><?php echo $timeRecibido;?></td>
-			<td><?php echo !empty($merca['Mercaderia']['Proveedor']['name']) ? $merca['Mercaderia']['Proveedor']['name'] : "";?></td>
+			<td><?php echo !empty($merca['Pedido']['Proveedor']['name']) ? $merca['Pedido']['Proveedor']['name'] : "";?></td>
 			
 
 			<td><?php echo $observacion;?></td>
