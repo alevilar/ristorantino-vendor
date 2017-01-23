@@ -20,6 +20,11 @@
 		<th class="actions"><?php __('Acciones');?></th>
 </tr>
 <?php
+
+ if (!isset($arqueoId) ) {
+ 	$arqueoId = null;
+ }
+
 $i = 0;
 foreach ($mesas as $mozo):
 	$class = null;
@@ -102,7 +107,7 @@ foreach ($mesas as $mozo):
 
 			<!-- Split button -->
 			<div class="btn-group">
-			  <button type="button" class="btn btn-default"><?php echo $this->Html->link(__('Editar'), array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'edit', $mozo['Mesa']['id']), array('class'=>'btn-edit')); ?></button>
+			  <button type="button" class="btn btn-default"><?php echo $this->Html->link(__('Editar'), array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'edit', $mozo['Mesa']['id'], $arqueoId), array('class'=>'btn-edit')); ?></button>
 			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 			    <span class="caret"></span>
 			    <span class="sr-only">Toggle Dropdown</span>
@@ -119,7 +124,7 @@ foreach ($mesas as $mozo):
 			    <li class="divider"></li>
 			    
 			    <li> <?php echo $this->Html->link(__('Borrar')
-                        						, array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'delete', $mozo['Mesa']['id'])
+                        						, array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'delete', $mozo['Mesa']['id'], $arqueoId)
                         						, null
                         						, __('¿Esta seguro que quiere borrar la %s nº %s?\nSi se elimina se perderán los pedidos y no sera computada en las estadísticas.', Configure::read('Mesa.tituloMesa'), $mozo['Mesa']['numero'])
                         						); ?>

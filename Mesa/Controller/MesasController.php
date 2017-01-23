@@ -218,10 +218,16 @@ class MesasController extends MesaAppController {
 
 
 
-    
+  public function redireccionar($arqueoId) {
+          if($arqueoId == null) {
+          $this->redirect(array('action'=>'index'));
+        } else {
+          $this->redirect(array('plugin'=>'cash', 'controller'=>'arqueos', 'action'=>'listar_mesas', $arqueoId));
+        }
+  }
 
 
-    public function edit($id = null) {
+    public function edit($id = null, $arqueoId = null) {
         if (empty($id)) {
             throw new InternalErrorException(__("Error, se debe pasar un ID de Mesa"));
         }
@@ -240,7 +246,7 @@ class MesasController extends MesaAppController {
             }
             if ($this->Mesa->save($this->request->data)) {
                 $this->Session->setFlash(__('Se ha editado correctamente', 'Risto.flash_success'));
-                $this->redirect(array('action'=>'index'));
+                $this->redireccionar($arqueoId);
             } else {
                 $this->Session->setFlash(__('No se ha podido guardar. Intente nuevamente.', 'Risto.flash_error'));
             }
@@ -281,14 +287,15 @@ class MesasController extends MesaAppController {
         $this->set(compact('mesa', 'items', 'mozos', 'clientes'));
     }
 
-    public function delete($id = null) {
+    public function delete($id = null, $arqueoId = null) {
         if (!$this->Mesa->exists($id) ) {
             throw new NotFoundException("La mesa no existe");
         }
 
         if ( $this->Mesa->delete($id) ) {            
             if (!$this->request->is('ajax')){
-                $this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMesa')));     
+                $this->Session->setFlash(__('%s deleted', Configure::read('Mesa.tituloMesa')));
+                $this->redireccionar($arqueoId);     
             } 
         }
 

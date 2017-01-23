@@ -130,9 +130,15 @@ public function add() {
   }
 }
 
+  public function redireccionar($arqueoId) {
+          if($arqueoId == null) {
+          $this->redirect(array('action'=>'index'));
+        } else {
+          $this->redirect(array('plugin'=>'cash', 'controller'=>'arqueos', 'action'=>'listar_cobros', $arqueoId));
+        }
+  }
 
-
-  public function edit($id = null) {
+  public function edit($id = null, $arqueoId = null) {
     if (!$id && empty($this->request->data)) {
        $this->Session->setFlash(__('Invalid Pago'));
        $this->redirect(array('action'=>'index'));
@@ -140,7 +146,7 @@ public function add() {
     if (!empty($this->request->data)) {
        if ($this->Pago->save($this->request->data)) {
           $this->Session->setFlash(__('The Pago has been saved'));
-          $this->redirect(array('action'=>'index'));
+          $this->redireccionar($arqueoId);
       } else {
           $this->Session->setFlash(__('The Pago could not be saved. Please, try again.'));
       }
@@ -153,7 +159,7 @@ public function add() {
     $this->set(compact('mesa','tipoDePagos'));
   }
 
-  public function delete($id = null) {
+  public function delete($id = null, $arqueoId = null) {
     if (!$id || !$this->Pago->exists($id)) {
        $this->Session->setFlash(__('Invalid id for Pago'));
        $this->redirect( $this->referer() );
@@ -166,6 +172,7 @@ public function add() {
    if ($this->Pago->delete()) {
     if ( !$this->request->is('ajax', 'delete'))  {
        $this->Session->setFlash(__('Pago deleted'));
+       $this->redireccionar($arqueoId);
     }
    }
 
