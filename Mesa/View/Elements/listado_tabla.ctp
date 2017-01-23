@@ -102,7 +102,7 @@ foreach ($mesas as $mozo):
 
 			<!-- Split button -->
 			<div class="btn-group">
-			  <button type="button" class="btn btn-default"><?php echo $this->Html->link(__('Editar'), array('action'=>'edit', $mozo['Mesa']['id']), array('class'=>'btn-edit')); ?></button>
+			  <button type="button" class="btn btn-default"><?php echo $this->Html->link(__('Editar'), array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'edit', $mozo['Mesa']['id']), array('class'=>'btn-edit')); ?></button>
 			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 			    <span class="caret"></span>
 			    <span class="sr-only">Toggle Dropdown</span>
@@ -113,13 +113,13 @@ foreach ($mesas as $mozo):
 			  		?> <li><?php echo $this->Html->link(__('Reabrir'), array('action'=>'reabrir', $mozo['Mesa']['id']));  ?></li>                                
                  <?php } ?>
 
-			    <li><?php echo $this->Html->link(__('Imprimir Ticket'), array('action'=>'imprimirTicket', $mozo['Mesa']['id']), null, sprintf(__('¿Desea imprimir el ticket nº %s?', true), $mozo['Mesa']['numero'])); ?>
+			    <li><?php echo $this->Html->link(__('Imprimir Ticket'), array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'imprimirTicket', $mozo['Mesa']['id']), null, sprintf(__('¿Desea imprimir el ticket nº %s?', true), $mozo['Mesa']['numero'])); ?>
 			    </li>
 			    
 			    <li class="divider"></li>
 			    
 			    <li> <?php echo $this->Html->link(__('Borrar')
-                        						, array('action'=>'delete', $mozo['Mesa']['id'])
+                        						, array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'delete', $mozo['Mesa']['id'])
                         						, null
                         						, __('¿Esta seguro que quiere borrar la %s nº %s?\nSi se elimina se perderán los pedidos y no sera computada en las estadísticas.', Configure::read('Mesa.tituloMesa'), $mozo['Mesa']['numero'])
                         						); ?>
