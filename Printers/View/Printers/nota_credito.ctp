@@ -45,7 +45,7 @@
                         <a href="#listado-mesas-cerradas" data-role="button">Volver</a>
                     </div>
                     <div class="ui-block-b">
-                        <button type="submit" data-theme="b">Imprimir</button>
+                        <button type="submit" data-theme="b" id="adition-nota-credito-imprimir">Imprimir</button>
                     </div>
                 </div>
                 
