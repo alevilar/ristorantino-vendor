@@ -42,8 +42,8 @@
 		 </ul>
 		 </td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $rubro['Rubro']['id']), array('class'=>'btn-edit')); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $rubro['Rubro']['id']), array('confirm' => __('Are you sure you want to delete # %s?', $rubro['Rubro']['id']))); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $rubro['Rubro']['id']), array('class'=>'btn btn-warning btn-edit')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $rubro['Rubro']['id']), array('class'=>'btn btn-danger') , array('¿Estas seguro que quieres borrar el rubro # %s?', $rubro['Rubro']['name'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -52,15 +52,9 @@
 	<p>
 	<?php
 	echo $this->Paginator->counter(array(
-		'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+		'format' => __('Página {:page} de {:pages}, mostrando {:current} rubros de {:count} totales, empezando en el rubro {:start} y terminando en el rubro {:end}')
 	));
 	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
-	</div>
+
 </div>
 </div>

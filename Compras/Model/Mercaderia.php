@@ -125,7 +125,7 @@ class Mercaderia extends ComprasAppModel {
 	public function unificarMercaderia($id_mercaderia, $name, $id) {
 
 		if ($this->deleteall(array('Mercaderia.name' => $name, 'Mercaderia.id' => $id_mercaderia), false)) {
-			return $this->PedidoMercaderia->updateAll(array('mercaderia_id' => $id));
+			return $this->PedidoMercaderia->updateAll(array('mercaderia_id' => $id),array('mercaderia_id' => $id_mercaderia));
 
 		}
 
