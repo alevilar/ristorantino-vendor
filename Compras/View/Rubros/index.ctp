@@ -41,11 +41,10 @@
 		 ?>
 		 </ul>
 		 </td>
-		<td class="actions">
-			<div class="btn-group">
-				<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $rubro['Rubro']['id']), array('class'=>'btn btn-default btn-edit')); ?>
-				<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $rubro['Rubro']['id']), array('class'=>'btn btn-danger') , array('¿Estas seguro que quieres borrar el rubro # %s?', $rubro['Rubro']['name'])); ?>
-			</div>
+
+		<td class="actions btn-group">
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $rubro['Rubro']['id']), array('class'=>'btn btn-default btn-edit')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $rubro['Rubro']['id']), array('class'=>'btn btn-danger') , array('¿Estas seguro que quieres borrar el rubro # %s?', $rubro['Rubro']['name'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>

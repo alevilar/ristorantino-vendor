@@ -40,9 +40,9 @@ $nombres = array(); //se setea el array.
 		<td><?php echo $m['UnidadDeMedida']['name']?></td>
 		<td><?php echo $m['Proveedor']['name']?></td>
 		<td><?php echo $m['Rubro']['name']?></td>
-		<td>
+		<td class="btn-group">
 
-			<?php echo $this->Html->link('editar', array('action'=>'edit', $m['Mercaderia']['id']), array('class'=>'btn btn-warning btn-edit'));?>
+			<?php echo $this->Html->link('editar', array('action'=>'edit', $m['Mercaderia']['id']), array('class'=>'btn btn-default btn-edit'));?>
 
             <?php echo $this->Html->link(__('Borrar'), array('action'=>'delete',  $m['Mercaderia']['id']), array('class'=>'btn btn-danger'), sprintf(__('Seguro que querés borrar # %s?'), $m['Mercaderia']['name'])); ?>
 
@@ -73,7 +73,7 @@ $nombres = array(); //se setea el array.
 		    array('action'=>'verDuplicados',
 		    $m['Mercaderia']['id'],
 		    $m['Mercaderia']['name']), 
-		    array('class'=>'btn btn-info')); 
+		    array('class'=>'btn btn-primary')); 
 
 		  }
 

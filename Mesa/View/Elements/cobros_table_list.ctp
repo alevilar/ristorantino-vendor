@@ -88,8 +88,8 @@ foreach ($pagos as $pago):
         <td class="text-center">
 			<?php echo $this->Time->format($pago['Pago']['created'], '%a %e de %B %H:%M'); ?>
 		</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('Editar'), array('plugin' => 'mesa', 'controller' => 'Pagos', 'action'=>'edit', $pago['Pago']['id'],$arqueoId), array('class'=>'btn btn-warning btn-edit')); ?>
+		<td class="actions btn-group">
+			<?php echo $this->Html->link(__('Editar'), array('plugin' => 'mesa', 'controller' => 'Pagos', 'action'=>'edit', $pago['Pago']['id'],$arqueoId), array('class'=>'btn btn-default btn-edit')); ?>
 			<?php echo $this->Html->link(__('Eliminar'), array('plugin' => 'mesa', 'controller' => 'Pagos', 'action'=>'delete', $pago['Pago']['id'],$arqueoId), array('class'=>'btn btn-danger'), __('Are you sure you want to delete # %s?', $pago['Pago']['id'])); ?>
 		</td>
 	</tr>
