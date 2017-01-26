@@ -20,10 +20,8 @@ if( $this->name == 'PedidoMercaderias' && $this->action == 'calcular_estadistica
     $c5 = 'active';
 }
 
-
-
-
 ?>
+
 <ul class="nav nav-tabs  nav-justified">
 
         <li class="<?php echo $c1?>"><?php echo $this->Html->link('Ventas totales', array('plugin'=>'stats', 'controller'=>'stats', 'action'=>'mesas_total'),array('class'=>'ventas'));?></li>
@@ -32,7 +30,7 @@ if( $this->name == 'PedidoMercaderias' && $this->action == 'calcular_estadistica
         
         <li class="<?php echo $c3?>"><?php echo $this->Html->link('Tipos de Pago', array('plugin'=>'stats', 'controller'=>'stats', 'action'=>'tipos_de_pago'),array('class'=>'ventas'));?></li>
 
-        <li class="<?php echo $c4?>"><?php echo $this->Html->link('Productos Pedidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'),array('class'=>'ventas'));?></li>
+        <li class="<?php echo $c4?>"><?php echo $this->Html->link('Productos Vendidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'),array('class'=>'ventas'));?></li>
 
         <li class="<?php echo $c5?>"><?php echo $this->Html->link('Mercadería Comprada', array('plugin'=>'compras', 'controller'=>'pedido_mercaderias', 'action'=>'calcular_estadistica'),array('class'=>'ventas'));?></li>
 

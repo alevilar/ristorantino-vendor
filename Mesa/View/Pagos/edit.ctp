@@ -1,4 +1,4 @@
-<div class="pagos form">
+<div class="pagos form content-white">
 <?php echo $this->Form->create('Pago');?>
                 
                 <p>
