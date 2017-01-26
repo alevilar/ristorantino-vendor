@@ -132,14 +132,21 @@ $this->Paginator->options(array('url' => $this->passedArgs));
 			 | 	<?php echo $this->Paginator->numbers();?>
 				<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'btn btn-default'));?>
 			</div>
+            
 
-
-		<?php }  else { // end if ?>
+		<?php }  else if ($cantidadmozos == 0) { // end if ?>
 
 			<p class="alert alert-info center">
 				Por favor, deberá crear <?php echo Inflector::pluralize(Configure::read('Mesa.tituloMozo'))?> 
 			</p>
-		<?php }?>
+		<?php } else {
+			?>
+			<p class="alert alert-info center">
+				No se han encontrado <?php echo Inflector::pluralize(Configure::read('Mesa.tituloMozo'))?> al realizar esta busqueda. 
+			</p>
+			<?php
+
+			} ?>
 	</div>
 
 </div>
