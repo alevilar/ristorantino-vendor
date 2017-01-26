@@ -8,4 +8,4 @@
 <?php echo $this->Form->input('rubro_id', array('empty'=>'Seleccione'));?>
 <?php echo $this->Form->input('default_proveedor_id', array('empty'=>'Seleccione')); ?>
 
-<?php echo $this->Form->end(array('class' => 'btn btn-info', 'label' => 'Guardar')); ?>
+<?php echo $this->Form->end(array('class' => 'btn btn-primary', 'label' => 'Guardar')); ?>

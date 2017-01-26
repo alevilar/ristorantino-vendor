@@ -20,8 +20,8 @@
 <td>
 			<?php echo $u['UnidadDeMedida']['name'];?>
 </td>
-<td>
-			<?php echo $this->Html->link('editar', array('action'=>'add', $u['UnidadDeMedida']['id']), array('class'=>'btn btn-warning btn-edit'));?>
+<td class="btn-group">
+			<?php echo $this->Html->link('editar', array('action'=>'add', $u['UnidadDeMedida']['id']), array('class'=>'btn btn-default btn-edit'));?>
 
             <?php echo $this->Form->postLink(__('Borrar'), array('action'=>'delete',  $u['UnidadDeMedida']['id']), array('class'=>'btn btn-danger'), __('Seguro que querés borrar # %s?', $u['UnidadDeMedida']['name'])); ?>
 </td>
