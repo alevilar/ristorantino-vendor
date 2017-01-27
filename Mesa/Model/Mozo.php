@@ -235,6 +235,10 @@ class Mozo extends MesaAppModel {
                 )
                 ));
         }
+
+        public function cantidadMozosRegistrados() {
+            return $this->find('count');
+        }
         
 
 }

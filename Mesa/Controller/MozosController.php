@@ -22,6 +22,8 @@ class MozosController extends MesaAppController {
 		$this->Prg->commonProcess();
         $conds = $this->Mozo->parseCriteria( $this->Prg->parsedParams() );
 
+        $cantidadmozos = $this->Mozo->cantidadMozosRegistrados();
+
         $this->Paginator->settings = array(
         		'recursive' => 0,
         		'order' => array(
@@ -31,9 +33,9 @@ class MozosController extends MesaAppController {
 				),
         		'conditions' => $conds,
         	);
-	
 
 		$this->set('mozos', $this->Paginator->paginate());
+		$this->set(compact('cantidadmozos'));
 	}
 
 	public function view($id = null) {

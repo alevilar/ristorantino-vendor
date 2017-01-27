@@ -39,7 +39,7 @@
 			if ( $p['Pedido']['gasto_id'] ) {
 				$links .= $this->Html->link('ver gasto',array('plugin'=>'account', 'controller'=>'gastos','action'=>'view', $p['Pedido']['gasto_id']), array('class'=>'text-warning', 'target'=>'_blank'));
 			} else {
-				$links .=  $this->Html->link("generar gasto", array('action'=>'generar_gasto', $p['Pedido']['id'] ));
+				$links .=  $this->Html->link("generar gasto", array('action'=>'generar_gasto', $p['Pedido']['id'] ), array('target'=>'_blank'));
 			}
 			
 			$links .= " | ";
