@@ -20,7 +20,11 @@ class ProductosController extends ProductAppController {
 		$this->Prg->commonProcess();
         $conds = $this->Producto->parseCriteria( $this->Prg->parsedParams() );
 		$this->Paginator->settings['conditions'] = $conds; 
-        $this->Paginator->settings['limit'] = 50; 
+        $this->Paginator->settings['limit'] = 50;
+        $this->Paginator->settings['contain'] = array(
+            'Categoria',
+            'Printer',
+            );
 
         $printers = $this->Producto->Printer->listarComanderas();
 		$categorias = $this->Producto->Categoria->generateTreeList();

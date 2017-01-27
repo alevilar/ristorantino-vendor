@@ -41,7 +41,10 @@ if ( empty($pedido['Pedido']['gasto_id']) ) {
 				<th>Cantidad</th>
 				<th>Mercaderia</th>
 				<th>Precio de Compra</th>
+
 				<th>Observación</th>
+				<th>Creado</th>
+				<th>Modificado</th>
 				<th>Acciones</th>
 			</tr>	
 		</thead>
@@ -56,6 +59,8 @@ if ( empty($pedido['Pedido']['gasto_id']) ) {
 		$uMedida = ($cant > 1) ? Inflector::pluralize($uMedida) : $uMedida;
 		$mercaderia = $merca['Mercaderia']['name'];
 		$obs = $merca['observacion'];
+		$creado = $merca['created'];
+		$modificado = $merca['modified'];
 
 
 		$mercaderia = $this->Html->link($mercaderia, array(
@@ -82,6 +87,8 @@ if ( empty($pedido['Pedido']['gasto_id']) ) {
 			$mercaderia,
 			$precio,
 			$obs,
+			$creado,
+			$modificado,
 			$linkEdit." | ".$linkEnviarComoPendiente
 		));
 
