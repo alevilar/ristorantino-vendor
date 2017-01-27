@@ -141,6 +141,7 @@ $this->Paginator->options(array('url' => $this->passedArgs));
 			</p>
 		<?php } else {
 			?>
+			<?php echo $this->element('Mesa.mozo_search_form');?>
 			<p class="alert alert-info center">
 				No se han encontrado <?php echo Inflector::pluralize(Configure::read('Mesa.tituloMozo'))?> al realizar esta busqueda. 
 			</p>
