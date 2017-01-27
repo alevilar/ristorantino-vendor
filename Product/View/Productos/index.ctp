@@ -104,7 +104,7 @@
 						'label'=>false));?></th>
 		<th><?php echo $this->Form->input('precio',array('placeholder'=>'Precio','label'=>false, 'required'=>false));?></th>
 		<th><?php echo $this->Form->input('precio_futuro',array('placeholder'=>'P. Futuro','label'=>false, 'required'=>false));?></th>
-	    <th><?php echo $this->Form->input('order',array('placeholder'=>'Orden','label'=>false, 'style'=>'width:40px'));?></th>
+	    <th><?php echo $this->Form->input('order',array('placeholder'=>'Orden','label'=>false));?></th>
 		<th colspan="2" class="actions"><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'))?></th>
 
 		<?php echo $this->Form->end()?>
@@ -160,8 +160,8 @@
 	                
 	        <td class='edit abrev' field='abrev' product_id='<?php echo $prodId ?>'><?php echo $abrev; ?></td>
 
-			<td class="edit_field_types" options_types='<?php echo json_encode($printers) ?>' field="printer_id" product_id="<?php echo $prodId; ?>"><?php 
-				echo $producto['Printer']['name']; 
+			<td class="edit_field_types" options_types='<?php echo json_encode($printers) ?>' field="printer_id" product_id="<?php echo $prodId; ?>"><?php
+				echo $producto['Printer']['name']; //quite lo del number helper porque te ponia el '$' automatico y si editabas el número con el signo '$' puesto, al refrescar página se te setea el precio en 0 por caracter invalido. Lo mismo pasa con la coma, para ser un número de coma flotante solo acepta el punto, no la coma.
 			?></td>
 
 
@@ -169,14 +169,14 @@
 
 
 			<td  class='edit' field='precio' product_id='<?php echo $prodId ?>'><?php 
-	                        echo $this->Number->currency( $producto['Producto']['precio'] );                        
+	                        echo '$'.$producto['Producto']['precio'];                        
 	                ?></td>
 	                
 	                
 	                <td  class='edit text text-success'  field='precio_futuro' 
 	                     product_id='<?php echo $prodId ?>'><?php 
 	                        if ( isset($producto['ProductosPreciosFuturo']['precio']) ) {
-	                          echo $this->Number->currency( $producto['ProductosPreciosFuturo']['precio'] );
+	                          echo '$'.$producto['ProductosPreciosFuturo']['precio'];
 	                        }
 	                ?></td>
 	                

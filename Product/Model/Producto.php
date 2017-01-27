@@ -221,7 +221,13 @@ class Producto extends ProductAppModel {
         'created_to' => array(
             'type' => 'value',
             'field' => 'Producto.created <='
-            ),        
+            ),
+        'precio' => array(
+            'type' => 'value',
+            ),
+        'order' => array(
+            'type' => 'value',
+            ),       
         );
     
     
