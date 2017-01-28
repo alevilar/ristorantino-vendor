@@ -29,13 +29,23 @@
 	);
 
 
-	echo $this->Form->input('created_from', array('type'=>'datetime'));
+	echo $this->Form->input('created_from', array('type'=>'datetime', 'value'=>$created_from));
 
-	echo $this->Form->input('created_to', array('type'=>'datetime'));
+	echo $this->Form->input('created_to', array('type'=>'datetime', 'value'=>$created_to));
 
+	$from=date_create(date($created_from));
+	$to=date_create($created_to);
+	$diff=date_diff($to,$from);
+	$cantDias = $diff->format('%a');
+
+	?>
+	<p><?php echo __("%s días en el rando de búsqueda",$cantDias)?></p>
+
+	<?php
 	echo $this->Form->submit('Filtrar');
 
 	echo $this->Form->end();
+
 
 	?>
 
@@ -49,7 +59,9 @@
 				'Mercaderia',
 				'Unidad de Medida',
 				'Cantidad',
-				'Costo'
+				'Costo',
+				'Cant x Día',
+				'Costo x Día',
 				);
 
 			echo $this->Html->tableHeaders($aheades);
@@ -71,6 +83,8 @@
 		            <td><?php echo $pm['UnidadDeMedida']['name'] ?></td>
 		            <td><?php echo $pm[0]['cantidad']; ?></td>
 		            <td><?php echo $this->Number->currency($pm[0]['precio']); ?></td>
+		            <td><?php echo sprintf("%F",$pm[0]['cantidad']/$cantDias); ?></td>
+		            <td><?php echo $this->Number->currency($pm[0]['precio']/$cantDias); ?></td>
 		        </tr>
 
 	            <?php
