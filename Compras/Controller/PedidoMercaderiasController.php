@@ -167,7 +167,7 @@ class PedidoMercaderiasController extends ComprasAppController {
 
         if ( empty($this->request->query['created_from']) ) {
             $created_from = $this->PedidoMercaderia->find('first', array(
-                'order' => array('PedidoMercaderia.created' => 'DESC')
+                'order' => array('PedidoMercaderia.created' => 'ASC')
                 ));
             $created_from = $created_from['PedidoMercaderia']['created'];
         } else {
@@ -176,7 +176,7 @@ class PedidoMercaderiasController extends ComprasAppController {
 
         if ( empty($this->request->query['created_to']) ) {
             $created_to = $this->PedidoMercaderia->find('first', array(
-                'order' => array('PedidoMercaderia.created' => 'ASC')
+                'order' => array('PedidoMercaderia.created' => 'DESC')
                 ));
             $created_to = $created_to['PedidoMercaderia']['created'];
         } else {
