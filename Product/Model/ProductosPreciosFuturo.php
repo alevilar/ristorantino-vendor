@@ -14,6 +14,16 @@ class ProductosPreciosFuturo extends ProductAppModel{
 	 //      )
 		);
    
+     public function beforeSave($options = array()) {
+
+        if (isset($this->data['ProductosPreciosFuturo']['precio'])) {
+            $precio_futuro = $this->data['ProductosPreciosFuturo']['precio'];
+            $precio = str_replace('$', '', $precio_futuro);
+            $precio = str_replace(',', '.', $precio);
+            $this->data['ProductosPreciosFuturo']['precio'] = $precio;
+        }
+        return true;
+    }
 
     public function save($data = null, $validate = true, $fieldList = array()) {
     	if ( isset($data['ProductosPreciosFuturo']['precio']) && empty( $data['ProductosPreciosFuturo']['precio'] ) ) {    	
