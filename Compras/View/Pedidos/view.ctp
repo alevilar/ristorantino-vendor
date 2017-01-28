@@ -27,8 +27,8 @@ if ( empty($pedido['Pedido']['gasto_id']) ) {
 </div>
 
 
+<h2 class="pull-right muted" style="margin-right: 30px"><?php echo $this->Time->format($pedido['Pedido']['created'], '%c')?></h2>
 <h1>Órden de Compra #<?php echo $pedido['Pedido']['id']?></h1>
-
 
 
 
@@ -43,7 +43,7 @@ if ( empty($pedido['Pedido']['gasto_id']) ) {
 				<th>Precio de Compra</th>
 
 				<th>Observación</th>
-				<th>Creado</th>
+				<th>Fecha Pedido</th>
 				<th>Modificado</th>
 				<th>Acciones</th>
 			</tr>	
