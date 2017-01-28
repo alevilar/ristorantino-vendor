@@ -157,11 +157,11 @@ class PedidoMercaderiasController extends ComprasAppController {
 
 
     public function calcular_estadistica ( $order = 'precio', $type = "desc") {
+        $this->Prg->commonProcess();
+        $conditions = $this->PedidoMercaderia->parseCriteria( $this->Prg->parsedParams() );
         $this->elementMenu = 'Stats.menu';
 
-        $conditions = array(
-            'PedidoMercaderia.mercaderia_id IS NOT NULL',
-            );
+        $conditions[] = 'PedidoMercaderia.mercaderia_id IS NOT NULL';
 
         if ( !empty($this->request->data['PedidoMercaderia']['order']) ) {
             $order = $this->request->data['PedidoMercaderia']['order'];
@@ -171,16 +171,6 @@ class PedidoMercaderiasController extends ComprasAppController {
             $type = $this->request->data['PedidoMercaderia']['type'];
         }
 
-
-        if ( !empty($this->request->data['PedidoMercaderia']['created_from']) ) {
-            $conditions['PedidoMercaderia.created >='] = $this->request->data['PedidoMercaderia']['created_from'];
-        }
-
-        if ( !empty($this->request->data['PedidoMercaderia']['created_to']) ) {
-            $conditions['PedidoMercaderia.created <='] = $this->request->data['PedidoMercaderia']['created_to'];
-        }
-
-
         $pedidoMercaderias = $this->PedidoMercaderia->find('all', array(
             'fields' => array(
                 'sum(PedidoMercaderia.cantidad) as cantidad',
@@ -189,8 +179,9 @@ class PedidoMercaderiasController extends ComprasAppController {
                 ),
             'group' => array(
                 'PedidoMercaderia.mercaderia_id',
+                'PedidoMercaderia.unidad_de_medida_id',
                 ),
-            'contain' => array('Mercaderia(name)'),
+            'contain' => array('Mercaderia(name)', 'UnidadDeMedida(name)'),
             'order' => array(
                 $order => $type
                 ),

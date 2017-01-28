@@ -63,16 +63,24 @@ class Pedido extends ComprasAppModel {
 			'fields' => '',
 			'order' => ''
 		),
-		);
+	);
 
 	public $filterArgs = array(
 		    'created' => array(
-            'type' => 'value',
-            'field' => 'created <=',
+	            'type' => 'value',
+	            'field' => 'Pedido.created',
+            ),
+            'created_from' => array(
+	            'type' => 'value',
+	            'field' => 'Pedido.created >=',
+            ),
+            'created_to' => array(
+	            'type' => 'value',
+	            'field' => 'Pedido.created <=',
             ),
             'proveedor_name' => array(
-            'type' => 'like',
-            'field' => 'Proveedor.name',
+	            'type' => 'like',
+	            'field' => 'Proveedor.name',
             ),
 		);
 

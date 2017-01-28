@@ -47,6 +47,7 @@
 
 			$aheades = array(
 				'Mercaderia',
+				'Unidad de Medida',
 				'Cantidad',
 				'Costo'
 				);
@@ -67,6 +68,7 @@
 	            ?>
 	            <tr class="<?php echo $trclass ?>">
 		            <td><?php echo $pm['Mercaderia']['name']; ?></td>
+		            <td><?php echo $pm['UnidadDeMedida']['name'] ?></td>
 		            <td><?php echo $pm[0]['cantidad']; ?></td>
 		            <td><?php echo $this->Number->currency($pm[0]['precio']); ?></td>
 		        </tr>

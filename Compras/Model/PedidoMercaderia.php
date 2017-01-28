@@ -38,7 +38,15 @@ class PedidoMercaderia extends ComprasAppModel {
             'type' => 'value',
             'field' => 'Pedido.created_by'
             ),
-        );
+        'created_from' => array(
+	            'type' => 'value',
+	            'field' => 'PedidoMercaderia.created >=',
+        ),
+        'created_to' => array(
+            'type' => 'value',
+            'field' => 'PedidoMercaderia.created <=',
+        ),
+    );
 
 /**
  * Validation rules
