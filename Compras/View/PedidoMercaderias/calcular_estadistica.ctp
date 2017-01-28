@@ -39,7 +39,7 @@
 	$cantDias = $diff->format('%a');
 
 	?>
-	<p><?php echo __("%s días en el rando de búsqueda",$cantDias)?></p>
+	<p><?php echo __("%s días en el rango de búsqueda",$cantDias)?></p>
 
 	<?php
 	echo $this->Form->submit('Filtrar');
