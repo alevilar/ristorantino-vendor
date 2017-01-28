@@ -157,20 +157,37 @@ class PedidoMercaderiasController extends ComprasAppController {
 
 
     public function calcular_estadistica ( $order = 'precio', $type = "desc") {
+        if ( !empty($this->request->query['order']) ) {
+            $order = $this->request->query['order'];
+        }
+
+        if ( !empty($this->request->query['type']) ) {
+            $type = $this->request->query['type'];
+        }
+
+        if ( empty($this->request->query['created_from']) ) {
+            $created_from = $this->PedidoMercaderia->find('first', array(
+                'order' => array('PedidoMercaderia.created' => 'ASC')
+                ));
+            $created_from = $created_from['PedidoMercaderia']['created'];
+        } else {
+            $created_from = $this->request->query['created_from'];
+        }
+
+        if ( empty($this->request->query['created_to']) ) {
+            $created_to = $this->PedidoMercaderia->find('first', array(
+                'order' => array('PedidoMercaderia.created' => 'DESC')
+                ));
+            $created_to = $created_to['PedidoMercaderia']['created'];
+        } else {
+            $created_to = $this->request->query['created_to'];
+        }
+        
         $this->Prg->commonProcess();
         $conditions = $this->PedidoMercaderia->parseCriteria( $this->Prg->parsedParams() );
         $this->elementMenu = 'Stats.menu';
 
         $conditions[] = 'PedidoMercaderia.mercaderia_id IS NOT NULL';
-
-        if ( !empty($this->request->data['PedidoMercaderia']['order']) ) {
-            $order = $this->request->data['PedidoMercaderia']['order'];
-        }
-
-        if ( !empty($this->request->data['PedidoMercaderia']['type']) ) {
-            $type = $this->request->data['PedidoMercaderia']['type'];
-        }
-
         $pedidoMercaderias = $this->PedidoMercaderia->find('all', array(
             'fields' => array(
                 'sum(PedidoMercaderia.cantidad) as cantidad',
@@ -185,7 +202,7 @@ class PedidoMercaderiasController extends ComprasAppController {
             'order' => array(
                 $order => $type
                 ),
-            'where' => $conditions
+            'conditions' => $conditions
             ));
 
         $totales = $this->PedidoMercaderia->find('all', array(
@@ -193,10 +210,10 @@ class PedidoMercaderiasController extends ComprasAppController {
                 'sum(PedidoMercaderia.cantidad) as cantidad',
                 'sum(PedidoMercaderia.precio) as precio',
                 ),
-            'where' => $conditions
+            'conditions' => $conditions
             ));
 
-        $this->set(compact('pedidoMercaderias', 'totales', 'order', 'type'));
+        $this->set(compact('pedidoMercaderias', 'totales', 'order', 'type', 'created_from', 'created_to'));
     }
 
 }
