@@ -9,6 +9,10 @@ class PedidosController extends ComprasAppController {
 
 
 	public function index() {
+		$this->Prg->commonProcess();
+        $conds = $this->Pedido->parseCriteria( $this->Prg->parsedParams() );
+		$this->Paginator->settings['conditions'] = $conds;
+
 		$pedidos = $this->Paginator->paginate();
 		$this->set(compact('pedidos'));     
 
