@@ -11,9 +11,7 @@ App::uses('CakeTime', 'Utility');
  */
 class Pedido extends ComprasAppModel {
  
-    public $actsAs = array(
-        'Search.Searchable',
-        );
+
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
