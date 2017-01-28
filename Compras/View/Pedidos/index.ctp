@@ -8,7 +8,19 @@
 	<br>
 </div>
 
-
+<div class="row">
+<?php echo $this->Form->create("Pedido", array('url'=>array('action' => 'index')) );?>
+<div class="col-xs-4 col-sm-4 col-md-4">
+<?php echo $this->Form->input('proveedor_name',array('placeholder'=>'Proveedor','label'=>false, 'required'=>false));?>
+</div>
+<div class="col-xs-4 col-sm-4 col-md-4">
+<?php echo $this->Form->input('created',array('placeholder'=>'Fecha creación','label'=>false, 'required'=>false, 'type' => 'datetime'));?>
+</div>
+<div class="col-xs-4 col-sm-4 col-md-4">
+<?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'))?>
+</div>
+<?php echo $this->Form->end(); ?>
+</div>
 
 <div class="clearfix"></div>
 <table class="table">

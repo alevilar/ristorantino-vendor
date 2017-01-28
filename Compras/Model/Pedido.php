@@ -10,8 +10,10 @@ App::uses('CakeTime', 'Utility');
  * @property PedidoMercaderia $PedidoMercaderia
  */
 class Pedido extends ComprasAppModel {
-
-
+ 
+    public $actsAs = array(
+        'Search.Searchable',
+        );
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
 
@@ -63,6 +65,17 @@ class Pedido extends ComprasAppModel {
 			'fields' => '',
 			'order' => ''
 		),
+		);
+
+	public $filterArgs = array(
+		    'created' => array(
+            'type' => 'value',
+            'field' => 'created <=',
+            ),
+            'proveedor_name' => array(
+            'type' => 'like',
+            'field' => 'Proveedor.name',
+            ),
 		);
 
 
