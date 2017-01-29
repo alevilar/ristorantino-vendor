@@ -188,6 +188,7 @@ class PedidoMercaderiasController extends ComprasAppController {
         $this->elementMenu = 'Stats.menu';
 
         $conditions[] = 'PedidoMercaderia.mercaderia_id IS NOT NULL';
+        $conditions[] = 'PedidoMercaderia.precio <> 0';
         $pedidoMercaderias = $this->PedidoMercaderia->find('all', array(
             'fields' => array(
                 'sum(PedidoMercaderia.cantidad) as cantidad',
