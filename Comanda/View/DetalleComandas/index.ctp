@@ -24,15 +24,24 @@
             <div class="row">
                 <div class="col-md-6">
                     <?php
-                    echo $this->Form->input('desde', array('type' => 'date'));
+                    echo $this->Form->input('desde', array('type' => 'date', 'default'=>$desde));
                     ?>
                 </div>
 
                 <div class="col-md-6">
                     <?php
-                    echo $this->Form->input('hasta', array('type' => 'date'));
+                    echo $this->Form->input('hasta', array('type' => 'date', 'default'=>$hasta));
                     ?>
                 </div>
+
+                <?php
+                $from=date_create(date($desde));
+                $to=date_create($hasta);
+                $diff=date_diff($to,$from);
+                $cantDias = $diff->format('%a');
+                ?>
+                <p class="center"><?php echo __("%s días en el rango de búsqueda",$cantDias)?></p>
+
             </div>
             <?php           
             
@@ -64,6 +73,8 @@
                         <th>Producto</th>
                         <th>Precio</th>
                         <th>Cantidad</th>
+                        <th>Prom Ventas x Día</th>
+                        <th>Prom Cant. x Día</th>
                         <th>Ventas (según precio actual)</th>
                         <th>Valor Porcentual En Ventas</th>
                     </tr>
@@ -84,8 +95,10 @@
                         ?>
                         <tr class="<?php echo $trclass ?>">
                             <td><?php echo $comanda['Producto']['name']; ?></td>
-                            <td><?php echo $comanda['Producto']['precio']; ?></td>
+                            <td><?php echo $this->Number->currency($comanda['Producto']['precio']); ?></td>
                             <td><?php echo $comanda[0]['cant']; ?></td>
+                            <td><?php echo $this->Number->currency($comanda['Producto']['precio']/$cantDias); ?></td>
+                            <td><?php echo sprintf( "%.2G",$comanda[0]['cant']/$cantDias); ?></td>
                             <td><?php echo $this->Number-> currency($comanda[0]['ventas']); ?></td>
                             <td><?php echo "%$porcentaje"; ?></td>
                         </tr>

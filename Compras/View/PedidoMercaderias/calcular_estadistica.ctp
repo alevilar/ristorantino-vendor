@@ -29,9 +29,9 @@
 	);
 
 
-	echo $this->Form->input('created_from', array('type'=>'datetime', 'value'=>$created_from));
+	echo $this->Form->input('created_from', array('type'=>'datetime', 'default'=>$created_from));
 
-	echo $this->Form->input('created_to', array('type'=>'datetime', 'value'=>$created_to));
+	echo $this->Form->input('created_to', array('type'=>'datetime', 'default'=>$created_to));
 
 	$from=date_create(date($created_from));
 	$to=date_create($created_to);
@@ -39,7 +39,7 @@
 	$cantDias = $diff->format('%a');
 
 	?>
-	<p><?php echo __("%s días en el rango de búsqueda",$cantDias)?></p>
+	<p class="center"><?php echo __("%s días en el rango de búsqueda",$cantDias)?></p>
 
 	<?php
 	echo $this->Form->submit('Filtrar');

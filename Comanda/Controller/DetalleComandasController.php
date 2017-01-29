@@ -26,6 +26,8 @@ class DetalleComandasController extends ComandaAppController {
             $conditions['order'] = array("cant DESC", 'ventas DESC');
         }
 
+        
+
         $this->Prg->commonProcess();
         $conds = $this->DetalleComanda->parseCriteria( $this->Prg->parsedParams() );
         $conditions['conditions'] = $conds;
@@ -60,6 +62,25 @@ class DetalleComandasController extends ComandaAppController {
             'Producto.precio', 
             'sum(DetalleComanda.cant-DetalleComanda.cant_eliminada) as "cant"',
             );
+
+
+        if ( empty($this->request->query['desde']) ) {
+            $desde = $this->DetalleComanda->find('first', array(
+                'order' => array('DetalleComanda.created' => 'ASC')
+                ));
+            $desde = $desde['DetalleComanda']['created'];
+        } else {
+            $desde = $this->request->query['desde'];
+        }
+
+        if ( empty($this->request->query['hasta']) ) {
+            $hasta = $this->DetalleComanda->find('first', array(
+                'order' => array('DetalleComanda.created' => 'DESC')
+                ));
+            $hasta = $hasta['DetalleComanda']['created'];
+        } else {
+            $hasta = $this->request->query['hasta'];
+        }
                                 
 
         $comandas  = $this->DetalleComanda->Producto->find('all', $conditions);
@@ -77,7 +98,7 @@ class DetalleComandasController extends ComandaAppController {
         $this->set('categorias', $this->DetalleComanda->Producto->Categoria->generateTreeList());
         $this->set('productos', $this->DetalleComanda->Producto->find('list', array('order' => 'name')));
         $this->set('tags', $this->DetalleComanda->Producto->Tag->find('list', array('order' => 'name')));
-		$this->set(compact('comandas', 'cantTotal', 'ventasTotal','tags'));
+		$this->set(compact('comandas', 'cantTotal', 'ventasTotal','tags', 'desde', 'hasta'));
 	}
 	
 
