@@ -161,7 +161,7 @@
 	        <td class='edit abrev' field='abrev' product_id='<?php echo $prodId ?>'><?php echo $abrev; ?></td>
 
 			<td class="edit_field_types" options_types='<?php echo json_encode($printers) ?>' field="printer_id" product_id="<?php echo $prodId; ?>"><?php
-				echo $producto['Printer']['name']; //quite lo del number helper porque te ponia el '$' automatico y si editabas el número con el signo '$' puesto, al refrescar página se te setea el precio en 0 por caracter invalido. Lo mismo pasa con la coma, para ser un número de coma flotante solo acepta el punto, no la coma.
+				echo $producto['Printer']['name'];
 			?></td>
 
 
@@ -169,14 +169,14 @@
 
 
 			<td  class='edit' field='precio' product_id='<?php echo $prodId ?>'><?php 
-	                        echo '$'.$producto['Producto']['precio'];                        
+	                        echo $this->Number->currency( $producto['Producto']['precio'], 'USD',array('decimals' => '.') );                        
 	                ?></td>
 	                
 	                
 	                <td  class='edit text text-success'  field='precio_futuro' 
 	                     product_id='<?php echo $prodId ?>'><?php 
 	                        if ( isset($producto['ProductosPreciosFuturo']['precio']) ) {
-	                          echo '$'.$producto['ProductosPreciosFuturo']['precio'];
+	                          echo $this->Number->currency( $producto['ProductosPreciosFuturo']['precio'],'USD',array('decimals' => '.'));
 	                        }
 	                ?></td>
 	                

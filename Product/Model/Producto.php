@@ -249,7 +249,17 @@ class Producto extends ProductAppModel {
     //     return $this->find('all',array('conditions'=>array('Producto.name REGEXP'=>"$texto")));
     // }
 
+    public function beforeSave($options = array()) {
 
+        if (isset($this->data['Producto']['precio'])) {
+            $precio_actual = $this->data['Producto']['precio'];
+            $precio = str_replace('$', '', $precio_actual);
+            $precio = str_replace(',', '.', $precio);
+            $this->data['Producto']['precio'] = $precio;
+        }
+
+        return true;
+    }
 
     public function save($data = null, $validate = true, $fieldList = array())
     {            
