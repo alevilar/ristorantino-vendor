@@ -35,17 +35,14 @@
                 </div>
 
                 <?php
-                $from=date_create(date($desde));
-                $to=date_create($hasta);
-                $diff=date_diff($to,$from);
-                $cantDias = $diff->format('%a');
+                $cantDias = cantDiasBtwen($desde, $hasta);
                 ?>
                 <p class="center"><?php echo __("%s días en el rango de búsqueda",$cantDias)?></p>
 
             </div>
             <?php           
             
-            echo $this->Form->submit('Buscar', array('class'=>'btn btn-success btn-block'));
+            echo $this->Form->submit('Filtrar', array('class'=>'btn btn-success btn-block'));
             echo $this->Form->end();
             ?>
 

@@ -365,3 +365,22 @@ function validate_cuit_cuil($cuit)
 
     return $ok;
 }
+
+
+/**
+ *
+ *  Calcula la cantidad de dias que hay entre 2 fechas
+ * 
+ * 
+ **/
+function cantDiasBtwen( $desde, $hasta) {
+
+    $from=date_create(date($desde));
+    $to=date_create($hasta);
+    $diff=date_diff($to,$from);
+    $cantDias = $diff->format('%a')+1;
+    if ($cantDias == 0) {
+        $cantDias == 1;
+    }
+    return $cantDias;
+}
