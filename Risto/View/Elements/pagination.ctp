@@ -11,8 +11,8 @@
 ?>
 <div class="paging">
 	<?php
-	echo $this->Paginator->prev('< ' . __d('users', 'previous'), array(), null, array('class' => 'prev disabled'));
-	echo $this->Paginator->numbers(array('separator' => ''));
-	echo $this->Paginator->next(__d('users', 'next') . ' >', array(), null, array('class' => 'next disabled'));
+	echo $this->Paginator->prev('< ' . __d('users', 'previous'), array(), null, array('class' => 'btn btn-default'));
+    echo $this->Paginator->numbers(array('separator' => ' | '));
+	echo $this->Paginator->next(__d('users', 'next') . ' >', array(), null, array('class' => 'btn btn-default'));
 	?>
 </div>
