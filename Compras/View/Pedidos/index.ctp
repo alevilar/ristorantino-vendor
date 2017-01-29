@@ -10,13 +10,16 @@
 
 <div class="row">
 <?php echo $this->Form->create("Pedido", array('url'=>array('action' => 'index')) );?>
-<div class="col-xs-4 col-sm-4 col-md-4">
+<div class="col-xs-3 col-sm-3 col-md-3">
 <?php echo $this->Form->input('proveedor_name',array('placeholder'=>'Proveedor','label'=>false, 'required'=>false));?>
 </div>
-<div class="col-xs-4 col-sm-4 col-md-4">
-<?php echo $this->Form->input('created',array('placeholder'=>'Fecha creación','label'=>false, 'required'=>false, 'type' => 'datetime'));?>
+<div class="col-xs-3 col-sm-3 col-md-3">
+<?php echo $this->Form->input('created_from',array('placeholder'=>'Created From','label'=>false, 'required'=>false, 'type' => 'datetime'));?>
 </div>
-<div class="col-xs-4 col-sm-4 col-md-4">
+<div class="col-xs-3 col-sm-3 col-md-3">
+<?php echo $this->Form->input('created_to',array('placeholder'=>'Created To','label'=>false, 'required'=>false, 'type' => 'datetime'));?>
+</div>
+<div class="col-xs-3 col-sm-3 col-md-3">
 <?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'))?>
 </div>
 <?php echo $this->Form->end(); ?>
