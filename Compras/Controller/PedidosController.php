@@ -121,18 +121,25 @@ class PedidosController extends ComprasAppController {
 	public function recepcion ( $id = null ) {
 		if ( $this->request->is(array('post', 'put'))) {
 			$pdata = array();
-			$todorecepcionado = true;
 			$pmlimpio = $this->Pedido->PedidoMercaderia->limpiarPedidosSinCant($this->request->data['PedidoMercaderia']);
+
+			// paso las mercaderias a "pedidos pendientes cuando la cantidad recepcionada es menor a la pedida en la OC"
 			foreach ($pmlimpio as $pm ) {
-				if ( $pm['PedidoMercaderia']['cantidad'] == 0 ) {
-					$todorecepcionado = false;
+				$cant = $pm['PedidoMercaderia']['cantidad'] - $pm['PedidoMercaderia']['cantidad_anterior'];
+				if ( $cant < 0 ) {
+					$this->Pedido->PedidoMercaderia->create();
+					$newPedidoMerca = $pm;
+					$newPedidoMerca['PedidoMercaderia']['cantidad'] = abs($cant);
+					unset($newPedidoMerca['PedidoMercaderia']['pedido_id']);
+					unset($newPedidoMerca['PedidoMercaderia']['id']);
+					unset($newPedidoMerca['Pedido']);
+					$this->Pedido->PedidoMercaderia->save($newPedidoMerca);
 				}
 			}
-			if ( $todorecepcionado ) {
-				$this->Pedido->id = $this->request->data['Pedido']['id'];
-				$this->Pedido->saveField('recepcionado', $todorecepcionado);
-			}
-			if ( $this->Pedido->PedidoMercaderia->saveAll( $pmlimpio ) ) {
+			
+			$savePedido =  $this->Pedido->save($this->request->data['Pedido'], array('fields'=> array('recepcionado')));
+		 	$saveMerca	= $this->Pedido->PedidoMercaderia->saveAll( $pmlimpio );
+			if ( $savePedido && $saveMerca ) {
 				$this->Session->setFlash("Se guardó la recepción correctamente");
 			} else {
 				debug( $this->Pedido->PedidoMercaderia->validationErrors);
@@ -245,19 +252,41 @@ class PedidosController extends ComprasAppController {
         $this->render('form');
 	}
 
+	public function desvincular_gasto($id) {
+		if ( !$this->Pedido->exists($id) ) {
+			throw new NotFoundException( __("No existe un pedido con ese ID") );
+		}
+
+		$this->Pedido->id = $id;
+		if ( $this->Pedido->saveField('gasto_id', null)) {
+			$this->Session->setFlash(_("Se desvinculó la OC con el Gasto"));
+		} else {
+			$this->Session->setFlash(_("no se pudo desvincular la OC con el Gasto", "Risto.flash_error"));
+		}
+
+		$this->redirect($this->referer());
+	}
+
 
 	public function generar_gasto($id) {
 		if (!$this->Pedido->exists($id) ){
 			throw new NotFoundException(__("No existe el Pedido"));
 		}
 		$this->Pedido->id = $id;
-		$this->Pedido->recursive = -1;
+		$this->Pedido->contain = array('PedidoMercaderia');
 		$pedido = $this->Pedido->read();
+
+		$total = 0;
+		foreach ( $pedido['PedidoMercaderia'] as $pm ) {
+			$total += $pm['precio'];
+		}
 		$proveedorId = $pedido['Pedido']['proveedor_id'];
 
 		$data = array('Gasto' => array(
 				'proveedor_id' => $proveedorId,
-				'fecha' => date('Y-m-d')
+				'fecha' => date('Y-m-d'),
+				'importe_neto' => $total,
+				'importe_total' => $total,
 				));
 		$this->Pedido->Gasto->create();
 		
@@ -287,6 +316,7 @@ class PedidosController extends ComprasAppController {
 			$this->Session->setFlash(__("Se generó un nuevo gasto"));
 		} else {
 			$url = $this->referer();
+			debug($this->Pedido->Gasto->validationErrors);die;
 			$this->Session->setFlash(__("Error al generar nuevo gasto", 'flash_error'));
 		}
 

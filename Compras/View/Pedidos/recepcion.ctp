@@ -10,7 +10,7 @@
                                         'id'=> "PedidoAddForm",
                                         ));
 		echo $this->Form->hidden('Pedido.id');
-
+        echo $this->Form->hidden('Pedido.recepcionado', array('value'=>true));
         echo $this->Form->hidden('Pedido.gen_gasto', array('id'=>'gengasto', 'value'=>false));
 
      ?>
@@ -71,6 +71,12 @@ echo $this->Form->end();
 <div class="clearfix"></div>
 
 
+<script type="text/javascript">
+    
+    var mercaIndexURL = "<?php echo $this->Html->url(array('controller'=>'mercaderias', 'action'=>'index'));?>";
+    var mercaUnidades = <?php echo json_encode($mercaUnidades);?>;
+    var urlProveedorPedidoInfo = "<?php echo $this->Html->url(array('controller'=>'pedidos', 'action' => 'proveedor_info'));?>";
+</script>
 
 <script type="text/javascript">
     

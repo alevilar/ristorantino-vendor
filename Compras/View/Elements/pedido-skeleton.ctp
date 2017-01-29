@@ -74,6 +74,10 @@ if ( $pmId  != '{X}') {
                             'label' => false,
                             'placeholder' => 'Cantidad'
         )); ?>
+
+        <?php echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.cantidad_anterior', array(
+                            'value' => !empty($cantidad) ? $cantidad : null,
+        )); ?>
     </div>
     <div class="col-md-2 col-xs-3">
 

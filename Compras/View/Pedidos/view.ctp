@@ -2,19 +2,37 @@
 
 
 <div class="content-white">
-<div class="btn-group-vertical pull-right" role="group" aria-label="...">
-
-<?php echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-default')); ?>
-
-
-<?php echo $this->Html->link("Recepcionar", array('controller'=>'Pedidos', 'action'=>'recepcion', $pedido['Pedido']['id'] ), array('class'=>'btn btn-success') );?>
 
 <?php 
-if ( empty($pedido['Pedido']['gasto_id']) ) {
-	echo $this->Html->link('Generar Gasto', array('action'=>'generar_gasto', $pedido['Pedido']['id']), array('class'=>'btn btn btn-warning'));
+$textoRecepcionado = "";
+$linkRecepcionado = "";
+if ( !$pedido['Pedido']['recepcionado'] ) {
+		$linkRecepcionado = $this->Html->link("Recepcionar", array('controller'=>'Pedidos', 'action'=>'recepcion', $pedido['Pedido']['id'] ), array('class'=>'btn btn-success') );
 } else {
-	echo $this->Html->link('Ver Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'view', $pedido['Pedido']['gasto_id']), array('class'=>'btn btn btn-warning', 'target'=>'_blank'));
+	$textoRecepcionado = ' <span class="text-success">'.__("RECEPCIONADO").'</span>';
 }
+?>
+
+<div class="pull-left muted"><?php echo $this->Time->format($pedido['Pedido']['created'], '%c')?></div><br>
+<h3 class="pull-right" style="margin-right: 30px;">Proveedor: <?php echo $pedido['Proveedor']['name']?></h3>
+<h3>Órden de Compra #<?php echo $pedido['Pedido']['id'].$textoRecepcionado?></h3>
+
+
+<div class="btn-group center" role="group" aria-label="menu" style="margin: 20px auto;">
+
+	<?php 
+
+	echo $this->Html->link('Imprimir Pedido por comandera', array('action'=>'imprimir', $pedido['Pedido']['id']), array('class'=>'btn btn-default'));
+
+
+	echo $linkRecepcionado;
+
+	if ( empty($pedido['Pedido']['gasto_id']) ) {
+		echo $this->Html->link('Generar Gasto', array('action'=>'generar_gasto', $pedido['Pedido']['id']), array('class'=>'btn btn btn-warning'));
+	} else {
+		echo $this->Html->link('Ver Gasto', array('plugin'=>'account', 'controller'=>'gastos', 'action'=>'view', $pedido['Pedido']['gasto_id']), array('class'=>'btn btn btn-warning', 'target'=>'_blank'));
+		echo $this->Form->postLink('Desvincular Gasto', array('action'=>'desvincular_gasto', $pedido['Pedido']['id']), array('class'=>'btn btn btn-default'), array("Seguro desea desvincular?"));
+	}
 ?>
 
 
@@ -27,13 +45,7 @@ if ( empty($pedido['Pedido']['gasto_id']) ) {
 </div>
 
 
-<h2 class="pull-right muted" style="margin-right: 30px"><?php echo $this->Time->format($pedido['Pedido']['created'], '%c')?></h2>
-<h1>Órden de Compra #<?php echo $pedido['Pedido']['id']?></h1>
-
-
-
-<h3 class="center">Proveedor: <?php echo $pedido['Proveedor']['name']?></h3>
-<br>
+<br><br>
 <div>
 	<table class="table">
 		<thead>

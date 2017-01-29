@@ -22,6 +22,7 @@
 
     <div class="col-xs-5">
         <?php echo $this->Form->input('proveedor_id'); ?>
+        <?php echo $this->Form->input('recepcionado'); ?>
     </div>
     <div class="col-xs-7">
         <div id="proveedor-data"></div>
