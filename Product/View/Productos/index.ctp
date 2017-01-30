@@ -169,14 +169,14 @@
 
 
 			<td  class='edit' field='precio' product_id='<?php echo $prodId ?>'><?php 
-	                        echo $this->Number->currency( $producto['Producto']['precio'], 'USD',array('decimals' => '.') );                        
+	                        echo $this->Number->currency( $producto['Producto']['precio'] );                        
 	                ?></td>
 	                
 	                
 	                <td  class='edit text text-success'  field='precio_futuro' 
 	                     product_id='<?php echo $prodId ?>'><?php 
 	                        if ( isset($producto['ProductosPreciosFuturo']['precio']) ) {
-	                          echo $this->Number->currency( $producto['ProductosPreciosFuturo']['precio'],'USD',array('decimals' => '.'));
+	                          echo $this->Number->currency( $producto['ProductosPreciosFuturo']['precio']);
 	                        }
 	                ?></td>
 	                

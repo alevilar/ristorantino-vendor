@@ -258,6 +258,13 @@ class Producto extends ProductAppModel {
             $this->data['Producto']['precio'] = $precio;
         }
 
+        if (isset($this->data['ProductosPreciosFuturo']['precio'])) {
+            $precio_futuro = $this->data['ProductosPreciosFuturo']['precio'];
+            $precio = str_replace('$', '', $precio_futuro);
+            $precio = str_replace(',', '.', $precio);
+            $this->data['ProductosPreciosFuturo']['precio'] = $precio;
+        }
+
         return true;
     }
 
