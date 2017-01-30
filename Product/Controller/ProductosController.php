@@ -24,6 +24,7 @@ class ProductosController extends ProductAppController {
         $this->Paginator->settings['contain'] = array(
             'Categoria',
             'Printer',
+            'ProductosPreciosFuturo',
             );
 
         $printers = $this->Producto->Printer->listarComanderas();
@@ -177,16 +178,15 @@ class ProductosController extends ProductAppController {
             $this->Producto->id = $data['product_id'];
 
             $dataField = $data['field'];
-            $dataValue = trim(trim($data['value']));
+            $dataValue = formatearPrecio(trim(trim($data['value'])));
             $dataFinal = (!empty($data['text'])) ? $data['text'] : $dataValue;
-            
             $pf = 'precio_futuro';
             
             if ( $dataField == 'precio_futuro') {
                 //buscar a ver si existe previamente            
                 $ppf['ProductosPreciosFuturo'] = array(
                         'producto_id' => $this->Producto->id,
-                        'precio' => $dataValue
+                        'precio' => $dataValue,
                     );
                 if ( $this->Producto->ProductosPreciosFuturo->save( $ppf ) )  {
                     $msg = $dataFinal;

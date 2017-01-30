@@ -251,18 +251,12 @@ class Producto extends ProductAppModel {
 
     public function beforeSave($options = array()) {
 
-        if (isset($this->data['Producto']['precio'])) {
-            $precio_actual = $this->data['Producto']['precio'];
-            $precio = str_replace('$', '', $precio_actual);
-            $precio = str_replace(',', '.', $precio);
-            $this->data['Producto']['precio'] = $precio;
+        if ( !empty($this->data['Producto']['precio']) ) {
+            $this->data['Producto']['precio'] = formatearPrecio($this->data['Producto']['precio']);
         }
 
-        if (isset($this->data['ProductosPreciosFuturo']['precio'])) {
-            $precio_futuro = $this->data['ProductosPreciosFuturo']['precio'];
-            $precio = str_replace('$', '', $precio_futuro);
-            $precio = str_replace(',', '.', $precio);
-            $this->data['ProductosPreciosFuturo']['precio'] = $precio;
+        if ( !empty($this->data['ProductosPreciosFuturo']['precio']) ) {
+            $this->data['ProductosPreciosFuturo']['precio'] = formatearPrecio($this->data['ProductosPreciosFuturo']['precio']);
         }
 
         return true;

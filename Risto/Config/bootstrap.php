@@ -371,6 +371,9 @@ function validate_cuit_cuil($cuit)
  *
  *  Calcula la cantidad de dias que hay entre 2 fechas
  * 
+ * @param string $desde fecha YYYY-MM-DD HH:MM:SS
+ * @param string $hasta fecha YYYY-MM-DD HH:MM:SS
+ * @return number cantidad de dias
  * 
  **/
 function cantDiasBtwen( $desde, $hasta) {
@@ -383,4 +386,23 @@ function cantDiasBtwen( $desde, $hasta) {
         $cantDias == 1;
     }
     return $cantDias;
+}
+
+
+
+
+/**
+ * Dado un precio que viene en formato string,
+ * lo convierto a un valor numerico quitando el simbolo pesos, la coma y 
+ * todos los caracteres que no son numericos.
+ * Ej1: $45 lo convierte en 45
+ * EJ2: $102,1 lo convierte en $102.1
+ * 
+ * @param string $precioTxt
+ * @return float precio formateado
+ **/
+function formatearPrecio($precioTxt) {
+    $precioTxt = str_replace('$', '', $precioTxt);
+    $precioTxt = str_replace(',', '.', $precioTxt);
+    return (float)$precioTxt;
 }
