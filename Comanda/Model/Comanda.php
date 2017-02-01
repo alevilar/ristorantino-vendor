@@ -256,6 +256,9 @@ class Comanda extends ComandaAppModel {
 		// este array contine la prioridad y la mesa_id ---> todos datos de Modelo Comanda
 		$comanda = $fullData['Comanda'];		
 
+
+		$this->Mesa->saveModified = false;
+
 		//cuento la cantidad de comanderas involucradas en este pedido para genrar la cantidad de comandas correspondientes
 		$v_comanderas = array();
 		foreach( $fullData['DetalleComanda'] as $dc ) {
@@ -301,6 +304,7 @@ class Comanda extends ComandaAppModel {
 			$this->Mesa->id = $this->field('mesa_id');
 		}
 
+		$this->Mesa->saveModified = true;
 		$this->Mesa->actualizarMesaModified();
 
 		return $save;

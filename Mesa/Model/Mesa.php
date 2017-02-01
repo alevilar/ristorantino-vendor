@@ -153,7 +153,7 @@ class Mesa extends MesaAppModel {
 	public $order = array('Mesa.created' => 'desc');
 
 
-	public $modificada = false;
+	public $saveModified = true;
 
 
 
@@ -163,8 +163,7 @@ class Mesa extends MesaAppModel {
 			$this->id = $mesaId;
 		}
 
-		if ( !$this->modificada ) {
-			$this->modificada = true;
+		if ( $this->saveModified ) {
 			return $this->saveField('modified', date('Y-m-d H:i:s'));
 		}
 	}
