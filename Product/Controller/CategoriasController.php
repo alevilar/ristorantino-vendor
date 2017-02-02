@@ -19,9 +19,18 @@ class CategoriasController extends ProductAppController
 
     function index()
     {
+        if (!isset($this->request->data['Categoria']['name'])) {
+            $this->request->data['Categoria']['name'] = null;
+            $nombre = null;
+            $conds = null;
+        } else {
+        $nombre = $this->request->data['Categoria']['name'];
+        $conds = array('Categoria.name LIKE' => '%'.$nombre.'%');
+        }
+
         $this->Categoria->recursive = 0;
         $this->set('imagenes', $this->Categoria->find('list', array('fields' => array('Categoria.id', 'Categoria.media_id'))));
-        $this->set('categorias', $this->Categoria->generateTreeList(null, null, null, '-&nbsp;-&nbsp;-&nbsp;'));
+        $this->set('categorias', $this->Categoria->generateTreeList($conds, null ,null, '-&nbsp;-&nbsp;-&nbsp;'));
     }
 
     /**
