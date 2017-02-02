@@ -64,9 +64,5 @@
 		?>
 		</p>
 
-	<div class="paging">
-		<?php echo $this->Paginator->prev('<< '.__('anterior', true), array(), null, array('class'=>'btn btn-default'));?>
-	 | 	<?php echo $this->Paginator->numbers();?>
-		<?php echo $this->Paginator->next(__('próximo', true).' >>', array(), null, array('class'=>'btn btn-default'));?>
-	</div>
+<?php echo $this->element('Risto.pagination'); ?>
 </div>

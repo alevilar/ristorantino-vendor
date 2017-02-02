@@ -25,8 +25,8 @@ if ( empty($this->request->data['Mercaderia'])) {
 	<?php echo $this->Form->input('default_proveedor_id', array('empty'=>'Seleccione')); ?>
 
 	<?php echo $this->Form->end('Guardar'); ?>
-
-	<?php echo $this->element('Users.pagination') ?>
+<br>
+<?php echo $this->element('Risto.pagination'); ?>
 
 <?php } ?>
 

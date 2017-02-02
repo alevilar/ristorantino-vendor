@@ -146,10 +146,6 @@
         'format' => __('Página {:page} de {:pages}, mostrando {:current} elementos de {:count}')
     ));
     ?></p>
-    <div class="paging">
-    	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
-     | 	<?php echo $this->Paginator->numbers();?>
-    	<?php echo $this->Paginator->next(__('próximo').' >>', array(), null, array('class'=>'btn btn-default'));?>
-    </div>
+<?php echo $this->element('Risto.pagination'); ?>
 </div>
 </div>

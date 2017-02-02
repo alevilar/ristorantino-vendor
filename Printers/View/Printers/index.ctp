@@ -1,4 +1,4 @@
-<div class="printers index">
+<div class="printers index content-white">
     <h2><?php echo __('Impresoras'); ?></h2>
     <div class="btn-group pull-right">
     <?php echo $this->Html->link(__('Nueva Impresora', true), array('action'=>'add'), array('class'=>'btn btn-success btn-lg')); ?>
@@ -52,8 +52,4 @@
     	?>
     	</p>
 
-    <div class="paging">
-    	<?php echo $this->Paginator->prev('<< '.__('anterior'), array(), null, array('class'=>'btn btn-default'));?>
-     | 	<?php echo $this->Paginator->numbers();?>
-    	<?php echo $this->Paginator->next(__('siguiente').' >>', array(), null, array('class'=>'btn btn-default'));?>
-    </div>
+<?php echo $this->element('Risto.pagination'); ?>
