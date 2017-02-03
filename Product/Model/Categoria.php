@@ -17,8 +17,8 @@ class Categoria extends ProductAppModel
         'Tree',
         'Containable',
         'Utils.SoftDelete',
-        'Risto.MediaUploadable' ,
-        
+        'Risto.MediaUploadable',
+        'Search.Searchable',
     );
     //public $cacheQueries = true;
 
@@ -43,6 +43,11 @@ class Categoria extends ProductAppModel
             'conditions' => array('Sabor.deleted' => 0)
             ));
 
+    public $filterArgs = array(
+        'name' => array(
+            'type' => 'like',
+            ),
+        );
 
 
     /**
