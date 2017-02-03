@@ -19,7 +19,7 @@ if ( !empty($this->request->data['TipoDePago']['media_id']) ) {
 
 		echo $this->Form->input('name',array('label'=>__('Nombre')));
         echo $this->Form->input('media_file',array('label'=>'Foto/Imagen ', 'type'=>'file'));
-		echo $this->Form->input('description',array('label'=>__('Descripción')));?>
+?>
 
      <?php if (empty($this->request->data['TipoDePago']['id']) ){ ?>
         <?php echo $this->Form->submit('Agregar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
