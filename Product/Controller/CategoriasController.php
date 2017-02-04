@@ -19,14 +19,8 @@ class CategoriasController extends ProductAppController
 
     function index()
     {
-        if (!isset($this->request->data['Categoria']['name'])) {
-            $this->request->data['Categoria']['name'] = null;
-            $nombre = null;
-            $conds = null;
-        } else {
-        $nombre = $this->request->data['Categoria']['name'];
-        $conds = array('Categoria.name LIKE' => '%'.$nombre.'%');
-        }
+        $this->Prg->commonProcess();
+        $conds = $this->Categoria->parseCriteria( $this->Prg->parsedParams() );
 
         $this->Categoria->recursive = 0;
         $this->set('imagenes', $this->Categoria->find('list', array('fields' => array('Categoria.id', 'Categoria.media_id'))));

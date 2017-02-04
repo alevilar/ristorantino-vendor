@@ -17,6 +17,7 @@ class IvaResponsabilidad extends RistoTenantAppModel {
     );
     public $filterArgs = array(
         'name' => array('type' => 'like'),
+        'codigo_fiscal' => array ('type' => 'like')
     );
 
 	public $belongsTo = array(

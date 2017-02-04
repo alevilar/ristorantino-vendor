@@ -1,4 +1,4 @@
-<div class="ivaResponsabilidades index">
+<div class="ivaResponsabilidades index content-white">
     <div class="btn-group pull-right">
     <?php echo $this->Html->link(__('Nueva Iva Responsabilidad', __('IvaResponsabilidad')), array('action' => 'add'), array('class'=>'btn btn-success btn-lg')); ?>
     <?php echo $this->Html->link(__('Nuevo Tipo Factura', __('IvaResponsabilidad')), array('controller' => 'tipo_facturas', 'action' => 'add'), array('class'=>'btn btn-default btn-lg')); ?>
