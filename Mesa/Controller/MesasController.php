@@ -189,12 +189,17 @@ class MesasController extends MesaAppController {
         if ($this->request->is('post')) {
             $this->Mesa->create();
             $this->request->data['Mesa']['subtotal'] = $this->request->data['Mesa']['total'];
-            if ( $this->Mesa->saveAll($this->request->data) ) {
+            $this->Mesa->wspaxaposSend = false;
+            if ( $this->Mesa->saveAll($this->request->data, array('deep'=>true)) ) {
                 $insertedId = $this->Mesa->id;
                
                 if ( !$this->request->is('ajax') ) {
                     $this->Session->setFlash(__('La mesa %s fue guardada', $this->request->data['Mesa']['numero'] ));
                 }
+
+                App::uses('WsPaxaposConnect', 'Risto.Utility');
+                WsPaxaposConnect::sendMesa($insertedId, 'mesa:add');
+
             } else {
                 if (!$this->request->is('ajax')) {
                     $this->Session->setFlash(__('La mesa no pudo ser guardada. Intente nuevamente.', 'Risto.flash_error'));

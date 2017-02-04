@@ -7,6 +7,16 @@ class Mesa extends MesaAppModel {
 
 	public $name = 'Mesa';
 
+
+	/**
+	 *
+	 * 	Indica si debo enviar mediante WsPaxapos Socket
+	 * los cambios guardados en la mesa
+	 * por defecto envia siempre
+	 * @param boolean
+	 **/
+	public $wspaxaposSend = true;
+
 	public $displayField = 'numero';
 
 	public $actsAs = array(
@@ -245,10 +255,12 @@ class Mesa extends MesaAppModel {
 			$this->__sendEventStateChange( 'After');			
 		}
 
-		if ( ! (count($options['fieldList']) == 1 && !empty($options['fieldList'][0]['modified']) ) ){
-			App::uses('WsPaxaposConnect', 'Risto.Utility');
-			$event = $created ? 'mesa:add':'mesa:edit';
-			WsPaxaposConnect::sendMesa($this->id, $event);
+		if ( $this->wspaxaposSend ) {
+			if ( ! (count($options['fieldList']) == 1 && !empty($options['fieldList'][0]['modified']) ) ){
+				App::uses('WsPaxaposConnect', 'Risto.Utility');
+				$event = $created ? 'mesa:add':'mesa:edit';
+				WsPaxaposConnect::sendMesa($this->id, $event);
+			}
 		}
 
 
