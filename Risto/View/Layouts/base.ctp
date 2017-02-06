@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<?php App::uses('MtSites', 'MtSites.Utility'); ?>
+
+<html manifest="<?php echo $this->Html->url( array('plugin'=>'aditions', 'controller'=>'aditions', 'action'=>'get_manifest') )?>">    
+
 <html>
 	<head>
 		<?php echo $this->element('Risto.header_inner_ristorantino') ?>
