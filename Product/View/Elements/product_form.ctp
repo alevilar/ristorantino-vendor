@@ -5,7 +5,7 @@
 
 			echo $this->Form->input('name',array(
 				'label'=>__('Nombre Interno'),
-				'placeholder' => __('Ej: "Bebida Cola Light"')
+				'placeholder' => __('Ej: "Bebida Coca Light"')
 				));
 			echo $this->Form->input('abrev', array(
 				'label'=>'Nombre en Ticket',
@@ -59,7 +59,7 @@
 	     <?php else: ?>
 	     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
 	<?php endif; ?>
-	        <?php echo $this->Html->link(__('Cancelar'), array('action'=>'index'), array('class'=>'btn btn-default btn-lg pull-right'));?>
+	        <?php echo $this->Html->link(__('Cancelar'), array('action'=> $action), array('class'=>'btn btn-default btn-lg pull-right'));?>
 	    <?php echo $this->Form->end() ?>
 	</div>
 <div class="clearfix"></div>

@@ -83,6 +83,17 @@ class ProductosController extends ProductAppController {
  //                        $this->set('productos',$this->Producto->buscarPorNombre($nombre));
 	// }
 
+    public function verificarUrl() {
+        $redireccion = $this->referer();
+
+        if (substr($redireccion, -19) == 'producto_first_time') {
+            $action = 'producto_first_time';
+        } else {
+            $action = 'index';
+        }
+        return $action;
+    }
+
 	public function add() {
 		if (!empty($this->request->data)) {
 			$this->Producto->create();
@@ -93,10 +104,13 @@ class ProductosController extends ProductAppController {
 				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.', true));
 			}
 		}
+
+        $action = $this->verificarUrl();
+
 		$printers = $this->Producto->Printer->listarComanderas();
         $tags = $this->Producto->Tag->find('list');
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
-		$this->set(compact('categorias','printers', 'tags'));
+		$this->set(compact('categorias','printers', 'tags', 'action'));
         $this->render('form');
 	}
 
@@ -115,12 +129,14 @@ class ProductosController extends ProductAppController {
 				$this->Session->setFlash(__('The Producto could not be saved. Please, try again.'), 'Risto.flash_error');
 			}
 		}
+
+        $action = $this->verificarUrl();
                 
         $this->request->data = $this->Producto->read(null, $id);
 		$printers = $this->Producto->Printer->listarComanderas();
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
         $tags = $this->Producto->Tag->find('list');
-		$this->set(compact('categorias','printers', 'tags'));
+		$this->set(compact('categorias','printers', 'tags', 'action'));
         $this->render('form');
 	}
 

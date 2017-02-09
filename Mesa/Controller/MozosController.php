@@ -87,7 +87,16 @@ class MozosController extends MesaAppController {
 			}
 		}
 
+		$redireccion = $this->referer();
+
+		if (substr($redireccion, -14) == 'add_first_time') {
+			$url = 'add_first_time';
+		} else {
+			$url = 'index';
+		}
+
 		$this->request->data = $this->Mozo->read(null, $id);
+		$this->set(compact('url'));
 	}
 
 	public function delete($id = null) {
