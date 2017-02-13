@@ -19,7 +19,7 @@
 						'required'=>false,
 						'placeholder'=>'Categoria',
 						'label'=>false));?></th>
-		<th><?php echo $this->Form->input('Sabor.precio',array('placeholder'=>'Precio', 'label'=>false));?></th>
+		<th><?php echo $this->Form->input('Sabor.precio',array('placeholder'=>'Precio', 'label'=>false, 'type' => 'text'));?></th>
 		<th></th>
 		<th><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'));
 	              echo $this->Form->end();?></th>
