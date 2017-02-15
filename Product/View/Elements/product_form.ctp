@@ -35,13 +35,14 @@
 
 			echo $this->Form->input('precio',array(
 					'label'=>'Precio $',
-					'placeholder'=>'Ej: "10.5" (notar que los decimales van separados de un punto)'
+					'placeholder'=>'Ej: "10.5" (notar que los decimales van separados de un punto)',
+					'type' => 'text'
 					));
 		
 
 			if ( !empty( $this->request->data['Producto']['id']) ) {
 		        echo $this->Form->input('ProductosPreciosFuturo.producto_id', array('type'=>'hidden'));
-	        	echo $this->Form->input('ProductosPreciosFuturo.precio',array('placeholder'=>'$','label'=>'Precio Futuro $'));
+	        	echo $this->Form->input('ProductosPreciosFuturo.precio',array('placeholder'=>'$','label'=>'Precio Futuro $', 'type' => 'text'));
 			}
 
 

@@ -13,7 +13,7 @@
 		echo $this->Form->input('id',__('Id'));
 		echo $this->Form->input('name',__('Nombre'));
 		echo $this->Form->input('categoria_id', array('after'=>'<span class="text-info">'.__('Todos los productos de esta Categoria tendrán incluida esta variante como opción seleccionable'.'</span>')));
-		echo $this->Form->input('precio',__('Precio'));
+		echo $this->Form->input('precio',array('type' => 'text'),__('Precio'));
 	?>
 <?php
   if (empty($this->request->data['Sabor']['id'])):?>
