@@ -457,6 +457,22 @@ class TenantBaseSchema extends RistoBaseSchema {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
 
+
+	public $account_proveedores_tipo_impuestos = array(
+		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
+
+		'proveedor_id' => array('type' => 'integer', 'null' => false, 'unsigned' => false),
+		'tipo_impuesto_id' => array('type' => 'integer', 'null' => false, 'unsigned' => false),
+	
+		'created' => array('type' => 'timestamp', 'null' => false, 'default' => null),
+		'modified' => array('type' => 'timestamp', 'null' => true, 'default' => null),
+		'created_by' => array('type' => 'string', 'length' => 36, 'null' => true),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+
 	public $account_tipo_impuestos = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'unsigned' => false, 'key' => 'primary'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),

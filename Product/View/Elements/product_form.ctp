@@ -59,7 +59,14 @@
 	     <?php else: ?>
 	     <?php echo $this->Form->submit('Actualizar', array('class'=>'btn btn-success btn-lg pull-left')); ?>
 	<?php endif; ?>
-	        <?php echo $this->Html->link(__('Cancelar'), array('action'=> $action), array('class'=>'btn btn-default btn-lg pull-right'));?>
+	        
+	    <?php 
+	    if ( !empty($referer) ) {
+	    	echo $this->Html->link(__('Cancelar'), $referer, array('class'=>'btn btn-default btn-lg pull-right'));
+	    }
+	    ?>
+	    
+
 	    <?php echo $this->Form->end() ?>
 	</div>
 <div class="clearfix"></div>

@@ -120,6 +120,9 @@ class Mesa extends MesaAppModel {
             'type' => 'value',
             'field' => 'Mesa.checkout <='
             ),
+        'deleted' => array(
+            'type' => 'value',
+            ),
         );
 
 

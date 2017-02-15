@@ -8,6 +8,7 @@
     <!-- fomr search -->
     <div class="row">
         <?php echo $this->Form->create("Mesa"); ?>        
+
         <div class=" col-md-1">
             <?php echo $this->Form->input('numero', array('label' => Configure::read('Mesa.tituloMesa'), 'required'=>false)); ?>
             <?php echo $this->Form->input('mozo_id', array('label' => Configure::read('Mesa.tituloMozo'), 'empty' => 'Todos', 'required'=>false )); ?>
@@ -20,6 +21,9 @@
                 'empty' => 'Seleccione',                
             ));
             ?>
+
+
+
         </div>
 
 
@@ -117,6 +121,9 @@
                 )
         ));
 
+    echo $this->Form->input('deleted', array('label' => 'Incluir Mesas Borradas', 'type'=>'checkbox', 'default'=>0));
+          
+            
 
       echo $this->Form->submit('Buscar', array('class' => 'btn btn-primary', 'title' => __('Buscar')));
       echo $this->Form->end();

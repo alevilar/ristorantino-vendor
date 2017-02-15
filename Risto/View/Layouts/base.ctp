@@ -2,7 +2,7 @@
 <?php App::uses('MtSites', 'MtSites.Utility'); ?>
 
 
-<html>
+<html lang="es-AR">
 
 <html>
 	<head>

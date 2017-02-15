@@ -72,27 +72,8 @@ class ProductosController extends ProductAppController {
                 ));
 		$this->set('producto', $this->Producto->read(null, $id));
 	}
-	
-	/**
-	 * busca un producto por su nombre
-	 * @param string $nombre
-	 * @return array
-	 */
-	// public function buscar_por_nombre($nombre){
-	// 		$this->Producto->recursive=-1;
- //                        $this->set('productos',$this->Producto->buscarPorNombre($nombre));
-	// }
 
-    public function verificarUrl() {
-        $redireccion = $this->referer();
 
-        if (substr($redireccion, -19) == 'producto_first_time') {
-            $action = 'producto_first_time';
-        } else {
-            $action = 'index';
-        }
-        return $action;
-    }
 
 	public function add() {
 		if (!empty($this->request->data)) {
@@ -105,12 +86,11 @@ class ProductosController extends ProductAppController {
 			}
 		}
 
-        $action = $this->verificarUrl();
-
+        $referer = $this->referer();
 		$printers = $this->Producto->Printer->listarComanderas();
         $tags = $this->Producto->Tag->find('list');
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
-		$this->set(compact('categorias','printers', 'tags', 'action'));
+		$this->set(compact('categorias','printers', 'tags', 'referer'));
         $this->render('form');
 	}
 
@@ -130,13 +110,13 @@ class ProductosController extends ProductAppController {
 			}
 		}
 
-        $action = $this->verificarUrl();
-                
+
+        $referer = $this->referer();
         $this->request->data = $this->Producto->read(null, $id);
 		$printers = $this->Producto->Printer->listarComanderas();
 		$categorias = $this->Producto->Categoria->generateTreeList(null, null, null, '___');
         $tags = $this->Producto->Tag->find('list');
-		$this->set(compact('categorias','printers', 'tags', 'action'));
+		$this->set(compact('categorias','printers', 'tags', 'referer'));
         $this->render('form');
 	}
 
