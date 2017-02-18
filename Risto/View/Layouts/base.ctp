@@ -91,7 +91,16 @@
 		        </div>
 
 		        <?php echo $this->fetch('post-content'); ?>
-				<?php echo $this->fetch('footer'); ?>		      
+				<?php echo $this->fetch('footer'); ?>
+
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 col-xs-12">
+						<br><br><br>
+						<?php echo $this->element("Risto.google_ads/horizontal") ?>
+					</div>
+				</div>
+
+
 	        	<?php echo $this->element('Paxapos.google_analitycs') ?> 
 	        </div>  <!-- EOF content wrapper -->
         </div><!-- EOF body wrapper -->
