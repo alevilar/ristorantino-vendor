@@ -393,16 +393,16 @@ function cantDiasBtwen( $desde, $hasta) {
 
 /**
  * Dado un precio que viene en formato string,
- * lo convierto a un valor numerico quitando el simbolo pesos, la coma y 
+ * lo convierto a un valor numerico Float quitando el simbolo pesos, la coma y 
  * todos los caracteres que no son numericos.
  * Ej1: $45 lo convierte en 45
- * EJ2: $102,1 lo convierte en $102.1
+ * EJ2: $102,1 lo convierte en 102.1
  * 
  * @param string $precioTxt
- * @return float precio formateado
+ * @return float precio en tipo float
  **/
 function formatearPrecio($precioTxt) {
     $precioTxt = str_replace('$', '', $precioTxt);
     $precioTxt = str_replace(',', '.', $precioTxt);
-    return (float)$precioTxt;
+    return floatval($precioTxt);
 }
