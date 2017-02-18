@@ -102,8 +102,8 @@
 						'required'=>false,
 						'placeholder'=>'Categoria',
 						'label'=>false));?></th>
-		<th><?php echo $this->Form->input('precio',array('placeholder'=>'Precio','label'=>false, 'required'=>false, 'type' => 'text'));?></th>
-		<th><?php echo $this->Form->input('precio_futuro',array('placeholder'=>'P. Futuro','label'=>false, 'required'=>false, 'type' => 'text'));?></th>
+		<th><?php echo $this->Form->input('precio',array('placeholder'=>'Precio','label'=>false, 'required'=>false, 'type' => 'number'));?></th>
+		<th><?php echo $this->Form->input('precio_futuro',array('placeholder'=>'P. Futuro','label'=>false, 'required'=>false, 'type' => 'number'));?></th>
 	    <th><?php echo $this->Form->input('order',array('placeholder'=>'Orden','label'=>false));?></th>
 		<th colspan="2" class="actions"><?php echo $this->Form->submit('Buscar', array('class'=>'btn btn-primary'))?></th>
 
