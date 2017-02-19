@@ -69,6 +69,16 @@ class MercaderiasController extends ComprasAppController {
         $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas', 'rubros'));
     }
 
+    public function view($id, $name) {
+        $this->comprobarExistenciaMercaderia($id);
+
+        $datosmercaderia = $this->Mercaderia->buscarMercaderia($id);
+        $mercaderias = $this->Mercaderia->buscarMercaderia(null, $name);
+        $rubros = $this->Mercaderia->Rubro->find('list');
+        $defaultProveedores = $this->Mercaderia->Proveedor->find('list');
+        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas','id', 'datosmercaderia'));
+    }
+
 
 	public function add() {
 		if ($this->request->is(array('put','post'))){
