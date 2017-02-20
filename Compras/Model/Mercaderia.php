@@ -10,11 +10,6 @@ class Mercaderia extends ComprasAppModel {
 	public $order = array('Mercaderia.name'=>'ASC');
 
 
-	public $actsAs = array(
-		'Search.Searchable',
-	);
-
-
 
 	public $filterArgs = array(
 		
@@ -110,6 +105,28 @@ class Mercaderia extends ComprasAppModel {
         }
 
 		return $merca;
+	}
+
+
+	/**
+	 * 
+	 * @param integer $id ID de la Mercaderia
+	 * @return array del find list buscando los posibles duplicados
+	 **/
+	public function buscaNombreDuplicado( $id = null ) {
+		if ( !empty($id)) {
+			$this->id = $id;
+		}
+		$name = $this->field("name");
+
+		$listDuplicadas = $this->find('list', array(
+			'conditions' => array(
+				'Mercaderia.name' => $name,
+				'Mercaderia.id !='=> $this->id,
+				)
+			));
+
+		return $listDuplicadas;
 	}
 
 	/**

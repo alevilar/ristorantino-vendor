@@ -69,14 +69,45 @@ class MercaderiasController extends ComprasAppController {
         $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas', 'rubros'));
     }
 
-    public function view($id, $name) {
-        $this->comprobarExistenciaMercaderia($id);
+    public function view( $id ) {
+        if (!$this->Mercaderia->exists($id)) {
+            $this->Session->setFlash(__('Invalid id for Mercaderia'), 'Risto.flash_error');
+            $this->redirect($this->referer());            
+        }
 
-        $datosmercaderia = $this->Mercaderia->buscarMercaderia($id);
-        $mercaderias = $this->Mercaderia->buscarMercaderia(null, $name);
+        $this->Mercaderia->id = $id;
+
+        $this->Mercaderia->contain(array(
+            'Proveedor',
+            'Rubro',
+            ));
+        
+        $mercaderia = $this->Mercaderia->read();
+        $mercaDuplicadosList = $this->Mercaderia->buscaNombreDuplicado();
+
         $rubros = $this->Mercaderia->Rubro->find('list');
-        $defaultProveedores = $this->Mercaderia->Proveedor->find('list');
-        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas','id', 'datosmercaderia'));
+        $proveedores = $this->Mercaderia->Proveedor->find('list');
+
+        $conds = array(
+            'PedidoMercaderia.mercaderia_id' => $id
+            );
+
+        $this->Paginator->settings['PedidoMercaderia'] = array(
+            'order'  => array(
+                'PedidoMercaderia.created' => 'DESC',
+                ),
+            'contain' => array(
+                'Mercaderia'=> array('Proveedor'),
+                'Pedido'=>array('User', 'Proveedor'),
+                'UnidadDeMedida',
+                'PedidoEstado',
+                ),
+            'conditions' => $conds,
+        );
+
+        $pedidos = $this->Paginator->paginate('PedidoMercaderia');
+
+        $this->set(compact('mercaderia', 'mercaDuplicadosList', 'rubros','proveedores', 'pedidos'));
     }
 
 
