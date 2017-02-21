@@ -37,7 +37,6 @@
 </div>
 
 
-
 <?php 
 
 if (count($pedidos)) {
@@ -52,7 +51,8 @@ if (count($pedidos)) {
 
      <?php
 }
-
 ?>
+
+<center><?php echo $this->Html->link('Volver a la lista de mercaderías', array('action'=>'index'), array('class'=>'btn btn-default'));?></center>
 
 </div>
