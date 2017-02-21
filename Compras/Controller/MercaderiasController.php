@@ -13,9 +13,15 @@ class MercaderiasController extends ComprasAppController {
         $conds = $this->Mercaderia->parseCriteria( $this->Prg->parsedParams() );
         $this->Mercaderia->recursive = 0;
         $this->Paginator->settings['conditions'] = $conds; 
-
+        $indice = 0;
         $mercaderias = $this->Paginator->paginate();
         foreach ($mercaderias as &$m ) {
+
+            $id = $m['Mercaderia']['id'];
+
+            $mercaDuplicadosList[$indice] = $this->Mercaderia->buscaNombreDuplicado($id);
+
+            $indice = $indice + 1;
 
             $pendiente = $this->Mercaderia->PedidoMercaderia->find("first", array(
                     'recursive' => -1,
@@ -36,9 +42,10 @@ class MercaderiasController extends ComprasAppController {
                 $m['Pendiente'] = $pendiente[0];
             }
         }
+
         $defaultProveedor = $this->Mercaderia->Proveedor->find('list');
         $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');
-        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas'));
+        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas', 'mercaDuplicadosList'));
 	}
 
     public function asignar_rubros() {
