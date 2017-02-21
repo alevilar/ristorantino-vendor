@@ -21,6 +21,7 @@
 				<th><?php echo $this->Paginator->sort('precio', "Precio")?></th>
 				<th><?php echo $this->Paginator->sort('time_recibido', "Fecha Recepción	")?></th>
 				<th>Proveedor</th>
+				<th>Rubro</th>
 				<th>Observación</th>
 				<th class="hidden-print" style="width: 234px">Acciones</th>
 			</tr>	
@@ -37,6 +38,7 @@
 			$timeRecibido = empty($merca['PedidoMercaderia']['time_recibido'])? "":$this->Time->nice( $merca['PedidoMercaderia']['time_recibido'] );
 			$observacion = $merca['PedidoMercaderia']['observacion'];
 			$proveedor = !empty($merca['Pedido']['Proveedor']['name'])? $merca['Pedido']['Proveedor']['name'] : '';
+			$rubro = !empty($merca['Mercaderia']['Rubro']['name'])? $merca['Mercaderia']['Rubro']['name'] : '';
 
 			$detalle = $mercaderia;
 
@@ -54,10 +56,10 @@
 			<td><?php echo $detalle;?></td>
 			<td><?php echo $precio;?></td>
 			<td class="small"><?php echo $timeRecibido;?></td>
-			<td><?php echo !empty($merca['Pedido']['Proveedor']['name']) ? $merca['Pedido']['Proveedor']['name'] : "";?></td>
-			
-
+			<td><?php echo $proveedor; ?></td>
+            <td><?php echo $rubro; ?>
 			<td><?php echo $observacion;?></td>
+
 			
 			<td class="hidden-print">
 

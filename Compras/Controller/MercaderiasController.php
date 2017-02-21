@@ -85,7 +85,6 @@ class MercaderiasController extends ComprasAppController {
         $mercaderia = $this->Mercaderia->read();
         $mercaDuplicadosList = $this->Mercaderia->buscaNombreDuplicado();
 
-        $rubros = $this->Mercaderia->Rubro->find('list');
         $proveedores = $this->Mercaderia->Proveedor->find('list');
 
         $conds = array(
@@ -97,7 +96,7 @@ class MercaderiasController extends ComprasAppController {
                 'PedidoMercaderia.created' => 'DESC',
                 ),
             'contain' => array(
-                'Mercaderia'=> array('Proveedor'),
+                'Mercaderia'=> array('Proveedor','Rubro'),
                 'Pedido'=>array('User', 'Proveedor'),
                 'UnidadDeMedida',
                 'PedidoEstado',
@@ -107,7 +106,7 @@ class MercaderiasController extends ComprasAppController {
 
         $pedidos = $this->Paginator->paginate('PedidoMercaderia');
 
-        $this->set(compact('mercaderia', 'mercaDuplicadosList', 'rubros','proveedores', 'pedidos'));
+        $this->set(compact('mercaderia', 'mercaDuplicadosList','proveedores', 'pedidos'));
     }
 
 
