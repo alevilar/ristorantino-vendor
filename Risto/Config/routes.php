@@ -1,5 +1,5 @@
 <?php
-	Router::parseExtensions('json', 'xls');
+	Router::parseExtensions('json', 'xls', 'js');
 
 	Router::mapResources('Printers.PrinterJobs', array('prefix'=>"/:tenant/"));
 
