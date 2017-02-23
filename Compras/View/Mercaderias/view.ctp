@@ -46,7 +46,7 @@
 <?php 
 
 if (count($pedidos)) {
-     echo $this->element("Compras.pedido_mercaderia_list");
+     echo $this->element("Compras.pedido_mercaderia_list", array('esInformativa' => 'true'));
 } else {
      ?>
      <br><br><br>
