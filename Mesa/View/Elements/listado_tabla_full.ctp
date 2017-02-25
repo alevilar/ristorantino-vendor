@@ -90,7 +90,7 @@ foreach ($mesas as $mozo):
 		</td>
 
 		<td>
-			<?php echo $mozo['Mesa']['observacion']; ?>
+			<?php echo $mozo['Mesa']['observation']; ?>
 		</td>
 
         <td>
