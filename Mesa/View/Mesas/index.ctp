@@ -116,6 +116,7 @@
             'escape' => false,
             'data-ajax' => 'false',
             'class' => 'btn btn-primary pull-right',
+            'id' => 'descargarExcel',
             'div'=> array(
                 'class' => 'pull-right'
                 )
