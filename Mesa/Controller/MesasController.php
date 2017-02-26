@@ -372,6 +372,18 @@ class MesasController extends MesaAppController {
             
         }
     }
+
+    public function restaurarMesa($id) {
+        
+        if ($this->Mesa->restaurarMesa($id)) {
+            $this->Session->setFlash(__('Mesa restaurada con exito'));
+            $this->redirect($this->referer()); 
+        } else {
+            $this->Session->setFlash(__('Error: no se pudo restaurar la mesa, por favor, intentelo de nuevo', 'Risto.flash_error'));
+            $this->redirect($this->referer());           
+        }
+        
+    }
     
     
     public function addClienteToMesa($mesa_id, $cliente_id = 0){

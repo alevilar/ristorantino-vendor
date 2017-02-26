@@ -214,6 +214,13 @@ class Mesa extends MesaAppModel {
 		return true;
 	}
 
+	public function restaurarMesa($id) {
+		$this->updateAll(
+        array('deleted' => 0),
+        array('Mesa.id' => $id)
+        );
+	  return true;
+	}
 
 	public function mesaParaUpdateAjax() {
 		$lastAccess = null;
