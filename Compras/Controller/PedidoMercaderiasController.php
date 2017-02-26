@@ -94,7 +94,7 @@ class PedidoMercaderiasController extends ComprasAppController {
                 'PedidoMercaderia.created' => 'DESC',
                 ),
             'contain' => array(
-                'Mercaderia'=> array('Proveedor'),
+                'Mercaderia'=> array('Proveedor','Rubro'),
                 'Pedido'=>array('User', 'Proveedor'),
                 'UnidadDeMedida',
                 'PedidoEstado',

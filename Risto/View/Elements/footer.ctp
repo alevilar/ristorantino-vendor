@@ -1,5 +1,4 @@
 
-
 <footer id="p-footer" class="hidden-print">
 	<?php echo $this->element('Risto.google_ads/horizontal'); ?> 
     <div class="container-fluid">

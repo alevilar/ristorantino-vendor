@@ -88,6 +88,8 @@ class MozosController extends MesaAppController {
 		}
 
 		$this->request->data = $this->Mozo->read(null, $id);
+		$this->set('referer',	$this->referer());
+
 	}
 
 	public function delete($id = null) {

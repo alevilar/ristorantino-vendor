@@ -27,9 +27,9 @@
 
 $i = 0;
 foreach ($mesas as $mozo):
-	$class = null;
-	if ($i++ % 2 == 0) {
-		$class = ' class="altrow"';
+	$class = "";
+	if ( $mozo['Mesa']['deleted'] ) {
+		$class = ' class="danger"';		
 	}
 ?>
 	<tr<?php echo $class;?>>
@@ -63,7 +63,14 @@ foreach ($mesas as $mozo):
 
 
 		<td>
-			<?php echo $mozo['Estado']['name'] ?>
+			<?php 
+			$estadoName = $mozo['Estado']['name'];
+
+			if ($mozo['Mesa']['deleted']) {
+				$estadoName = '<b class="text-danger">'.__("Borrada").'</b>';				
+			}
+			echo $estadoName;
+			?>
 		</td>
 		<td align="center">
 			<?php 
@@ -104,11 +111,19 @@ foreach ($mesas as $mozo):
 
 
 		<td class="actions">
+		<?php 
+		$actionsBtnClass = "";
+		if ( $mozo['Mesa']['deleted'] ) { 
+?>
+		<button type="button" class="btn btn-default"><?php echo $this->Html->link(__('Restaurar'), array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'restaurarMesa', $mozo['Mesa']['id'], $arqueoId) , null , __('¿Esta seguro que quiere restaurar la %s nº %s?\n.', Configure::read('Mesa.tituloMesa'), $mozo['Mesa']['numero']) ); ?></button>
+<?php			
+		} else {
 
+		?>
 			<!-- Split button -->
 			<div class="btn-group">
 			  <button type="button" class="btn btn-default"><?php echo $this->Html->link(__('Editar'), array('plugin' => 'mesa', 'controller' => 'mesas', 'action'=>'edit', $mozo['Mesa']['id'], $arqueoId), array('class'=>'btn-edit')); ?></button>
-			  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+			  <button type="button" class="btn btn-default dropdown-toggle <?php echo $actionsBtnClass?>" data-toggle="dropdown">
 			    <span class="caret"></span>
 			    <span class="sr-only">Toggle Dropdown</span>
 			  </button>
@@ -133,8 +148,8 @@ foreach ($mesas as $mozo):
 			  </ul>
 			</div>
 			</br>
-                        </br>
-                      
+                        </br> 
+                 <?php } ?>          
 		</td>
 	</tr>
 <?php endforeach; ?>      

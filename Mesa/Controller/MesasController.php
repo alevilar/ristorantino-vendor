@@ -19,7 +19,11 @@ class MesasController extends MesaAppController {
         
         $this->Prg->commonProcess();
         $conds = $this->Mesa->parseCriteria( $this->Prg->parsedParams() );
-        $conds['Mesa.deleted'] = 0;
+        if ( !empty($conds['Mesa.deleted']) ) {
+            $conds['Mesa.deleted'] = array(0,1);
+        }
+
+
         $this->Paginator->settings['conditions'] = $conds;
         $this->Paginator->settings['contain'] = array(
             'Mozo(numero)',
@@ -367,6 +371,18 @@ class MesasController extends MesaAppController {
             throw new CakeException(__("Falló al reabrir la mesa"));
             
         }
+    }
+
+    public function restaurarMesa($id) {
+        
+        if ($this->Mesa->restaurarMesa($id)) {
+            $this->Session->setFlash(__('Mesa restaurada con exito'));
+            $this->redirect($this->referer()); 
+        } else {
+            $this->Session->setFlash(__('Error: no se pudo restaurar la mesa, por favor, intentelo de nuevo', 'Risto.flash_error'));
+            $this->redirect($this->referer());           
+        }
+        
     }
     
     

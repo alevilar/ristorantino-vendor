@@ -13,9 +13,15 @@ class MercaderiasController extends ComprasAppController {
         $conds = $this->Mercaderia->parseCriteria( $this->Prg->parsedParams() );
         $this->Mercaderia->recursive = 0;
         $this->Paginator->settings['conditions'] = $conds; 
-
+        $indice = 0;
         $mercaderias = $this->Paginator->paginate();
         foreach ($mercaderias as &$m ) {
+
+            $id = $m['Mercaderia']['id'];
+
+            $mercaDuplicadosList[$indice] = $this->Mercaderia->buscaNombreDuplicado($id);
+
+            $indice = $indice + 1;
 
             $pendiente = $this->Mercaderia->PedidoMercaderia->find("first", array(
                     'recursive' => -1,
@@ -36,9 +42,10 @@ class MercaderiasController extends ComprasAppController {
                 $m['Pendiente'] = $pendiente[0];
             }
         }
+
         $defaultProveedor = $this->Mercaderia->Proveedor->find('list');
         $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');
-        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas'));
+        $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas', 'mercaDuplicadosList'));
 	}
 
     public function asignar_rubros() {
@@ -69,6 +76,45 @@ class MercaderiasController extends ComprasAppController {
         $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas', 'rubros'));
     }
 
+    public function view( $id ) {
+        if (!$this->Mercaderia->exists($id)) {
+            $this->Session->setFlash(__('Invalid id for Mercaderia'), 'Risto.flash_error');
+            $this->redirect($this->referer());            
+        }
+
+        $this->Mercaderia->id = $id;
+
+        $this->Mercaderia->contain(array(
+            'Proveedor',
+            'Rubro',
+            ));
+        
+        $mercaderia = $this->Mercaderia->read();
+        $mercaDuplicadosList = $this->Mercaderia->buscaNombreDuplicado();
+
+        $proveedores = $this->Mercaderia->Proveedor->find('list');
+
+        $conds = array(
+            'PedidoMercaderia.mercaderia_id' => $id
+            );
+
+        $this->Paginator->settings['PedidoMercaderia'] = array(
+            'order'  => array(
+                'PedidoMercaderia.created' => 'DESC',
+                ),
+            'contain' => array(
+                'Mercaderia'=> array('Proveedor','Rubro'),
+                'Pedido'=>array('User', 'Proveedor'),
+                'UnidadDeMedida',
+                'PedidoEstado',
+                ),
+            'conditions' => $conds,
+        );
+
+        $pedidos = $this->Paginator->paginate('PedidoMercaderia');
+
+        $this->set(compact('mercaderia', 'mercaDuplicadosList','proveedores', 'pedidos'));
+    }
 
 	public function add() {
 		if ($this->request->is(array('put','post'))){
@@ -85,8 +131,6 @@ class MercaderiasController extends ComprasAppController {
         $unidadDeMedidas = $this->Mercaderia->UnidadDeMedida->find('list');    
         $this->set(compact('defaultProveedores', 'unidadDeMedidas', 'rubros'));
 	}
-
-
 
 	public function edit( $id ) {
 		if ($this->request->is(array('put','post'))){
@@ -108,7 +152,6 @@ class MercaderiasController extends ComprasAppController {
         $this->set('_serialize', array('mercaderias'));
         $this->render('add');
 	}
-
 
 	 public function delete( $id = null ) {
         if (!$id) {
@@ -133,33 +176,27 @@ class MercaderiasController extends ComprasAppController {
 
     }
 
-
-    public function verDuplicados($id, $name) {
-
+    public function ver_duplicados($id) {
         $this->comprobarExistenciaMercaderia($id);
-
         $this->Mercaderia->recursive = 0;
-
-        $datosmercaderia = $this->Mercaderia->buscarMercaderia($id);
-
-        $mercaderias = $this->Mercaderia->buscarMercaderia(null, $name);
-
+        $datosmercaderia = $this->Mercaderia->buscarMercaderiaPorId($id);
+        $mercaderias = $this->Mercaderia->buscaNombreDuplicado($id);
         $this->set(compact('mercaderias', 'defaultProveedores', 'unidadDeMedidas','id', 'datosmercaderia'));
-
     }
 
-    public function unificarMercaderia($id, $name) {
-
-        $this->comprobarExistenciaMercaderia($id);
-
-        $mercaderias = $this->Mercaderia->buscarMercaderia(null, $name);
+    public function unificarMercaderia($id) {
+        if (!$this->Mercaderia->exists($id)) {
+            $this->Session->setFlash(__('Invalid id for Mercaderia'), 'Risto.flash_error');
+            $this->redirect($this->referer());            
+        }
+        $mercaderias = $this->Mercaderia->buscaNombreDuplicado($id);
         
         foreach ($mercaderias as $m) {
 
         if ($m['Mercaderia']['id'] != $id) {  
 
         $id_mercaderia = $m['Mercaderia']['id'];  
-        if ($this->Mercaderia->unificarMercaderia($id_mercaderia, $name, $id) == true) {
+        if ($this->Mercaderia->unificarMercaderia($id_mercaderia, $id) == true) {
             $this->Session->setFlash(__('¡Mercadería unificada con exito!'), 'Risto.flash_success');
         } else {
             $this->Session->setFlash(__('Problemas al unificar la mercadería, intentelo nuevamente.'), 'Risto.flash_error');
