@@ -198,7 +198,7 @@ class MesasController extends MesaAppController {
                 }
 
                 App::uses('WsPaxaposConnect', 'Risto.Utility');
-                WsPaxaposConnect::sendMesa($insertedId, 'mesa:add');
+                WsPaxaposConnect::sendMesa((int)$insertedId, 'mesa:add');
 
             } else {
                 if (!$this->request->is('ajax')) {

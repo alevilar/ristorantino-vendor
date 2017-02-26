@@ -297,7 +297,6 @@ class AfipWsv1 {
 
 
 	static function start () {
-
 		self::$CUIT = Configure::read('Restaurante.cuit');
 		self::autenticar();
 		self::conectarClienteSoap();

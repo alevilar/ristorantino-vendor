@@ -75,7 +75,6 @@ class FiscalPrint
 	*
 	**/
 	public static function imprimirTicketMesa ( $Mesa ) {
-
         $send = Printaitor::send( 	$Mesa
         							, self::__getFiscalPrinterId()
         							, 'ticket' // user vista comandas.ctp

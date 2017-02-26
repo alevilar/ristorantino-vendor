@@ -27,7 +27,7 @@ class WsPaxaposConnect{
 		return $mesanew;
 	}
 
-	public static function sendMesa (Int $mesaId, String $event, $tenant = null ) {
+	public static function sendMesa ($mesaId, $event, $tenant = null ) {
 
 		$Mesa = ClassRegistry::init("Mesa.Mesa");
 		$mesa = null;

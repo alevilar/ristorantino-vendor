@@ -106,7 +106,7 @@ class Printaitor
         $hayOuput = self::__createOutput( $printer_id ); 
 
         if (!$hayOuput) {
-            // la impresora no tiene configurada un "Output", por lo tanto no hay nada mas que hacer
+            CakeLog::write("debug", "la impresora no tiene configurada un \"Output\", por lo tanto no hay nada mas que hacer");
             return -1;
         }
 

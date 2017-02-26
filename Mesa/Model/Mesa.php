@@ -244,7 +244,7 @@ class Mesa extends MesaAppModel {
 	 */
 	public function beforeDelete($cascade = true) {
 		if ($this->id) {
-			WsPaxaposConnect::sendMesa($this->id, "mesa:delete");
+			WsPaxaposConnect::sendMesa((int)$this->id, "mesa:delete");
 		}
 
 		return parent::beforeDelete($cascade);
