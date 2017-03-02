@@ -194,10 +194,12 @@ class PedidosController extends ComprasAppController {
 
 			// filtrar los checkbox que vinieron vacios. 
 			// seleccionar solo las mercaderias_id que tengan ID 
+			if (!empty($this->request->data['Pedido']['mercaderia_id'])) {
+
 			$mercasId = array_filter( $this->request->data['Pedido']['mercaderia_id'], function( $item){
 				return (boolean) $item;
 			} );
-
+            
 			// buscar las mercaderias que vinieron seleccionadas
 			$pedidoMercaderias = $this->Pedido->PedidoMercaderia->find('all', array(
 				'conditions' => array(
@@ -220,6 +222,7 @@ class PedidosController extends ComprasAppController {
 				// agarra el primero y lo pone como sugerido
 				$this->request->data['Pedido']['proveedor_id'] = $provs[0];
 			}
+		  }
 		}
 
 		$provConds = array();
