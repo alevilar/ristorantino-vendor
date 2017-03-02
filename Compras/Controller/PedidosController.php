@@ -78,13 +78,17 @@ class PedidosController extends ComprasAppController {
 
 	public function form ( $id = null ) {
 		if ( $this->request->is(array('post', 'put'))) {
+			try{
 
 				if ( $this->Pedido->PedidoMercaderia->saveLimpios( $this->request->data ) ) {
 					$this->Session->setFlash("Se guardó el pedido correctamente");
 				} else {
 					$this->Session->setFlash("Error al guardar el pedido", 'Risto./Flash/flash_error');
 				}
-			} 
+			} catch(Exception $e){
+				$this->Session->setFlash( $e->getMessage(), 'Risto.Flash/flash_warning');	
+			}
+
 
             $this->redirect(array('action'=>'index'));
 
