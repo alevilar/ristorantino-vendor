@@ -63,7 +63,6 @@ echo $this->Form->end();
 <script type="risto/tmp" id="pedido-skeleton">
     <?php echo $this->element("Compras.pedido-skeleton", array(
                         'pmId'          => '{X}', 
-                        'muestraPrecio' => true,
                         'pedido_id'     => $pedido_id,
                         ));?>
 </script>
