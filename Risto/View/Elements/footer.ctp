@@ -36,6 +36,7 @@
                             <li class="img-circle"><a href="https://facebook.com/paxapos" class="p-sm-facebook"><span class="hide">Facebook</span></a></li>
                             <li class="img-circle"><a href="https://www.youtube.com/channel/UCa90_rTOMD4qdOhi2WQV6rw" class="p-sm-youtube"><span class="hide">Youtube</span></a></li>
                             <li class="img-circle"><a href="https://twitter.com/paxapos" class="p-sm-twitter"><span class="hide">Twitter</span></a></li>
+                            <li class="img-circle"><a href="http://forum.paxapos.com" class="p-sm-forum"><span class="hide">Foro</span></a></li>
                         </ul>
                     </div>
                 </div>
