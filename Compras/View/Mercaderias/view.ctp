@@ -1,3 +1,4 @@
+<?php $this->element('Risto.layout_modal_edit'); ?>
 <div class="content-white">
 
 <h1 class="center"><?php echo __("Detalles de Mercadería") ?></h1>
