@@ -72,12 +72,4 @@ class AuditableBehavior extends ModelBehavior {
         $puedeVerTodo   = ($userIsAdmin || $userIsEncargado || $userIsDuenio);
         return $puedeVerTodo;
 	}
-
-	public function esDuenio() {
-		$userId         = CakeSession::check("Auth.User.id");
-		$userIsDuenio   = CakeSession::read("Auth.User.rol_id") === null;
-		$esDuenio = ($userIsDuenio && $userId);
-		return $esDuenio;
-	}
-
 }
