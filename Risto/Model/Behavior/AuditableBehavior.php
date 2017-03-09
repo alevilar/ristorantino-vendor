@@ -72,5 +72,4 @@ class AuditableBehavior extends ModelBehavior {
         $puedeVerTodo   = ($userIsAdmin || $userIsEncargado || $userIsDuenio);
         return $puedeVerTodo;
 	}
-
 }

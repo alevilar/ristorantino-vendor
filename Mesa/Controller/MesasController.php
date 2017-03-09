@@ -15,7 +15,10 @@ class MesasController extends MesaAppController {
     
     public function index() {
         $this->layout = 'Stats.default';
+
         $this->elementMenu = 'Cash.menu';
+        
+
         
         $this->Prg->commonProcess();
         $conds = $this->Mesa->parseCriteria( $this->Prg->parsedParams() );
@@ -104,8 +107,11 @@ class MesasController extends MesaAppController {
     }
 
 
-
-
+    public function index_stats() {
+        $this->index();
+        $this->render('index');
+    }
+ 
 
     /**
      * Cierra la mesa, calculando el total y, si se lo indica,

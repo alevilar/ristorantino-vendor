@@ -48,7 +48,7 @@ if (!isset($esInformativa)) {
 
 			<td><?php 
 			if ($merca['Pedido']['id']){
-				echo $this->Html->link("#".$merca['Pedido']['id'], array('controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']));
+				echo $this->Html->link("#".$merca['Pedido']['id'], array('controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']), array('target'=>'_blank'));
 			}
 				?></td>
 			<td class="small"><?php echo $this->Time->nice($merca['Pedido']['created']);?></td>

@@ -1,5 +1,5 @@
 <?php
-$c1 = $c2 = $c3 = $c4 = $c5 = '';
+$c1 = $c2 = $c3 = $c4 = $c5 = $c6 = '';
 
 if( $this->name == 'Stats' && $this->action == 'mesas_total') {
     $c1 = 'active';
@@ -20,6 +20,9 @@ if( $this->name == 'PedidoMercaderias' && $this->action == 'calcular_estadistica
     $c5 = 'active';
 }
 
+if($this->name == 'Mesas' && $this->action == 'index_stats') {
+    $c6 = 'active';
+}
 ?>
 
 <ul class="nav nav-tabs  nav-justified">
@@ -33,5 +36,7 @@ if( $this->name == 'PedidoMercaderias' && $this->action == 'calcular_estadistica
         <li class="<?php echo $c4?>"><?php echo $this->Html->link('Productos Vendidos', array('plugin'=>'comanda', 'controller'=>'detalle_comandas', 'action'=>'index'),array('class'=>'ventas'));?></li>
 
         <li class="<?php echo $c5?>"><?php echo $this->Html->link('Mercadería Comprada', array('plugin'=>'compras', 'controller'=>'pedido_mercaderias', 'action'=>'calcular_estadistica'),array('class'=>'ventas'));?></li>
+
+        <li class="<?php echo $c6?>"><?php echo $this->Html->link('Listado de mesas', array('plugin'=>'mesa', 'controller'=>'mesas', 'action'=>'index_stats'),array('class'=>'ventas'));?></li>
 
 </ul>

@@ -97,10 +97,8 @@ if ( $pmId  != '{X}') {
     
 
 	
-	<div class="col-md-3 col-xs-2">
-          <?php 
-            if ( isset($muestraPrecio) && $muestraPrecio ) {
-                
+	<div class="col-md-1 col-xs-1">
+          <?php   
                 echo $this->Form->input('PedidoMercaderia.'.$pmId.'.precio', array(
                     'value' => !empty($precio) ? $precio : null,
                     'label' => false,
@@ -111,19 +109,17 @@ if ( $pmId  != '{X}') {
                 echo $this->Form->hidden('PedidoMercaderia.'.$pmId.'.time_recibido', array(
                     'value' => date('Y-m-d H:i:s'),
                 ));
-
-            } else {
-
-                echo $this->Form->input('PedidoMercaderia.'.$pmId.'.observacion', array(
-                                                    'value' => !empty($observacion) ? $observacion : null,
-                                                    'type'=>'text', 
-                                                    'placeholder'=>'Obervación', 
-                                                    'label'=>false)); 
-
-            }
-
         ?>
                         
+    </div>
+
+    <div class="col-md-2 col-xs-2">
+     <?php 
+          echo $this->Form->input('PedidoMercaderia.'.$pmId.'.observacion', array(
+               'value' => !empty($observacion) ? $observacion : null,
+               'type'=>'text', 
+               'placeholder'=>'Obervación', 
+               'label'=>false));  ?>
     </div>
 
     <div class="col-md-1 col-xs-1">

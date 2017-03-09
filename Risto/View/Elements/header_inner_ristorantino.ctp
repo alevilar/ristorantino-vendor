@@ -31,4 +31,4 @@ var URL_DOMAIN = "<?php echo $this->Html->url('/', true); ?>";
 
 
 <!--google  font Lato-->
-<link href='http://fonts.googleapis.com/css?family=Merriweather+Sans:700,400,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Merriweather+Sans:700,400,300' rel='stylesheet' type='text/css'>
