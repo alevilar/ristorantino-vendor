@@ -47,7 +47,11 @@
 <?php 
 
 if (count($pedidos)) {
-     echo $this->element("Compras.pedido_mercaderia_list", array('esInformativa' => 'true'));
+     echo $this->element('Compras.pedido_mercaderia_list', array('notShow' => 
+                                                                       array('name',
+                                                                             'rubro_name',
+                                                                             'actions'
+                                                                       ))); 
 } else {
      ?>
      <br><br><br>
@@ -60,6 +64,6 @@ if (count($pedidos)) {
 }
 ?>
 
-<center><?php echo $this->Html->link('Volver a la lista de mercaderías', array('action'=>'index'), array('class'=>'btn btn-default'));?></center>
+<center><?php echo $this->Html->link('Volver a la lista de mercaderías', array('action'=>'index'), array('class'=>'btn btn-link'));?></center>
 
 </div>
