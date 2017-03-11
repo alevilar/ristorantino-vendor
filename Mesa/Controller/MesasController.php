@@ -11,10 +11,20 @@ class MesasController extends MesaAppController {
     public $paginate = array(
         'order' => array('Mesa.created' => 'asc')
     );
+
+
+
+
+    public function index_stats() {
+        $this->index();
+        $this->elementMenu = 'Stats.menu';
+        $this->layout = 'Stats.default';
+        $this->render('index');
+    }
     
     
     public function index() {
-        $this->layout = 'Stats.default';
+        $this->layout = 'Cash.default';
 
         $this->elementMenu = 'Cash.menu';
         
@@ -106,11 +116,6 @@ class MesasController extends MesaAppController {
         $this->set('mozo_json', json_encode($this->Mesa->Mozo->read(null, $mesa['Mozo']['id'])));
     }
 
-
-    public function index_stats() {
-        $this->index();
-        $this->render('index');
-    }
  
 
     /**

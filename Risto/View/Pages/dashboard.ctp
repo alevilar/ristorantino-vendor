@@ -192,9 +192,25 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 
 </div>
 
-<center>
-<a class="twitter-timeline" data-lang="es" data-width="300" data-tweet-limit="1" data-height="450" data-theme="dark" data-link-color="#cc3333" href="https://twitter.com/PaxaPos"></a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-</center>
+<?php
+	$this->append("footer");
+?>
+	<div class="row">
+		<div class="col-sm-4">
+			<a class="twitter-timeline" data-lang="es" data-width="300" data-tweet-limit="1" data-height="450" data-theme="dark" data-link-color="#cc3333" href="https://twitter.com/PaxaPos"></a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+		</div>
+
+
+		<div class="col-sm-8">
+			<?php echo $this->element("Risto.google_ads/horizontal") ?>
+		</div>
+	</div>
+<?php
+
+
+	$this->end();
+?>
+
 <div class="col-md-8">
 <?php $this->append('script');?>
 <script>
