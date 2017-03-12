@@ -27,46 +27,10 @@ $headers = array(
              'actions' 				=> $thVarAcciones
              );
 
-foreach ($pedidos as $merca ) { 
-	
-			$cant = (float)$merca['PedidoMercaderia']['cantidad'];
-			$uMedida = $merca['UnidadDeMedida']['name'];
-			$precio = $merca['PedidoMercaderia']['precio']!=0 ? $this->Number->currency( $merca['PedidoMercaderia']['precio'] ) : "";
-			$timeRecibido = empty($merca['PedidoMercaderia']['time_recibido'])? "":$this->Time->nice( $merca['PedidoMercaderia']['time_recibido'] );
-			$observacion = $merca['PedidoMercaderia']['observacion'];
-			$proveedor = !empty($merca['Pedido']['Proveedor']['name'])? $merca['Pedido']['Proveedor']['name'] : '';
-
-            $mercaderia = $merca['Mercaderia']['name'];
-			$rubro = !empty($merca['Mercaderia']['Rubro']['name'])? $merca['Mercaderia']['Rubro']['name'] : '';
-
-			$detalle = $mercaderia;
-}
-
-$tdVarCreated = $this->Html->link("#".$merca['Pedido']['id'], array('controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']), array('target'=>'_blank'));
-$tdVarCreated = $this->Time->nice($merca['Pedido']['created']);
-$tdVarName = $merca['Pedido']['User']['username'];
-$tdVarCantidad = $cant;
-
-
-$result = array(
-             	'pedido_id' => $tdVarCreated,
-             	'created' => $tdVarCreated,
-                'created_by' => $tdVarName,
-                'cantidad' => $tdVarCantidad,
-                'unidad_de_medida_id' => $uMedida,
-                'name' => $detalle,
-                'precio' => $this->Number->currency($merca['PedidoMercaderia']['precio']),
-                'time_recibido' => $this->Time->nice($merca['PedidoMercaderia']['time_recibido']),
-                'proveedor_name' => $proveedor,
-                'rubro_name' => $rubro,
-                'observacion' => $observacion,
-                'actions' => $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 'action'=>'form', $merca['PedidoMercaderia']['id'] ), array('class'=>'btn-edit btn btn-default') )
-                 );
 
  if (!empty($notShow)) {
      foreach ( $notShow as $columNotShow ){
         unset($headers[$columNotShow]);
-        unset($result[$columNotShow]);
     }
  }
 
@@ -88,7 +52,62 @@ $result = array(
 		
 		<tbody>
 		<tr>
-			<?php echo $this->Html->tableCells($result); ?>
+			<?php 
+            foreach ($pedidos as $merca ) { 
+    
+            $cant = (float)$merca['PedidoMercaderia']['cantidad'];
+            $uMedida = $merca['UnidadDeMedida']['name'];
+            $precio = $merca['PedidoMercaderia']['precio']!=0 ? $this->Number->currency( $merca['PedidoMercaderia']['precio'] ) : "";
+            $timeRecibido = empty($merca['PedidoMercaderia']['time_recibido'])? "":$this->Time->nice( $merca['PedidoMercaderia']['time_recibido'] );
+            $observacion = $merca['PedidoMercaderia']['observacion'];
+            $proveedor = !empty($merca['Pedido']['Proveedor']['name'])? $merca['Pedido']['Proveedor']['name'] : '';
+
+            $mercaderia = $merca['Mercaderia']['name'];
+            $rubro = !empty($merca['Mercaderia']['Rubro']['name'])? $merca['Mercaderia']['Rubro']['name'] : '';
+
+            $detalle = $mercaderia;
+
+
+$tdPedidoId = $this->Html->link("#".$merca['Pedido']['id'], array('plugin' => 'compras','controller'=>'pedidos', 'action'=>'view', $merca['Pedido']['id']), array('target'=>'_blank'));
+$tdVarCreated = $this->Time->nice($merca['Pedido']['created']);
+$tdVarName = empty($merca['Pedido']['User']['username'])? "":$merca['Pedido']['User']['username'];
+$tdVarCantidad = $cant;
+$tdVarUnidadMedida = $uMedida;
+$tdVarMerca = $detalle;
+$tdVarPrecio = $precio;
+$tdVarFecha = $timeRecibido;
+$tdVarProveedor = $proveedor;
+$tdVarRubro = $rubro;
+$tdVarObservacion = $observacion;
+$tdVarAcciones = $this->Html->link("editar", array('controller'=>'PedidoMercaderias', 
+                 'action'=>'form', $merca['PedidoMercaderia']['id'] ),             
+                 array('class'=>'btn-edit btn btn-default') 
+                      );
+
+$result = array(
+                'pedido_id' => $tdPedidoId,
+                'created' => $tdVarCreated,
+                'created_by' => $tdVarName,
+                'cantidad' => $tdVarCantidad,
+                'unidad_de_medida_id' => $tdVarUnidadMedida,
+                'name' => $tdVarMerca,
+                'precio' => $tdVarPrecio,
+                'time_recibido' => $tdVarFecha,
+                'proveedor_name' => $tdVarProveedor,
+                'rubro_name' => $tdVarRubro,
+                'observacion' => $tdVarObservacion,
+                'actions' => $tdVarAcciones
+                 );
+
+     if (!empty($notShow)) {
+        foreach ( $notShow as $columNotShow ){
+        unset($result[$columNotShow]);
+          }
+       }
+
+        echo $this->Html->tableCells($result); 
+} //end foreach.
+            ?>
 		</tr>
 		</tbody>
 	</table>
