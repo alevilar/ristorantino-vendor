@@ -1,4 +1,4 @@
-ç<?php 
+<?php 
 App::uses('RistoBaseSchema', 'Risto.Model');
 
 
@@ -1271,7 +1271,6 @@ class TenantBaseSchema extends RistoBaseSchema {
 
 	public $generic_users = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true, 'key' => 'primary'),
-		'name' => array('type' => 'string', 'null' => false, 'length' => 15),
 		'pin' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128),
 		'rol_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'unsigned' => true),
 		'created' => array('type' => 'timestamp', 'null' => true, 'default' => null),
