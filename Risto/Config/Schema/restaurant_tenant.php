@@ -57,25 +57,63 @@ class RestaurantTenantSchema extends TenantBaseSchema {
 						),
 			),
 		'compras_unidad_de_medidas' => array(
-					array( 'name' => "Planta" ) ,
-					array( 'name' => "Penca" ) ,
-					array( 'name' => "Kilo" ) ,
-					array( 'name' => "Bolsa" ) ,
-					array( 'name' => "Unidad" ) ,
-					array( 'name' => "Atado" ) ,
-					array( 'name' => "Cajon" ) ,
-					array( 'name' => "Caja" ) ,
-					array( 'name' => "Lata" ) ,
-					array( 'name' => "Bidon" ) ,
-					array( 'name' => "Pack" ) ,
-					array( 'name' => "Botella" ) ,
-					array( 'name' => "Pilon" ) ,
-					array( 'name' => "Barra" ) ,
-					array( 'name' => "Horma" ) ,
-					array( 'name' => "Gancho" ) ,
-					array( 'name' => "Frasco" ) ,
-					array( 'name' => "Porcion" ) ,
-					array( 'name' => "Plancha" ) ,
+					array(
+						'id' => 1,
+						'name' => "Planta" ) ,
+					array( 
+						'id' => 2,
+						'name' => "Penca" ) ,
+					array(
+					    'id' => 3, 
+						'name' => "Kilo" ) ,
+					array( 
+						'id' => 4,
+						'name' => "Bolsa" ) ,
+					array( 
+						'id' => 5,
+						'name' => "Unidad" ) ,
+					array( 
+						'id' => 6,
+						'name' => "Atado" ) ,
+					array( 
+						'id' => 7,
+						'name' => "Cajon" ) ,
+					array( 
+						'id' => 8,
+						'name' => "Caja" ) ,
+					array( 
+						'id' => 9,
+						'name' => "Lata" ) ,
+					array( 
+						'id' => 10,
+						'name' => "Bidon" ) ,
+					array( 
+						'id' => 11,
+						'name' => "Pack" ) ,
+					array( 
+						'id' => 12,
+						'name' => "Botella" ) ,
+					array( 
+						'id' => 13,
+						'name' => "Pilon" ) ,
+					array( 
+						'id' => 14,
+						'name' => "Barra" ) ,
+					array( 
+						'id' => 15,
+						'name' => "Horma" ) ,
+					array( 
+						'id' => 16,
+						'name' => "Gancho" ) ,
+					array( 
+						'id' => 17,
+						'name' => "Frasco" ) ,
+					array( 
+						'id' => 18,
+						'name' => "Porcion" ) ,
+					array( 
+						'id' => 19,
+						'name' => "Plancha" ) ,
 
 			),
 		);
