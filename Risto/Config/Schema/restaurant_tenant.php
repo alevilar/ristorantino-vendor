@@ -56,6 +56,28 @@ class RestaurantTenantSchema extends TenantBaseSchema {
 						'machin_name' => 'mozo',
 						),
 			),
+		'compras_unidad_de_medidas' => array(
+					array( 'name' => "Planta" ) ,
+					array( 'name' => "Penca" ) ,
+					array( 'name' => "Kilo" ) ,
+					array( 'name' => "Bolsa" ) ,
+					array( 'name' => "Unidad" ) ,
+					array( 'name' => "Atado" ) ,
+					array( 'name' => "Cajon" ) ,
+					array( 'name' => "Caja" ) ,
+					array( 'name' => "Lata" ) ,
+					array( 'name' => "Bidon" ) ,
+					array( 'name' => "Pack" ) ,
+					array( 'name' => "Botella" ) ,
+					array( 'name' => "Pilon" ) ,
+					array( 'name' => "Barra" ) ,
+					array( 'name' => "Horma" ) ,
+					array( 'name' => "Gancho" ) ,
+					array( 'name' => "Frasco" ) ,
+					array( 'name' => "Porcion" ) ,
+					array( 'name' => "Plancha" ) ,
+
+			),
 		);
 }
 
