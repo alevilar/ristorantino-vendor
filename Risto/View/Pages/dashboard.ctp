@@ -12,8 +12,12 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 
 <div class="row dashboard-container" style="display:none">
 
-
-
+<div class="row">
+<div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+		 <a width="150" class="center twitter-timeline"  href="https://twitter.com/PaxaPos" data-widget-id="636390749106511872" data-tweet-limit="1">Tweets por el @PaxaPos.</a>
+            <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+</div>
+<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 	<h1 class="blue center"><?php echo Configure::read('Site.name')?></h1>
 	<div class="col-md-12">
 		<div class="dashboard">
@@ -188,30 +192,18 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 
 	</div>
 
-
+</div>
+</div>
 
 </div>
 
 <?php
 	$this->append("footer");
-?>
-	<div class="row">
-		<div class="col-sm-4">
-			<a class="twitter-timeline" data-lang="es" data-width="300" data-tweet-limit="1" data-height="450" data-theme="dark" data-link-color="#cc3333" href="https://twitter.com/PaxaPos"></a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-		</div>
-
-
-		<div class="col-sm-8">
-			<?php echo $this->element("Risto.google_ads/horizontal") ?>
-		</div>
-	</div>
-<?php
-
 
 	$this->end();
 ?>
 
-<div class="col-md-8">
+
 <?php $this->append('script');?>
 <script>
 	  $('[data-toggle="tooltip"]').tooltip();
@@ -230,3 +222,4 @@ echo $this->Html->css('/risto/css/ristorantino/home/ristorantino.dashboard');
 	  });
 </script>
 <?php $this->end();?>
+
