@@ -31,17 +31,6 @@
 	  </div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
-	<div id="defaultModal" class="modal fade" tabindex="-1" role="dialog">
-	  <div class="modal-dialog <?php echo $size?>">
-	    <div class="modal-content">
-	      <div class="modal-body">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	      		<i class="fa fa-cog fa-spin fa-3x fa-fw"></i>
-				<span class="sr-only">Loading...</span>
-	      </div>
-	    </div><!-- /.modal-content -->
-	  </div><!-- /.modal-dialog -->
-	</div><!-- /.modal -->
 <?php $this->end();?>
 
 
@@ -72,7 +61,5 @@
 	$(".btn-edit").on('click', doLoad('#editModal') );
 
 	$(".btn-add").on( 'click', doLoad('#addModal') );
-
-	$(".btn-defaultModal").on( 'click', doLoad('#defaultModal') );
 </script>
 <?php $this->end();?>
