@@ -80,7 +80,6 @@ if ( Configure::check('Plugins') ) {
     unset($plugs);
 }
 
-CakePlugin::load('SiteUsers');
 CakePlugin::load('Barcodes');
 CakePlugin::load('Utils');
 

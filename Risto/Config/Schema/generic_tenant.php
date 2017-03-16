@@ -109,5 +109,56 @@ class GenericTenantSchema extends TenantBaseSchema {
 						'name' => "Plancha" ) ,
 
 			),
+'compras_rubros' => array(
+					array(
+						'id' => 1,
+						'name' => "Almacén" ) ,
+					array( 
+						'id' => 2,
+						'name' => "Bebidas" ) ,
+					array(
+					    'id' => 3, 
+						'name' => "Carnicería" ) ,
+					array( 
+						'id' => 4,
+						'name' => "Granja" ) ,
+					array( 
+						'id' => 5,
+						'name' => "Heladería" ) ,
+					array( 
+						'id' => 6,
+						'name' => "Mantenimiento" ) ,
+					array( 
+						'id' => 7,
+						'name' => "Lácteos" ) ,
+					array( 
+						'id' => 8,
+						'name' => "Librería" ) ,
+					array( 
+						'id' => 9,
+						'name' => "Limpieza" ) ,
+					array( 
+						'id' => 10,
+						'name' => "Otros" ) ,
+					array( 
+						'id' => 11,
+						'name' => "Panadería" ) ,
+					array( 
+						'id' => 12,
+						'name' => "Papelera" ) ,
+					array( 
+						'id' => 13,
+						'name' => "Pescadería" ) ,
+					array( 
+						'id' => 14,
+						'name' => "Verdulería" ) ,
+					array( 
+						'id' => 15,
+						'name' => "Viáticos" ) ,
+					array( 
+						'id' => 16,
+						'name' => "Vinos" ) ,
+			),
 	);
+
 }
