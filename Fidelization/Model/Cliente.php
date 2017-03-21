@@ -357,6 +357,8 @@ class Cliente extends FidelizationAppModel {
             'OR' => array(
                 $this->alias . '.nombre LIKE' => '%' . $filter . '%',
                 $this->alias . '.nrodocumento LIKE' => '%' . $filter . '%',
+                $this->alias . '.telefono LIKE' => '%' . $filter . '%',
+                $this->alias . '.domicilio LIKE' => '%' . $filter . '%',
                 $this->alias . '.codigo' => $filter,
             )
         );
@@ -366,3 +368,4 @@ class Cliente extends FidelizationAppModel {
 
 
 }
+
