@@ -11,11 +11,10 @@
 	    		'plugin'=>'users', 'controller'=>'users','action'=>'my_edit'), array('class'=>'list-group-item','escape'=>false)); ?>
 	    <?php 
 
-if (CakeSession::read("Auth.User.is_admin") == 1) {
-	    		echo $this->Html->link( '<i class="fa fa-group" aria-hidden="true"></i> 
-'. __('Lista de usuarios'), array(
-	    		'tenant' => false,
-	    		'plugin'=>'users', 'controller'=>'users','action'=>'index'), array('class'=>'list-group-item','escape'=>false));
+if (CakeSession::read("Auth.User.is_admin")) {
+	    	    echo $this->Html->link( '<i class="fa fa-folder" aria-hidden="true"></i> 
+'. __('Lista de sitios'), array(
+	    		'plugin'=>'mt_sites', 'controller'=>'sites','action'=>'index'), array('class'=>'list-group-item','escape'=>false));
 
 }
 	    ?>

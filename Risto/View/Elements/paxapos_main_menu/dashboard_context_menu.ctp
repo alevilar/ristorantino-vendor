@@ -18,6 +18,7 @@ if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) || in_array( ROL_ID
 		</h3>
 	    <?php 
 	    echo $this->element("Risto.paxapos_main_menu/tenant_config");
+	    
 	    ?>
 	    
 	    <br>
