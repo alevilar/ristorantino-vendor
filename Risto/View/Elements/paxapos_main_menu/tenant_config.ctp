@@ -83,10 +83,14 @@ if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
 &nbsp;'.__('App Store'), array( 'plugin'=>'install', 'controller'=>'configurations','action'=>'modulos'), array('class' => 'list-group-item '.$class, 'escape'=>false));
         ?>
 
-        <?php /*echo $this->Html->link( '<i class="fa fa-group" aria-hidden="true"></i> 
+
+        <?php 
+        if (!CakeSession::check('Auth.User.rol_id')) {
+        echo $this->Html->link( '<i class="fa fa-group" aria-hidden="true"></i> 
          '. __('Lista de usuarios'), array(
                 'plugin'=>'users', 'controller'=>'SiteUsers','action'=>'index'), 
-         array('class'=>'list-group-item','escape'=>false)); */
+         array('class'=>'list-group-item','escape'=>false));
+        }
         ?>
 
 
@@ -110,9 +114,9 @@ if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
 
             echo $this->Html->link(__('Usuarios PaxaPos'), array('plugin'=>'site_users', 'controller'=>'site_users', 'action'=>'index'), array('class' => 'list-group-item'));  
 
-            /*echo $this->Html->link( '<i class="fa fa-group" aria-hidden="true"></i> 
+            echo $this->Html->link( '<i class="fa fa-group" aria-hidden="true"></i> 
                  '. __('ABM Usuarios PaxaPos'), array(
-                'plugin'=>'users', 'controller'=>'users','action'=>'index'), array('class'=>'list-group-item','escape'=>false));*/
+                'plugin'=>'users', 'controller'=>'users','action'=>'index'), array('class'=>'list-group-item','escape'=>false));
 
         } 
 
