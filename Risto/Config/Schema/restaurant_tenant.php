@@ -56,7 +56,7 @@ class RestaurantTenantSchema extends TenantBaseSchema {
 						'machin_name' => 'mozo',
 						),
 			),
-		'compras_unidad_de_medidas' => array(
+			'compras_unidad_de_medidas' => array(
 					array(
 						'id' => 1,
 						'name' => "Planta" ) ,
