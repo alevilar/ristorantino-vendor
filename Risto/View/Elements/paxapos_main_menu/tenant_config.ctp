@@ -111,9 +111,6 @@ if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
 
            // echo $this->Html->link('Permisos de usuarios', '/admin/acl', array('class' => 'list-group-item'));
 
-
-            echo $this->Html->link(__('Usuarios PaxaPos'), array('plugin'=>'site_users', 'controller'=>'site_users', 'action'=>'index'), array('class' => 'list-group-item'));  
-
             echo $this->Html->link( '<i class="fa fa-group" aria-hidden="true"></i> 
                  '. __('ABM Usuarios PaxaPos'), array(
                 'plugin'=>'users', 'controller'=>'users','action'=>'index'), array('class'=>'list-group-item','escape'=>false));
