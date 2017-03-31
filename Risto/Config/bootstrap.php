@@ -31,15 +31,27 @@ Inflector::rules('singular', array(
         'printers' => 'printer',
         'config_categories' => 'config_category',
         'generic_users' => 'generic_user',
+        'sites_users' => 'site_user',
+        'roles_user' => 'role_user',
+        'users' => 'user',
+        'sites' => 'site',
+        'roles' => 'rol',
+        'profiles' => 'profile',
     ),
+    'uninflected' => array(
+    )
         )
 );
 
 Inflector::rules('plural', array(
     'rules' => array('/([r|d|j|n|l|m|y|z])$/i' => '\1es', '/a$/i' => '\1as'),
     'irregular' => array(
+        'site_user' => 'sites_users',
         'generic_user' => 'generic_users',
         'user' => 'users',
+        'rol_user' => 'roles_users',
+        'rol' => 'roles',
+        'site' => 'sites',
         'group' => 'groups',
         'adicion' => 'adicion',
         'cajero' => 'cajero',
@@ -57,10 +69,11 @@ Inflector::rules('plural', array(
         'reservation' => 'reservations',
         'driver' => 'drivers',
         'driver_model' => 'driver_models',
-        'site_user' => 'sites_users',
+        'profile' => 'profiles',
     ),
-    'uninflected' => array()
+    'uninflected' => array(
         )
+    )
 );
 /* Load Plugins listed in configuration file */
 if ( Configure::check('Plugins') ) {
