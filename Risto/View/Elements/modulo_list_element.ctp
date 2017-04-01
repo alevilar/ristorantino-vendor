@@ -1,5 +1,5 @@
 <h1 class="blue center"><?php echo Configure::read('Site.name')?></h1>
-	<div class="col-md-12">
+	<div class="col-sm-12 col-md-10 col-md-offset-1">
 		<div class="dashboard">
 			<h5 class="white-5">APP's Instaladas</h5>
 		   	<ul class="dashboard-buttons row">

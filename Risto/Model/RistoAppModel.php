@@ -29,6 +29,20 @@ class RistoAppModel extends Model {
 
 //	public $filterArgs = array();
 
+
+	/**
+	*
+	*	Conecta con el datasource del tenant 
+	*
+	**/
+	public function __buildTenant ( $tenantAlias = null) {		
+		// usar tenant para este model
+		MtSites::connectDatasourceWithCurrentTenant( $tenantAlias );
+		$this->useDbConfig = MtSites::getTenantDataSourceName( $tenantAlias );	
+	}
+
+
+
 	public function saveAll ( $data = array(), $options = array() ) {
 	    $return = parent::saveAll($data, $options);
 

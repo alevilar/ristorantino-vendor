@@ -47,7 +47,9 @@
 <?php 
 $roles = array();
 $rol = $this->Session->read('Auth.User.Rol');
-if ( empty( $rol ) )  {  
+$isAdmin = $this->Session->read('Auth.User.is_admin');
+
+if ( $isAdmin || empty( $rol ) )  {  
     $roles = null;
 } else {
     $roles = Hash::extract($rol, "{n}.id");
@@ -70,7 +72,7 @@ if ( $roles === null || in_array( ROL_ID_ENCARGADO, $roles ) ) {
         if (!CakeSession::check('Auth.User.rol_id')) {
         echo $this->Html->link( '<i class="fa fa-group" aria-hidden="true"></i> 
          '. __('Usuarios PaxaPos'), array(
-                'plugin'=>'users', 'controller'=>'SiteUsers','action'=>'index'), 
+                'plugin'=>'users', 'controller'=>'users','action'=>'index_for_tenant'), 
          array('class'=>'list-group-item','escape'=>false));
         }
        

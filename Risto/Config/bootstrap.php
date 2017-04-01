@@ -1,22 +1,5 @@
 <?php
 
-
-CakePlugin::load('MtSites', array('routes' => true, 'bootstrap' => true));
-CakePlugin::load('Aditions', array('routes' => true, 'bootstrap' => true));
-CakePlugin::load('Account', array('routes' => true, 'bootstrap' => true));
-
-CakePlugin::load(array('Users', 'ExtAuth', 'DebugKit', 'Search'));
-
-CakePlugin::load('Comanda', array( 'bootstrap' => true));
-
-CakePlugin::load('Compras', array('bootstrap' => true));
-CakePlugin::load('Stats', array('routes' => true));
-CakePlugin::load('Printers', array('bootstrap' => true));
-CakePlugin::load('Mesa', array('routes' => true));
-CakePlugin::load('Bs3Helpers', array('bootstrap' => true));
-
-
-
 // called as CakeNumber
 App::uses('CakeNumber', 'Utility');
 CakeNumber::addFormat('BRL', array('before' => 'R$', 'thousands' => '.', 'decimals' => ','));
@@ -37,6 +20,10 @@ Inflector::rules('singular', array(
         'sites' => 'site',
         'roles' => 'rol',
         'profiles' => 'profile',
+        'printers' => 'printer',
+        'risto_printers' => 'risto_printer',
+        'RistoPrinters' => 'RistoPrinter',
+        'Printers' => 'Printer',
     ),
     'uninflected' => array(
     )
@@ -46,6 +33,7 @@ Inflector::rules('singular', array(
 Inflector::rules('plural', array(
     'rules' => array('/([r|d|j|n|l|m|y|z])$/i' => '\1es', '/a$/i' => '\1as'),
     'irregular' => array(
+        'printer' => 'printers',
         'site_user' => 'sites_users',
         'generic_user' => 'generic_users',
         'user' => 'users',
@@ -75,6 +63,26 @@ Inflector::rules('plural', array(
         )
     )
 );
+
+CakePlugin::load('MtSites', array('routes' => true, 'bootstrap' => true));
+CakePlugin::load('Aditions', array('routes' => true, 'bootstrap' => true));
+CakePlugin::load('Account', array('routes' => true, 'bootstrap' => true));
+
+CakePlugin::load(array('Users', 'ExtAuth', 'DebugKit', 'Search'));
+
+CakePlugin::load('Comanda', array( 'bootstrap' => true));
+
+CakePlugin::load('Compras', array('bootstrap' => true));
+CakePlugin::load('Stats', array('routes' => true));
+CakePlugin::load('Printers', array('bootstrap' => true));
+CakePlugin::load('Mesa', array('routes' => true));
+CakePlugin::load('Bs3Helpers', array('bootstrap' => true));
+
+
+
+
+
+
 /* Load Plugins listed in configuration file */
 if ( Configure::check('Plugins') ) {
     // load configuration extra plugins

@@ -1,7 +1,9 @@
 <?php
 $roles = array();
 $rol = $this->Session->read('Auth.User.Rol');
-if ( empty( $rol ) )  {	 
+
+$isAdmin = $this->Session->read('Auth.User.is_admin');
+if ( $isAdmin || empty( $rol ) )  {	 
 	$roles = null;
 } else {
 	$roles = Hash::extract($rol, "{n}.id");
